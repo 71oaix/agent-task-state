@@ -12,6 +12,8 @@ experiment_authorized: false
 
 # Change Graph 任务状态论文研究项目
 
+**2026-10-15 实际执行结果：**[首批材料](activity-source-review.md) → [活动地图](software-development-activity-map.md) → [记录与 Agent 映射](activity-record-agent-mapping.md) → [候选初检与返工](operation-composition-review.md)。G1-G3 已通过当前探索/走查范围，G4 需修订，G5 未启动；当前状态查 [HANDOFF](HANDOFF.md)。
+
 **Agent 当前接手入口：[HANDOFF](HANDOFF.md)。**它维护实际阶段和下一动作；计划 v1.1 的逐关验收以执行说明为准。下文按日期保留研究历史，旧“当前”表述不覆盖此入口。
 
 **2026-10-15 当前计划：[研究计划 v1.1](research-plan-v1.1.md)。**从真实软件开发活动出发；旧候选保留，暂停继续围绕 A/B/C 扩展。Agent 接手读[执行说明](research-plan-v1.1-agent-notes.md)，本地资料查[分类入口](../../reference/artifact-organization.md)。下文按日期保留历史状态。

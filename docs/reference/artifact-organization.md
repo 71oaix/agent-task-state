@@ -51,3 +51,9 @@ tags: [assets, organization, provenance]
 人工标注和分析结果生成时，另建项目分析批次，引用来源文件及其版本，不写回原材料；正式验证运行按冻结协议保存完整新批次。临时文件也要声明用途，不能因为未分类就默认可删。新研究数据不再落入 `artifacts/worktrees/` 下的私有资料堆。
 
 原始资料、个人日志和生成证据不提交。可提交的是设计结论、来源登记、分类规则和导航。2026-10-15 接手补全：研究文档已由固定提交 404a4ab 接入主工作区的独立交接分支。当前计划和状态从本项目 README → HANDOFF 进入；旧研究工作树保留为历史来源。尚未合并 main，也没有改变其他项目授权。
+
+## 2026-10-15 活动研究执行新增批次
+
+来源批次为主工作区 `artifacts/agent-task-state/` 下各性质目录的 `activity-research-2026-10-15/`；原始响应/正文提取与分析分开。新增分析分别为 `artifacts/agent-task-state/analysis/2026-10-15-G1-attempt-01/`、`artifacts/agent-task-state/analysis/2026-10-15-G2-attempt-01/`、`artifacts/agent-task-state/analysis/2026-10-15-G3-attempt-01/`。获取失败、重试和提取编码修正保留，正文读取与下载成功分开。G2 当前使用 activity-observations-v2.json，原 v1 及修订说明保留。
+
+共享主工作区在执行中被其他任务切换，因此后续文档位于独立研究工作树 `artifacts/worktrees/task-state-activities/` 的 codex/task-state-activity-research，主工作区源资料保持唯一位置。G1 的位置纠正记录见执行账本；没有移动或清理其他任务文件。

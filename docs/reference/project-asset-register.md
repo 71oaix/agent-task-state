@@ -13,6 +13,9 @@ supersedes:
 
 | 资产 | 来源与版本 | 责任与边界 | 下一步 |
 |---|---|---|---|
+| [活动来源筛选](../research/change-graph-task-state/activity-source-review.md)、[执行账本](../research/change-graph-task-state/research-execution-ledger.md) | 2026-10-15，交接基线31b6938；七份实证全文、四项目过程、一个官方Agent示例 | G1首批探索准入；非检索饱和、行业频率或长程效果证据；本地获取/分析批次保持忽略 | 按缺口扩展来源，保留候选项目还需确认可用性 |
+| [活动地图](../research/change-graph-task-state/software-development-activity-map.md)、[记录映射](../research/change-graph-task-state/activity-record-agent-mapping.md) | G2提交f92101c，G3提交aaef635；27证据解释单元、12活动类、6工作点 | G2探索版、G3同一作者表示走查通过；强文档同样可支持问题；没有计时或独立模型试验 | 不用当前分类作为最终最小模型，继续组合检验 |
+| [元操作首轮检查](../research/change-graph-task-state/operation-composition-review.md) | 同一六工作点，复核固定v1近邻方法；2026-10-15 | G4返工：事实/实际产物/采用及许可、验证、义务尚需统一协议；未实现或验证优越性 | 比较两种完整编码并重验反例；G5规则未冻结 |
 | [Agent 接手入口](../research/change-graph-task-state/HANDOFF.md) | 2026-10-15；研究文档从 404a4ab 固定版本接入主工作区交接分支 | 当前阶段、下一动作及七关验收入口；G1 尚未开始，交接文档检查不等于研究通过 | 按 G1 实际执行，逐关追加证据及更新状态 |
 | [研究计划 v1.1](../research/change-graph-task-state/research-plan-v1.1.md)、[执行说明](../research/change-graph-task-state/research-plan-v1.1-agent-notes.md) | 2026-10-15 用户纠正活动来源及整体流程 | 当前计划：活动归纳、记录投影、Agent 工作、元操作检验；未完成新调研或批准原型和付费实验 | 先广搜并归纳真实开发活动，再形成记录映射 |
 | [本地资料分类](artifact-organization.md) | 2026-10-15 实际盘点及 41 文件迁移哈希校验 | 主工作区 artifacts/agent-task-state 为当前资料根；其他项目与历史工作树原位分类；两个旧审计目录权限受限 | 新资料按项目、性质、批次保存；保持来源和分析分离 |

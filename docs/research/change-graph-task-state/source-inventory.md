@@ -176,3 +176,5 @@ R6正式身份另见[ETH SRI官方发表页](https://www.sri.inf.ethz.ch/publica
 | C5 SWE-agent 示例 | [官方轨迹文档](https://swe-agent.com/latest/usage/trajectories/)、[原始示例文件](https://github.com/SWE-agent/SWE-agent/blob/main/trajectories/demonstrations/replay__marshmallow-code__marshmallow-1867__default__t-0.20__p-0.95__c-2.00__install-1___install_from_source/marshmallow-code__marshmallow-1867.traj) | 作者发布 v0.7.0 示例/回放，14 步；本地从已保存文档 HTML 提取 JSON，公开 raw 可读但本地直连失败；非本轮运行、非评分结果、无长程压缩证据；文档不附学术 venue |
 
 本轮是时间标记与保存文件 hash 固定的网页快照，动态 URL 不等同于固定 Git 提交。查询、排除和源/提取对应查 activity-source-review.md 所列本地批次；原材料、分析派生与正式结论分别保存。Django、VS Code 仅为保留候选，仓库元数据请求失败，未启用验证。
+
+2026-10-15 G4 初检补充：再次读取 ESAA v1 §3、MAGE v1 §3.2 至 §3.3、StateMem v1 §5 方法以比较六个工作点。来源身份及正式 venue 待核实状态沿用既有登记；本次没有运行它们的代码，不能把论文机制映射当成实际适配证据。
