@@ -150,3 +150,29 @@ R6正式身份另见[ETH SRI官方发表页](https://www.sri.inf.ethz.ch/publica
 ## 2026-10-15：本地分类迁移，不改变来源判断
 
 当前两批共 41 个文件移至主工作区 `artifacts/agent-task-state/`，按原样文件、正文提取、参考提取、仓库快照、发表元数据和获取记录分类。迁移前后保存文件 SHA256 一致，获取清单内容不变；旧位置、现位置与逐文件 hash 查[分类说明](../../reference/artifact-organization.md)。旧条目中的研究工作树路径保留为采集历史，不再是现存文件地址。2026-10-09 的六个 InterruptBench 快照仍在主工作区 `artifacts/worktrees/change-graph-paper/artifacts/research-evidence/change-graph-neighbors-2026-10-09/`。本轮没有重新核验论文发表状态或新增活动研究结论。
+
+## 2026-10-15：开发活动调查来源
+
+核查日期 2026-10-15。A 系列为本轮新增来源；来源性质与发表身份分开判断。正文存本地忽略批次 activity-research-2026-10-15，实际获取状态、文件哈希和提取路径查获取清单；未声称全文全部推导或代码复现。
+
+| 编号 | 来源及官方证据 | 年份、venue / 类别 | 本轮范围 |
+|---|---|---|---|
+| A1 | André N. Meyer、Thomas Fritz、Gail C. Murphy、Thomas Zimmermann，[Software Developers’ Perceptions of Productivity](https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/meyer-fse-2014.pdf) | 2014，ACM SIGSOFT FSE 主会论文；作者公开稿首页会议与版权信息 | 方法、任务/活动定义、结果与局限；全文已保存，不把感知生产力当任务质量 |
+| A2 | Meyer、Earl T. Barr、Christian Bird、Zimmermann，[Today was a Good Day: The Daily Life of Software Developers](https://www.microsoft.com/en-us/research/wp-content/uploads/2019/04/devtime-preprint-TSE19.pdf)，[IEEE 条目](https://ieeexplore.ieee.org/abstract/document/8666786) | IEEE TSE 期刊；所读作者稿注明 2019-03-08 接受，DOI 10.1109/TSE.2019.2904957；正式卷期年本轮主站访问受限，未把接受年冒充卷期年 | 方法、项目阶段与活动感受、局限；全文保存；不能泛化“中断均有害” |
+| A3 | Alberto Bacchelli、Christian Bird，[Expectations, Outcomes, and Challenges of Modern Code Review](https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/ICSE202013-codereview.pdf)，[作者所在机构条目](https://research.tudelft.nl/en/publications/expectations-outcomes-and-challenges-of-modern-code-review/) | 2013，ICSE 主会论文，712–721，DOI 10.1109/ICSE.2013.6606617 | §III–VII 方法、动机、结果、理解困难及建议；全文保存；旧作者个人站链接 404，未用空页冒充原文 |
+| A4 | Jonathan Sillito、Murphy、Kris De Volder，[Questions Programmers Ask During Software Evolution Tasks](https://www.cs.ubc.ca/~murphy/papers/other/asking-answering-fse06.pdf) | 2006，ACM SIGSOFT/FSE 主会论文；公开稿首页会议与版权信息 | §3–7 方法、问题与工具组合、局限；全文保存 |
+| A5 | Danilo Silva、Nikolaos Tsantalis、Marco Tulio Valente，[Why We Refactor? Confessions of GitHub Contributors](https://homepages.dcc.ufmg.br/~mtov/pub/2016-fse-why-we-refactor.pdf) | 2016，ACM SIGSOFT FSE 主会论文，公开作者稿首页会议信息；[arXiv 作者稿](https://arxiv.org/abs/1607.02459)不是未发表的证据 | 方法、动机分类、开发者回答和工具限制；全文保存，不仅凭代码变化推断动机 |
+| A6 | Chris Parnin、Spencer Rugaber，[Resumption Strategies for Interrupted Programming Tasks](https://chrisparnin.me/pdf/parnin-icpc09.pdf) | 所读为 2009 ICPC 会议版本，DOI 10.1109/ICPC.2009.5090030；IEEE 页面遇验证；不将同名 2011 期刊扩展版与本文件混用 | §3–5 数据、恢复策略、编辑延迟及威胁；全文保存，会议版本身份以文件和 DOI 对应，主会类别本轮未额外核定 |
+| A7 | Amy J. Ko、Robert DeLine、Gina Venolia，[Information Needs in Collocated Software Development Teams](https://www.microsoft.com/en-us/research/publication/information-needs-in-collocated-software-development-teams/)，[全文](https://www.microsoft.com/en-us/research/wp-content/uploads/2007/05/icse07_ko.pdf) | 2007，ICSE 主会论文；机构条目及公开稿首页会议 | §3–6 方法、任务结构、信息需求和局限；全文保存 |
+| A8 | Parnin、DeLine，[Evaluating Cues for Resuming Interrupted Programming Tasks](https://www.microsoft.com/en-us/research/publication/evaluating-cues-for-resuming-interrupted-programming-tasks/) | 2010，ACM CHI 会议论文；机构官方条目；主会类别本轮未额外核定 | 仅官方摘要/元数据，未全文精读，不迁移其效果到 Agent |
+| A9 | [The Work Life of Developers 作者说明](https://andre-meyer.ch/the-work-life-of-developers-activities-switches-and-perceived-productivity/) | 2017 作者研究博客，称已接受 IEEE TSE；本轮没有取得所链全文，正式卷期未核实 | 背景和引用入口；不作本轮全文实证依据 |
+
+| 过程编号 | 官方材料 | 性质、日期与阅读边界 |
+|---|---|---|
+| C1 Python | [PEP 703](https://peps.python.org/pep-0703/)、[SC 接受说明](https://discuss.python.org/t/pep-703-making-the-global-interpreter-lock-optional-in-cpython-acceptance/37075) | 2023-10-24 有主体的公开决定及之后讨论；PEP 当前页面另存，不能回填当时信息；无学术 venue |
+| C2 Kubernetes | [Issue 753](https://github.com/kubernetes/enhancements/issues/753)、[KEP](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/753-sidecar-containers/README.md)、[v1.28 发布说明](https://kubernetes.io/blog/2023/08/25/native-sidecar-containers/)、[PR 120620](https://github.com/kubernetes/kubernetes/pull/120620) | 官方提案、跟踪、发布与实际审阅；读取当前快照及可见历史，未读取所有折叠内容；PR 本地下载 TLS 失败但网页读取成功，释义胶囊不冒充原文；无学术 venue |
+| C3 curl | [CVE-2023-38545](https://curl.se/docs/CVE-2023-38545.html)、[修复提交](https://github.com/curl/curl/commit/fb4415d8aee6c1) | 官方 2023 公告及修复 patch，报告/修复/协调发布，未获得私下讨论；无学术 venue |
+| C4 GitLab | [数据库事故复盘](https://about.gitlab.com/blog/postmortem-of-database-outage-of-january-31/) | 2017-02-10 一手事后报告；可分析活动，不能当实时日志或独立事实裁决；无学术 venue |
+| C5 SWE-agent 示例 | [官方轨迹文档](https://swe-agent.com/latest/usage/trajectories/)、[原始示例文件](https://github.com/SWE-agent/SWE-agent/blob/main/trajectories/demonstrations/replay__marshmallow-code__marshmallow-1867__default__t-0.20__p-0.95__c-2.00__install-1___install_from_source/marshmallow-code__marshmallow-1867.traj) | 作者发布 v0.7.0 示例/回放，14 步；本地从已保存文档 HTML 提取 JSON，公开 raw 可读但本地直连失败；非本轮运行、非评分结果、无长程压缩证据；文档不附学术 venue |
+
+本轮是时间标记与保存文件 hash 固定的网页快照，动态 URL 不等同于固定 Git 提交。查询、排除和源/提取对应查 activity-source-review.md 所列本地批次；原材料、分析派生与正式结论分别保存。Django、VS Code 仅为保留候选，仓库元数据请求失败，未启用验证。

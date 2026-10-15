@@ -13,6 +13,8 @@ supersedes:
 
 | 文档 | 状态 | 路径 |
 |------|:----:|------|
+| 活动驱动研究执行账本 | active | [阶段记录](research/change-graph-task-state/research-execution-ledger.md) |
+| 真实开发活动调查：首批材料筛选与覆盖 | active | [G1 材料报告](research/change-graph-task-state/activity-source-review.md) |
 | Agent 接手入口与当前执行状态 | active | [HANDOFF](research/change-graph-task-state/HANDOFF.md) |
 | 从真实开发活动寻找元操作：研究计划 v1.1（当前） | active | [人类计划](research/change-graph-task-state/research-plan-v1.1.md) |
 | 研究计划 v1.1：材料筛选、活动归纳与接手协议 | active | [Agent 执行说明](research/change-graph-task-state/research-plan-v1.1-agent-notes.md) |
