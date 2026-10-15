@@ -2,7 +2,7 @@
 title: Change Graph 任务状态论文研究项目
 status: active
 created: 2026-10-09
-updated: 2026-10-09
+updated: 2026-10-15
 tags: [research, paper-project, change-graph, task-state, working-view]
 supersedes:
 research_stage: problem-discovery
@@ -11,6 +11,10 @@ experiment_authorized: false
 ---
 
 # Change Graph 任务状态论文研究项目
+
+**Agent 当前接手入口：[HANDOFF](HANDOFF.md)。**它维护实际阶段和下一动作；计划 v1.1 的逐关验收以执行说明为准。下文按日期保留研究历史，旧“当前”表述不覆盖此入口。
+
+**2026-10-15 当前计划：[研究计划 v1.1](research-plan-v1.1.md)。**从真实软件开发活动出发；旧候选保留，暂停继续围绕 A/B/C 扩展。Agent 接手读[执行说明](research-plan-v1.1-agent-notes.md)，本地资料查[分类入口](../../reference/artifact-organization.md)。下文按日期保留历史状态。
 
 2026-10-09 目录分区：本项目的五份研究文档从原研究分支固定提交 `0672238` 纳入当前工作区，现由 `Agent任务状态管理/` 独立维护。文末基线和分支名为原始来源记录；本次目录调整没有重新核验外部论文或运行示例。
 
@@ -26,7 +30,25 @@ experiment_authorized: false
 
 本项目与[工具反馈管理研究](../../../../工具反馈管理/docs/research/cache-aware-tool-observation-management/README.md)并行保存，可借鉴其中已核验资料，但具有独立的问题发现过程。此前课题的模型、任务和预算不自动成为本项目的实验选择。
 
-## 当前状态：首轮近邻核验与手工示例完成
+## 当前推进入口
+
+2026-10-14 审阅修订：[元操作候选 v0.2](primitive-candidates-v0.2.md)为最新讨论稿，[协议与近邻映射](primitive-candidates-v0.2-agent-notes.md)供 Agent 接手。明确身份声明、整合的高阶组合、关系版本和配置原子选用；未实现或验证优越性。下方 v0.1 保留为前版。
+
+2026-10-14：[元操作候选 v0.1](primitive-candidates-v0.1.md)已形成具体组合，比较事件、版本、假设三条路径；推荐语义显式接口与事务统一接口两种候选。来源、规则和纸面反例见[Agent说明](primitive-candidates-v0.1-agent-notes.md)。候选未证明最小或完备，未开始实现。
+
+2026-10-13用户纠正后，以[主计划的研究主线修正](research-plan-v1.0.md)为准：当前研究基本对象、操作与组合能力。下文首轮局部收窄及对应下一步不再作为执行指令，文献证据保留。
+
+2026-10-13已形成[第一轮研究结论](research-round-1.md)，Agent接手查[执行与证据说明](research-round-1-evidence.md)。广搜及重点章节核查已执行；下一步审查真实公开轨迹和连续任务材料，尚未运行环境或模型。
+
+2026-10-13：[研究计划 v1.0](research-plan-v1.0.md)规定接下来的调研、真实工作表示、原型和验证顺序；[执行说明](research-plan-v1.0-agent-notes.md)保留来源与实施边界。当前先完成机制审查与复杂任务适配检查，不启动付费实验。三组件是职责假设，数据对象尚未冻结。
+
+## 历史记录：首轮近邻核验与手工示例完成
+
+2026-10-12当前入口：[架构设计 v0.4](design-v0.4.md)，Agent查证约束见[接手说明](design-v0.4-agent-notes.md)。本轮用户确认历史图总览及证据、决策主体、执行清单的详情入口；未开始界面实现。下方v0.3入口保留为上一轮记录。
+
+当前人类审阅入口：[架构设计 v0.3](design-v0.3.md)；Agent 接手入口：[维护与依据说明](design-v0.3-agent-notes.md)。2026-10-11按用户要求分开两类读者，沿用 v0.2 核心架构，前版保留。当前设计尚未实现或验证效果，不再把历史预算视图卡作为当前推荐。下文首轮状态与候选仍为历史分析，当前讨论优先读架构。
+
+2026-10-10 更新：撤回“优先预算视图”的推荐，问题卡保留为历史候选。当前先核查论文为什么保存那些信息、消融支持到哪里、实验能否代表持续演化的开发。已补查 MAGE、StateMem 和 InfiAgent 的相关实验，具体结论见[近邻核验补充](neighbor-review.md#2026-10-10保留信息的理由与实验证据)。下面首轮状态及候选排序是历史记录，不再作为当前优先级。
 
 | 项目 | 当前判断 |
 |---|---|

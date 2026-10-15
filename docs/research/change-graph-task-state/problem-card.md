@@ -2,15 +2,17 @@
 title: 研究问题卡：预算受限时的有效证据视图
 status: active
 created: 2026-10-09
-updated: 2026-10-09
+updated: 2026-10-10
 tags: [research, problem-card, evidence, working-view]
 supersedes:
-research_status: candidate-not-novelty-confirmed
+research_status: candidate-under-reassessment
 implementation_authorized: false
 experiment_authorized: false
 ---
 
 # 研究问题卡：预算受限时的有效证据视图
+
+**2026-10-10：本卡保留为历史候选，暂停其优先推荐。** 用户未选定预算视图为论文题目。先前的小例不足以代表复杂开发，机制覆盖清单也不足以证明各项记录的必要性。当前工作转为核查作者的信息选择理由、消融与任务代表性，结论见[近邻核验补充](neighbor-review.md#2026-10-10保留信息的理由与实验证据)。以下机制与实验建议尚未批准，不作为当前执行计划。
 
 ## 一句话问题
 

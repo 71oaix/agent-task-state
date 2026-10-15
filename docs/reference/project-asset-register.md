@@ -2,15 +2,30 @@
 title: Agent任务状态管理项目资产索引
 status: active
 created: 2026-10-09
-updated: 2026-10-09
+updated: 2026-10-15
 tags: [asset-register, task-state, preservation]
 supersedes:
 ---
 
 # Agent任务状态管理项目资产索引
 
+2026-10-10 研究口径更新：预算视图问题卡暂停优先推荐，保留历史候选；近邻核验补充了信息选择理由、消融与实验代表性，来源清单记录新增阅读范围。下一步为继续审查论文依据与工作生命周期覆盖，不以简单销量任务筛选掉复杂开发问题。下表原始来源与历史工作树身份保持不变。
+
 | 资产 | 来源与版本 | 责任与边界 | 下一步 |
 |---|---|---|---|
+| [Agent 接手入口](../research/change-graph-task-state/HANDOFF.md) | 2026-10-15；研究文档从 404a4ab 固定版本接入主工作区交接分支 | 当前阶段、下一动作及七关验收入口；G1 尚未开始，交接文档检查不等于研究通过 | 按 G1 实际执行，逐关追加证据及更新状态 |
+| [研究计划 v1.1](../research/change-graph-task-state/research-plan-v1.1.md)、[执行说明](../research/change-graph-task-state/research-plan-v1.1-agent-notes.md) | 2026-10-15 用户纠正活动来源及整体流程 | 当前计划：活动归纳、记录投影、Agent 工作、元操作检验；未完成新调研或批准原型和付费实验 | 先广搜并归纳真实开发活动，再形成记录映射 |
+| [本地资料分类](artifact-organization.md) | 2026-10-15 实际盘点及 41 文件迁移哈希校验 | 主工作区 artifacts/agent-task-state 为当前资料根；其他项目与历史工作树原位分类；两个旧审计目录权限受限 | 新资料按项目、性质、批次保存；保持来源和分析分离 |
+| [元操作候选 v0.2](../research/change-graph-task-state/primitive-candidates-v0.2.md)、[协议与证据](../research/change-graph-task-state/primitive-candidates-v0.2-agent-notes.md) | 2026-10-14 用户审阅；继承 P 系列来源，复核 MAGE/StateMem/ESAA 方法及固定投影规范 | 当前候选：明确身份、关系生命周期、整合及并发边界；十项近邻映射为原文分析，非真实轨迹重放或运行验证 | 取得真实开发修订与决策记录，检查组合规则；尚未证明最小性或优越性 |
+| [元操作候选v0.1](../research/change-graph-task-state/primitive-candidates-v0.1.md)及[语义/证据](../research/change-graph-task-state/primitive-candidates-v0.1-agent-notes.md) | 2026-10-14，JJ固定提交、Datomic/PROV官方文档、ATMS原文相关章节、事件溯源 | 三类语义动作与事务统一接口候选；用户场景纸面推演，未实现或实验证明；原文现按性质存于主工作区 artifacts/agent-task-state/，原批次和迁移映射见分类入口 | 检验接口等价、工作身份、部分整合和关系修订；寻找不能表达的复杂工作变化 |
+| [第一轮研究结论](../research/change-graph-task-state/research-round-1.md)及[证据说明](../research/change-graph-task-state/research-round-1-evidence.md) | 2026-10-13，v1.0执行首轮；官方条目、所读正文版本及固定仓库静态协议 | 助手核查；非完整综述、运行复现或效果实验。原文/静态资产现按性质存于主工作区 artifacts/agent-task-state/，获取批次保留 | 局部收窄与对应对照顺序已撤回；保留文献事实，转为基本操作及组合语义的设计依据 |
+| [研究计划 v1.0](../research/change-graph-task-state/research-plan-v1.0.md)及[执行说明](../research/change-graph-task-state/research-plan-v1.0-agent-notes.md) | 2026-10-13用户确认定稿与准备执行；吸收三项批注及五项反思 | 前版研究执行基线，当前顺序由 v1.1 替代；第一轮结论已形成，非实现或付费实验授权 | 按主计划2026-10-13主线修正比较基本对象、操作及组合能力 |
+| [研究计划 v0.2](../research/change-graph-task-state/research-plan-v0.2.md)及[执行说明](../research/change-graph-task-state/research-plan-v0.2-agent-notes.md) | 2026-10-12用户三项批注；保留v0.1 | 相关广搜后归纳精读；优先软件开发；先明确语义模型再接入LLM。均为研究计划，未验证效果 | 形成研究地图、精读依据及语义模型草案 |
+| [研究计划 v0.1](../research/change-graph-task-state/research-plan-v0.1.md)及[执行说明](../research/change-graph-task-state/research-plan-v0.1-agent-notes.md) | 2026-10-12用户要求制定经验吸收、实验与收敛路线；官方入口核查见来源清单 | 研究提案，未运行实验；三组件和对象划分仍待验证 | 先完成机制比较、真实任务适配审查和数据模型操作检验 |
+| [当前架构 v0.4](../research/change-graph-task-state/design-v0.4.md)及[查证约束](../research/change-graph-task-state/design-v0.4-agent-notes.md) | 2026-10-12用户确认简明历史图、证据核查、决策主体与执行清单入口 | 设计要求；尚无可操作图、数据接口或SDD执行器 | 检验图与详情同版本、证据与主体可追踪、清单可检查 |
+| [当前架构审阅稿 v0.3](../research/change-graph-task-state/design-v0.3.md)及[Agent 接手说明](../research/change-graph-task-state/design-v0.3-agent-notes.md) | 2026-10-11用户要求按读者拆分，助手重构 v0.2 表达 | 同一架构的两类阅读入口；设计草案，非新增效果证据或实现批准 | 用户审阅架构，Agent按接手说明完成来源核验与下一轮迭代 |
+| [前版 v0.2](../research/change-graph-task-state/design-v0.2.md)及[对话吸取记录](../research/change-graph-task-state/database-resilience-discussion.md) | 2026-10-10指定对话接口返回五轮；用户复制全文七轮，后续分段读完并纠正遗漏，校验值见吸取记录 | 历史设计与来源记录，内容保留；非原文论文核验或效果证据 | 与 v0.3 对照，按需追溯设计推理 |
+| [设计前版 v0.1](../research/change-graph-task-state/design-v0.1.md) | 2026-10-10用户要求初步设计；本地提交 b12d0f2 | 内容不覆盖，作为逐版讨论基线保留 | 对照 v0.2 修改理由 |
 | [研究项目与五份研究文档](../research/change-graph-task-state/README.md) | 原工作树固定提交 `0672238b3f96e01443997f9125d58249bcac29e5`，2026-10-09 纳入本目录；官方外部证据见[来源清单](../research/change-graph-task-state/source-inventory.md) | 助手维护，用户决定研究投入；近邻核验及手工实例，不是运行结果 | 寻找能区分简单状态表与候选视图的真实前缀 |
 | [阶段性总结与设计假设](../research/change-graph-task-state-design-hypothesis.md) | 原主工作区 `81ba115` 中已有文档，用户讨论总结，2026-10-09 | 设计假设；初始化后的判断以研究入口和问题卡为准 | 随问题分析核验 |
 | [六论文总结](../../六论文总结.md) | 分区前未跟踪的用户笔记，2026-10-09 原文迁移，内容不改；保持本地未跟踪，不随本次提交 | 用户已有比较笔记，未在本次重新核验论文事实 | 引用结论前对照来源清单 |

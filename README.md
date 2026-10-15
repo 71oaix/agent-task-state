@@ -2,23 +2,22 @@
 title: Agent 任务状态管理论文项目
 status: active
 created: 2026-10-09
-updated: 2026-10-09
+updated: 2026-10-15
 tags: [research, task-state, entrypoint]
-supersedes:
 ---
 
 # Agent 任务状态管理论文项目
 
-工作题目：基于 Change Graph 的持久化任务状态管理与动态工作视图生成。
+**Agent 接手只从[当前状态与执行入口](docs/research/change-graph-task-state/HANDOFF.md)开始。**不需要聊天历史。该入口说明目前做到哪一步、下一项工作、验收办法和权限边界。
 
-从[研究项目入口](docs/research/change-graph-task-state/README.md)了解目标、当前判断与下一步；先看[研究问题卡](docs/research/change-graph-task-state/problem-card.md)，再看[可追溯示例](docs/research/change-graph-task-state/traceable-example.md)和[近邻核验](docs/research/change-graph-task-state/neighbor-review.md)。
+人类审阅读[研究计划 v1.1](docs/research/change-graph-task-state/research-plan-v1.1.md)：先调查真实软件开发活动，再确定持久记录和 Agent 工作，最后检验元操作如何组合。阶段成果与验收方式已列明。
 
-当前处于问题发现。手工示例与首轮近邻核验已经形成文档，真实执行、方法实现与实验协议尚未完成，不把手工示例当作实验结果。
+当前完成的是资料整理及计划；本轮活动调查、真实案例映射、实现和实验尚未完成。既有架构和三个元操作都是待检验候选，不能用来预设活动分类。
 
-- [阶段性设计假设](docs/research/change-graph-task-state-design-hypothesis.md)：最初讨论的共同起点。
-- [六论文总结](六论文总结.md)：用户已有的比较笔记，保留原文；具体发表身份与证据以[来源清单](docs/research/change-graph-task-state/source-inventory.md)为准。
-- [全部文档](docs/INDEX.md)与[资产及来源](docs/reference/project-asset-register.md)。
+- [资料分类与位置](docs/reference/artifact-organization.md)：本地材料按性质保存；原始资料不等于研究结论。
+- [来源清单](docs/research/change-graph-task-state/source-inventory.md)：官方出处、版本、发表身份及核验范围。
+- [文档索引](docs/INDEX.md)：查前版计划、候选设计和历史讨论。
+- [资产登记](docs/reference/project-asset-register.md)：资料职责及状态。
+- [用户六论文笔记](六论文总结.md)：本机未跟踪文件，其他检出可能没有；不是接手前置条件，论文判断以来源清单为准。
 
-研究文档来自原独立分支 `codex/change-graph-paper-init` 的固定提交 `0672238`，2026-10-09 按用户要求整合到独立项目目录。原工作树保持不变；保存基线与目录迁移不代表新的实现或实验批准。
-
-另一个论文项目见[工具反馈管理入口](../工具反馈管理/README.md)，其模型、任务、预算和工程授权不会自动成为本项目的选择。
+最新研究文档已从独立研究分支固定提交 `404a4ab` 接入本工作区的交接修订分支，原分支保留。后续以当前检出的本项目入口为准，不能混用历史工作树的进度。另一项目[工具反馈管理](../工具反馈管理/README.md)的模型、任务、预算与工程批准不继承。
