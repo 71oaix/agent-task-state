@@ -31,3 +31,12 @@ tags: [research, execution, acceptance]
 ### 执行位置修正
 
 G1 写作期间，共享主工作区被另一任务切换到 codex/edgebench-rust-pilot，本轮五份文档提交 e5af52e 落在该分支。没有修改那项任务的脏文件或改写历史；随后将同一 G1 提交接到独立工作树 `artifacts/worktrees/task-state-activities/` 的 codex/task-state-activity-research，得到 edc3ffc。后续写入仅在本独立工作树；主工作区资料目录仍是唯一原文及分析位置。当前入口必须注明检出位置，不能假装共享主工作区已含全部后续结果。
+
+## G3 / attempt-01 / 2026-10-15
+
+- 输入：G2 地图提交 `f92101c`，C1-C5 原材料及明确的发布后/轨迹前缀窗口。
+- 执行：12 类活动逐一投影到已有载体、必要含义及 Agent 读取/判断/执行/登记；5 种过程选 6 个工作点，进行问题查证和删除检查。保留同证据的强普通文档。
+- 产物：[活动、记录与 Agent 映射](activity-record-agent-mapping.md)；主工作区 `artifacts/agent-task-state/analysis/2026-10-15-G3-attempt-01/walkthroughs.json` 和 strong-document-control.md。
+- 验收：6 个点均保留信息边界与未知，逐项指出删掉内容的影响或没有影响；没有从单例验证推全面正确、从提交推发布、从事后时间线推实时知识。作者已见全材料，明确不是盲测。普通文档可支持当前走查，不存在优越性结论。
+- 判定：表示走查通过，允许 G4 检验候选；时间与查证成本未测记缺失，长程效果未验。
+- 下一步：用同一过程检查候选规则及近邻适配，保存不能自然表达和需要额外约定之处；G5 保留材料仍待可用性核查。

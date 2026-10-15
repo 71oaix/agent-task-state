@@ -13,6 +13,7 @@ supersedes:
 
 | 文档 | 状态 | 路径 |
 |------|:----:|------|
+| 从开发活动到工作记录和 Agent 行动 | active | [G3 首轮映射](research/change-graph-task-state/activity-record-agent-mapping.md) |
 | 软件开发活动地图 v0.1 | active | [G2 人类报告](research/change-graph-task-state/software-development-activity-map.md) |
 | 活动驱动研究执行账本 | active | [阶段记录](research/change-graph-task-state/research-execution-ledger.md) |
 | 真实开发活动调查：首批材料筛选与覆盖 | active | [G1 材料报告](research/change-graph-task-state/activity-source-review.md) |
