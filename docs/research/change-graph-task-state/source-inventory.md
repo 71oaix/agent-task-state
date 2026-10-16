@@ -2,7 +2,7 @@
 title: Change Graph 任务状态研究来源清单
 status: active
 created: 2026-10-09
-updated: 2026-10-15
+updated: 2026-10-16
 tags: [research, sources, verification, change-graph]
 supersedes:
 ---
@@ -178,3 +178,7 @@ R6正式身份另见[ETH SRI官方发表页](https://www.sri.inf.ethz.ch/publica
 本轮是时间标记与保存文件 hash 固定的网页快照，动态 URL 不等同于固定 Git 提交。查询、排除和源/提取对应查 activity-source-review.md 所列本地批次；原材料、分析派生与正式结论分别保存。Django、VS Code 仅为保留候选，仓库元数据请求失败，未启用验证。
 
 2026-10-15 G4 初检补充：再次读取 ESAA v1 §3、MAGE v1 §3.2 至 §3.3、StateMem v1 §5 方法以比较六个工作点。来源身份及正式 venue 待核实状态沿用既有登记；本次没有运行它们的代码，不能把论文机制映射当成实际适配证据。
+
+## 2026-10-16 工程来源 DSH-01
+
+DeepSeek Harness 会话演化：开源工程资料，非学术发表；核对日2026-10-16。固定提交、读取范围和角色见[对象报告](engineering-study-dsh-session.md)。六历史响应、四设计文本、四提交详情已保存。PR #3654 API404。未运行代码或完整核实CI。本批次为机制探索，非独立验证。

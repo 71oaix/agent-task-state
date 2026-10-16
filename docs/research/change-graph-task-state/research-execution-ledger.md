@@ -2,7 +2,7 @@
 title: 活动驱动研究执行账本
 status: active
 created: 2026-10-15
-updated: 2026-10-15
+updated: 2026-10-16
 tags: [research, execution, acceptance]
 ---
 
@@ -57,3 +57,7 @@ G1 写作期间，共享主工作区被另一任务切换到 codex/edgebench-rus
 已更新：研究计划、执行说明、接手入口与组合检查；同步资产索引。其他 benchmark 历史资料保留，后续选型暂停。未增加实验授权，未运行模型、原型或 benchmark。G4 未通过。
 
 下一步：按组合检查末节比较核心编码与连续变化，查清语义规则的复用与隐藏成本。benchmark 版本固定与适配留在实验准备阶段。
+
+## 2026-10-16 连续工程对象筛选
+
+已选 DeepSeek Harness 会话持久化与生命周期演化，报告 engineering-study-dsh-session.md。已核对固定设计、文件历史、实际变更及锁实现 patch。发现 c58097a 提交说明与代码不同；作为证据冲突保留。下一步逐状态编码替换、迁移与新约束；G4未通过。PR404缺口明确；未运行工程或模型实验。

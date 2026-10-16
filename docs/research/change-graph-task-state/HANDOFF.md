@@ -28,6 +28,10 @@ tags: [handoff, execution-state]
 
 架构 v0.4、元操作 v0.2、旧问题卡及案例是历史依据或候选，不能覆盖当前顺序。本轮执行位置为主工作区下的 artifacts/worktrees/task-state-activities/，分支 codex/task-state-activity-research。共享主工作区被其他任务切换，后续结果以本独立研究检出为准，细节见执行账本。使用本次检出的项目入口与 Git 版本。
 
+## 2026-10-16 机制探索对象已选定
+
+[DeepSeek Harness 会话演化](engineering-study-dsh-session.md)已取得固定设计文本及实际提交。下一步从写入锁替换与提交说明/代码冲突开始连续编码，再接入迁移及关闭约束。PR API 404，完整审阅仍缺；实验 benchmark 保持 SWE-Milestone。
+
 ## 当前检查点
 
 | 项目 | 实际状态 |

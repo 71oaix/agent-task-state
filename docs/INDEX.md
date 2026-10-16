@@ -2,7 +2,7 @@
 title: Agent任务状态管理文档索引
 status: active
 created: 2026-10-09
-updated: 2026-10-15
+updated: 2026-10-16
 tags: [workspace, directory]
 supersedes:
 ---
@@ -13,6 +13,7 @@ supersedes:
 
 | 文档 | 状态 | 路径 |
 |------|:----:|------|
+| 机制研究对象：DeepSeek Harness 会话演化 | active | [连续工程对象](research/change-graph-task-state/engineering-study-dsh-session.md) |
 | 真实开发过程对元操作候选的首轮检查 | active | [G4 检查与返工依据](research/change-graph-task-state/operation-composition-review.md) |
 | 从开发活动到工作记录和 Agent 行动 | active | [G3 首轮映射](research/change-graph-task-state/activity-record-agent-mapping.md) |
 | 软件开发活动地图 v0.1 | active | [G2 人类报告](research/change-graph-task-state/software-development-activity-map.md) |
