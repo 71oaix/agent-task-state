@@ -28,9 +28,13 @@ tags: [handoff, execution-state]
 
 架构 v0.4、元操作 v0.2、旧问题卡及案例是历史依据或候选，不能覆盖当前顺序。本轮执行位置为主工作区下的 artifacts/worktrees/task-state-activities/，分支 codex/task-state-activity-research。共享主工作区被其他任务切换，后续结果以本独立研究检出为准，细节见执行账本。使用本次检出的项目入口与 Git 版本。
 
-## 2026-10-16 机制探索对象已选定
+## 2026-10-16 当前研究对象：DSH 全项目演化
 
-[DeepSeek Harness 会话演化](engineering-study-dsh-session.md)已取得固定设计文本及实际提交。下一步从写入锁替换与提交说明/代码冲突开始连续编码，再接入迁移及关闭约束。PR API 404，完整审阅仍缺；实验 benchmark 保持 SWE-Milestone。
+用户要求先看从开源到现在的全项目历史，再分析基本机制。先读[全项目研究](dsh-project-history.md)，再打开[演化图](dsh-project-history.html)和[40版本目录与证据](dsh-project-history-evidence.md)。首个Session局部报告保留为历史入口，不能继续将它当作整个对象。
+
+截止固定86a402200d95fecef4529d969836f1fe13c6cb0d。已保存22346可达提交元数据、2172主线提交、29标签、28Release、33npm版本（均在40版目录内），以及40版本3954份设计目录内容版本。全量采集/索引不等于逐篇精读或代码验证。准确公开事件、完整PR审阅和独立测试仍缺。npm latest/next与alpha渠道分开。
+
+下一项实质任务：先复核全景中八条主线的历史节点与变化，跨主线选择连续过程，再比较基本操作及隐藏规则。不要从一个局部直接冻结机制。G4仍未通过；SWE-Milestone保持唯一实验benchmark，未启动原型或付费运行。
 
 ## 当前检查点
 
@@ -43,7 +47,7 @@ tags: [handoff, execution-state]
 | G4 组合比较 | 初检完成，判为返工：事实反馈/实际产物/当前选用等需统一协议，见 operation-composition-review.md |
 | G5 保留材料检查 | 未启动；规则未冻结，候选项目可用过程未确认 |
 | G6 原型、G7 模型实验 | 未批准实施；只可准备具体方案 |
-| 下一项实质任务 | G4 attempt-02：比较两种核心编码及连续组合规则；实验锚定 SWE-Milestone，暂停其他 benchmark 选型 |
+| 下一项实质任务 | 先以DSH全项目图和40版本为研究对象，跨八条工作线检查连续变化，再比较核心编码；benchmark保持SWE-Milestone |
 | 本次请求的完成边界 | 用户已要求执行现有计划；当前实际执行 G1 至后续研究检查点，尚无具体原型或付费实验协议 |
 
 接到“执行计划”后，可以在已授权的公开检索和静态分析范围连续推进 G1 至 G5；每关先保存验收记录再推进，不逐篇向用户确认。变更研究目标、需要新权限、进入实现或付费实验时，按项目规则交付具体方案后等待相应批准。文档 status: active 不是批准标记。

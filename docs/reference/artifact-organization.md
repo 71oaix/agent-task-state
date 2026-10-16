@@ -2,7 +2,7 @@
 title: 本地资料分类与定位
 status: active
 created: 2026-10-15
-updated: 2026-10-15
+updated: 2026-10-16
 tags: [assets, organization, provenance]
 ---
 
@@ -57,3 +57,7 @@ tags: [assets, organization, provenance]
 来源批次为主工作区 `artifacts/agent-task-state/` 下各性质目录的 `activity-research-2026-10-15/`；原始响应/正文提取与分析分开。新增分析分别为 `artifacts/agent-task-state/analysis/2026-10-15-G1-attempt-01/`、`artifacts/agent-task-state/analysis/2026-10-15-G2-attempt-01/`、`artifacts/agent-task-state/analysis/2026-10-15-G3-attempt-01/`。获取失败、重试和提取编码修正保留，正文读取与下载成功分开。G2 当前使用 activity-observations-v2.json，原 v1 及修订说明保留。
 
 共享主工作区在执行中被其他任务切换，因此后续文档位于独立研究工作树 `artifacts/worktrees/task-state-activities/` 的 codex/task-state-activity-research，主工作区源资料保持唯一位置。G1 的位置纠正记录见执行账本；没有移动或清理其他任务文件。
+
+## 2026-10-16 DSH 全项目研究批次
+
+原始与派生资料均在主工作区 `artifacts/agent-task-state/repository-snapshots/dsh-full-history-2026-10-16/`：API与npm原始响应、固定源码归档和文档提取、版本目录、历史设计对象与派生图，manifest区分角色。完整Git历史在 `artifacts/agent-task-state/third-party/dsh-history-2026-10-16/`；自有临时研究生成/验证工具在 `artifacts/agent-task-state/maintenance/dsh-full-history-2026-10-16/`，均不提交。自有报告及HTML位于Agent任务状态管理研究目录，入口见[全项目报告](../research/change-graph-task-state/dsh-project-history.md)。

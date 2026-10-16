@@ -15,6 +15,7 @@ supersedes:
 
 | 资产 | 来源与版本 | 责任与边界 | 下一步 |
 |---|---|---|---|
+| [DSH全项目研究与图](../research/change-graph-task-state/dsh-project-history.md)、[版本证据](../research/change-graph-task-state/dsh-project-history-evidence.md) | 2026-10-16；固定86a4022；40版本/3954设计目录内容版本 | 用户要求先全景后分析；第三方材料本地忽略，未运行工程或付费实验 | 跨八主线核对连续变化，再比较基本机制 |
 | [DSH 工程对象](../research/change-graph-task-state/engineering-study-dsh-session.md) | 2026-10-16；设计固定5e9f134 | 机制探索；PR访问缺口，未运行测试 | 连续编码锁替换、迁移、新约束 |
 | [活动来源筛选](../research/change-graph-task-state/activity-source-review.md)、[执行账本](../research/change-graph-task-state/research-execution-ledger.md) | 2026-10-15，交接基线31b6938；七份实证全文、四项目过程、一个官方Agent示例 | G1首批探索准入；非检索饱和、行业频率或长程效果证据；本地获取/分析批次保持忽略 | 按缺口扩展来源，保留候选项目还需确认可用性 |
 | [活动地图](../research/change-graph-task-state/software-development-activity-map.md)、[记录映射](../research/change-graph-task-state/activity-record-agent-mapping.md) | G2提交f92101c，G3提交aaef635；27证据解释单元、12活动类、6工作点 | G2探索版、G3同一作者表示走查通过；强文档同样可支持问题；没有计时或独立模型试验 | 不用当前分类作为最终最小模型，继续组合检验 |

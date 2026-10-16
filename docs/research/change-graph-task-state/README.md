@@ -2,7 +2,7 @@
 title: Change Graph 任务状态论文研究项目
 status: active
 created: 2026-10-09
-updated: 2026-10-15
+updated: 2026-10-16
 tags: [research, paper-project, change-graph, task-state, working-view]
 supersedes:
 research_stage: problem-discovery
@@ -11,6 +11,8 @@ experiment_authorized: false
 ---
 
 # Change Graph 任务状态论文研究项目
+
+当前工程对象：[DSH全项目演化](dsh-project-history.md) / [可查证流程图](dsh-project-history.html) / [40版本目录与证据](dsh-project-history-evidence.md)。先建立全局理解，再跨主线检验基本机制；唯一实验benchmark为SWE-Milestone。
 
 **2026-10-15 实际执行结果：**[首批材料](activity-source-review.md) → [活动地图](software-development-activity-map.md) → [记录与 Agent 映射](activity-record-agent-mapping.md) → [候选初检与返工](operation-composition-review.md)。G1-G3 已通过当前探索/走查范围，G4 需修订，G5 未启动；当前状态查 [HANDOFF](HANDOFF.md)。
 

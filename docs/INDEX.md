@@ -13,6 +13,8 @@ supersedes:
 
 | 文档 | 状态 | 路径 |
 |------|:----:|------|
+| DSH全项目演化研究 | active | [人类全景报告](research/change-graph-task-state/dsh-project-history.md) |
+| DSH全版本目录、来源与覆盖检查 | active | [40版本及工程证据](research/change-graph-task-state/dsh-project-history-evidence.md) |
 | 机制研究对象：DeepSeek Harness 会话演化 | active | [连续工程对象](research/change-graph-task-state/engineering-study-dsh-session.md) |
 | 真实开发过程对元操作候选的首轮检查 | active | [G4 检查与返工依据](research/change-graph-task-state/operation-composition-review.md) |
 | 从开发活动到工作记录和 Agent 行动 | active | [G3 首轮映射](research/change-graph-task-state/activity-record-agent-mapping.md) |

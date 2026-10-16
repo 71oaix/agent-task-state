@@ -182,3 +182,7 @@ R6正式身份另见[ETH SRI官方发表页](https://www.sri.inf.ethz.ch/publica
 ## 2026-10-16 工程来源 DSH-01
 
 DeepSeek Harness 会话演化：开源工程资料，非学术发表；核对日2026-10-16。固定提交、读取范围和角色见[对象报告](engineering-study-dsh-session.md)。六历史响应、四设计文本、四提交详情已保存。PR #3654 API404。未运行代码或完整核实CI。本批次为机制探索，非独立验证。
+
+## 2026-10-16 工程来源 DSH-02：全项目版本历史
+
+开源工程资料，非论文发表。固定HEAD 86a402200d95fecef4529d969836f1fe13c6cb0d。通过公开GitHub API、Git历史和npm registry核对40个可识别版本、28条Release、29标签、33npm版本；均已保存。详见[版本证据](dsh-project-history-evidence.md)和[全景研究](dsh-project-history.md)。40版设计目录的3954份不同内容已保存并按Git对象摘要核对；当前目录有1271项（1270普通文件及1符号链接），1266带日期主题。完整采集不代表全部精读；PR审阅和原工程测试未全量取得/运行。公开事件的确切时间未知，6月Git历史与8月公开入口分别说明。访问失败及角色见批次manifest。
