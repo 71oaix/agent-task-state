@@ -2,12 +2,14 @@
 title: Agent任务状态管理项目资产索引
 status: active
 created: 2026-10-09
-updated: 2026-10-15
+updated: 2026-10-16
 tags: [asset-register, task-state, preservation]
 supersedes:
 ---
 
 # Agent任务状态管理项目资产索引
+
+2026-10-16 当前决定：实验 benchmark 锚定 SWE-Milestone，其他 benchmark 选型暂停；研究继续 G4 基本机制比较。实时记录与历史重构共用核心操作，重构为外围能力。下表历史阶段口径以 [HANDOFF](../research/change-graph-task-state/HANDOFF.md) 当前状态为准。
 
 2026-10-10 研究口径更新：预算视图问题卡暂停优先推荐，保留历史候选；近邻核验补充了信息选择理由、消融与实验代表性，来源清单记录新增阅读范围。下一步为继续审查论文依据与工作生命周期覆盖，不以简单销量任务筛选掉复杂开发问题。下表原始来源与历史工作树身份保持不变。
 
