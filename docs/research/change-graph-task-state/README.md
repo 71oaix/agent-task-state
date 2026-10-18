@@ -2,7 +2,7 @@
 title: Change Graph 任务状态论文研究项目
 status: active
 created: 2026-10-09
-updated: 2026-10-16
+updated: 2026-10-18
 tags: [research, paper-project, change-graph, task-state, working-view]
 supersedes:
 research_stage: problem-discovery
@@ -11,6 +11,8 @@ experiment_authorized: false
 ---
 
 # Change Graph 任务状态论文研究项目
+
+新增[深度演化分析](dsh-development-analysis.md)：在完整版本目录上解释多种 Agent、持久历史、共享工作台和远程执行如何推动架构变化，保留简化的代价与反例。
 
 当前工程对象：[DSH全项目演化](dsh-project-history.md) / [可查证流程图](dsh-project-history.html) / [40版本目录与证据](dsh-project-history-evidence.md)。先建立全局理解，再跨主线检验基本机制；唯一实验benchmark为SWE-Milestone。
 

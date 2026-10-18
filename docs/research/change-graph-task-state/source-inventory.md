@@ -2,7 +2,7 @@
 title: Change Graph 任务状态研究来源清单
 status: active
 created: 2026-10-09
-updated: 2026-10-16
+updated: 2026-10-18
 tags: [research, sources, verification, change-graph]
 supersedes:
 ---
@@ -186,3 +186,8 @@ DeepSeek Harness 会话演化：开源工程资料，非学术发表；核对日
 ## 2026-10-16 工程来源 DSH-02：全项目版本历史
 
 开源工程资料，非论文发表。固定HEAD 86a402200d95fecef4529d969836f1fe13c6cb0d。通过公开GitHub API、Git历史和npm registry核对40个可识别版本、28条Release、29标签、33npm版本；均已保存。详见[版本证据](dsh-project-history-evidence.md)和[全景研究](dsh-project-history.md)。40版设计目录的3954份不同内容已保存并按Git对象摘要核对；当前目录有1271项（1270普通文件及1符号链接），1266带日期主题。完整采集不代表全部精读；PR审阅和原工程测试未全量取得/运行。公开事件的确切时间未知，6月Git历史与8月公开入口分别说明。访问失败及角色见批次manifest。
+
+
+### DSH-02 追加分析范围（2026-10-18）
+
+[dsh-development-analysis.md](dsh-development-analysis.md)在同一固定86a4022材料上深化跨线分析，并对读五份版本正文、核查主线合入日期。来源仍是公开工程设计记录与Git历史，非论文、无发表venue；未扩展截止日或声称独立运行验证。发现8月25日迁移合入与撤回、9月6日流式阶段合入；撤回原因缺口保留。详细固定链接与内容哈希见分析文末，验证记录见执行账本。

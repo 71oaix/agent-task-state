@@ -2,11 +2,13 @@
 title: DSH 全项目演化研究：从开发者预览到当前版本
 status: active
 created: 2026-10-16
-updated: 2026-10-16
+updated: 2026-10-18
 tags: [research, dsh, full-history]
 ---
 
 # DSH 全项目演化研究：从开发者预览到当前版本
+
+2026-10-18 新增[深度演化分析](dsh-development-analysis.md)，进一步解释本页八条工作线之间的联系、历史反复及设计取舍。本文保留为全景和版本导航。
 
 **先把整个工程看清，再分析基本机制。**本轮将研究对象从 Session 局部扩到 DSH 全项目。已建立全部可识别版本的目录、代码祖先图、全项目设计记录快照与八条演化主线；本文解释它如何一路生长。详细版本和证据见[研究底稿](dsh-project-history-evidence.md)，可点击流程图见[全项目演化图](dsh-project-history.html)。
 

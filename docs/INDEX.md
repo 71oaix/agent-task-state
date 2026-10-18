@@ -2,7 +2,7 @@
 title: Agent任务状态管理文档索引
 status: active
 created: 2026-10-09
-updated: 2026-10-16
+updated: 2026-10-18
 tags: [workspace, directory]
 supersedes:
 ---
@@ -13,6 +13,7 @@ supersedes:
 
 | 文档 | 状态 | 路径 |
 |------|:----:|------|
+| DSH 深度演化分析：能力扩展之后，系统如何重新划分责任 | active | [跨工作线分析](research/change-graph-task-state/dsh-development-analysis.md) |
 | DSH全项目演化研究 | active | [人类全景报告](research/change-graph-task-state/dsh-project-history.md) |
 | DSH全版本目录、来源与覆盖检查 | active | [40版本及工程证据](research/change-graph-task-state/dsh-project-history-evidence.md) |
 | 机制研究对象：DeepSeek Harness 会话演化 | active | [连续工程对象](research/change-graph-task-state/engineering-study-dsh-session.md) |
