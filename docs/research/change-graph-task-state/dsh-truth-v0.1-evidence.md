@@ -25,7 +25,7 @@ tags: [research, dsh, evidence, truth]
 
 <details><summary>完整事实与待查项</summary>
 
-**T01.01**　8月2日有一个提交加入事务式配置重载。
+**T01.01**　8月2日有一个提交加入事务式配置重载。截止版本设计记录回顾，该方案在配置修改失败后保留旧插件代际。
 
 **T01.02**　后来的决定要求撤回 #932 的五个提交；它记录的理由是候选导入、回滚和生命周期处理使 vendored 实现偏离上游过多。
 
@@ -41,7 +41,7 @@ tags: [research, dsh, evidence, truth]
 
 | 事实编号 | 证据归属 | 来源 |
 |---|---|---|
-| T01.01 | commit_record | [L1](https://github.com/deepseek-ai/deepseek-harness/commit/195f7fa9af0ff33e75f44e767a23b8e1e8aaa200) |
+| T01.01 | commit_record + retrospective_report | [L2](https://github.com/deepseek-ai/deepseek-harness/blob/86a402200d95fecef4529d969836f1fe13c6cb0d/.agents/notes/implemented/simplification/2026-09-09-nontransactional-loader.md)、[L1](https://github.com/deepseek-ai/deepseek-harness/commit/195f7fa9af0ff33e75f44e767a23b8e1e8aaa200) |
 | T01.02 | recorded_decision | [L2](https://github.com/deepseek-ai/deepseek-harness/blob/86a402200d95fecef4529d969836f1fe13c6cb0d/.agents/notes/implemented/simplification/2026-09-09-nontransactional-loader.md) |
 | T01.03 | recorded_decision | [L2](https://github.com/deepseek-ai/deepseek-harness/blob/86a402200d95fecef4529d969836f1fe13c6cb0d/.agents/notes/implemented/simplification/2026-09-09-nontransactional-loader.md) |
 | T01.04 | commit_record | [L3](https://github.com/deepseek-ai/deepseek-harness/commit/e07f41d5fd8ca172287fda0f923b4d1f69c592f3)、[L4](https://github.com/deepseek-ai/deepseek-harness/commit/2abb542a222032b1ad3c5abd7bb65ffffe15b8de)、[L5](https://github.com/deepseek-ai/deepseek-harness/commit/f4a7dd607709025bc3ad19dab8ffbb038cd13962) |
@@ -153,7 +153,7 @@ tags: [research, dsh, evidence, truth]
 
 **T04.03**　该变更10月8日合入主线，0.2.1-alpha.2中已有对应记录；主题笔记文件名日期为9月26日。
 
-**T04.04**　新发送返回目标inbox接纳的消息身份或失败。Team的未接纳意图保存、重启重试和显式重发去重机制退出；成功结果表示队列接纳。
+**T04.04**　新发送返回目标inbox接纳的消息身份或失败。Team的未接纳意图保存、重启重试和显式重发去重机制退出；成功结果表示队列接纳，模型处理状态待确认。
 
 **T04.05**　旧 mailbox 记录仍可解码和展示，但旧待发项不再投递；替代范围仅为消息机制，成员名单和任务决定继续保留。
 
@@ -236,7 +236,7 @@ tags: [research, dsh, evidence, truth]
 
 **T06.05**　交付历史分别标记实际裁剪与旧历史不可用；删除任务后，已经进入会话的消息保留。
 
-**T06.06**　回执记录消息已持久进入inbox。任务存储与消息存储分开提交，崩溃存在重复投递风险。
+**T06.06**　回执记录消息已持久进入inbox，模型完成状态待确认。任务存储与消息存储分开提交，崩溃存在重复投递风险。
 
 待查：Host存储和裁剪决定均见于rc.2，两项改动间的实际部署间隔待查。
 
@@ -426,10 +426,23 @@ tags: [research, dsh, evidence, truth]
 
 所选主题保留40版目录中的每个路径与内容哈希映射。内容版本按哈希区分，工程事件按逐事实证据登记。
 
+<details><summary>按主题待复验的行为</summary>
+
+- T01：两项修补保留、启动失败处理、配置失败恢复。
+- T02：配置持久化、运行修订保留及作者内存测量。
+- T04：新旧消息恢复与旧待发项处理。
+- T06：跨库崩溃窗口与用户升级。
+- T08：取消、后代等待与外部提供者。
+- T09：布局库评估、浏览器原型检查及页面保留。
+
+以上为原始记录对应的具体复验范围，当前证据归属保持作者报告。
+
+</details>
+
 ## 资料覆盖与后续执行
 
 本页固定十条过程，覆盖所选主题的54条事实。所选主题在40版目录中共有447个文件路径映射、91份不同正文，正文仍保存在原始采集批次。完整PR讨论、并发分支的决定顺序和私下反馈继续列为待补资料。
 
-原始事实版保存在Git提交`7fbdda6`，本次阅读修订保留全部54个事实编号及36个直接来源。新清单位于主工作区`artifacts/agent-task-state/maintenance/dsh-truth-readable-2026-10-19/truth-facts-readable.json`，旧批次保留为修订前证据。本页完整事实为当前对照依据，阅读版负责连续叙述。
+原始事实版保存在Git提交`7fbdda6`，本次阅读修订保留全部54个事实编号及36个直接来源。阅读修订清单位于主工作区`artifacts/agent-task-state/maintenance/dsh-truth-readable-2026-10-19/truth-facts-readable.json`；定向复审后的当前清单位于`artifacts/agent-task-state/maintenance/luna-doc-prompt-trial-2026-10-19/truth-facts-reviewed.json`，旧批次保留为修订前证据。本页完整事实为当前对照依据，阅读版负责连续叙述。
 
 后续比较先固定本页及来源哈希，再让各套编码使用同一输入。编码侧与评估侧持有原始事实；重建侧只接收待检验的编码结果。重建结果逐项核对事件、状态、保留范围和待查项。本轮进度为事实整理与阅读修订。

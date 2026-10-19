@@ -8,11 +8,17 @@ tags: [handoff, execution-state]
 
 # Agent 接手入口与当前执行状态
 
+## 2026-10-19 Luna复审与最小prompt试验结果
+
+第二轮定向复审已完成，原报告路径保持；主Agent按原始来源核查意见并作小幅事实澄清。四种新上下文prompt试行中，预置十处长文目标的具体定位数为A通用skill0、B读者用途3、C缺陷清单6、D逐段扫描加未知保留9。六个重要限制对照均保留。D额外四个合成片段均正确处理；每种prompt只运行一次，D为自适应确认。
+
+本次结果支持专项检测助手试行，改文仍由主Agent核实；费用遥测缺失。完整提示、输入哈希、原始结果、评分和可复用提示位于主工作区artifacts/agent-task-state/maintenance/luna-doc-prompt-trial-2026-10-19/。日常适配提示删除了实验片段任务，尚无独立真实文档重复验证。已记录本机skill日志，正式skill规则维持现状。
+
 ## 2026-10-19 阅读修订与审查试行
 
 `dsh-truth-v0.1.md`为人类连续阅读版；`dsh-truth-v0.1-evidence.md`保存完整54条事实、36个来源和查证协议，作为编码比较的详细对照。此前原稿保存在7fbdda6。用户明确要求正文直接陈述事实，防错旁白和核验执行细节后置。
 
-Luna原稿通用审查发现长句和术语，却漏掉防错旁白，还建议增加部分边界提示。明确用户反馈后的定向复审触发用量限制，无报告。试行尚未支持将Luna固定为通用审查；本轮由主Agent复核事实保留。报告存主工作区artifacts/agent-task-state/maintenance/dsh-truth-readable-2026-10-19/，skill运行日志已有用户反馈记录。
+Luna原稿通用审查发现长句和术语，却漏掉防错旁白，还建议增加部分边界提示。此前定向复审触发过用量限制；本次已补完，结果和后续prompt试验见上节。本轮事实修改均由主Agent核对原始来源。报告存主工作区artifacts/agent-task-state/maintenance/dsh-truth-readable-2026-10-19/，skill运行日志已有用户反馈记录。
 
 ## 2026-10-19 当前任务：先固定真实过程truth
 
