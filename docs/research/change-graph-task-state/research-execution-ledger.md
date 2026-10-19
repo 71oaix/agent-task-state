@@ -74,3 +74,10 @@ G1 写作期间，共享主工作区被另一任务切换到 codex/edgebench-rus
 交付 dsh-development-analysis.md，并更新人类和Agent入口。沿用86a4022固定材料，跨多条工作线分析责任归属、运行与持久状态寿命、保证的强化和撤回；对读rc.7微内核及预设、0.1.7-rc.2预设与Team、0.2.1-alpha.2直接inbox正文。核查主线提交，明确初次迁移合入/撤回/再实现及两项协作重构的实际主线日期。
 
 证据结论：可以支持跨线设计解释，不能证明整体维护成本下降或机制最优。首次撤回原因未取得；网络页面抓取失败，使用已校验本地Git对象；过滤克隆缺部分大代码对象，未完成全部diff检查。未执行upstream测试或付费实验。G4不变，下一步跨线完整编码比较。核验清单存本地主工作区 artifacts/agent-task-state/maintenance/dsh-depth-2026-10-18/verification.json。
+
+
+## 2026-10-19 编码前truth提取
+
+按用户最新顺序建立dsh-truth-v0.1.md和证据底稿。十过程54事实，使用23份固定正文和13个提交元数据，另保存所选主题447个版本路径映射、91份不同正文的内容哈希索引。每条事实保留证据归属，作者报告不等于独立复现，缺失因果不补写。修正侧栏保留内容的范围：仅keepMounted类型，非所有标签。LogicalSession阶段draft进度完整保留。
+
+本地批次：主工作区 artifacts/agent-task-state/repository-snapshots/dsh-truth-2026-10-19/；辅助脚本及运行记录位于 artifacts/agent-task-state/maintenance/dsh-truth-2026-10-19/。当前仍是待复核truth v0.1，非穷尽DSH、非冻结测试集。没有元操作编码、盲重建、模型调用或upstream执行。下一步先核定truth和缺口，再固定输入。

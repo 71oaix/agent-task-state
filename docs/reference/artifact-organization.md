@@ -61,3 +61,8 @@ tags: [assets, organization, provenance]
 ## 2026-10-16 DSH 全项目研究批次
 
 原始与派生资料均在主工作区 `artifacts/agent-task-state/repository-snapshots/dsh-full-history-2026-10-16/`：API与npm原始响应、固定源码归档和文档提取、版本目录、历史设计对象与派生图，manifest区分角色。完整Git历史在 `artifacts/agent-task-state/third-party/dsh-history-2026-10-16/`；自有临时研究生成/验证工具在 `artifacts/agent-task-state/maintenance/dsh-full-history-2026-10-16/`，均不提交。自有报告及HTML位于Agent任务状态管理研究目录，入口见[全项目报告](../research/change-graph-task-state/dsh-project-history.md)。
+
+
+## DSH truth本地批次（2026-10-19）
+
+`artifacts/agent-task-state/repository-snapshots/dsh-truth-2026-10-19/`保存固定来源元数据、逐事实派生清单、所选主题全部版本映射和核验结果。不同正文仍引用`artifacts/agent-task-state/repository-snapshots/dsh-full-history-2026-10-16/historical-note-objects/`，不重复复制第三方正文。`artifacts/agent-task-state/maintenance/dsh-truth-2026-10-19/`为自有提取辅助和本地运行记录。项目文档的truth正文为权威，JSON清单随其同步；重建实验不得将这些答案材料提供给重建者。

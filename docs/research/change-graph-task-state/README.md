@@ -2,7 +2,7 @@
 title: Change Graph 任务状态论文研究项目
 status: active
 created: 2026-10-09
-updated: 2026-10-18
+updated: 2026-10-19
 tags: [research, paper-project, change-graph, task-state, working-view]
 supersedes:
 research_stage: problem-discovery
@@ -11,6 +11,8 @@ experiment_authorized: false
 ---
 
 # Change Graph 任务状态论文研究项目
+
+当前执行：[DSH真实过程底稿 v0.1](dsh-truth-v0.1.md)及[逐事实证据](dsh-truth-v0.1-evidence.md)。先理清truth，暂不编码；系统目标是更好的记录方法，关系发现由外围提供。
 
 新增[深度演化分析](dsh-development-analysis.md)：在完整版本目录上解释多种 Agent、持久历史、共享工作台和远程执行如何推动架构变化，保留简化的代价与反例。
 

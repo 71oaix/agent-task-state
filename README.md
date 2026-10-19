@@ -2,13 +2,15 @@
 title: Agent 任务状态管理论文项目
 status: active
 created: 2026-10-09
-updated: 2026-10-18
+updated: 2026-10-19
 tags: [research, task-state, entrypoint]
 ---
 
 # Agent 任务状态管理论文项目
 
 **Agent 接手只从[当前状态与执行入口](docs/research/change-graph-task-state/HANDOFF.md)开始。**不需要聊天历史。该入口说明目前做到哪一步、下一项工作、验收办法和权限边界。
+
+当前先审阅[DSH真实过程底稿 v0.1](docs/research/change-graph-task-state/dsh-truth-v0.1.md)：先固定原始过程，再比较多套元操作描述和反向重建。此前演化分析保留作背景，不代替truth。
 
 当前人类审阅先读[DSH 深度演化分析](docs/research/change-graph-task-state/dsh-development-analysis.md)，了解跨工作线的责任调整、承诺取舍与历史反复，再查版本图。
 
