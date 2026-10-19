@@ -42,3 +42,10 @@ supersedes:
 | 原研究工作树 | 仓库根目录 `artifacts/worktrees/change-graph-paper/`，分支 `codex/change-graph-paper-init` | 历史开发位置，保持原路径及内容，不提交整个工作树 | 后续维护优先进入本项目目录 |
 
 两个项目共用 Git 仓库、[共享资料中的通用指南](../../../共享资料/README.md)与原位置的 `artifacts/`。共享指南于2026-10-09从根目录原文迁入 `共享资料/`；该目录清单维护其来源、版本和使用边界。目录与来源身份已分开，研究模型、任务、评分方案、预算与样本数量仍须分别界定。技能操作留痕采用本项目文档、Git 和仓库忽略的 `.run-log.jsonl`；不写工作区外的全局技能日志。
+
+
+## 2026-10-19 DSH 全量工作历史资料
+
+- 当前人类入口：[工作历史地图与全量盘点](../research/change-graph-task-state/dsh-work-history.md)；交互检索：[工作关系图](../research/change-graph-task-state/dsh-work-history.html)。图内保存可独立读取的主题、关系证据和提交检索元数据。
+- 原始盘点位于主工作区 `artifacts/agent-task-state/repository-snapshots/dsh-exhaustive-2026-10-19/`；自有研究脚本位于 `artifacts/agent-task-state/maintenance/dsh-exhaustive-2026-10-19/`，不上传原始资料和运行产物。
+- 责任状态：主 Agent 完成全量机器盘点与首批关系核对；全量正文审阅进行中。固定来源 86a4022，核对日期 2026-10-19。精确数量、范围与下一 gate 见[覆盖审计](../research/change-graph-task-state/dsh-project-history-evidence.md#2026-10-19-全量盘点与关系图审计)。

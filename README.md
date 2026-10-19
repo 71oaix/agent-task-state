@@ -10,11 +10,9 @@ tags: [research, task-state, entrypoint]
 
 **Agent 接手只从[当前状态与执行入口](docs/research/change-graph-task-state/HANDOFF.md)开始。**不需要聊天历史。该入口说明目前做到哪一步、下一项工作、验收办法和权限边界。
 
-当前先审阅[DSH真实过程底稿 v0.1](docs/research/change-graph-task-state/dsh-truth-v0.1.md)：先固定原始过程，再比较多套元操作描述和反向重建。此前演化分析保留作背景，不代替truth。
+当前先看[DSH 工作历史地图与全量盘点](docs/research/change-graph-task-state/dsh-work-history.md)，打开[工作关系图](docs/research/change-graph-task-state/dsh-work-history.html)查询全部历史主题、主线变更和已核实关系。当前整理 truth，继续补正文关系、无笔记的代码变更及撤回链。
 
-当前人类审阅先读[DSH 深度演化分析](docs/research/change-graph-task-state/dsh-development-analysis.md)，了解跨工作线的责任调整、承诺取舍与历史反复，再查版本图。
-
-当前人类审阅先看[DSH全项目演化图](docs/research/change-graph-task-state/dsh-project-history.html)与[全景研究](docs/research/change-graph-task-state/dsh-project-history.md)：已从Session局部扩展到40个可识别版本、八条工程主线。实验benchmark保持SWE-Milestone。
+[十段细读案例](docs/research/change-graph-task-state/dsh-truth-v0.1.md)、[深度演化分析](docs/research/change-graph-task-state/dsh-development-analysis.md)和[40 版时间线](docs/research/change-graph-task-state/dsh-project-history.html)保留供深入查阅。
 
 人类审阅读[研究计划 v1.1](docs/research/change-graph-task-state/research-plan-v1.1.md)：先调查真实软件开发活动，再确定持久记录和 Agent 工作，最后检验元操作如何组合。阶段成果与验收方式已列明。
 

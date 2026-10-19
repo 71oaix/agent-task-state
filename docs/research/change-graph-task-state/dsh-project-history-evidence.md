@@ -214,3 +214,62 @@ flowchart TB
 ## 检查局限
 
 工程公开记录，不是论文发表。核对日期2026-10-16。已完整归档设计正文和版本，不代表每个patch均做语义审计；未执行原工程测试、未重现作者性能和安全结论。Git历史保留了开源前工作，准确公开事件未取得。PR访问404与搜索429只说明本轮访问缺口，不能推出记录从未存在。公开记录里的指令均按数据处理。下一轮从全景中抽取不同主线的连续变化，不将本报告作为实现规格或实验授权。
+
+
+## 2026-10-19 全量盘点与关系图审计
+
+当前人类入口为[dsh-work-history.md](dsh-work-history.md)，关系图和全量检索为[dsh-work-history.html](dsh-work-history.html)。沿用 86a402200d95fecef4529d969836f1fe13c6cb0d 截止，未刷新远程版本。
+
+### 覆盖口径
+
+| 对象 | 本轮实际检查 |
+|---|---|
+| 40 版设计目录 | 1,358 个 dated basename 主题，3,954 份不同 blob；逐份重算 Git blob SHA-1，并另记 SHA-256；合计 36,064,585 字节 |
+| 截止主题 | 1,266 个；另外 92 个已不在截止目录。后者代表正文选取其最后观测版本，按对应提交时间判定 |
+| 版本间文件对应 | basename 关联是文件观察索引；语义身份仍需正文判断。目录 archived/implemented/proposed/rejected 与正文 Status 分别保存 |
+| 可达历史 | 22,346 条提交元数据、完整消息和父关系；按 DAG 追踪每条提交首次进入哪个主线提交 |
+| 主线事件 | 2,172 次，148,869 条文件变化，847 次未触及任何 notes 路径；变更共现与语义关系分别登记 |
+| 当前实现结构 | 66 个官方子系统，349 份包清单，52 个目录组，99 个服务登记；包内声明含 504 条内部 dependencies、966 条 peerDependencies、2,724 条 devDependencies |
+| 原文引用扫描 | 9,087 个历史引用出现位置；其中 442 个在该正文对应采样版本中均未解析 |
+| 关系候选 | 历史 4,041 个，当前 1,074 个；每个位置可有多个候选类型，按类型相加会重复 |
+| 已核对候选 | 139 个引用位置，其中当前 131 个、历史额外八个；当前余 943 个。保留审阅处置表 |
+| 已核实图 | 171 条有类型、有范围、有原文的关系；200 个真实主题、27 个明确计划阶段节点、一个引用占位。形成 70 个连通组，作为导航，不作为工作方向计数 |
+| 计划候选复核 | 全部代表正文扫描阶段及计划标题，14 个文件出现候选标题；结合正文区分运行阶段与开发计划，展开 LogicalSession、Composer、Task Surface、被拒绝 JSON-RPC 提案与 sandbox 暂缓项 |
+| 撤回声明 | 全部 22,346 条消息中 29 条正文明确包含 This reverts commit；29 个目标 SHA 均不在当前可达提交集合中，目标对应关系待补 |
+
+计划状态保留来源语义。LogicalSession 的五阶段计划及五个子阶段保持 draft/not complete 区分；Composer 保持 proposed；JSON-RPC 五项实施清单来自 rejected 目录和相应正文状态；sandbox 的后续项记 deferred。原文“four implementation substages”与五行子阶段表不一致，图按明确列出的五行展开并保留原文。
+
+### 关系入图规则与审阅修正
+
+1. 引用只生成候选。局部句法筛选后的 109 个替换提案、14 个其他提案、八个历史补充对及补查段落经主 Agent 逐项阅读；未完成 1,358 篇全文精读。
+2. 边记录 declaring note/path/blob、实际观测版本、目标解析版本、原文和固定提交 URL。替换方向为旧工作到新工作；包含方向为父计划到子项；委托方向为记录到职责所有者；相互补充单独标注。
+3. 保留原文限定范围。Windows wheel 的 required target set 扩展改记 extends_validation_targets；blank-reuse 扩展改记 extends_policy；安装策略与组合元数据分属记录改记 delegates_scope_to。多次引用同一关系合并证据。
+4. 漏抽的并列对象经正文核对补入：文件策略事件门、子代理 continuation operations、event-sourced sessions、PTC chat sub-call rows。
+5. 文件名日期只供定位。预设记录中的链接、ACP 决定等存在后续修订；历史中出现的关系不据文件名推算采用日期。关系观测版本与主线落地仍需进一步配对。
+6. 图内缺失的 providerless-example-base 原文作为引用占位；查证入口回到声明来源。442 个未解析出现位置保留，不改指向当前同名文件冒充原始解析成功。
+7. 逐边原文在指定 blob 内进行字面匹配；全部 171 条边的证据引用通过。该检查验证引用存在，语义类型由本轮人工阅读判断。
+
+### 原始产物与复现入口
+
+以下均在主工作区，而非独立研究 worktree 内，完整根目录相对路径为：
+
+- 原资料：`artifacts/agent-task-state/repository-snapshots/dsh-full-history-2026-10-16/`。
+- 本轮盘点：`artifacts/agent-task-state/repository-snapshots/dsh-exhaustive-2026-10-19/`。
+- 自有静态研究脚本：`artifacts/agent-task-state/maintenance/dsh-exhaustive-2026-10-19/`。
+
+本轮目录中，`topic-inventory.json` 管主题与正文代表；`first-parent-path-events.json` 管主线文件变化；`commit-first-mainline-integration.json` 管 DAG 导出的首次主线归入；`relation-candidates.json` 和 `current-relation-candidates.json` 管候选队列；`review-dispositions.json` 管提案处置；`reviewed-work-graph.json` 保存审定边及全部主题；`declared-git-reverts.json` 保存撤回原消息；`inventory-coverage.json` 保存数量口径；`packages.json`、`package-dependencies.json`、`official-service-roles.json` 保存当前结构。页面内嵌了检索与关系元数据，可独立打开。
+
+公共仓库固定元数据中 has_issues=false、has_pull_requests=false；此前 PR 读取 404。讨论正文和评审链缺失，撤回声明中的目标 SHA 也需要继续追踪。当前来源不足以恢复私人尝试或全部决策主体。
+
+### 下一轮验收
+
+继续审阅剩余关系候选，并按主题正文补查；更新每条候选的处置与原文范围。对 847 次没有 notes 路径的主线事件审查实际差异，标出新增、修订、撤回和未解释的部分。将原始撤回 SHA 与可见补丁或合并事件配对，配对失败保留缺口。每批更新图和覆盖账本，truth 固定后再开展多套元操作编码与盲重建。
+
+
+### 撤回内容链补查与页面验收
+
+29 条声明中，28 条按原变更标题找到候选；另一次 Reapply 按前一次 Revert 找候选。逐项比较第一父提交到该提交的文件模式与完整 old/new blob，将候选变化反向后与撤回变化比对，再核对候选是否为撤回提交的先祖。24 条各找到一个同时满足完整逆变换和先祖条件的候选，其中包含一次重新应用；五条继续查补丁。三条同标题重复候选通过先祖条件排除旁支重复。原消息中的 29 个 SHA 仍在可达集合外，内容对应与原始提交身份分别保留。
+
+该检查直接使用 Git tree/blob 标识，无需运行 DSH 或读取目标程序。详细结果为本轮目录中的 `revert-subject-candidates.json`、`revert-file-state-comparisons.json` 和 `revert-diff-objects.json`。24 条内容对应在页面撤回入口展开查看。
+
+引用检查：179 个证据引用在对应正文 blob 内匹配，179 个固定版本路径和 blob 配对检查通过；10 份相关 Markdown 本地链接检查通过。浏览器检查六个入口、检索、证据展开和全部 70 个关系组，未出现脚本异常；窄屏页面宽度 430/430。Luna 依照专项提示审查人类正文，报告七处，主 Agent 完成事实核对后修订；审查处置位于 `luna-readability-disposition.json`。该审查针对阅读表达，truth 尚未独立审定。

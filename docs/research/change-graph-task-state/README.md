@@ -12,6 +12,9 @@ experiment_authorized: false
 
 # Change Graph 任务状态论文研究项目
 
+当前先看[DSH 工作历史地图与全量盘点](dsh-work-history.md)及[工作关系图](dsh-work-history.html)。本轮扩充全量 truth，继续审阅正文关系和缺少笔记的主线变化；详细接手顺序见[HANDOFF](HANDOFF.md)。
+
+
 当前执行：[DSH真实过程底稿 v0.1](dsh-truth-v0.1.md)及[逐事实证据](dsh-truth-v0.1-evidence.md)。先理清truth，暂不编码；系统目标是更好的记录方法，关系发现由外围提供。
 
 新增[深度演化分析](dsh-development-analysis.md)：在完整版本目录上解释多种 Agent、持久历史、共享工作台和远程执行如何推动架构变化，保留简化的代价与反例。

@@ -71,3 +71,8 @@ tags: [assets, organization, provenance]
 ## Truth阅读修订与Luna审查（2026-10-19）
 
 `artifacts/agent-task-state/maintenance/dsh-truth-readable-2026-10-19/`保存阅读修订后的派生54条事实清单、原稿审查报告、事实保留核验与Luna试行记录。原稿及旧清单留在原批次和提交7fbdda6。原提取脚本build_truth.py属于原稿生成证据，现行阅读版由项目文档维护；重新执行旧脚本会重建旧稿。
+
+
+## 2026-10-19 DSH 工作图盘点批次
+
+主工作区 `artifacts/agent-task-state/repository-snapshots/dsh-exhaustive-2026-10-19/` 保存完整机器盘点、候选关系、审阅处置、审定图和覆盖账本；`artifacts/agent-task-state/maintenance/dsh-exhaustive-2026-10-19/` 保存自有静态分析与页面验证脚本。当前阅读入口为[DSH 工作地图](../research/change-graph-task-state/dsh-work-history.md)。原始正文沿用 dsh-full-history-2026-10-16，不重复采集。

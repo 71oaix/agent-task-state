@@ -8,6 +8,16 @@ tags: [handoff, execution-state]
 
 # Agent 接手入口与当前执行状态
 
+## 2026-10-19 当前任务：全量扩充 DSH truth
+
+用户要求继续穷尽工程工作及其关系。当前入口为[dsh-work-history.md](dsh-work-history.md)与[关系图及全量检索](dsh-work-history.html)，覆盖审计见[dsh-project-history-evidence.md](dsh-project-history-evidence.md#2026-10-19-全量盘点与关系图审计)。十段案例是局部细读成果，当前推进全量范围；尚未开始元操作编码。
+
+固定 86a4022 截止。全量机器盘点覆盖 1,358 个文件名主题、3,954 份不同正文、22,346 条可达提交消息及 DAG、2,172 次主线的 148,869 条文件变化、349 个包和 66 个官方子系统。正文核对的 139 个候选位置及补查段落、计划层级合成 171 条关系；其中 200 个真实主题、27 个计划节点、一个引用占位。当前候选 1,074 个已核对 131 个，余 943 个，另有未被词语规则发现的关系。未完成全量正文精读。
+
+下一项实质任务：逐项消化剩余候选，保存采纳/排除及限定范围；审查 847 次未触及 notes 路径的主线事件差异；追踪 29 条撤回声明的目标 SHA。29 个目标均不在当前可达提交集合。关系声明的观测版本与实际主线落地仍须配对，禁止按笔记日期补成采用日期。公共 PR/Issue 讨论正文仍缺。元操作和盲重建继续等 truth 固定后执行。
+
+本轮原始盘点位于主工作区 artifacts/agent-task-state/repository-snapshots/dsh-exhaustive-2026-10-19/；自有研究脚本位于 artifacts/agent-task-state/maintenance/dsh-exhaustive-2026-10-19/。研究文档仍在独立 task-state-activities worktree，分支 codex/task-state-activity-research。
+
 ## 2026-10-19 Luna复审与最小prompt试验结果
 
 第二轮定向复审已完成，原报告路径保持；主Agent按原始来源核查意见并作小幅事实澄清。四种新上下文prompt试行中，预置十处长文目标的具体定位数为A通用skill0、B读者用途3、C缺陷清单6、D逐段扫描加未知保留9。六个重要限制对照均保留。D额外四个合成片段均正确处理；每种prompt只运行一次，D为自适应确认。
@@ -95,3 +105,6 @@ Luna原稿通用审查发现长句和术语，却漏掉防错旁白，还建议�
 ### 本轮局部检查记录（不是研究阶段通过）
 
 2026-10-15，重新阅读已有 SCBench `code_search/checkpoint_1` 固定快照：内容定义输入、输出、匹配规则及示例，没有真实执行主体、修订轨迹或决策记录。按 G1 第 2 项，它只能作为任务规格背景，不能单独支撑活动过程分类或被算成一个真实开发过程。检查结果为“正确排除作为过程证据”，不表示 G1 已通过。来源定位由 source-inventory 的 R2 及原获取清单提供；本地保存于主工作区 `artifacts/agent-task-state/repository-snapshots/task-state-round1-2026-10-13/code-search-checkpoint1.md`。该片段已暴露，不可再当未读保留材料。
+
+
+2026-10-19 撤回补查：29 条声明中，24 条找到完整文件状态逆变换且满足先祖关系的内容对应，五条继续核对补丁；原始目标 SHA 身份仍待追踪。详见覆盖审计与页面撤回入口。
