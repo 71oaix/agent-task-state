@@ -13,8 +13,8 @@ supersedes:
 
 | 文档 | 状态 | 路径 |
 |------|:----:|------|
-| DSH 真实开发过程底稿 v0.1 | active | [编码前的独立truth](research/change-graph-task-state/dsh-truth-v0.1.md) |
-| DSH truth v0.1 证据与边界 | active | [逐事实来源与版本](research/change-graph-task-state/dsh-truth-v0.1-evidence.md) |
+| DSH 的十段真实开发过程 | active | [人类阅读版](research/change-graph-task-state/dsh-truth-v0.1.md) |
+| DSH truth v0.1 证据与边界 | active | [完整事实与逐项来源](research/change-graph-task-state/dsh-truth-v0.1-evidence.md) |
 | DSH 深度演化分析：能力扩展之后，系统如何重新划分责任 | active | [跨工作线分析](research/change-graph-task-state/dsh-development-analysis.md) |
 | DSH全项目演化研究 | active | [人类全景报告](research/change-graph-task-state/dsh-project-history.md) |
 | DSH全版本目录、来源与覆盖检查 | active | [40版本及工程证据](research/change-graph-task-state/dsh-project-history-evidence.md) |

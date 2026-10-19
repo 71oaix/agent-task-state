@@ -81,3 +81,10 @@ G1 写作期间，共享主工作区被另一任务切换到 codex/edgebench-rus
 按用户最新顺序建立dsh-truth-v0.1.md和证据底稿。十过程54事实，使用23份固定正文和13个提交元数据，另保存所选主题447个版本路径映射、91份不同正文的内容哈希索引。每条事实保留证据归属，作者报告不等于独立复现，缺失因果不补写。修正侧栏保留内容的范围：仅keepMounted类型，非所有标签。LogicalSession阶段draft进度完整保留。
 
 本地批次：主工作区 artifacts/agent-task-state/repository-snapshots/dsh-truth-2026-10-19/；辅助脚本及运行记录位于 artifacts/agent-task-state/maintenance/dsh-truth-2026-10-19/。当前仍是待复核truth v0.1，非穷尽DSH、非冻结测试集。没有元操作编码、盲重建、模型调用或upstream执行。下一步先核定truth和缺口，再固定输入。
+
+
+## 2026-10-19 Truth阅读修订与Luna审查试行
+
+用户反馈防错旁白引走注意力。先追加doc-contract本机日志，再将正文改为十段连续过程，将54条完整事实及36个来源集中到证据页。技术限制保留实际行为，证据等级、未知项和执行约定归入查证页。旧稿保存在7fbdda6。
+
+应用户要求使用GPT-6 Luna独立审查原稿：发现术语、长句和导览问题，未识别防错旁白，且建议增加部分边界提示。第二轮加入用户反馈作定向检查，触发用量限制，未产出报告。本次试行不支持固定通用Luna审查；两轮分开记录。主Agent继续完成事实保留、引用与标点检查。报告和核验位于主工作区artifacts/agent-task-state/maintenance/dsh-truth-readable-2026-10-19/。

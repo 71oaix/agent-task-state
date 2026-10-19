@@ -15,7 +15,7 @@ supersedes:
 
 | 资产 | 来源与版本 | 责任与边界 | 下一步 |
 |---|---|---|---|
-| [DSH truth v0.1](../research/change-graph-task-state/dsh-truth-v0.1.md)、[证据](../research/change-graph-task-state/dsh-truth-v0.1-evidence.md) | 2026-10-19；十过程/54事实/36来源；固定86a4022 | 编码前独立底稿；公开证据边界，非全项目完整事件流或独立复现 | 先复核truth，冻结后才比较多套编码与盲重建 |
+| [DSH truth v0.1](../research/change-graph-task-state/dsh-truth-v0.1.md)、[证据](../research/change-graph-task-state/dsh-truth-v0.1-evidence.md) | 2026-10-19；十过程/54事实/36来源；固定86a4022；阅读版与详细对照分工 | 编码前独立底稿；公开证据边界，非全项目完整事件流或独立复现 | 先复核truth，冻结后才比较多套编码与盲重建 |
 | [DSH深度演化分析](../research/change-graph-task-state/dsh-development-analysis.md) | 2026-10-18；沿用固定86a4022与五份历史正文 | 跨线解释、反例与承诺变化；非运行验证；首次迁移撤回原因未知 | 跨线比较完整操作编码及隐藏义务 |
 | [DSH全项目研究与图](../research/change-graph-task-state/dsh-project-history.md)、[版本证据](../research/change-graph-task-state/dsh-project-history-evidence.md) | 2026-10-16；固定86a4022；40版本/3954设计目录内容版本 | 用户要求先全景后分析；第三方材料本地忽略，未运行工程或付费实验 | 跨八主线核对连续变化，再比较基本机制 |
 | [DSH 工程对象](../research/change-graph-task-state/engineering-study-dsh-session.md) | 2026-10-16；设计固定5e9f134 | 机制探索；PR访问缺口，未运行测试 | 连续编码锁替换、迁移、新约束 |

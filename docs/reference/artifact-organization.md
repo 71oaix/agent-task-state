@@ -65,4 +65,9 @@ tags: [assets, organization, provenance]
 
 ## DSH truth本地批次（2026-10-19）
 
-`artifacts/agent-task-state/repository-snapshots/dsh-truth-2026-10-19/`保存固定来源元数据、逐事实派生清单、所选主题全部版本映射和核验结果。不同正文仍引用`artifacts/agent-task-state/repository-snapshots/dsh-full-history-2026-10-16/historical-note-objects/`，不重复复制第三方正文。`artifacts/agent-task-state/maintenance/dsh-truth-2026-10-19/`为自有提取辅助和本地运行记录。项目文档的truth正文为权威，JSON清单随其同步；重建实验不得将这些答案材料提供给重建者。
+`artifacts/agent-task-state/repository-snapshots/dsh-truth-2026-10-19/`保存固定来源元数据、逐事实派生清单、所选主题全部版本映射和核验结果。不同正文仍引用`artifacts/agent-task-state/repository-snapshots/dsh-full-history-2026-10-16/historical-note-objects/`，不重复复制第三方正文。`artifacts/agent-task-state/maintenance/dsh-truth-2026-10-19/`为自有提取辅助和本地运行记录。详细事实以dsh-truth-v0.1-evidence.md为对照，dsh-truth-v0.1.md提供阅读版。本轮JSON清单和审查记录见后续阅读修订批次。
+
+
+## Truth阅读修订与Luna审查（2026-10-19）
+
+`artifacts/agent-task-state/maintenance/dsh-truth-readable-2026-10-19/`保存阅读修订后的派生54条事实清单、原稿审查报告、事实保留核验与Luna试行记录。原稿及旧清单留在原批次和提交7fbdda6。原提取脚本build_truth.py属于原稿生成证据，现行阅读版由项目文档维护；重新执行旧脚本会重建旧稿。
