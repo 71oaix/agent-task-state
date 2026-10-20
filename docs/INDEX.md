@@ -2,7 +2,7 @@
 title: Agent任务状态管理文档索引
 status: active
 created: 2026-10-09
-updated: 2026-10-19
+updated: 2026-10-20
 tags: [workspace, directory]
 supersedes:
 ---
@@ -13,8 +13,10 @@ supersedes:
 
 | 文档 | 状态 | 路径 |
 |------|:----:|------|
-| DSH 工作历史地图与全量盘点 | active | [当前全量研究入口](research/change-graph-task-state/dsh-work-history.md) |
+| DSH 工程全景：主要方向、演化与接续 | active | [当前全量研究入口](research/change-graph-task-state/dsh-work-history.md) |
 | DSH 工作关系图与全量检索 | active | [关系图、历史主题及主线变更](research/change-graph-task-state/dsh-work-history.html) |
+| DSH 连续开发过程底稿 v1 | active | [16 过程、83 条事实与来源](research/change-graph-task-state/dsh-process-truth-v1.md) |
+| DSH 记录机制比较 v1：共同语义、组合与删减 | active | [三种表示与删减结果](research/change-graph-task-state/dsh-representation-comparison-v1.md) |
 | DSH 的十段真实开发过程 | active | [人类阅读版](research/change-graph-task-state/dsh-truth-v0.1.md) |
 | DSH truth v0.1 证据与边界 | active | [完整事实与逐项来源](research/change-graph-task-state/dsh-truth-v0.1-evidence.md) |
 | DSH 深度演化分析：能力扩展之后，系统如何重新划分责任 | active | [跨工作线分析](research/change-graph-task-state/dsh-development-analysis.md) |

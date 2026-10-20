@@ -2,7 +2,7 @@
 title: Change Graph 任务状态研究来源清单
 status: active
 created: 2026-10-09
-updated: 2026-10-18
+updated: 2026-10-20
 tags: [research, sources, verification, change-graph]
 supersedes:
 ---
@@ -213,3 +213,10 @@ DeepSeek Harness 会话演化：开源工程资料，非学术发表；核对日
 固定 86a4022，公开工程记录，无论文 venue。检查扩大至全部可达提交的 notes、早期 ADR/RFC，提取 12,882 不同英文正文、1,535 工作文件名及 4 结构文件；12,908 个提交/路径/blob 组合全部匹配。新增 181 文件名的代表正文、551 新引用语句和 447 演化措辞已读，41 处补读上下文。图更新为 833 联系，文件迁移与演化引用分别标记。完整数量与来源限制见[覆盖审计](dsh-project-history-evidence.md#2026-10-20-全部可达提交补查)。
 
 主 Agent 随后取消引用关键词筛选，补做所有链接检查：原始新增队列 3,263 句，按链接标题及 RFC/Agent Note 文案归一后，74 句与已读语句对应、6 句仅为语法性指针，其余合为 2,808 组待逐项审阅。该队列尚未完成，尚未进入图。G4 保持返工，元操作、原型和模型实验未开始。
+
+
+## 2026-10-20 DSH 连续过程比较的来源复用
+
+本轮复用固定 `86a402200d95fecef4529d969836f1fe13c6cb0d` 及其可达历史，沿用第三方仓库材料身份。新增整理范围为Shell执行两代协议、聊天迁移与架构、Windows诊断前后版本、反馈Web入口、共享Office转换、独立引擎与桌面运行时、tool角色协议。逐事实引用见[底稿v1](dsh-process-truth-v1.md)。
+
+本地比较批次 `artifacts/agent-task-state/maintenance/dsh-composition-2026-10-20/v2/sources.json` 登记49来源对象的固定提交、原路径、author/committer时间与署名；36份正文另核对Git blob，13项提交记录核对commit对象。原始决策主体未具名处保留未知。核对日期2026-10-20；没有新增论文发表状态主张，也未重新在线读取全部URL或运行来源代码。作者测试和性能数据保持报告归属。

@@ -12,6 +12,8 @@ experiment_authorized: false
 
 # Change Graph 任务状态论文研究项目
 
+2026-10-20：已完成纠偏计划的一轮离线比较。先读[工程全景](dsh-work-history.md)，再查[过程底稿 v1](dsh-process-truth-v1.md)与[机制比较](dsh-representation-comparison-v1.md)。当前执行位置和下一项验收只在 [HANDOFF](HANDOFF.md) 维护。下列早期记录保留作历史依据。
+
 当前整理 DSH 工程过程全景：主要工作方向、各自演化及跨工作联系。已有材料见[工作历史](dsh-work-history.md)及[工作关系图](dsh-work-history.html)。逐句清理引用队列已停止，接下来的交付与验收见[HANDOFF](HANDOFF.md)。
 
 

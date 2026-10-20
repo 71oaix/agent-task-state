@@ -15,15 +15,16 @@ supersedes:
 
 | 资产 | 来源与版本 | 责任与边界 | 下一步 |
 |---|---|---|---|
-| [DSH truth v0.1](../research/change-graph-task-state/dsh-truth-v0.1.md)、[证据](../research/change-graph-task-state/dsh-truth-v0.1-evidence.md) | 2026-10-19；十过程/54事实/36来源；固定86a4022；阅读版与详细对照分工 | 编码前独立底稿；公开证据边界，非全项目完整事件流或独立复现 | 先复核truth，冻结后才比较多套编码与盲重建 |
+| [DSH 工程全景](../research/change-graph-task-state/dsh-work-history.md)、[过程底稿 v1](../research/change-graph-task-state/dsh-process-truth-v1.md)、[机制比较](../research/change-graph-task-state/dsh-representation-comparison-v1.md) | 2026-10-20；固定86a4022；16过程/83事实/49来源对象 | 主Agent同作者离线表达、读回与删减；非独立盲测、数据库实现或长程任务效果 | 复核子工作身份、关系修订和选择范围后提出离线原型范围 |
+| [DSH truth v0.1](../research/change-graph-task-state/dsh-truth-v0.1.md)、[证据](../research/change-graph-task-state/dsh-truth-v0.1-evidence.md) | 2026-10-19；十过程/54事实/36来源；固定86a4022；阅读版与详细对照分工 | 编码前独立底稿；公开证据边界，非全项目完整事件流或独立复现 | 原54条事实已完整进入底稿v1和同输入比较；独立盲重建未执行 |
 | [DSH深度演化分析](../research/change-graph-task-state/dsh-development-analysis.md) | 2026-10-18；沿用固定86a4022与五份历史正文 | 跨线解释、反例与承诺变化；非运行验证；首次迁移撤回原因未知 | 跨线比较完整操作编码及隐藏义务 |
 | [DSH全项目研究与图](../research/change-graph-task-state/dsh-project-history.md)、[版本证据](../research/change-graph-task-state/dsh-project-history-evidence.md) | 2026-10-16；固定86a4022；40版本/3954设计目录内容版本 | 用户要求先全景后分析；第三方材料本地忽略，未运行工程或付费实验 | 跨八主线核对连续变化，再比较基本机制 |
 | [DSH 工程对象](../research/change-graph-task-state/engineering-study-dsh-session.md) | 2026-10-16；设计固定5e9f134 | 机制探索；PR访问缺口，未运行测试 | 连续编码锁替换、迁移、新约束 |
 | [活动来源筛选](../research/change-graph-task-state/activity-source-review.md)、[执行账本](../research/change-graph-task-state/research-execution-ledger.md) | 2026-10-15，交接基线31b6938；七份实证全文、四项目过程、一个官方Agent示例 | G1首批探索准入；非检索饱和、行业频率或长程效果证据；本地获取/分析批次保持忽略 | 按缺口扩展来源，保留候选项目还需确认可用性 |
 | [活动地图](../research/change-graph-task-state/software-development-activity-map.md)、[记录映射](../research/change-graph-task-state/activity-record-agent-mapping.md) | G2提交f92101c，G3提交aaef635；27证据解释单元、12活动类、6工作点 | G2探索版、G3同一作者表示走查通过；强文档同样可支持问题；没有计时或独立模型试验 | 不用当前分类作为最终最小模型，继续组合检验 |
 | [元操作首轮检查](../research/change-graph-task-state/operation-composition-review.md) | 同一六工作点，复核固定v1近邻方法；2026-10-15 | G4返工：事实/实际产物/采用及许可、验证、义务尚需统一协议；未实现或验证优越性 | 比较两种完整编码并重验反例；G5规则未冻结 |
-| [Agent 接手入口](../research/change-graph-task-state/HANDOFF.md) | 2026-10-15；研究文档从 404a4ab 固定版本接入主工作区交接分支 | 当前阶段、下一动作及七关验收入口；G1 尚未开始，交接文档检查不等于研究通过 | 按 G1 实际执行，逐关追加证据及更新状态 |
-| [研究计划 v1.1](../research/change-graph-task-state/research-plan-v1.1.md)、[执行说明](../research/change-graph-task-state/research-plan-v1.1-agent-notes.md) | 2026-10-15 用户纠正活动来源及整体流程 | 当前计划：活动归纳、记录投影、Agent 工作、元操作检验；未完成新调研或批准原型和付费实验 | 先广搜并归纳真实开发活动，再形成记录映射 |
+| [Agent 接手入口](../research/change-graph-task-state/HANDOFF.md) | 2026-10-15；研究文档从 404a4ab 固定版本接入主工作区交接分支 | 当前阶段、下一动作与验收入口；历史阶段记录转入执行账本 | 按当前 HANDOFF 复核协议缺口；不恢复引用清理队列 |
+| [研究计划 v1.1](../research/change-graph-task-state/research-plan-v1.1.md)、[执行说明](../research/change-graph-task-state/research-plan-v1.1-agent-notes.md) | 2026-10-15 用户纠正活动来源及整体流程 | 当前计划：活动归纳、记录投影、Agent 工作、元操作检验；未完成新调研或批准原型和付费实验 | 按2026-10-20纠偏基线，以已有过程比较记录机制 |
 | [本地资料分类](artifact-organization.md) | 2026-10-15 实际盘点及 41 文件迁移哈希校验 | 主工作区 artifacts/agent-task-state 为当前资料根；其他项目与历史工作树原位分类；两个旧审计目录权限受限 | 新资料按项目、性质、批次保存；保持来源和分析分离 |
 | [元操作候选 v0.2](../research/change-graph-task-state/primitive-candidates-v0.2.md)、[协议与证据](../research/change-graph-task-state/primitive-candidates-v0.2-agent-notes.md) | 2026-10-14 用户审阅；继承 P 系列来源，复核 MAGE/StateMem/ESAA 方法及固定投影规范 | 当前候选：明确身份、关系生命周期、整合及并发边界；十项近邻映射为原文分析，非真实轨迹重放或运行验证 | 取得真实开发修订与决策记录，检查组合规则；尚未证明最小性或优越性 |
 | [元操作候选v0.1](../research/change-graph-task-state/primitive-candidates-v0.1.md)及[语义/证据](../research/change-graph-task-state/primitive-candidates-v0.1-agent-notes.md) | 2026-10-14，JJ固定提交、Datomic/PROV官方文档、ATMS原文相关章节、事件溯源 | 三类语义动作与事务统一接口候选；用户场景纸面推演，未实现或实验证明；原文现按性质存于主工作区 artifacts/agent-task-state/，原批次和迁移映射见分类入口 | 检验接口等价、工作身份、部分整合和关系修订；寻找不能表达的复杂工作变化 |
@@ -55,3 +56,10 @@ supersedes:
 主工作区 `artifacts/agent-task-state/repository-snapshots/dsh-exhaustive-2026-10-20/` 保存逐断言审阅、847 份完整补丁及文件树还原、部分撤回比较和新版图数据；自有脚本位于 `artifacts/agent-task-state/maintenance/dsh-exhaustive-2026-10-20/`。前批次保留。当前人类入口为[工作地图](../research/change-graph-task-state/dsh-work-history.md)，责任状态和下一项工作在[HANDOFF](../research/change-graph-task-state/HANDOFF.md)，验证程度见[覆盖审计](../research/change-graph-task-state/dsh-project-history-evidence.md#2026-10-20-引用候选与无笔记变更核对)。
 
 2026-10-20 扩围：同批次补入全部可达分支的 8,928 额外正文，保留完整英文文件事件、来源校验、181 文件名代表正文审阅、551 引用与 447 过程措辞审阅、45 文件名迁移对。地图 833 联系。责任为主 Agent；取消关键词后的引用已逐组读 1,248 组，与旧措辞复用去重覆盖 1,500 / 2,808 组。本批 1,399 原句和 3,985 来源位置校验通过。用户已叫停队列穷举，剩余材料按需查证；当前转入工程过程全景整理，验收与接手顺序以 HANDOFF 为准。新解释尚未加入图，全文与代码语义审查未完成。
+
+
+## 2026-10-20 纠偏计划离线闭环
+
+本轮完成八方向工程全景、16段过程底稿、普通文档/语义显式/事务统一三份表示、静态读回和九项接口改写／删减检查。全部原始资料保持原位；新分析批次位于主工作区 `artifacts/agent-task-state/maintenance/dsh-composition-2026-10-20/v2/`，父目录保留初稿。底稿哈希、49来源元数据与36份正文对象、三份表示和未测量项见 manifest/metrics/verification。49来源中13个为提交记录，36个为正文版本。
+
+共同自然语言负载由主Agent整理，读回器检查99条记录（83条来源事实与16条研究者缺口）的断言及其归属和来源、16条跨记录关联、27项政策投影的一致性。此结果不是独立语义正确率。G4仍需收敛工作身份、关系修订与选择范围；G5/G6/G7未启动。未运行上游、数据库或付费模型实验。

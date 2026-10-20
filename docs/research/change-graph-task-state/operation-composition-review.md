@@ -2,7 +2,7 @@
 title: 真实开发过程对元操作候选的首轮检查
 status: active
 created: 2026-10-15
-updated: 2026-10-16
+updated: 2026-10-20
 tags: [research, primitives, composition-check]
 ---
 
@@ -11,6 +11,10 @@ tags: [research, primitives, composition-check]
 **已有三个语义操作可以描述本轮大部分记录变化，但还不能据此冻结它们。**真实材料暴露了一处必须补清的界限：决定采用什么，与记录现实里已经发生什么，不是同一种状态变化。后者不能因为没有被 select 就消失，也不能因为被 select 就真的发生。
 
 本轮输入为[活动地图](software-development-activity-map.md)、[记录与 Agent 映射](activity-record-agent-mapping.md)以及[候选 v0.2](primitive-candidates-v0.2.md)。这是逐过程的纸面语义检查，未实现或运行三套近邻。
+
+## 2026-10-20 DSH 连续过程检查结果
+
+已完成[16 过程的三种表示与删减检查](dsh-representation-comparison-v1.md)。共同信息可由普通文档和两种候选编码保留；删除工作目录版本、内嵌来源引用、将选择编译成事件均有可读回的替代。本轮建议继续共用登记基础，语义接口作为封装，优先复核子工作身份、关系修订和选择范围。协议尚未冻结，未实施数据库或验证长程任务效果。
 
 ## 在相同工作点尝试组合
 
