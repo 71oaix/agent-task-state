@@ -2,38 +2,22 @@
 title: Agent 接手入口与当前执行状态
 status: active
 created: 2026-10-15
-updated: 2026-10-20
+updated: 2026-10-21
 tags: [handoff, execution-state]
 ---
 
 # Agent 接手入口与当前执行状态
 
-## 当前结果
+已执行用户批准的“DSH 连续开发过程收敛元操作”五步：Loader 完整推演、跨过程检验、16 段覆盖、删除合并检查及候选 v0.3。来源截止仍是 2026-10-15 的固定提交 86a402200d95fecef4529d969836f1fe13c6cb0d。
 
-已按用户批准的纠偏计划完成一轮离线闭环：工程全景、16 段连续过程底稿、三种表示、静态读回和删减检查。来源固定为 2026-10-15 的 `86a402200d95fecef4529d969836f1fe13c6cb0d`。
+先读[工程全景及组合结果](dsh-work-history.md)，设计定义见[候选 v0.3](primitive-candidates-v0.3.md)，详细依据见[组合审查](operation-composition-review.md)。[固定底稿 v1](dsh-process-truth-v1.md)和[第一轮比较](dsh-representation-comparison-v1.md)未改写。
 
-1. 人类先读[工程全景](dsh-work-history.md)：八方向及跨线使用关系。
-2. 查证用[过程底稿 v1](dsh-process-truth-v1.md)：83 条事实、来源、范围和未知项。T01—T10 原 54 条事实保持完整。
-3. 继续研究读[机制比较 v1](dsh-representation-comparison-v1.md)：三种完整表示、读回结果、代价与修订建议。
+本轮有 80 项同作者语义回答、14 个有限删减反例，静态解码与来源时序检查单列。不是独立盲测、并发运行测试或任务收益实验。普通文档可表达同样含义；关系词表、身份和局部边界仍依赖调用者。
 
-本轮结果支持保留共同语义，允许接口封装。工作目录版本可从不可变记录重建；来源引用可内嵌；select 可编译为有版本前提的事件。尚未证明最小性、独立接手正确率或长程任务收益。
+下一项建议是制定离线记录检查器实施规格，先明确输入输出、引用与版本冲突验收，再决定是否实现。本轮批准到研究候选与原型建议，不自动批准数据库或模型实验。G4 当前轮走查完成，协议仍为候选；G5 跨项目、G6 原型、G7 任务效果未开始。
 
-## 下一项工作与验收
+本轮完成验收：三种表示共享事实和查询；16 段覆盖五类问题；保留的记录能力有删除见证；调用者判断显式；文档无需聊天可接手。未来需独立验证新接手者理解与任务收益。
 
-先围绕已有过程复核三项规则：可独立跟踪的子功能何时取得工作身份；关系类别如何收敛，以及内嵌关系如何独立定位和修订；选择范围如何声明并处理重叠。对每项给出同一过程的两种表示、更新和读回差别，再修订候选。
+本地新批次：主仓库根目录相对路径 artifacts/agent-task-state/maintenance/dsh-semantics-2026-10-21/v1/，读取 manifest、verification、readback-80 及 ablation-cases。前批次 dsh-composition-2026-10-20/v2 仍保留。两个目录均在主工作区，不在研究检出内。
 
-验收看是否消除了具体歧义、是否增加隐藏约定，以及删除或合并后能否保持含义。完成后提出范围明确的离线原型方案。G4 为已完成本轮比较、协议仍待收敛；G5 跨项目验证、G6 原型及 G7 任务效果未启动。
-
-## 执行位置与材料
-
-- 研究检出：仓库根目录相对路径 `artifacts/worktrees/task-state-activities/`，分支 `codex/task-state-activity-research`。共享主检出有其他任务变更，不混用状态。
-- 完整比较批次：`artifacts/agent-task-state/maintenance/dsh-composition-2026-10-20/v2/`。读取 manifest、verification、metrics，再按需读取三份表示。该目录位于共享主工作区，不在研究 worktree 内。
-- 原始材料与旧检查保留原位。定位见[资产登记](../../reference/project-asset-register.md)，历史进度见[执行账本](research-execution-ledger.md)。
-
-## 本轮边界
-
-全链接逐句清理已停止。仅对会改变过程理解或比较结果的具体缺口补查，记录问题和影响；未读文件不构成阻塞条件。
-
-三份表示共用同作者整理的语义负载。静态读回检查内容、引用、政策投影与来源可见顺序；没有执行独立盲重建。普通文档基线同样保留精确引用和更新约定。作者报告的测试未独立重跑。
-
-SWE-Milestone 仍为唯一实验 benchmark。未实施数据库、运行 DSH 或付费实验；本轮批准不扩展为后续原型或费用授权。历史重构服务于记录研究，实时记录仍为主要使用入口。
+研究检出为主仓库 artifacts/worktrees/task-state-activities，分支 codex/task-state-activity-research；提交状态以 Git 核对。主检出有另一项目变更，不混用。全链接逐句队列保持停止，只按影响结论的具体问题补查；不运行 DSH、不调用付费模型。SWE-Milestone 是唯一后续效果 benchmark。历史记录见[执行账本](research-execution-ledger.md)。

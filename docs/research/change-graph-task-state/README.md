@@ -2,7 +2,7 @@
 title: Change Graph 任务状态论文研究项目
 status: active
 created: 2026-10-09
-updated: 2026-10-20
+updated: 2026-10-21
 tags: [research, paper-project, change-graph, task-state, working-view]
 supersedes:
 research_stage: problem-discovery
@@ -11,6 +11,12 @@ experiment_authorized: false
 ---
 
 # Change Graph 任务状态论文研究项目
+
+2026-10-21：完成16段真实过程的本轮语义走查；当前候选见[元操作v0.3](primitive-candidates-v0.3.md)。原型尚未实施；本轮结果与边界以候选及HANDOFF为准。
+
+当前入口：[工程全景](dsh-work-history.md)、[组合推演](operation-composition-review.md)、[接手状态](HANDOFF.md)。
+
+<details><summary>2026-10-20及此前研究历史</summary>
 
 2026-10-20：已完成纠偏计划的一轮离线比较。先读[工程全景](dsh-work-history.md)，再查[过程底稿 v1](dsh-process-truth-v1.md)与[机制比较](dsh-representation-comparison-v1.md)。当前执行位置和下一项验收只在 [HANDOFF](HANDOFF.md) 维护。下列早期记录保留作历史依据。
 
@@ -30,6 +36,8 @@ experiment_authorized: false
 **2026-10-15 当前计划：[研究计划 v1.1](research-plan-v1.1.md)。**从真实软件开发活动出发；旧候选保留，暂停继续围绕 A/B/C 扩展。Agent 接手读[执行说明](research-plan-v1.1-agent-notes.md)，本地资料查[分类入口](../../reference/artifact-organization.md)。下文按日期保留历史状态。
 
 2026-10-09 目录分区：本项目的五份研究文档从原研究分支固定提交 `0672238` 纳入当前工作区，现由 `Agent任务状态管理/` 独立维护。文末基线和分支名为原始来源记录；本次目录调整没有重新核验外部论文或运行示例。
+
+</details>
 
 ## 我们要做什么
 

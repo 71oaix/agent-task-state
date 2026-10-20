@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="750" viewBox="0 0 800 750" role="img" aria-labelledby="title desc"><title id="title">Loader局部撤回怎样由基本操作组合记录</title><desc id="desc">上方展示真实撤回与保留的范围，中间展示保存记录、精确引用、范围选用的组合，下方展示从记录可恢复的信息。选用仅用于研究者的解释入口。</desc><defs><marker id="a" markerUnits="userSpaceOnUse" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#235c91"/></marker></defs><rect width="800" height="750" fill="white"/><g font-family="Microsoft YaHei,sans-serif" fill="#193e61">
+<text x="400" y="33" text-anchor="middle" font-size="22" font-weight="700"><tspan x="400" dy="0">真实变化 → 基本操作组合 → 可恢复的工作</tspan></text>
+<text x="400" y="63" text-anchor="middle" font-size="17" font-weight="400"><tspan x="400" dy="0">沿 Loader 局部撤回看，哪些区别需要一直保留</tspan></text>
+<rect x="200" y="86" width="400" height="62" rx="8" fill="#f2f7fc" stroke="#477ca6" stroke-width="1.7"/><text x="400.0" y="114" text-anchor="middle" font-size="17" font-weight="400"><tspan x="400.0" dy="0">Loader 从事务重载改为非事务行为</tspan></text>
+<path d="M400 148 V169 H196 V184" stroke="#235c91" stroke-width="2.6" fill="none" marker-end="url(#a)"/>
+<path d="M400 169 H604 V184" stroke="#235c91" stroke-width="2.6" fill="none" marker-end="url(#a)"/>
+<rect x="34" y="191" width="324" height="99" rx="8" fill="#f2f7fc" stroke="#477ca6" stroke-width="1.7"/><text x="196.0" y="219" text-anchor="middle" font-size="17" font-weight="400"><tspan x="196.0" dy="0">撤回的范围</tspan><tspan x="196.0" dy="25">自动恢复旧插件代际的保证</tspan><tspan x="196.0" dy="25">机械撤回后发现消费者不兼容</tspan></text>
+<rect x="442" y="191" width="324" height="99" rx="8" fill="#f2f7fc" stroke="#477ca6" stroke-width="1.7"/><text x="604.0" y="219" text-anchor="middle" font-size="17" font-weight="400"><tspan x="604.0" dy="0">继续保留的成果</tspan><tspan x="604.0" dy="25">初始化、导出和无关插件能力</tspan><tspan x="604.0" dy="25">随后适配消费者并修补失败政策</tspan></text>
+<path d="M196 290 V315 H604 V290" stroke="#235c91" stroke-width="2.6" fill="none"/>
+<path d="M400 315 V345" stroke="#235c91" stroke-width="2.6" fill="none" marker-end="url(#a)"/>
+<text x="600" y="339" text-anchor="middle" font-size="15" font-weight="400"><tspan x="600" dy="0">记录上述变化，组合使用</tspan></text>
+<rect x="24" y="355" width="220" height="110" rx="8" fill="#f2f7fc" stroke="#477ca6" stroke-width="1.7"/><text x="134.0" y="383" text-anchor="middle" font-size="17" font-weight="400"><tspan x="134.0" dy="0">derive：保存记录</tspan><tspan x="134.0" dy="25">决定、实施、观察、验证</tspan><tspan x="134.0" dy="25">各有来源与可见时间</tspan></text>
+<rect x="290" y="355" width="220" height="110" rx="8" fill="#f2f7fc" stroke="#477ca6" stroke-width="1.7"/><text x="400.0" y="383" text-anchor="middle" font-size="17" font-weight="400"><tspan x="400.0" dy="0">relate：精确引用</tspan><tspan x="400.0" dy="25">撤回/保留哪个部分</tspan><tspan x="400.0" dy="25">适配针对哪项问题</tspan></text>
+<rect x="556" y="355" width="220" height="110" rx="8" fill="#f2f7fc" stroke="#477ca6" stroke-width="1.7"/><text x="666.0" y="383" text-anchor="middle" font-size="17" font-weight="400"><tspan x="666.0" dy="0">select：修订选用</tspan><tspan x="666.0" dy="25">按范围更新解释入口</tspan><tspan x="666.0" dy="25">保存旧前提与选择主体</tspan></text>
+<path d="M134 465 V490 H666 V465" stroke="#235c91" stroke-width="2.6" fill="none"/>
+<path d="M400 465 V490" stroke="#235c91" stroke-width="2.6" fill="none"/>
+<path d="M400 490 V521" stroke="#235c91" stroke-width="2.6" fill="none" marker-end="url(#a)"/>
+<rect x="82" y="530" width="636" height="134" rx="8" fill="#f2f7fc" stroke="#477ca6" stroke-width="1.7"/><text x="400.0" y="558" text-anchor="middle" font-size="17" font-weight="400"><tspan x="400.0" dy="0">从记录读回</tspan><tspan x="400.0" dy="25">回滚保证退出，独立修补与无关能力保留</tspan><tspan x="400.0" dy="25">撤回中间态失败，之后另有适配和范围有限的验证</tspan><tspan x="400.0" dy="25">消费者持续检查激活，整体独立验收仍未知</tspan></text>
+<text x="400" y="695" text-anchor="middle" font-size="16" font-weight="400"><tspan x="400" dy="0">操作可共用登记底层；范围和工程解释由调用者提供</tspan></text>
+<text x="400" y="722" text-anchor="middle" font-size="15" font-weight="400"><tspan x="400" dy="0">本图的 select 更新研究解释，不冒充当年的工程决策</tspan></text>
+</g></svg>

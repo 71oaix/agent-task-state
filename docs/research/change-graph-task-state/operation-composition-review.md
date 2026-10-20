@@ -1,12 +1,12 @@
 ---
-title: 真实开发过程对元操作候选的首轮检查
+title: DSH 真实过程的元操作组合与语义检查
 status: active
 created: 2026-10-15
 updated: 2026-10-21
 tags: [research, primitives, composition-check]
 ---
 
-# 真实开发过程对元操作候选的首轮检查
+# DSH 真实过程的元操作组合与语义检查
 
 本页完成了 2026-10-21 逐过程语义走查：Loader 详细推演、全部 16 段的 80 项人工读回、14 个有限删减反例和接口合并复核。结论与边界见[候选 v0.3](primitive-candidates-v0.3.md)，下文保留依据，历史检查折叠在末尾。
 
