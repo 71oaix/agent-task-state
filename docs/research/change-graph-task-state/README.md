@@ -12,7 +12,7 @@ experiment_authorized: false
 
 # Change Graph 任务状态论文研究项目
 
-当前先看[DSH 工作历史地图与全量盘点](dsh-work-history.md)及[工作关系图](dsh-work-history.html)。本轮已补入全部可达分支的历史文件、演化措辞与文件迁移，继续审阅取消关键词筛选后的引用；详细接手顺序见[HANDOFF](HANDOFF.md)。
+当前整理 DSH 工程过程全景：主要工作方向、各自演化及跨工作联系。已有材料见[工作历史](dsh-work-history.md)及[工作关系图](dsh-work-history.html)。逐句清理引用队列已停止，接下来的交付与验收见[HANDOFF](HANDOFF.md)。
 
 
 当前执行：[DSH真实过程底稿 v0.1](dsh-truth-v0.1.md)及[逐事实证据](dsh-truth-v0.1-evidence.md)。先理清truth，暂不编码；系统目标是更好的记录方法，关系发现由外围提供。
