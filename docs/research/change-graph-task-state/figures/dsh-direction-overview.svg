@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="800" viewBox="0 0 800 800" role="img" aria-labelledby="title desc"><title id="title">DSH 八方向及已核实的跨线连接</title><desc id="desc">横向看预设、消息协议和远程文件三组连接，纵向看Goal、Schedule与会话和协作的联系，以及Office交付与工作台的联系。箭头文字说明关系，位置不表示时间。</desc><defs><marker id="a" markerUnits="userSpaceOnUse" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#235c91"/></marker></defs><rect width="800" height="800" fill="white"/><g font-family="Microsoft YaHei, sans-serif" fill="#193e61">
+<text x="28" y="34" text-anchor="start" font-size="22" font-weight="700"><tspan x="28" dy="0">八个方向，在具体接口与状态上接续</tspan></text>
+<text x="28" y="64" text-anchor="start" font-size="16" font-weight="400"><tspan x="28" dy="0">先横向看三组联系，再沿两侧读跨行连接。</tspan></text>
+<rect x="110" y="100" width="200" height="88" rx="8" fill="#f2f7fc" stroke="#477ca6" stroke-width="1.6"/><text x="210.0" y="129" text-anchor="middle" font-size="17" font-weight="400"><tspan x="210.0" dy="0">插件与配置</tspan><tspan x="210.0" dy="24">预设、运行修订</tspan></text>
+<rect x="490" y="100" width="200" height="88" rx="8" fill="#f2f7fc" stroke="#477ca6" stroke-width="1.6"/><text x="590.0" y="129" text-anchor="middle" font-size="17" font-weight="400"><tspan x="590.0" dy="0">Agent 协作</tspan><tspan x="590.0" dy="24">子代理、Team</tspan></text>
+<rect x="110" y="275" width="200" height="88" rx="8" fill="#f2f7fc" stroke="#477ca6" stroke-width="1.6"/><text x="210.0" y="304" text-anchor="middle" font-size="17" font-weight="400"><tspan x="210.0" dy="0">模型与消息</tspan><tspan x="210.0" dy="24">tool 消息角色</tspan></text>
+<rect x="490" y="275" width="200" height="88" rx="8" fill="#f2f7fc" stroke="#477ca6" stroke-width="1.6"/><text x="590.0" y="304" text-anchor="middle" font-size="17" font-weight="400"><tspan x="590.0" dy="0">会话与上下文</tspan><tspan x="590.0" dy="24">格式、迁移、Goal 日志</tspan></text>
+<rect x="110" y="450" width="200" height="88" rx="8" fill="#f2f7fc" stroke="#477ca6" stroke-width="1.6"/><text x="210.0" y="479" text-anchor="middle" font-size="17" font-weight="400"><tspan x="210.0" dy="0">执行与权限</tspan><tspan x="210.0" dy="24">SSH、远程文件</tspan></text>
+<rect x="490" y="450" width="200" height="88" rx="8" fill="#f2f7fc" stroke="#477ca6" stroke-width="1.6"/><text x="590.0" y="479" text-anchor="middle" font-size="17" font-weight="400"><tspan x="590.0" dy="0">人类工作台</tspan><tspan x="590.0" dy="24">侧栏、Office 预览</tspan></text>
+<rect x="110" y="650" width="200" height="88" rx="8" fill="#f2f7fc" stroke="#477ca6" stroke-width="1.6"/><text x="210.0" y="679" text-anchor="middle" font-size="17" font-weight="400"><tspan x="210.0" dy="0">自动化与控制</tspan><tspan x="210.0" dy="24">Goal、Schedule</tspan></text>
+<rect x="490" y="650" width="200" height="88" rx="8" fill="#f2f7fc" stroke="#477ca6" stroke-width="1.6"/><text x="590.0" y="679" text-anchor="middle" font-size="17" font-weight="400"><tspan x="590.0" dy="0">交付与平台</tspan><tspan x="590.0" dy="24">Office kit、绑定引擎</tspan></text>
+<path d="M315 144 H480" fill="none" stroke="#235c91" stroke-width="2.6" marker-end="url(#a)"/>
+<text x="400" y="106" text-anchor="middle" font-size="15" font-weight="400"><tspan x="400" dy="0">预设绑定</tspan><tspan x="400" dy="24">影响子代理</tspan></text>
+<path d="M315 319 H480" fill="none" stroke="#235c91" stroke-width="2.6" marker-end="url(#a)"/>
+<text x="400" y="281" text-anchor="middle" font-size="15" font-weight="400"><tspan x="400" dy="0">协议改变</tspan><tspan x="400" dy="24">要求格式迁移</tspan></text>
+<path d="M315 494 H480" fill="none" stroke="#235c91" stroke-width="2.6" marker-end="url(#a)"/>
+<text x="400" y="456" text-anchor="middle" font-size="15" font-weight="400"><tspan x="400" dy="0">远程文件</tspan><tspan x="400" dy="24">需要授权读取</tspan></text>
+<path d="M110 690 H38 V78 H750 V144 H700" fill="none" stroke="#235c91" stroke-width="2.6" marker-end="url(#a)"/>
+<text x="48" y="610" text-anchor="start" font-size="14" font-weight="400"><tspan x="48" dy="0">Schedule</tspan><tspan x="48" dy="24">投递目标</tspan><tspan x="48" dy="24">inbox</tspan></text>
+<path d="M210 650 V612 H580 Q590 624 600 612 H764 V319 H700" fill="none" stroke="#235c91" stroke-width="2.6" marker-end="url(#a)"/>
+<text x="395" y="642" text-anchor="middle" font-size="14" font-weight="400"><tspan x="395" dy="0">Goal 写入会话日志</tspan></text>
+<path d="M590 650 V545" fill="none" stroke="#235c91" stroke-width="2.6" marker-end="url(#a)"/>
+<text x="590" y="578" text-anchor="middle" font-size="14" font-weight="400"><tspan x="590" dy="0">预览运行依赖</tspan><tspan x="590" dy="24">绑定的 Office 引擎</tspan></text>
+<text x="28" y="778" text-anchor="start" font-size="15" font-weight="400"><tspan x="28" dy="0">箭头标注具体联系；节点位置用于阅读分组，时间顺序见版本时间线。</tspan></text>
+</g></svg>

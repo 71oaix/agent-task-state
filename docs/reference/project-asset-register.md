@@ -66,3 +66,5 @@ supersedes:
 
 
 2026-10-20 阅读修订：工程全景的方向关系图改为[三条路径图](../research/change-graph-task-state/figures/dsh-evolution-paths.svg)，PNG用于正文，SVG为可编辑图源。该图是基于底稿的讲解图，箭头分别表示影响、保留／复用和机制共享，不扩展来源事实。浏览器渲染与几何检查保存在主工作区 `artifacts/agent-task-state/maintenance/dsh-doc-readability-2026-10-20/`。
+
+2026-10-21：新增[八方向总图 SVG](../research/change-graph-task-state/figures/dsh-direction-overview.svg)及[显示版 PNG](../research/change-graph-task-state/figures/dsh-direction-overview.png)，来源为既有过程底稿与深度分析中的跨线连接；图按阅读分组，不表示版本顺序。三路径图的共享关系修正为分支汇聚。主文逐项提供证据入口，阅读效果待用户反馈。

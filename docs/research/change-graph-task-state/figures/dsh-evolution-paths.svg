@@ -49,24 +49,17 @@
 <text x="26" y="395" class="caption">箭头表示保留和复用；退出实现与采用接口分别记录。</text>
 </g>
 <g id="path-3">
-<rect x="12" y="427" width="736" height="170" rx="9" fill="#f2f7fc"/>
-<text x="26" y="454" class="heading">③ 共用一个入口，为什么还要保留各自的状态</text>
-<rect x="26" y="469" width="200" height="85" rx="6" fill="#fff" stroke="#477ca6" stroke-width="1.6"/>
-<text x="126" y="490" text-anchor="middle" class="category">两类工作</text>
-<text x="126" y="515" text-anchor="middle" class="body">Team 发送消息</text>
-<text x="126" y="540" text-anchor="middle" class="body">Schedule 到期投递</text>
-<path d="M231,514 H270" fill="none" stroke="#235c91" stroke-width="2.8" marker-end="url(#arrow)"/>
-<text x="253" y="486" text-anchor="middle" class="arrow-label"><tspan x="253">共同</tspan><tspan x="253" dy="15">投递</tspan></text>
-<rect x="280" y="469" width="200" height="85" rx="6" fill="#fff" stroke="#477ca6" stroke-width="1.6"/>
-<text x="380" y="490" text-anchor="middle" class="category">共享入口</text>
-<text x="380" y="515" text-anchor="middle" class="body">目标 Agent inbox</text>
-<text x="380" y="540" text-anchor="middle" class="body">接纳并排队</text>
-<path d="M485,514 H524" fill="none" stroke="#235c91" stroke-width="2.8" marker-end="url(#arrow)"/>
-<text x="507" y="486" text-anchor="middle" class="arrow-label"><tspan x="507">分别</tspan><tspan x="507" dy="15">管理</tspan></text>
-<rect x="534" y="469" width="200" height="85" rx="6" fill="#fff" stroke="#477ca6" stroke-width="1.6"/>
-<text x="634" y="490" text-anchor="middle" class="category">各自的承诺</text>
-<text x="634" y="515" text-anchor="middle" class="body">Team 名单与任务</text>
-<text x="634" y="540" text-anchor="middle" class="body">Schedule 存储与恢复</text>
-<text x="26" y="580" class="caption">这条路径追踪边界：共用 inbox，各自的恢复规则继续存在。</text>
+<rect x="12" y="427" width="736" height="190" rx="9" fill="#f2f7fc"/>
+<text x="26" y="454" class="heading">③ 两条工作汇入 inbox，各自保留持久状态</text>
+<rect x="26" y="470" width="320" height="57" rx="6" fill="white" stroke="#477ca6"/>
+<text x="42" y="493" class="category">Team</text><text x="42" y="516" font-size="16">保留名单与任务；发送进入目标 inbox</text>
+<rect x="26" y="543" width="320" height="57" rx="6" fill="white" stroke="#477ca6"/>
+<text x="42" y="566" class="category">Schedule</text><text x="42" y="589" font-size="16">Host 保存任务；到期恢复会话并投递</text>
+<path d="M351 497 H414 V572 H351" fill="none" stroke="#235c91" stroke-width="2.8"/><path d="M414 535 H495" fill="none" stroke="#235c91" stroke-width="2.8" marker-end="url(#arrow)"/>
+<text x="428" y="494" class="arrow-label">投递</text>
+<rect x="504" y="493" width="230" height="85" rx="6" fill="white" stroke="#477ca6"/>
+<text x="619" y="520" text-anchor="middle" class="category">共享目标 Agent inbox</text>
+<text x="619" y="548" text-anchor="middle" class="body">接纳并排队</text>
+<text x="619" y="570" text-anchor="middle" font-size="14">任务与恢复规则留在各自分支</text>
 </g>
 </svg>
