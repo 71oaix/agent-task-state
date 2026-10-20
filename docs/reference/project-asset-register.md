@@ -63,3 +63,6 @@ supersedes:
 本轮完成八方向工程全景、16段过程底稿、普通文档/语义显式/事务统一三份表示、静态读回和九项接口改写／删减检查。全部原始资料保持原位；新分析批次位于主工作区 `artifacts/agent-task-state/maintenance/dsh-composition-2026-10-20/v2/`，父目录保留初稿。底稿哈希、49来源元数据与36份正文对象、三份表示和未测量项见 manifest/metrics/verification。49来源中13个为提交记录，36个为正文版本。
 
 共同自然语言负载由主Agent整理，读回器检查99条记录（83条来源事实与16条研究者缺口）的断言及其归属和来源、16条跨记录关联、27项政策投影的一致性。此结果不是独立语义正确率。G4仍需收敛工作身份、关系修订与选择范围；G5/G6/G7未启动。未运行上游、数据库或付费模型实验。
+
+
+2026-10-20 阅读修订：工程全景的方向关系图改为[三条路径图](../research/change-graph-task-state/figures/dsh-evolution-paths.svg)，PNG用于正文，SVG为可编辑图源。该图是基于底稿的讲解图，箭头分别表示影响、保留／复用和机制共享，不扩展来源事实。浏览器渲染与几何检查保存在主工作区 `artifacts/agent-task-state/maintenance/dsh-doc-readability-2026-10-20/`。

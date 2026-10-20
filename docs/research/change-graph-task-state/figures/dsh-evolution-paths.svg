@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="628" viewBox="0 0 760 628" role="img" aria-labelledby="title desc">
+<title id="title">DSH 的三条跨工作路径</title>
+<desc id="desc">从上到下阅读。第一行连接模型角色、会话格式和历史迁移；第二行说明 E2B 实现退出而接口供 SSH 复用；第三行说明 Team 与 Schedule 共享 inbox 但保留各自状态。</desc>
+<defs><marker id="arrow" markerUnits="userSpaceOnUse" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#235c91"/></marker></defs>
+<rect width="760" height="628" fill="#ffffff"/>
+<style>text{font-family:'Microsoft YaHei','Noto Sans CJK SC',sans-serif;fill:#193e61}.heading{font-size:19px;font-weight:700}.category{font-size:14px;font-weight:700;fill:#365f84}.body{font-size:18px}.arrow-label{font-size:13px;fill:#235c91}.caption{font-size:15px;fill:#36546d}</style>
+<text x="24" y="31" class="heading">三条路径，分别追踪影响、保留和共享</text>
+
+<g id="path-1">
+<rect x="12" y="57" width="736" height="170" rx="9" fill="#f2f7fc"/>
+<text x="26" y="84" class="heading">① 规则变化怎样牵动其他工作</text>
+<rect x="26" y="99" width="200" height="85" rx="6" fill="#fff" stroke="#477ca6" stroke-width="1.6"/>
+<text x="126" y="120" text-anchor="middle" class="category">模型消息</text>
+<text x="126" y="145" text-anchor="middle" class="body">工具结果成为</text>
+<text x="126" y="170" text-anchor="middle" class="body">独立的消息角色</text>
+<path d="M231,144 H270" fill="none" stroke="#235c91" stroke-width="2.8" marker-end="url(#arrow)"/>
+<text x="253" y="116" text-anchor="middle" class="arrow-label"><tspan x="253">格式</tspan><tspan x="253" dy="15">改变</tspan></text>
+<rect x="280" y="99" width="200" height="85" rx="6" fill="#fff" stroke="#477ca6" stroke-width="1.6"/>
+<text x="380" y="120" text-anchor="middle" class="category">会话与迁移</text>
+<text x="380" y="145" text-anchor="middle" class="body">会话升为 V4</text>
+<text x="380" y="170" text-anchor="middle" class="body">增加相邻迁移</text>
+<path d="M485,144 H524" fill="none" stroke="#235c91" stroke-width="2.8" marker-end="url(#arrow)"/>
+<text x="507" y="116" text-anchor="middle" class="arrow-label"><tspan x="507">迁移</tspan><tspan x="507" dy="15">保留</tspan></text>
+<rect x="534" y="99" width="200" height="85" rx="6" fill="#fff" stroke="#477ca6" stroke-width="1.6"/>
+<text x="634" y="120" text-anchor="middle" class="category">历史继续可用</text>
+<text x="634" y="145" text-anchor="middle" class="body">保留消息身份</text>
+<text x="634" y="170" text-anchor="middle" class="body">校验调用关系</text>
+<text x="26" y="210" class="caption">这条路径追踪影响：模型侧的新规则，怎样进入持久历史。</text>
+</g>
+<g id="path-2">
+<rect x="12" y="242" width="736" height="170" rx="9" fill="#f2f7fc"/>
+<text x="26" y="269" class="heading">② 路线退出后，哪些成果仍被取用</text>
+<rect x="26" y="284" width="200" height="85" rx="6" fill="#fff" stroke="#477ca6" stroke-width="1.6"/>
+<text x="126" y="305" text-anchor="middle" class="category">E2B 执行路线</text>
+<text x="126" y="330" text-anchor="middle" class="body">供应实现退出</text>
+<text x="126" y="355" text-anchor="middle" class="body">SDK 集成成本高</text>
+<path d="M231,329 H270" fill="none" stroke="#235c91" stroke-width="2.8" marker-end="url(#arrow)"/>
+<text x="253" y="301" text-anchor="middle" class="arrow-label"><tspan x="253">局部</tspan><tspan x="253" dy="15">保留</tspan></text>
+<rect x="280" y="284" width="200" height="85" rx="6" fill="#fff" stroke="#477ca6" stroke-width="1.6"/>
+<text x="380" y="305" text-anchor="middle" class="category">保留的成果</text>
+<text x="380" y="330" text-anchor="middle" class="body">文件与进程接口</text>
+<text x="380" y="355" text-anchor="middle" class="body">异步操作约定</text>
+<path d="M485,329 H524" fill="none" stroke="#235c91" stroke-width="2.8" marker-end="url(#arrow)"/>
+<text x="507" y="301" text-anchor="middle" class="arrow-label"><tspan x="507">接口</tspan><tspan x="507" dy="15">复用</tspan></text>
+<rect x="534" y="284" width="200" height="85" rx="6" fill="#fff" stroke="#477ca6" stroke-width="1.6"/>
+<text x="634" y="305" text-anchor="middle" class="category">SSH 执行路线</text>
+<text x="634" y="330" text-anchor="middle" class="body">继续使用</text>
+<text x="634" y="355" text-anchor="middle" class="body">通用执行接口</text>
+<text x="26" y="395" class="caption">箭头表示保留和复用；退出实现与采用接口分别记录。</text>
+</g>
+<g id="path-3">
+<rect x="12" y="427" width="736" height="170" rx="9" fill="#f2f7fc"/>
+<text x="26" y="454" class="heading">③ 共用一个入口，为什么还要保留各自的状态</text>
+<rect x="26" y="469" width="200" height="85" rx="6" fill="#fff" stroke="#477ca6" stroke-width="1.6"/>
+<text x="126" y="490" text-anchor="middle" class="category">两类工作</text>
+<text x="126" y="515" text-anchor="middle" class="body">Team 发送消息</text>
+<text x="126" y="540" text-anchor="middle" class="body">Schedule 到期投递</text>
+<path d="M231,514 H270" fill="none" stroke="#235c91" stroke-width="2.8" marker-end="url(#arrow)"/>
+<text x="253" y="486" text-anchor="middle" class="arrow-label"><tspan x="253">共同</tspan><tspan x="253" dy="15">投递</tspan></text>
+<rect x="280" y="469" width="200" height="85" rx="6" fill="#fff" stroke="#477ca6" stroke-width="1.6"/>
+<text x="380" y="490" text-anchor="middle" class="category">共享入口</text>
+<text x="380" y="515" text-anchor="middle" class="body">目标 Agent inbox</text>
+<text x="380" y="540" text-anchor="middle" class="body">接纳并排队</text>
+<path d="M485,514 H524" fill="none" stroke="#235c91" stroke-width="2.8" marker-end="url(#arrow)"/>
+<text x="507" y="486" text-anchor="middle" class="arrow-label"><tspan x="507">分别</tspan><tspan x="507" dy="15">管理</tspan></text>
+<rect x="534" y="469" width="200" height="85" rx="6" fill="#fff" stroke="#477ca6" stroke-width="1.6"/>
+<text x="634" y="490" text-anchor="middle" class="category">各自的承诺</text>
+<text x="634" y="515" text-anchor="middle" class="body">Team 名单与任务</text>
+<text x="634" y="540" text-anchor="middle" class="body">Schedule 存储与恢复</text>
+<text x="26" y="580" class="caption">这条路径追踪边界：共用 inbox，各自的恢复规则继续存在。</text>
+</g>
+</svg>
