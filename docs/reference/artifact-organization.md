@@ -76,3 +76,9 @@ tags: [assets, organization, provenance]
 ## 2026-10-19 DSH 工作图盘点批次
 
 主工作区 `artifacts/agent-task-state/repository-snapshots/dsh-exhaustive-2026-10-19/` 保存完整机器盘点、候选关系、审阅处置、审定图和覆盖账本；`artifacts/agent-task-state/maintenance/dsh-exhaustive-2026-10-19/` 保存自有静态分析与页面验证脚本。当前阅读入口为[DSH 工作地图](../research/change-graph-task-state/dsh-work-history.md)。原始正文沿用 dsh-full-history-2026-10-16，不重复采集。
+
+## 2026-10-20 DSH 引用与代码差异批次
+
+主工作区 `artifacts/agent-task-state/repository-snapshots/dsh-exhaustive-2026-10-20/` 保存逐断言审阅、847 份完整补丁及文件树还原、部分撤回比较和新版图数据；自有脚本位于 `artifacts/agent-task-state/maintenance/dsh-exhaustive-2026-10-20/`。前批次保留。当前人类入口为[工作地图](../research/change-graph-task-state/dsh-work-history.md)，责任状态和下一项工作在[HANDOFF](../research/change-graph-task-state/HANDOFF.md)，验证程度见[覆盖审计](../research/change-graph-task-state/dsh-project-history-evidence.md#2026-10-20-引用候选与无笔记变更核对)。
+
+同一 2026-10-20 批次的 `all-reachable-*` 管全部可达提交的路径、正文、文件变化与审阅，`additional-*` 管发布采样遗漏的文件及迁移，`all-link-*` 管取消关键词筛选后的原始句、重复映射与待审队列。代表全文、逐句审阅、完整哈希与完整代码语义阅读分别记账；最新工作入口为研究 HANDOFF。

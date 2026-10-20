@@ -2,11 +2,29 @@
 title: Agent 接手入口与当前执行状态
 status: active
 created: 2026-10-15
-updated: 2026-10-19
+updated: 2026-10-20
 tags: [handoff, execution-state]
 ---
 
 # Agent 接手入口与当前执行状态
+
+## 2026-10-20 当前任务：继续穷尽 DSH truth
+
+用户要求“先穷尽完”；继续做真实过程底稿，元操作编码与盲重建尚未开始。人类阅读入口为[dsh-work-history.md](dsh-work-history.md)及[地图](dsh-work-history.html)，最新范围与检查见[全部可达提交补查](dsh-project-history-evidence.md#2026-10-20-全部可达提交补查)。
+
+来源固定 `86a402200d95fecef4529d969836f1fe13c6cb0d`。全部 22,346 条可达提交的 notes、ADR、RFC 文件变化提取了 1,539 个英文 Markdown 文件名、2,860 个路径、12,882 份不同正文及 179,450 条英文文件变化。工作文件名为 1,535 个，另 4 个是结构规则/索引。此前 1,358 主题与 3,954 正文统计仅属于 40 发布快照。新增 141 个日期文件名中，52 个在主线变化出现，89 个只在可达分支中间提交观察到；这些是文件观测。
+
+新增 8,928 正文已取出并逐份校验 Git blob。新增 181 文件名的代表正文全部读完；551 段新引用语句全部审阅，另 409 段与旧审阅的语句对应。447 段历史演化措辞全部读完，41 处补读完整段落；保留 334 组过程或范围摘录。相同措辞与归档头差异可能重复出现，数量不等于独立工作次数。没有声称逐篇精读全部 12,882 正文。
+
+新图共 833 条联系：原 575 已分类关系、206 演化引用组、45 文件迁移组和 7 早期提案实施联系。演化引用箭头表示声明到引用目标，具体变更范围和正文状态保留在证据中。525 次重命名探查无失败；Git 检出 45 对不同文件名，原始相似度、前后 blob、提交与作者分别记录。12,908 个提交/路径/blob 位置校验全部一致。
+
+原 943 当前剩余候选及 489 历史断言的审阅已完成；4,041 个出现位置全部有映射。原 847 次未触及 notes 的主线事件保留完整补丁，全部成功还原原目标树；7 次净变化为零的合入保留分支提交。29 撤回中 24 完整逆变换、5 部分逆变换均已对读；原目标 SHA 仍在可达历史外。
+
+**下一项实质任务：取消关键词筛选后的全链接审阅。**原 551 引用与 447 过程队列已完成；全链接复查另发现 3,263 句未直接映射的措辞。归一链接标题与 RFC/Agent Note 文案后，74 句复用已读、6 句语法性指针，剩余 2,808 组待逐项读。队列为 `all-link-substantive-review-queue.json`，原始句与精确观测在 `all-link-no-keyword-new-clauses.json`；归一映射在 `all-link-normalized-reuse.json`，指针在 `all-link-syntactic-pointers.json`。不要把该新队列标成已读。继续保存每组处置及来源，补有演化意义的关系，不提前编码。
+
+完整历史正文和完整代码语义审查仍未完成；公共 PR 讨论、私人尝试及部分撤回理由缺失。
+
+本轮原始资料和审阅记录在主工作区 `artifacts/agent-task-state/repository-snapshots/dsh-exhaustive-2026-10-20/`；自有辅助在 `artifacts/agent-task-state/maintenance/dsh-exhaustive-2026-10-20/`。优先读 `additional-reading-progress.json`、`reachable-integration-validation.json`、`all-reachable-english-note-file-event-coverage.json`。不要重新运行旧 `integrate_reviews.py` 或 `finalize_truth_data.py` 覆盖新图；最终增量由 `integrate_reachable_history.py` 基于固定底图生成，页面由 `publish_viewer.py` 生成。
 
 ## 2026-10-19 当前任务：全量扩充 DSH truth
 

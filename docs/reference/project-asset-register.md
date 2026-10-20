@@ -2,7 +2,7 @@
 title: Agent任务状态管理项目资产索引
 status: active
 created: 2026-10-09
-updated: 2026-10-19
+updated: 2026-10-20
 tags: [asset-register, task-state, preservation]
 supersedes:
 ---
@@ -49,3 +49,9 @@ supersedes:
 - 当前人类入口：[工作历史地图与全量盘点](../research/change-graph-task-state/dsh-work-history.md)；交互检索：[工作关系图](../research/change-graph-task-state/dsh-work-history.html)。图内保存可独立读取的主题、关系证据和提交检索元数据。
 - 原始盘点位于主工作区 `artifacts/agent-task-state/repository-snapshots/dsh-exhaustive-2026-10-19/`；自有研究脚本位于 `artifacts/agent-task-state/maintenance/dsh-exhaustive-2026-10-19/`，不上传原始资料和运行产物。
 - 责任状态：主 Agent 完成全量机器盘点与首批关系核对；全量正文审阅进行中。固定来源 86a4022，核对日期 2026-10-19。精确数量、范围与下一 gate 见[覆盖审计](../research/change-graph-task-state/dsh-project-history-evidence.md#2026-10-19-全量盘点与关系图审计)。
+
+## 2026-10-20 DSH 引用与代码差异批次
+
+主工作区 `artifacts/agent-task-state/repository-snapshots/dsh-exhaustive-2026-10-20/` 保存逐断言审阅、847 份完整补丁及文件树还原、部分撤回比较和新版图数据；自有脚本位于 `artifacts/agent-task-state/maintenance/dsh-exhaustive-2026-10-20/`。前批次保留。当前人类入口为[工作地图](../research/change-graph-task-state/dsh-work-history.md)，责任状态和下一项工作在[HANDOFF](../research/change-graph-task-state/HANDOFF.md)，验证程度见[覆盖审计](../research/change-graph-task-state/dsh-project-history-evidence.md#2026-10-20-引用候选与无笔记变更核对)。
+
+2026-10-20 扩围：同批次补入全部可达分支的 8,928 额外正文，保留完整英文文件事件、来源校验、181 文件名代表正文审阅、551 引用与 447 过程措辞审阅、45 文件名迁移对。地图 833 联系。责任为主 Agent；取消关键词后的 2,808 组引用仍待逐项审阅，全文与代码语义审查未完成。最新状态以 HANDOFF 及覆盖审计的全部可达提交补查节为准。

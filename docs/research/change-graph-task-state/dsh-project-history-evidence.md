@@ -273,3 +273,102 @@ flowchart TB
 该检查直接使用 Git tree/blob 标识，无需运行 DSH 或读取目标程序。详细结果为本轮目录中的 `revert-subject-candidates.json`、`revert-file-state-comparisons.json` 和 `revert-diff-objects.json`。24 条内容对应在页面撤回入口展开查看。
 
 引用检查：179 个证据引用在对应正文 blob 内匹配，179 个固定版本路径和 blob 配对检查通过；10 份相关 Markdown 本地链接检查通过。浏览器检查六个入口、检索、证据展开和全部 70 个关系组，未出现脚本异常；窄屏页面宽度 430/430。Luna 依照专项提示审查人类正文，报告七处，主 Agent 完成事实核对后修订；审查处置位于 `luna-readability-disposition.json`。该审查针对阅读表达，truth 尚未独立审定。
+
+## 2026-10-20 引用候选与无笔记变更核对
+
+固定来源继续为 `86a402200d95fecef4529d969836f1fe13c6cb0d`，未刷新到核对日。本次处理上一批列出的候选和代码差异缺口，全文过程补查继续进行。
+
+| 检查对象 | 实际工作与结果 |
+|---|---|
+| 当前引用候选 | 943 个剩余位置按 728 组引用段落审阅；190 组补读目标句外的变更措辞。与此前 131 个位置合计 1,074 个 |
+| 历史独有措辞 | 487 条引用措辞逐条审阅，另补两条历史表格断言。4,041 个出现位置经直接审阅或当前同断言映射全部覆盖 |
+| 关系图 | 563 条合并边、971 份引用证据；全部引文与原始 blob、路径观测匹配。关系保留条件、提案和拒绝状态 |
+| 无 notes 主线变化 | 847 个事件、29,231 条文件变化；保存 raw diff、完整文本补丁、7 个含二进制事件的补全补丁 |
+| 状态重建 | 用独立临时 Git index 从父版本应用每份补丁，847 个结果树 SHA 全部等于原提交。未运行第三方代码 |
+| 阅读深度 | 847 个事件的合入提交意图已通读；文件清单和实现改动摘录已核对。完整补丁语义审查尚未完成 |
+| 零净变化合入 | 7 个事件保留合入分支的提交集合和消息；首次进入主线由完整 DAG 计算 |
+| 29 条撤回 | 24 条完整文件状态逆变换；另 5 条逐项比较补丁，记录逆向 patch-id、伴随修改和不同基线 |
+
+五条部分撤回的结论：
+
+- `6085a56e`：25 个文件完整逆转，另一测试文件逆向 patch-id 相同。
+- `211e6939`：44 个文件完整逆转；两份生成目录和 lockfile 逆向 patch-id 相同，配对记录随之重写。
+- `2c6ff296`：恢复 ignorable 事件及其编解码；SQLite 格式从实际基线 19 升至 20，保留期间存储布局更新。
+- `7ce85283`：核心实现补丁逆向对应；生成目录行号、中文说明、快照等伴随调整。
+- `98f6552e`：最早将 coverage/gate 并发从 24/8 降至 12/4，撤回时基线已为 8/3，再恢复到 24/8。
+
+这些是内容对应。29 个原消息目标 SHA 都不在可达历史内。直接取 `5bc789e8617bc7b7fe8b56ad3629ed385692c54d` 时公开 Git 服务返回 `not our ref`；其余目标未逐一直接请求。身份对应与撤回动机按来源缺口保存。
+
+### 本地产物与复核入口
+
+新批次为主工作区 `artifacts/agent-task-state/repository-snapshots/dsh-exhaustive-2026-10-20/`，自有脚本在 `artifacts/agent-task-state/maintenance/dsh-exhaustive-2026-10-20/`。
+
+- `current-review-all.json`、`context-second-pass-dispositions.json`：943 处当前引用及补读处置。
+- `historical-review-all.json`、`all-occurrence-review-coverage.json`：489 条历史措辞审阅和 4,041 个出现位置的映射。
+- `reviewed-work-graph.json`、`truth-validation.json`：关系证据和检查结果。
+- `no-note-process-records.json`：847 事件的消息、作者、合入提交、文件前后版本、摘录和验证程度。
+- `no-note-patches/`、`binary-complete-patches/`、`patch-reconstruction-verification.json`：完整差异和逐次文件树还原结果。
+- `partial-revert-detailed-comparisons.json`、`partial-revert-review.json`：五条部分撤回的逐文件比较和结论。
+
+状态重建使用 `git write-tree --missing-ok`，允许未变化的历史文件内容不在部分克隆中；索引包含完整路径和 blob 身份，被补丁读取或修改的内容已存在。第一遍 305 次通过，542 次因 write-tree 检查未变化文件的缺失 blob 而中止；调整后 847 次全部匹配。最终记录保存匹配结果，脚本保存具体参数。
+
+### 剩余覆盖限制
+
+候选全集由引用和关键词规则定义，仍可能遗漏未链接的关系。3,954 份正文的哈希采集、4,041 处断言审阅与整篇精读分别记账。全部正文精读和完整代码语义审查尚未完成。继续检查正文内部工作演化，私人尝试、公共 PR 缺失与撤回理由保留未知，暂不进入元操作编码。
+
+## 2026-10-20 全部可达提交补查
+
+### 采样范围的纠正
+
+40 发布快照遗漏发布间隙和分支中的部分文件。回查固定截止的所有可达提交后，notes、早期 ADR/RFC 的英文 Markdown 得到以下完整文件观测：
+
+| 对象 | 数量与验证 |
+|---|---|
+| 英文文件变化 | 179,450 条，分布于 11,753 个提交；每条保留比较父提交、作者、时间、前后模式及 blob |
+| 路径与文件名 | 2,860 路径、1,539 文件名；其中 1,499 日期文件名，35 编号 ADR/RFC、1 旧 runbook，4 结构文件 |
+| 正文 | 12,882 不同 Git blob；原采样 3,954，补取 8,928，新增字节 99,633,456 |
+| 来源位置 | 12,908 个提交/路径/blob 组合，经 Git 对象读取全部一致 |
+| 新增日期文件名 | 141；52 曾在第一父主线变化出现，89 只在可达分支中间提交出现 |
+| 新文件阅读 | 181 个新增文件名的代表正文全文已读，包含 177 工作文件及 4 结构文件 |
+
+代表正文按实际观测提交时间选取；文件名日期、正文 implemented 状态、主线采用时刻分别记录。相同内容迁移、同名修订和不同路线不会直接合并为一个工作身份。
+
+### 新增引用、内部过程与文件迁移
+
+全路径版本扫描得到 889 组此前未覆盖的候选引用段落。拆分后，409 段引用语句与旧审阅对应；551 段不同措辞逐条读完，保存范围引用与明确演化声明。206 对演化引用进入图，箭头从声明指向引用目标；它们与原有 575 条已分类关系分别计数。
+
+全部可达正文另提取 447 段此前未读的早期实现、评审修改、撤回等措辞。447 段均已阅读，41 处补读原段上下文；334 组过程或范围记录附于对应文件。数字包含不同版本和归档头带来的重复表述。短语扫描无法保证发现所有隐含过程，语句审阅不等于全文精读。
+
+525 个同时存在增删文件、涉及新增文件名的提交接受 Git rename 检查，全部执行成功，得到 289 个迁移观测及 45 对不同文件名。相同模式与前后 blob 的证据去重后，图中保留 63 份迁移证据。相似度为 Git 检测结果。另有 49 次同 blob 的唯一增删配对，其中一对改变文件名。图保留文件迁移，后续研究再检验工作身份如何表达。
+
+早期 RFC 状态行另明确指向 7 个实施部分，包括 validation、invariants、taxonomy 分开落地，以及 doc-sync 部分实施、DeepReadonly 修订实施。图共 833 联系、1,321 份边证据；所有 1,535 工作文件名均有节点，另有计划节点、作者报告 PR 和待解析引用。
+
+### 版本内矛盾与版本间变化
+
+`2026-07-28-source-guard-staging-edit-gate.md` 的一个历史正文同时声称未进入默认 composition 和随默认 TUI 加载。核对同版本 `c1324ee8969b4658dccb3d16057cbf7a913bb957` 的 `apps/cli/tui.cordis.yml`，其中明确声明 `source-guard`；TUI 入口选择该配置。保留正文冲突，并记录静态配置证据，未运行 TUI。
+
+编号持久化 ADR 的迁移显示两种情况：部分分支只更名，仍保留丢弃未闭合 turn 的恢复方案；另一些提交同时改为保留已写事件、补工具/step/turn 结束。Git R075 的三次观测均匹配旧正文截断、新正文保留的具体语句，R098 的三次观测仍是原方案。版本位置分别保留。
+
+Shell 还存在从“超时提出转后台”到“开始时登记 jobs”的后续修订，推翻的是转后台请求协议。图和人类阅读页保留两版，避免只保留前一版代表正文。聊天分组迁移则明确保留大 PR 回退、功能拆分、分组基础设施与未完成验收。
+
+### 本轮新增查证入口
+
+以下文件均位于主工作区 `artifacts/agent-task-state/repository-snapshots/dsh-exhaustive-2026-10-20/`：
+
+- `all-reachable-english-note-file-events.json`、`all-reachable-english-note-file-event-coverage.json`：全部英文文件变化与分母。
+- `all-reachable-note-object-catalog.json`、`additional-note-object-verification.json`：路径与正文对象、补取哈希。
+- `all-reachable-path-body-observations.json`、`all-reachable-source-location-verification.json`：精确来源位置及验证。
+- `additional-note-topic-observations.json`、`additional-topic-body-reviews.json`、`additional-reading-progress.json`：新文件代表与 181 份全文阅读记录。
+- `all-reachable-additional-relation-paragraphs.json`、`all-reachable-new-linked-clauses.json`、`all-reachable-reused-linked-clauses.json`、`all-reachable-linked-reference-ledger.json`：新引用原文、重复映射和审阅处置。
+- `all-reachable-new-unlinked-evolution-clauses.json`、`all-reachable-unlinked-clause-reviews.json`、`unlinked-process-context-review.json`：447 段过程措辞及 41 处上下文。
+- `additional-filename-exact-relocations.json`、`additional-filename-git-rename-observations.json`、`additional-filename-rename-pairs.json`：内容相同迁移、Git 迁移观测和 45 文件名对。
+- `source-guard-composition-proof.txt`：版本内矛盾的同版本静态配置证据。
+- `reachable-integration-validation.json`、`viewer-data.json`：增量汇总和当前图数据。
+
+原始来源继续按固定截止保存；上述研究脚本、正文和原始产物在本机忽略区。公开 PR 讨论、私人过程和未说明的因果保持来源缺口。完整正文精读和完整代码语义审查未完成；本轮完成的是新增文件全文、引用语句和显式演化措辞的补查。
+
+### 取消关键词筛选后的补查队列
+
+后续扫描取消关系关键词限制，逐个处理所有指向 notes/ADR/RFC 工作文件的 Markdown 链接。共 25,347 个链接句观测，其中 9,152 个对应此前语句审阅或新增代表正文全文阅读；其余按源文件与原句归并为 3,263 句。链接目标文件名/片段保留，将标题文字与 RFC/Agent Note 称呼差异归一后，74 句复用此前审阅、6 句仅是语法性指针，其余合并为 2,808 组待审阅措辞（935,024 字符）。此队列尚未逐项读完，尚未作为已核实关系进入图。
+
+队列与原始观测为 `all-link-substantive-review-queue.json`、`all-link-no-keyword-new-clauses.json`；覆盖和处置映射为 `all-link-no-keyword-coverage.json`、`all-link-normalized-reuse.json`、`all-link-syntactic-pointers.json`。下一项继续消化这批，无关键词的普通引用也逐项保留；语法性指针仍保留原目标。源码与原始资料保持同一截止。
