@@ -20,7 +20,9 @@ tags: [handoff, execution-state]
 
 原 943 当前剩余候选及 489 历史断言的审阅已完成；4,041 个出现位置全部有映射。原 847 次未触及 notes 的主线事件保留完整补丁，全部成功还原原目标树；7 次净变化为零的合入保留分支提交。29 撤回中 24 完整逆变换、5 部分逆变换均已对读；原目标 SHA 仍在可达历史外。
 
-**下一项实质任务：取消关键词筛选后的全链接审阅。**原 551 引用与 447 过程队列已完成；全链接复查另发现 3,263 句未直接映射的措辞。归一链接标题与 RFC/Agent Note 文案后，74 句复用已读、6 句语法性指针，剩余 2,808 组待逐项读。队列为 `all-link-substantive-review-queue.json`，原始句与精确观测在 `all-link-no-keyword-new-clauses.json`；归一映射在 `all-link-normalized-reuse.json`，指针在 `all-link-syntactic-pointers.json`。不要把该新队列标成已读。继续保存每组处置及来源，补有演化意义的关系，不提前编码。
+**下一项实质任务：继续取消关键词筛选后的全链接审阅。**2,808 组中已逐组读到索引 1,247，共 1,248 组（阅读页 000—031）；另有 488 组与此前已读的原句对应。二者去重后覆盖 1,500 组，剩余 1,308 组待读。74 句链接标题归一后的复用候选仍须检查标题差异。下一页为 `all-link-reading-pages/032.txt`，保持原组索引。
+
+进度在 `all-link-review-progress.json`，逐组处置在 `all-link-substantive-reviews.json`，版本化原句在 `all-link-reviewed-evidence-ledger.json`。本批 1,399 条原句、3,985 个精确提交/路径/blob 位置已校验；1,012 个不逐字匹配的候选位置另存 `all-link-nonexact-location-candidates.json`。提取过程省略代码块的引文保留有序 `quote_parts`，不冒充连续原文。新解释尚未加入图，图仍为 833 联系。继续先核完 truth，再做元操作。
 
 完整历史正文和完整代码语义审查仍未完成；公共 PR 讨论、私人尝试及部分撤回理由缺失。
 

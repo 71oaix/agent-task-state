@@ -369,6 +369,12 @@ Shell 还存在从“超时提出转后台”到“开始时登记 jobs”的后
 
 ### 取消关键词筛选后的补查队列
 
-后续扫描取消关系关键词限制，逐个处理所有指向 notes/ADR/RFC 工作文件的 Markdown 链接。共 25,347 个链接句观测，其中 9,152 个对应此前语句审阅或新增代表正文全文阅读；其余按源文件与原句归并为 3,263 句。链接目标文件名/片段保留，将标题文字与 RFC/Agent Note 称呼差异归一后，74 句复用此前审阅、6 句仅是语法性指针，其余合并为 2,808 组待审阅措辞（935,024 字符）。此队列尚未逐项读完，尚未作为已核实关系进入图。
+后续扫描取消关系关键词限制，逐个处理所有指向 notes/ADR/RFC 工作文件的 Markdown 链接。共 25,347 个链接句观测，其中 9,152 个对应此前语句审阅或新增代表正文全文阅读；其余按源文件与原句归并为 3,263 句。链接目标文件名/片段保留，将标题文字与 RFC/Agent Note 称呼差异归一后，74 句与此前审阅对应、6 句仅是语法性指针，其余合并为 2,808 组措辞（935,024 字符）。74 句的标题差异仍须补读。
 
 队列与原始观测为 `all-link-substantive-review-queue.json`、`all-link-no-keyword-new-clauses.json`；覆盖和处置映射为 `all-link-no-keyword-coverage.json`、`all-link-normalized-reuse.json`、`all-link-syntactic-pointers.json`。下一项继续消化这批，无关键词的普通引用也逐项保留；语法性指针仍保留原目标。源码与原始资料保持同一截止。
+
+主 Agent 已逐组阅读 1,248 组（索引 0—1,247，页 000—031），保留每组原句、目标及阅读处置。另 488 组可复用此前逐字内容审阅，两者去重覆盖 1,500 组，剩余 1,308 组未读且未覆盖。复用仅涉及措辞阅读，版本状态各自保留。`all-link-review-progress.json` 保存分母、重叠与下一组，`all-link-substantive-reviews.json` 保存逐组处置；有明确演化意义的解释另列，尚未进入当前图。
+
+`all-link-reviewed-evidence-ledger.json` 对应本批 1,399 条原句和 3,985 个精确来源位置，正文片段顺序、原始 Git blob 哈希和提交/路径/blob 匹配检查通过。早期抽取删除代码块后连接的段落改存有序 `quote_parts`；中间省略内容在引用规则中明示。归并所得 1,012 个不逐字匹配的候选观测单存 `all-link-nonexact-location-candidates.json`，未作为引文位置。验证结果见 `all-link-review-validation.json`。
+
+本批确认的连续过程包括：文件策略从 provider 内部职责到方法层再到可选事件 gate；自动重连由延期转为使用反馈推动实施；OAuth-only 提供方先隐藏入口，再随登录与存储能力完成恢复；Windows 终端从尾部晚到解释、增加宽限，到同耗时反证和控制台实现替换。它们保留各版本的前提与修订范围。

@@ -56,6 +56,20 @@ flowchart LR
 
 **聊天过程折叠曾整批落地，又退回分项推进。**作者记录 PR #4565 合并八分钟后因性能回退。原 PR 要增加三种详略模式，把回复之间的工具调用和推理折叠起来。回退后，界面调整、折叠规则、每轮对话的状态与消息分组分别推进。迁移表逐项记录代码、提交和验收；分组基础设施完成时，产品接入与性能验证仍有未完成项。[迁移记录](https://github.com/deepseek-ai/deepseek-harness/blob/8b43d44cc6b12a9f494693f6e089ebae193b8487/.agents/notes/proposed/feature/2026-09-20-chat-work-details-migration.md)和[分组基础设施](https://github.com/deepseek-ai/deepseek-harness/blob/86a402200d95fecef4529d969836f1fe13c6cb0d/.agents/notes/implemented/architecture/2026-09-21-conversation-build-groups.md)在图中分别可查。
 
+## 一次修补之后，原来的解释也被改写
+
+Windows 终端有一段连续排查：最初把测试失败解释为提示符尾部到得晚，增加了等待宽限。随后对照运行发现，修补前后都花了 20.8 秒，新增等待条件没有覆盖这次故障。再往下测，发现尾部已经到达，却变成了无法匹配的格式，于是改用随 node-pty 包附带的 OpenConsole。
+
+```mermaid
+flowchart LR
+    A[判断尾部晚到] --> B[增加等待宽限]
+    B --> C[运行仍为 20.8 秒]
+    C --> D[测得尾部格式异常]
+    D --> E[改用随包控制台宿主]
+```
+
+[早期解释](https://github.com/deepseek-ai/deepseek-harness/blob/21507982e62aee5c86e13d9ffcd95ac6e817f747/.agents/notes/implemented/testing/2026-09-27-observation-waits-on-observed-state.md)、[后续对照记录](https://github.com/deepseek-ai/deepseek-harness/blob/6514255930926026af9bf87fedc9a23e743d93ac/.agents/notes/implemented/testing/2026-09-27-observation-waits-on-observed-state.md)与[控制台替换决定](https://github.com/deepseek-ai/deepseek-harness/blob/6514255930926026af9bf87fedc9a23e743d93ac/.agents/notes/implemented/bug-fix/2026-09-28-pty-bundled-console-host.md)分别保存了当时的判断和后来修正判断的依据。
+
 ## 补齐后的历史还能看到什么
 
 **合并进主线与保留最终改动，是两件分别发生的事。**847 次变更里有 7 次相对父版本没有文件变化，但仍把其他分支提交纳入历史。其中一条带入了 trace workbench、桌面工作台及其后续修订。地图的主线入口现在能展开本次进入主线的分支提交、作者和时间。
