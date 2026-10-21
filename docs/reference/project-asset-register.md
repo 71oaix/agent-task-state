@@ -77,3 +77,6 @@ supersedes:
 
 
 2026-10-22：[候选覆盖与四份对照](../research/change-graph-task-state/work-operation-coverage-v0.1.md)负责本轮16段的变化编码、候选池及取舍。主 Agent 负责裁定，Qoder三路只读独立提交；83事实、68步、32同作者读回及结构/语义边界详见正文。原始输出、冻结初稿和裁定保存在主仓库 artifacts/agent-task-state/maintenance/dsh-operation-coverage-2026-10-22/，不上传。下一gate为候选规则组合/归约及未见证项定向取证，原型继续暂缓。
+
+
+2026-10-22 阅读修订：[覆盖报告](../research/change-graph-task-state/work-operation-coverage-v0.1.md)改为简短审阅稿，说明结论及下一步比较；原16段推演、30候选与四份裁定转到[查证明细](../research/change-graph-task-state/work-operation-coverage-v0.1-evidence.md)，保留锚点和研究依据。原始分析批次不改，阅读修订检查存于主仓库 artifacts/agent-task-state/maintenance/dsh-coverage-reading-fix-2026-10-22/。

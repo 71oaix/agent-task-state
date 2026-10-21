@@ -62,4 +62,6 @@ supersedes:
 
 | 工作操作语言首轮推演：拆分、修订、整合与收束 | active | [当前工作语言研究](research/change-graph-task-state/work-operation-study-v0.1.md) |
 
-| 十六段开发过程的候选操作覆盖：四份分析与取舍 | active | [当前覆盖报告与候选池](research/change-graph-task-state/work-operation-coverage-v0.1.md) |
+| 十六段调研结论与下一步比较 | active | [简短审阅稿](research/change-graph-task-state/work-operation-coverage-v0.1.md) |
+
+| 十六段候选操作覆盖：推演、四份对照与证据 | active | [查证与研究明细](research/change-graph-task-state/work-operation-coverage-v0.1-evidence.md) |

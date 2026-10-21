@@ -8,7 +8,7 @@ tags: [handoff, execution-state]
 
 # Agent 接手入口与当前执行状态
 
-2026-10-22 已完成用户要求：主 Agent 与 Qoder 三路各自分析全 16 段，随后逐段核对四份结果。当前人类成果为[候选覆盖与四份对照](work-operation-coverage-v0.1.md)，全景入口仍为[dsh-work-history](dsh-work-history.md)。首轮六候选及 v0.3 记录层规则保留。
+2026-10-22 已完成用户要求：主 Agent 与 Qoder 三路各自分析全 16 段，随后逐段核对四份结果。当前人类成果为[简短调研结论](work-operation-coverage-v0.1.md)，完整推演见[查证明细](work-operation-coverage-v0.1-evidence.md)，全景入口仍为[dsh-work-history](dsh-work-history.md)。首轮六候选及 v0.3 记录层规则保留。
 
 本轮最终有 16 段/83 事实的 68 步研究编码、32 项同作者读回、16 项四份分歧处置和 30 项未归约候选含义。编号齐全是结构检查，语义由主 Agent 核查；不是盲测正确率或全项目完备性证明。三项 Qoder completed、dfmodel、报告费用/credits 均 0、重叠约 241 秒。
 
