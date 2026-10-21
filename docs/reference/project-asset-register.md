@@ -74,3 +74,6 @@ supersedes:
 
 
 2026-10-21 工作语言研究：当前定义与取舍见[首轮推演](../research/change-graph-task-state/work-operation-study-v0.1.md)，[组合图](../research/change-graph-task-state/figures/dsh-work-operations.svg)解释 T12 拆分与目标接续。主 Agent 负责复核。三项 Qoder 的提示、完整结果与运行状态在主仓库 artifacts/agent-task-state/maintenance/dsh-work-operations-2026-10-21/，不上传。v0.3 转为记录层依据，下一 gate 为 split/integrate/fork 转换契约及见证；原型暂缓。
+
+
+2026-10-22：[候选覆盖与四份对照](../research/change-graph-task-state/work-operation-coverage-v0.1.md)负责本轮16段的变化编码、候选池及取舍。主 Agent 负责裁定，Qoder三路只读独立提交；83事实、68步、32同作者读回及结构/语义边界详见正文。原始输出、冻结初稿和裁定保存在主仓库 artifacts/agent-task-state/maintenance/dsh-operation-coverage-2026-10-22/，不上传。下一gate为候选规则组合/归约及未见证项定向取证，原型继续暂缓。

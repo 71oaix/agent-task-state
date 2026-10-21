@@ -2,7 +2,7 @@
 title: Change Graph 任务状态论文研究项目
 status: active
 created: 2026-10-09
-updated: 2026-10-21
+updated: 2026-10-22
 tags: [research, paper-project, change-graph, task-state, working-view]
 supersedes:
 research_stage: problem-discovery
@@ -12,7 +12,7 @@ experiment_authorized: false
 
 # Change Graph 任务状态论文研究项目
 
-2026-10-21：研究转入工作操作语言。先读[拆分、修订、整合与收束的首轮推演](work-operation-study-v0.1.md)；三路 Qoder 分析已复核。v0.3 保留为记录层依据，下一步完善工作转换契约，离线检查器暂缓。
+2026-10-22：完成[16 段候选覆盖与四份分析对照](work-operation-coverage-v0.1.md)。六个原候选已扩展为待归约候选池，逐段变化、读回、分歧和证据缺口可查；下一步比较组合规则。
 
 当前入口：[工程全景](dsh-work-history.md)、[组合推演](operation-composition-review.md)、[接手状态](HANDOFF.md)。
 

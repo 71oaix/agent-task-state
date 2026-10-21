@@ -2,7 +2,7 @@
 title: Agent任务状态管理文档索引
 status: active
 created: 2026-10-09
-updated: 2026-10-21
+updated: 2026-10-22
 tags: [workspace, directory]
 supersedes:
 ---
@@ -61,3 +61,5 @@ supersedes:
 | 工作管理元操作候选 v0.3：记录、引用与范围内选用 | active | [Agent任务状态管理/docs/research/change-graph-task-state/primitive-candidates-v0.3.md](research/change-graph-task-state/primitive-candidates-v0.3.md) |
 
 | 工作操作语言首轮推演：拆分、修订、整合与收束 | active | [当前工作语言研究](research/change-graph-task-state/work-operation-study-v0.1.md) |
+
+| 十六段开发过程的候选操作覆盖：四份分析与取舍 | active | [当前覆盖报告与候选池](research/change-graph-task-state/work-operation-coverage-v0.1.md) |

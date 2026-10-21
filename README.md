@@ -2,13 +2,13 @@
 title: Agent 任务状态管理论文项目
 status: active
 created: 2026-10-09
-updated: 2026-10-21
+updated: 2026-10-22
 tags: [research, task-state, entrypoint]
 ---
 
 # Agent 任务状态管理论文项目
 
-2026-10-21：研究转入工作操作语言。先读[拆分、修订、整合与收束的首轮推演](docs/research/change-graph-task-state/work-operation-study-v0.1.md)；三路 Qoder 分析已复核。v0.3 保留为记录层依据，下一步完善工作转换契约，离线检查器暂缓。
+2026-10-22：完成[16 段候选覆盖与四份分析对照](docs/research/change-graph-task-state/work-operation-coverage-v0.1.md)。六个原候选已扩展为待归约候选池，逐段变化、读回、分歧和证据缺口可查；下一步比较组合规则。
 
 **Agent 接手只从[当前状态与执行入口](docs/research/change-graph-task-state/HANDOFF.md)开始。**不需要聊天历史。该入口说明目前做到哪一步、下一项工作、验收办法和权限边界。
 
