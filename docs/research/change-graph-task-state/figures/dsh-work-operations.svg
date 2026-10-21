@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="780" height="770" viewBox="0 0 780 770"><defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#356ba4"/></marker></defs><rect width="780" height="770" fill="white"/><style>text{font-family:"Microsoft YaHei",sans-serif;fill:#193e63} .line{fill:none;stroke:#356ba4;stroke-width:2.5;marker-end:url(#arrow)}</style>
+<text x="390" y="35" text-anchor="middle" font-size="24">一次整体回退，怎样继续推进局部工作</text>
+<rect x="150" y="60" width="480" height="72" rx="10" fill="#edf5fd" stroke="#356ba4" stroke-width="1.5"/>
+<text x="390.0" y="89" text-anchor="middle" font-size="18">聊天呈现迁移：多项功能整批合入</text>
+<text x="390.0" y="116" text-anchor="middle" font-size="18">性能回退后，原目标仍待完成</text>
+<path class="line" d="M390 132 V186"/>
+<text x="510" y="164" text-anchor="middle" font-size="17">revise：保存回退结果</text>
+<rect x="150" y="190" width="480" height="72" rx="10" fill="#edf5fd" stroke="#356ba4" stroke-width="1.5"/>
+<text x="390.0" y="219" text-anchor="middle" font-size="18">回退后的工作版本</text>
+<text x="390.0" y="246" text-anchor="middle" font-size="18">原 PR 留作参考，重新划分推进范围</text>
+<path class="line" d="M390 262 V300 H200 V342"/>
+<path class="line" d="M390 300 H580 V342"/>
+<text x="520" y="288" text-anchor="middle" font-size="17">split：分配责任</text>
+<rect x="35" y="348" width="330" height="102" rx="10" fill="#edf5fd" stroke="#356ba4" stroke-width="1.5"/>
+<text x="200.0" y="377" text-anchor="middle" font-size="18">独立功能</text>
+<text x="200.0" y="404" text-anchor="middle" font-size="18">视觉、摘要、过滤等</text>
+<text x="200.0" y="431" text-anchor="middle" font-size="18">部分已经提交</text>
+<rect x="415" y="348" width="330" height="102" rx="10" fill="#edf5fd" stroke="#356ba4" stroke-width="1.5"/>
+<text x="580.0" y="377" text-anchor="middle" font-size="18">分组及其产品接入</text>
+<text x="580.0" y="404" text-anchor="middle" font-size="18">基础已有实现</text>
+<text x="580.0" y="431" text-anchor="middle" font-size="18">产品行为和性能仍待验收</text>
+<path class="line" d="M110 450 V505"/>
+<path class="line" d="M490 450 V505"/>
+<text x="250" y="483" text-anchor="middle" font-size="17">revise：各自推进</text>
+<text x="630" y="483" text-anchor="middle" font-size="17">revise：各自推进</text>
+<rect x="35" y="511" width="330" height="72" rx="10" fill="#edf5fd" stroke="#356ba4" stroke-width="1.5"/>
+<text x="200.0" y="540" text-anchor="middle" font-size="18">指定的独立成果</text>
+<text x="200.0" y="567" text-anchor="middle" font-size="18">只取来源明确的已交付部分</text>
+<rect x="415" y="511" width="330" height="72" rx="10" fill="#edf5fd" stroke="#356ba4" stroke-width="1.5"/>
+<text x="580.0" y="540" text-anchor="middle" font-size="18">阶段成果及剩余工作</text>
+<text x="580.0" y="567" text-anchor="middle" font-size="18">基础实现与产品验收分别保存</text>
+<path class="line" d="M110 583 V640 H290 V658"/>
+<text x="265" y="614" text-anchor="middle" font-size="17">integrate：进入目标版本</text>
+<path class="line" d="M490 583 V658"/>
+<text x="630" y="614" text-anchor="middle" font-size="17">父目标保留待办</text>
+<rect x="150" y="664" width="480" height="72" rx="10" fill="#edf5fd" stroke="#356ba4" stroke-width="1.5"/>
+<text x="390.0" y="693" text-anchor="middle" font-size="18">目标继续：已有成果可用</text>
+<text x="390.0" y="720" text-anchor="middle" font-size="18">未完成的产品行为、GUI 和性能验收仍可追踪</text>
+<text x="390" y="759" text-anchor="middle" font-size="14">依据 T12.01 至 06；操作为研究编码，分支不表示同时发生</text>
+</svg>

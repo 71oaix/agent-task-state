@@ -12,7 +12,7 @@ experiment_authorized: false
 
 # Change Graph 任务状态论文研究项目
 
-2026-10-21：完成16段真实过程的本轮语义走查；当前候选见[元操作v0.3](primitive-candidates-v0.3.md)。原型尚未实施；本轮结果与边界以候选及HANDOFF为准。
+2026-10-21：研究转入工作操作语言。先读[拆分、修订、整合与收束的首轮推演](work-operation-study-v0.1.md)；三路 Qoder 分析已复核。v0.3 保留为记录层依据，下一步完善工作转换契约，离线检查器暂缓。
 
 当前入口：[工程全景](dsh-work-history.md)、[组合推演](operation-composition-review.md)、[接手状态](HANDOFF.md)。
 

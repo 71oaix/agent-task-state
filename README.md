@@ -8,7 +8,7 @@ tags: [research, task-state, entrypoint]
 
 # Agent 任务状态管理论文项目
 
-2026-10-21：完成16段真实过程的本轮语义走查；当前候选见[元操作v0.3](docs/research/change-graph-task-state/primitive-candidates-v0.3.md)。原型尚未实施；本轮结果与边界以候选及HANDOFF为准。
+2026-10-21：研究转入工作操作语言。先读[拆分、修订、整合与收束的首轮推演](docs/research/change-graph-task-state/work-operation-study-v0.1.md)；三路 Qoder 分析已复核。v0.3 保留为记录层依据，下一步完善工作转换契约，离线检查器暂缓。
 
 **Agent 接手只从[当前状态与执行入口](docs/research/change-graph-task-state/HANDOFF.md)开始。**不需要聊天历史。该入口说明目前做到哪一步、下一项工作、验收办法和权限边界。
 

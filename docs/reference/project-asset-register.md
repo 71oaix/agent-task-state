@@ -71,3 +71,6 @@ supersedes:
 
 
 2026-10-21：本轮[候选v0.3](../research/change-graph-task-state/primitive-candidates-v0.3.md)和[组合审查](../research/change-graph-task-state/operation-composition-review.md)负责定义及依据；[组合图源](../research/change-graph-task-state/figures/dsh-operation-composition.svg)及[PNG](../research/change-graph-task-state/figures/dsh-operation-composition.png)说明Loader局部撤回。新批次为artifacts/agent-task-state/maintenance/dsh-semantics-2026-10-21/v1/，保留三表示、原始对象补读、80项人工答案、时序与删减检查和manifest。83来源事实+16研究缺口保持原底稿；额外10条Loader细分不冒充新增独立任务。下一gate为离线检查器规格与授权；独立收益、并发及原型未完成。
+
+
+2026-10-21 工作语言研究：当前定义与取舍见[首轮推演](../research/change-graph-task-state/work-operation-study-v0.1.md)，[组合图](../research/change-graph-task-state/figures/dsh-work-operations.svg)解释 T12 拆分与目标接续。主 Agent 负责复核。三项 Qoder 的提示、完整结果与运行状态在主仓库 artifacts/agent-task-state/maintenance/dsh-work-operations-2026-10-21/，不上传。v0.3 转为记录层依据，下一 gate 为 split/integrate/fork 转换契约及见证；原型暂缓。

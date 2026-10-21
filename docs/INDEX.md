@@ -2,7 +2,7 @@
 title: Agent任务状态管理文档索引
 status: active
 created: 2026-10-09
-updated: 2026-10-20
+updated: 2026-10-21
 tags: [workspace, directory]
 supersedes:
 ---
@@ -59,3 +59,5 @@ supersedes:
 | InterruptBench task 0 可追溯手工状态示例 | active | [Agent任务状态管理/docs/research/change-graph-task-state/traceable-example.md](research/change-graph-task-state/traceable-example.md) |
 | 基于 Change Graph 的 Agent 任务状态管理：阶段性总结与设计假设 | active | [Agent任务状态管理/docs/research/change-graph-task-state-design-hypothesis.md](research/change-graph-task-state-design-hypothesis.md) |
 | 工作管理元操作候选 v0.3：记录、引用与范围内选用 | active | [Agent任务状态管理/docs/research/change-graph-task-state/primitive-candidates-v0.3.md](research/change-graph-task-state/primitive-candidates-v0.3.md) |
+
+| 工作操作语言首轮推演：拆分、修订、整合与收束 | active | [当前工作语言研究](research/change-graph-task-state/work-operation-study-v0.1.md) |
