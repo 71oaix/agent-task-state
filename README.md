@@ -8,7 +8,7 @@ tags: [research, task-state, entrypoint]
 
 # Agent 任务状态管理论文项目
 
-2026-10-22：完成[16 段候选覆盖与四份分析对照](docs/research/change-graph-task-state/work-operation-coverage-v0.1.md)。六个原候选已扩展为待归约候选池，逐段变化、读回、分歧和证据缺口可查；下一步比较组合规则。
+2026-10-22：完成[修补、适配与撤回的组合实验](docs/research/change-graph-task-state/revision-composition-experiment-v0.1.md)。建议共用修订步骤，分别保留诊断、影响判断和撤回范围；实验反例与接手读回暴露的规则缺口见[明细](docs/research/change-graph-task-state/revision-composition-experiment-v0.1-evidence.md)。
 
 **Agent 接手只从[当前状态与执行入口](docs/research/change-graph-task-state/HANDOFF.md)开始。**不需要聊天历史。该入口说明目前做到哪一步、下一项工作、验收办法和权限边界。
 

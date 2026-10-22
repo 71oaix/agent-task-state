@@ -8,14 +8,12 @@ tags: [handoff, execution-state]
 
 # Agent 接手入口与当前执行状态
 
-2026-10-22 已完成用户要求：主 Agent 与 Qoder 三路各自分析全 16 段，随后逐段核对四份结果。当前人类成果为[简短调研结论](work-operation-coverage-v0.1.md)，完整推演见[查证明细](work-operation-coverage-v0.1-evidence.md)，全景入口仍为[dsh-work-history](dsh-work-history.md)。首轮六候选及 v0.3 记录层规则保留。
+本轮修订组合实验已完成。人类先读[简短结论](revision-composition-experiment-v0.1.md)，Agent 查[协议与证据](revision-composition-experiment-v0.1-evidence.md)。原 16 段底稿、候选覆盖与历史比较保留；本轮没有宣布所有候选完成归约。
 
-本轮最终有 16 段/83 事实的 68 步研究编码、32 项同作者读回、16 项四份分歧处置和 30 项未归约候选含义。编号齐全是结构检查，语义由主 Agent 核查；不是盲测正确率或全项目完备性证明。三项 Qoder completed、dfmodel、报告费用/credits 均 0、重叠约 241 秒。
+结果：10 段中的 12 个条款变化可共享修订构造；7 项非法记录被拒，但 2 项工程错误仍被接受。3 条补充连续过程检查为同作者预置读回。Qoder 规则、反例、接手三路有效完成；36 项接手回答为 30 完整、6 验证范围歧义。前两轮输入失败全部排除且留存。
 
-下一步先展开候选规则并归约：比较 revise/revert/adapt/repair/migrate/replace/retire，再比较 review/judge/verify/accept；组合、删除、合并都须重读 16 段，并计入额外约定。fork、开发工作暂停恢复、最终用户验收、具体发布事件与源码级整合仍缺见证，按明确问题取证；不得拿产品运行时事件补开发历史。
+下一步：先把修订规则写清——基线、改动与保留范围、来源关系、验证范围；区别真实版本父子与分析对照。然后比较观察、判断、验证与采用是否共用操作，再回查全部 16 段。完成条件是每项规则定位到真实困难，每项合并保留原含义，记录程序与调用者各自承担的判断。不要以动作名减少冒充复杂性消失。
 
-完成条件：每项候选明确对象、前后变化与保留项；每项合并通过受影响过程读回；源资料缺失和机制缺口分开；不以接口数量代替复杂性。当前没有授权数据库或离线检查器实施。
+本地实验批次在主仓库 artifacts/agent-task-state/maintenance/dsh-revision-experiment-2026-10-22/，含冻结输入、脚本、全部失败与有效输出、评分及裁定。下一轮使用新批次，不能覆盖本轮结果。固定来源截止 2026-10-15，提交 86a402200d95fecef4529d969836f1fe13c6cb0d；全链接清理保持停止。
 
-四份原始输出、独立初稿冻结哈希、修订后结果与检查在主仓库 artifacts/agent-task-state/maintenance/dsh-operation-coverage-2026-10-22/。前批不覆盖。来源截止仍为 2026-10-15 固定 86a402200d95fecef4529d969836f1fe13c6cb0d，固定底稿及前比较未改，全链接逐句清理停止。
-
-研究工作树 artifacts/worktrees/task-state-activities，分支 codex/task-state-activity-research。主工作区其他项目变更不触碰。仅本轮授权只读 Qoder 辅助研究；不运行 DSH、数据库或付费效果实验，SWE-Milestone 仍为后续唯一效果 benchmark。历史依据见[执行账本](research-execution-ledger.md)。
+研究工作树 artifacts/worktrees/task-state-activities，分支 codex/task-state-activity-research。用户授权本轮离线记录实验与 Qoder 三路辅助；不运行 DSH、数据库或付费效果实验。SWE-Milestone 保留为后续唯一效果 benchmark。其他项目未提交内容不触碰。历史与本轮记录见[执行账本](research-execution-ledger.md)。

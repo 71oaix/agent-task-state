@@ -7,12 +7,12 @@ tags: [research, paper-project, change-graph, task-state, working-view]
 supersedes:
 research_stage: problem-discovery
 implementation_authorized: false
-experiment_authorized: false
+experiment_authorized: offline-only
 ---
 
 # Change Graph 任务状态论文研究项目
 
-2026-10-22：完成[16 段候选覆盖与四份分析对照](work-operation-coverage-v0.1.md)。六个原候选已扩展为待归约候选池，逐段变化、读回、分歧和证据缺口可查；下一步比较组合规则。
+2026-10-22：完成[修补、适配与撤回的组合实验](revision-composition-experiment-v0.1.md)。建议共用修订步骤，分别保留诊断、影响判断和撤回范围；实验反例与接手读回暴露的规则缺口见[明细](revision-composition-experiment-v0.1-evidence.md)。
 
 当前入口：[工程全景](dsh-work-history.md)、[组合推演](operation-composition-review.md)、[接手状态](HANDOFF.md)。
 

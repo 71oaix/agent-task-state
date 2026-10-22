@@ -65,3 +65,6 @@ supersedes:
 | 十六段调研结论与下一步比较 | active | [简短审阅稿](research/change-graph-task-state/work-operation-coverage-v0.1.md) |
 
 | 十六段候选操作覆盖：推演、四份对照与证据 | active | [查证与研究明细](research/change-graph-task-state/work-operation-coverage-v0.1-evidence.md) |
+
+| 修补、适配和撤回：可以共用哪一步？ | active | [简短实验结论](research/change-graph-task-state/revision-composition-experiment-v0.1.md) |
+| 修订组合实验：协议、结果与审阅处置 | active | [实验明细](research/change-graph-task-state/revision-composition-experiment-v0.1-evidence.md) |
