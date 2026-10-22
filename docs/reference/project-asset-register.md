@@ -82,3 +82,5 @@ supersedes:
 2026-10-22 阅读修订：[覆盖报告](../research/change-graph-task-state/work-operation-coverage-v0.1.md)改为简短审阅稿，说明结论及下一步比较；原16段推演、30候选与四份裁定转到[查证明细](../research/change-graph-task-state/work-operation-coverage-v0.1-evidence.md)，保留锚点和研究依据。原始分析批次不改，阅读修订检查存于主仓库 artifacts/agent-task-state/maintenance/dsh-coverage-reading-fix-2026-10-22/。
 
 2026-10-22：[修订组合实验](../research/change-graph-task-state/revision-composition-experiment-v0.1.md)与[明细](../research/change-graph-task-state/revision-composition-experiment-v0.1-evidence.md)保存本轮收敛依据。12 个条款变化为研究编码，10 段来源、3 条补充过程；Qoder 三路有效结果与两轮失败均留在主仓库 artifacts/agent-task-state/maintenance/dsh-revision-experiment-2026-10-22/，保持忽略。责任人为主 Agent；下一 gate 为修订规则及观察/判断/验证/采用的归约，不据此批准数据库或付费实验。
+
+2026-10-23：[修订判断](../research/change-graph-task-state/revision-composition-experiment-v0.1.md)已更新为全部16段的检验结论；[本轮明细](../research/change-graph-task-state/full-process-revision-check-v0.1-evidence.md)维护逐段裁定、80问评分和额外约定。冻结批次 artifacts/agent-task-state/maintenance/dsh-full-process-check-2026-10-22/ 保留原表示、失败及修正版，原始输出不上传。主Agent负责来源核对与评分；下一gate为对象/尝试身份、责任、上下文规则，不能把38个候选revise注释当实际执行。

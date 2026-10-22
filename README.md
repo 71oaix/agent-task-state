@@ -2,13 +2,13 @@
 title: Agent 任务状态管理论文项目
 status: active
 created: 2026-10-09
-updated: 2026-10-22
+updated: 2026-10-23
 tags: [research, task-state, entrypoint]
 ---
 
 # Agent 任务状态管理论文项目
 
-2026-10-22：完成[修补、适配与撤回的组合实验](docs/research/change-graph-task-state/revision-composition-experiment-v0.1.md)。建议共用修订步骤，分别保留诊断、影响判断和撤回范围；实验反例与接手读回暴露的规则缺口见[明细](docs/research/change-graph-task-state/revision-composition-experiment-v0.1-evidence.md)。
+2026-10-23：完成[全部16段的修订规则检验](docs/research/change-graph-task-state/revision-composition-experiment-v0.1.md)。修订保留为成果变化步骤，尝试身份、责任和上下文须分别表达；[逐段证据与读回](docs/research/change-graph-task-state/full-process-revision-check-v0.1-evidence.md)保存失败及修正。
 
 **Agent 接手只从[当前状态与执行入口](docs/research/change-graph-task-state/HANDOFF.md)开始。**不需要聊天历史。该入口说明目前做到哪一步、下一项工作、验收办法和权限边界。
 

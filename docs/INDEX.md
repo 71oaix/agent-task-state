@@ -66,5 +66,7 @@ supersedes:
 
 | 十六段候选操作覆盖：推演、四份对照与证据 | active | [查证与研究明细](research/change-graph-task-state/work-operation-coverage-v0.1-evidence.md) |
 
-| 修补、适配和撤回：可以共用哪一步？ | active | [简短实验结论](research/change-graph-task-state/revision-composition-experiment-v0.1.md) |
+| 放回十六段过程后，修订应该承担什么？ | active | [简短实验结论](research/change-graph-task-state/revision-composition-experiment-v0.1.md) |
 | 修订组合实验：协议、结果与审阅处置 | active | [实验明细](research/change-graph-task-state/revision-composition-experiment-v0.1-evidence.md) |
+
+| 十六段连续过程的修订规则检验：证据与裁定 | active | [全部过程的规则检验](research/change-graph-task-state/full-process-revision-check-v0.1-evidence.md) |

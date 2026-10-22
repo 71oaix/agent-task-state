@@ -2,7 +2,7 @@
 title: Change Graph 任务状态论文研究项目
 status: active
 created: 2026-10-09
-updated: 2026-10-22
+updated: 2026-10-23
 tags: [research, paper-project, change-graph, task-state, working-view]
 supersedes:
 research_stage: problem-discovery
@@ -12,7 +12,7 @@ experiment_authorized: offline-only
 
 # Change Graph 任务状态论文研究项目
 
-2026-10-22：完成[修补、适配与撤回的组合实验](revision-composition-experiment-v0.1.md)。建议共用修订步骤，分别保留诊断、影响判断和撤回范围；实验反例与接手读回暴露的规则缺口见[明细](revision-composition-experiment-v0.1-evidence.md)。
+2026-10-23：完成[全部16段的修订规则检验](revision-composition-experiment-v0.1.md)。修订保留为成果变化步骤，尝试身份、责任和上下文须分别表达；[逐段证据与读回](full-process-revision-check-v0.1-evidence.md)保存失败及修正。
 
 当前入口：[工程全景](dsh-work-history.md)、[组合推演](operation-composition-review.md)、[接手状态](HANDOFF.md)。
 
