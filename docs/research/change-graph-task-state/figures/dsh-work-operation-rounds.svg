@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="790" viewBox="0 0 800 790"><title>真实开发变化如何由候选操作组合记录</title><desc>三行独立案例。第一行目标继续时收束旧尝试并开启新尝试；第二行分配子责任并更新父残余；第三行用新观察修正判断、修改成果、改变采用。依赖关系另行绑定。</desc><defs><marker id="a" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M0 0L9 5L0 10Z" fill="#235c91"/></marker></defs><rect width="800" height="790" fill="white"/><g fill="#193e61" font-family="Microsoft YaHei,sans-serif">
+<text x="400" y="35" text-anchor="middle" font-size="24" font-weight="700"><tspan x="400" dy="0">七个工作接口怎样组合</tspan></text>
+<text x="400" y="65" text-anchor="middle" font-size="17" font-weight="400"><tspan x="400" dy="0">按行读：真实变化 → 操作组合 → 保留下来的区别</tspan></text>
+<text x="400" y="110" text-anchor="middle" font-size="20" font-weight="700"><tspan x="400" dy="0">T14：旧分支停止，用户目标继续</tspan></text>
+<rect x="30" y="135" width="200" height="86" rx="9" fill="#eff6ff" stroke="#3974a3" stroke-width="1.7"/><text x="130.0" y="165" text-anchor="middle" font-size="18" font-weight="400"><tspan x="130.0" dy="0">close 收束旧尝试</tspan><tspan x="130.0" dy="25">处置：superseded</tspan></text>
+<rect x="300" y="135" width="200" height="86" rx="9" fill="#eff6ff" stroke="#3974a3" stroke-width="1.7"/><text x="400.0" y="165" text-anchor="middle" font-size="18" font-weight="400"><tspan x="400.0" dy="0">open 开启新尝试</tspan><tspan x="400.0" dy="25">身份与目标归属</tspan></text>
+<rect x="570" y="135" width="200" height="86" rx="9" fill="#eff6ff" stroke="#3974a3" stroke-width="1.7"/><text x="670.0" y="165" text-anchor="middle" font-size="18" font-weight="400"><tspan x="670.0" dy="0">revise 修订成果</tspan><tspan x="670.0" dy="25">新 UI 的实现报告</tspan></text>
+<path d="M235,178 L295,178" fill="none" stroke="#235c91" stroke-width="2.8" marker-end="url(#a)"/>
+<path d="M505,178 L565,178" fill="none" stroke="#235c91" stroke-width="2.8" marker-end="url(#a)"/>
+<text x="400" y="248" text-anchor="middle" font-size="16" font-weight="400"><tspan x="400" dy="0">同一决定分项记录，原始时间另附来源</tspan></text>
+<text x="400" y="281" text-anchor="middle" font-size="17" font-weight="400"><tspan x="400" dy="0">bind：新 UI 使用既有后端，源码来源另记</tspan></text>
+<text x="400" y="331" text-anchor="middle" font-size="20" font-weight="700"><tspan x="400" dy="0">T12：整批回退后，分项推进</tspan></text>
+<rect x="30" y="351" width="200" height="86" rx="9" fill="#eff6ff" stroke="#3974a3" stroke-width="1.7"/><text x="130.0" y="381" text-anchor="middle" font-size="18" font-weight="400"><tspan x="130.0" dy="0">open 开启子工作</tspan><tspan x="130.0" dy="25">各自独立跟踪</tspan></text>
+<rect x="300" y="351" width="200" height="86" rx="9" fill="#eff6ff" stroke="#3974a3" stroke-width="1.7"/><text x="400.0" y="381" text-anchor="middle" font-size="18" font-weight="400"><tspan x="400.0" dy="0">bind 分配责任</tspan><tspan x="400.0" dy="25">范围、父子、依据</tspan></text>
+<rect x="570" y="351" width="200" height="86" rx="9" fill="#eff6ff" stroke="#3974a3" stroke-width="1.7"/><text x="670.0" y="381" text-anchor="middle" font-size="18" font-weight="400"><tspan x="670.0" dy="0">revise 更新父项</tspan><tspan x="670.0" dy="25">残余责任与判据</tspan></text>
+<path d="M235,394 L295,394" fill="none" stroke="#235c91" stroke-width="2.8" marker-end="url(#a)"/>
+<path d="M505,394 L565,394" fill="none" stroke="#235c91" stroke-width="2.8" marker-end="url(#a)"/>
+<text x="400" y="465" text-anchor="middle" font-size="17" font-weight="400"><tspan x="400" dy="0">组合 split：子项完成，父项仍按自己的判据验收</tspan></text>
+<text x="400" y="517" text-anchor="middle" font-size="20" font-weight="700"><tspan x="400" dy="0">T13：新测量修正解释，再修补实现</tspan></text>
+<rect x="20" y="540" width="160" height="86" rx="9" fill="#eff6ff" stroke="#3974a3" stroke-width="1.7"/><text x="100.0" y="570" text-anchor="middle" font-size="18" font-weight="400"><tspan x="100.0" dy="0">observe 观察</tspan><tspan x="100.0" dy="25">前后均 20.8 秒</tspan></text>
+<rect x="220" y="540" width="160" height="86" rx="9" fill="#eff6ff" stroke="#3974a3" stroke-width="1.7"/><text x="300.0" y="570" text-anchor="middle" font-size="18" font-weight="400"><tspan x="300.0" dy="0">judge 判断</tspan><tspan x="300.0" dy="25">修正本例归因</tspan></text>
+<rect x="420" y="540" width="160" height="86" rx="9" fill="#eff6ff" stroke="#3974a3" stroke-width="1.7"/><text x="500.0" y="570" text-anchor="middle" font-size="18" font-weight="400"><tspan x="500.0" dy="0">revise 修订</tspan><tspan x="500.0" dy="25">改用随包控制台</tspan></text>
+<rect x="620" y="540" width="160" height="86" rx="9" fill="#eff6ff" stroke="#3974a3" stroke-width="1.7"/><text x="700.0" y="570" text-anchor="middle" font-size="18" font-weight="400"><tspan x="700.0" dy="0">select 采用</tspan><tspan x="700.0" dy="25">限定适用范围</tspan></text>
+<path d="M184,583 L215,583" fill="none" stroke="#235c91" stroke-width="2.8" marker-end="url(#a)"/>
+<path d="M384,583 L415,583" fill="none" stroke="#235c91" stroke-width="2.8" marker-end="url(#a)"/>
+<path d="M584,583 L615,583" fill="none" stroke="#235c91" stroke-width="2.8" marker-end="url(#a)"/>
+<text x="400" y="655" text-anchor="middle" font-size="17" font-weight="400"><tspan x="400" dy="0">bind：声明控制台二进制的交付依赖</tspan></text>
+<text x="400" y="700" text-anchor="middle" font-size="19" font-weight="700"><tspan x="400" dy="0">每一步都带对象、范围、来源和报告归属</tspan></text>
+<text x="400" y="735" text-anchor="middle" font-size="17" font-weight="400"><tspan x="400" dy="0">操作可合并入口；相应身份、状态和证据规则仍要保留</tspan></text>
+<text x="400" y="768" text-anchor="middle" font-size="15" font-weight="400"><tspan x="400" dy="0">本图是开发记录的组合；T13 的测量保持作者报告归属</tspan></text>
+</g></svg>

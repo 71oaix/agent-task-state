@@ -8,7 +8,7 @@ tags: [research, task-state, entrypoint]
 
 # Agent 任务状态管理论文项目
 
-2026-10-23：完成[全部16段的修订规则检验](docs/research/change-graph-task-state/revision-composition-experiment-v0.1.md)。修订保留为成果变化步骤，尝试身份、责任和上下文须分别表达；[逐段证据与读回](docs/research/change-graph-task-state/full-process-revision-check-v0.1-evidence.md)保存失败及修正。
+2026-10-23：完成[工作操作四轮检验](docs/research/change-graph-task-state/work-operation-rounds-v0.1.md)，形成[7核心候选、11组合、12待补证的完整清单](docs/research/change-graph-task-state/work-operation-candidates-v0.2.md)。下一步固定T14转换规约，再决定原型。
 
 **Agent 接手只从[当前状态与执行入口](docs/research/change-graph-task-state/HANDOFF.md)开始。**不需要聊天历史。该入口说明目前做到哪一步、下一项工作、验收办法和权限边界。
 

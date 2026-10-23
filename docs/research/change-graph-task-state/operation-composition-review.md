@@ -8,7 +8,7 @@ tags: [research, primitives, composition-check]
 
 # DSH 真实过程的元操作组合与语义检查
 
-2026-10-23：[工作操作分轮收敛](work-operation-rounds-v0.1.md)已交付身份与生命周期对照；[明细](work-operation-rounds-v0.1-evidence.md)保存强替代及候选全量去向。
+2026-10-23：[分轮结论](work-operation-rounds-v0.1.md)完成身份、责任、采用范围及全部16段检验。当前为7核心候选、11组合、12待补证；[完整清单](work-operation-candidates-v0.2.md)统一定义，[明细](work-operation-rounds-v0.1-evidence.md)保存全部取舍。
 
 2026-10-22：新的工作操作候选已完成[16 段四份对照](work-operation-coverage-v0.1.md)，与下文记录层语义走查分开。本页保留前轮依据。
 

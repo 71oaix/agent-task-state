@@ -71,5 +71,7 @@ supersedes:
 
 | 十六段连续过程的修订规则检验：证据与裁定 | active | [全部过程的规则检验](research/change-graph-task-state/full-process-revision-check-v0.1-evidence.md) |
 
-| 工作操作怎样逐轮收敛 | active | [当前分轮结论](research/change-graph-task-state/work-operation-rounds-v0.1.md) |
+| 从三十项候选收敛到工作操作骨架 | active | [当前分轮结论](research/change-graph-task-state/work-operation-rounds-v0.1.md) |
 | 工作操作分轮检验：输入、替代规则与裁定 | active | [分轮证据](research/change-graph-task-state/work-operation-rounds-v0.1-evidence.md) |
+
+| 工作操作候选 v0.2：七个接口、组合动作与待证项目 | active | [当前完整候选](research/change-graph-task-state/work-operation-candidates-v0.2.md) |

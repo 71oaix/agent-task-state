@@ -225,3 +225,12 @@ DeepSeek Harness 会话演化：开源工程资料，非学术发表；核对日
 ## 2026-10-21 Loader定向补读
 
 为区分机械撤回与适配，补读既有S046、S039、S048、S038提交对象及S025固定正文blob（d37539cb3e34c32cd026f330ce92a48baf4bcd0c）。来源仍为固定DSH仓库记录，非新论文或发表状态核验。S046明确机械中间态暴露不兼容，S039保存作者验证范围，S025保存回顾理由与保留范围。对象及指纹位于新批次source-checks.json。该补读不构成运行复验；完整决策者和准确决定时刻未知。第一轮复合断言按最早来源读入可能提前暴露回顾信息，本轮Loader拆分、其余复合记录保守等待全部支持来源，旧产物原样保留。
+
+
+## 2026-10-23 元操作定向补查
+
+以下为固定DSH提交内的项目作者笔记，非论文，venue不适用。本地Git对象核对日期2026-10-23，来源截止不变；在线可达性未另查。X1已归档，X2包含多时态修订，按陈述范围使用。
+
+- [X1 2026-07-23-session-telemetry-otel-revival.md](https://github.com/deepseek-ai/deepseek-harness/blob/86a402200d95fecef4529d969836f1fe13c6cb0d/.agents/notes/archived/feature/2026-07-23-session-telemetry-otel-revival.md)：用于分轮证据的定向见证；正文保持本地批次，不提交第三方副本。
+- [X2 2026-08-10-npm-release-sequences.md](https://github.com/deepseek-ai/deepseek-harness/blob/86a402200d95fecef4529d969836f1fe13c6cb0d/.agents/notes/implemented/process/2026-08-10-npm-release-sequences.md)：用于分轮证据的定向见证；正文保持本地批次，不提交第三方副本。
+- [X3 2026-09-16-sidebar-browser.md](https://github.com/deepseek-ai/deepseek-harness/blob/86a402200d95fecef4529d969836f1fe13c6cb0d/.agents/notes/implemented/feature/2026-09-16-sidebar-browser.md)：用于分轮证据的定向见证；正文保持本地批次，不提交第三方副本。

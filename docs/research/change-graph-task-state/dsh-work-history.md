@@ -8,7 +8,7 @@ tags: [dsh, work-history, truth]
 
 # DSH 工程全景：主要方向、演化与接续
 
-2026-10-23：[工作操作分轮收敛](work-operation-rounds-v0.1.md)已交付身份与生命周期对照；[明细](work-operation-rounds-v0.1-evidence.md)保存强替代及候选全量去向。
+2026-10-23：[分轮结论](work-operation-rounds-v0.1.md)完成身份、责任、采用范围及全部16段检验。当前为7核心候选、11组合、12待补证；[完整清单](work-operation-candidates-v0.2.md)统一定义，[明细](work-operation-rounds-v0.1-evidence.md)保存全部取舍。
 
 我们整理 DSH，是为了研究：复杂开发反复换方案、复用旧成果、修改判断时，少量基本操作怎样把工作保存清楚。**我目前的判断是，机制首先需要保住每次变化的边界：影响了谁、保留了什么、依据哪个版本，以及现在采用什么。**这篇报告先展示工程全局，再沿真实连接说明这个判断从哪里来。
 
