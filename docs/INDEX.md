@@ -70,3 +70,6 @@ supersedes:
 | 修订组合实验：协议、结果与审阅处置 | active | [实验明细](research/change-graph-task-state/revision-composition-experiment-v0.1-evidence.md) |
 
 | 十六段连续过程的修订规则检验：证据与裁定 | active | [全部过程的规则检验](research/change-graph-task-state/full-process-revision-check-v0.1-evidence.md) |
+
+| 工作操作怎样逐轮收敛 | active | [当前分轮结论](research/change-graph-task-state/work-operation-rounds-v0.1.md) |
+| 工作操作分轮检验：输入、替代规则与裁定 | active | [分轮证据](research/change-graph-task-state/work-operation-rounds-v0.1-evidence.md) |
