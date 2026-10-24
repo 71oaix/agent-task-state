@@ -23,6 +23,7 @@ supersedes:
 | DSH全项目演化研究 | active | [人类全景报告](research/change-graph-task-state/dsh-project-history.md) |
 | DSH全版本目录、来源与覆盖检查 | active | [40版本及工程证据](research/change-graph-task-state/dsh-project-history-evidence.md) |
 | 机制研究对象：DeepSeek Harness 会话演化 | active | [连续工程对象](research/change-graph-task-state/engineering-study-dsh-session.md) |
+| 工作转换检验：对象、效果与拒绝条件 | active | [T14 转换及机制比较](research/change-graph-task-state/transition-rule-review.md) |
 | DSH 真实过程的元操作组合与语义检查 | active | [逐过程推演与删减依据](research/change-graph-task-state/operation-composition-review.md) |
 | 从开发活动到工作记录和 Agent 行动 | active | [G3 首轮映射](research/change-graph-task-state/activity-record-agent-mapping.md) |
 | 软件开发活动地图 v0.1 | active | [G2 人类报告](research/change-graph-task-state/software-development-activity-map.md) |

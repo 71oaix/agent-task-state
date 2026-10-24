@@ -15,6 +15,7 @@ supersedes:
 
 | 资产 | 来源与版本 | 责任与边界 | 下一步 |
 |---|---|---|---|
+| [工作转换检验](../research/change-graph-task-state/transition-rule-review.md) | 2026-10-25；固定来源的逐步转换、规则与期待探针 | 主 Agent 离线走查；独立 Qoder 检验待恢复配置；本批次 artifacts/agent-task-state/maintenance/dsh-transitions-2026-10-25/ | 完成跨案例检查并明确原型 gate |
 | [DSH 工程全景](../research/change-graph-task-state/dsh-work-history.md)、[过程底稿 v1](../research/change-graph-task-state/dsh-process-truth-v1.md)、[机制比较](../research/change-graph-task-state/dsh-representation-comparison-v1.md) | 2026-10-20；固定86a4022；16过程/83事实/49来源对象 | 主Agent同作者离线表达、读回与删减；非独立盲测、数据库实现或长程任务效果 | 复核子工作身份、关系修订和选择范围后提出离线原型范围 |
 | [DSH truth v0.1](../research/change-graph-task-state/dsh-truth-v0.1.md)、[证据](../research/change-graph-task-state/dsh-truth-v0.1-evidence.md) | 2026-10-19；十过程/54事实/36来源；固定86a4022；阅读版与详细对照分工 | 编码前独立底稿；公开证据边界，非全项目完整事件流或独立复现 | 原54条事实已完整进入底稿v1和同输入比较；独立盲重建未执行 |
 | [DSH深度演化分析](../research/change-graph-task-state/dsh-development-analysis.md) | 2026-10-18；沿用固定86a4022与五份历史正文 | 跨线解释、反例与承诺变化；非运行验证；首次迁移撤回原因未知 | 跨线比较完整操作编码及隐藏义务 |
