@@ -12,9 +12,9 @@ tags: [research, work-operations, candidate]
 
 已完成：T14 十步、T12 八步、T02 四步的具体对象/前态/效果/保留/来源映射；两种机制同效果编码；普通文档对照；二十项错误/正常输入及主作者期待判定；七入口删除与替代规则；其余十三段影响走查。本地静态核对验证材料内部一致，未实现状态引擎。候选去向仍为 7 语义入口、11 组合、12 待补证，名称新增/删除 0；原型建议是统一登记底座加类型检查和语义入口。
 
-当前待完成项是独立构造与读回。Qoder 2026-10-25 健康检查 expired=true，原截止 2026-10-25T00:00:00+08:00，本轮没有派单。先检查 health；恢复后从本批 qoder-pending/T14/construct/{a,b,source} 开始三并发。主裁定后再运行 validate/{reader,deletion,transfer}；然后依次 T12、T02。input.json/prompt.txt/目录内 AGENTS 已备好，必须以该目录 cwd 只读派单；每批保存 dispatch/status/result、实际模型和报告费用。不得自动延长配置或换服务。
+Qoder MCP 已按用户要求于 2026-10-25 从用户级配置移除。原独立构造与读回安排停用，不再尝试恢复连接或派发待发包。已准备输入与前轮输出继续保留为研究材料；后续独立检验方式另行安排，不自动替换模型或外部服务。
 
-本批仓库根目录：artifacts/agent-task-state/maintenance/dsh-transitions-2026-10-25/。评分底稿 main-before.json、main-readback.json 与 probe-verdicts.json 不交给 reader；读回只访问包内表示和来源标识。构造包接收固定事实和来源，已编码草稿不是评分真相。待发包共十八，不代表十八个已执行任务。
+本批仓库根目录：artifacts/agent-task-state/maintenance/dsh-transitions-2026-10-25/。评分底稿 main-before.json、main-readback.json 与 probe-verdicts.json 不交给 reader；读回只访问包内表示和来源标识。构造包接收固定事实和来源，已编码草稿不是评分真相。原十八个待发包现为停用材料，本轮实际派单为零。
 
 完成条件：独立差异逐项归因并处理；修改后回查受影响步骤；再依据 transition-rule-review.md 规格给出原型实现建议。当前原型规格已写，实施和效果实验需下一阶段授权。独立使用结果决定 open/close 等是否定位为便利接口。
 
