@@ -1,14 +1,15 @@
 ---
 title: 工作操作候选 v0.2：七个接口、组合动作与待证项目
-status: active
+status: archived
 created: 2026-10-23
-updated: 2026-10-23
+updated: 2026-10-25
 tags: [research, work-operations, candidate]
+superseded_by: work-operation-candidates-v0.3.md
 ---
 
 # 工作操作候选 v0.2：七个接口、组合动作与待证项目
 
-**当前选择七个工作接口作为骨架，十一项优先采用组合表达，十二项继续补证。**本页是唯一现行候选清单；[人类结论](work-operation-rounds-v0.1.md)解释取舍，[分轮证据](work-operation-rounds-v0.1-evidence.md)保存删减、失败与读回。
+**当前选择七个工作接口作为骨架，十一项优先采用组合表达，十二项继续补证。**本页为历史版本，现行清单见[工作操作 v0.3](work-operation-candidates-v0.3.md)；[人类结论](work-operation-rounds-v0.1.md)解释取舍，[分轮证据](work-operation-rounds-v0.1-evidence.md)保存删减、失败与读回。
 
 ## 七个工作接口分别改变什么
 

@@ -2,7 +2,7 @@
 title: Agent任务状态管理文档索引
 status: active
 created: 2026-10-09
-updated: 2026-10-22
+updated: 2026-10-25
 tags: [workspace, directory]
 supersedes:
 ---
@@ -23,7 +23,8 @@ supersedes:
 | DSH全项目演化研究 | active | [人类全景报告](research/change-graph-task-state/dsh-project-history.md) |
 | DSH全版本目录、来源与覆盖检查 | active | [40版本及工程证据](research/change-graph-task-state/dsh-project-history-evidence.md) |
 | 机制研究对象：DeepSeek Harness 会话演化 | active | [连续工程对象](research/change-graph-task-state/engineering-study-dsh-session.md) |
-| 工作转换检验：对象、效果与拒绝条件 | active | [T14 转换及机制比较](research/change-graph-task-state/transition-rule-review.md) |
+| 工作操作候选 v0.3：共同版本底座与七个语义入口 | active | [现行三十项去向与规则取舍](research/change-graph-task-state/work-operation-candidates-v0.3.md) |
+| 工作转换检验：对象、效果与拒绝条件 | active | [三案例转换、探针及原型规格](research/change-graph-task-state/transition-rule-review.md) |
 | DSH 真实过程的元操作组合与语义检查 | active | [逐过程推演与删减依据](research/change-graph-task-state/operation-composition-review.md) |
 | 从开发活动到工作记录和 Agent 行动 | active | [G3 首轮映射](research/change-graph-task-state/activity-record-agent-mapping.md) |
 | 软件开发活动地图 v0.1 | active | [G2 人类报告](research/change-graph-task-state/software-development-activity-map.md) |
@@ -75,4 +76,4 @@ supersedes:
 | 从三十项候选收敛到工作操作骨架 | active | [当前分轮结论](research/change-graph-task-state/work-operation-rounds-v0.1.md) |
 | 工作操作分轮检验：输入、替代规则与裁定 | active | [分轮证据](research/change-graph-task-state/work-operation-rounds-v0.1-evidence.md) |
 
-| 工作操作候选 v0.2：七个接口、组合动作与待证项目 | active | [当前完整候选](research/change-graph-task-state/work-operation-candidates-v0.2.md) |
+| 工作操作候选 v0.2：七个接口、组合动作与待证项目 | archived | [前轮完整候选](research/change-graph-task-state/work-operation-candidates-v0.2.md) |

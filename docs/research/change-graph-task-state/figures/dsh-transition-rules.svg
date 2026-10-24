@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="660" viewBox="0 0 760 660"><title>工作变化、操作组合与保留规则</title><desc>三行分别是消息反馈重做、聊天功能拆分和预设设计演化。箭头表示记录组合，实例运行另用合成探针。</desc><defs><marker id="arrow" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M0 0L9 5L0 10Z" fill="#245e96"/></marker></defs><rect width="760" height="660" fill="white"/><g fill="#193e61" font-family="Microsoft YaHei,sans-serif">
+<text x="380" y="35" text-anchor="middle" font-size="23" font-weight="700"><tspan x="380" dy="0">同一套规则，保存三类工作变化</tspan></text>
+<text x="380" y="65" text-anchor="middle" font-size="16" font-weight="400"><tspan x="380" dy="0">从左到右读操作组合；每行底部看必须保留什么</tspan></text>
+<text x="380" y="105" text-anchor="middle" font-size="19" font-weight="700"><tspan x="380" dy="0">T14  旧尝试结束，用户目标继续</tspan></text>
+<rect x="30" y="123" width="210" height="82" rx="9" fill="#edf5ff" stroke="#366a9d" stroke-width="2"/><text x="135" y="152" text-anchor="middle" font-size="17" font-weight="400"><tspan x="135" dy="0">close 旧尝试</tspan><tspan x="135" dy="24">open 新尝试</tspan></text>
+<rect x="275" y="123" width="210" height="82" rx="9" fill="#edf5ff" stroke="#366a9d" stroke-width="2"/><text x="380" y="152" text-anchor="middle" font-size="17" font-weight="400"><tspan x="380" dy="0">bind / select</tspan><tspan x="380" dy="24">沿用已落地后端</tspan></text>
+<rect x="520" y="123" width="210" height="82" rx="9" fill="#edf5ff" stroke="#366a9d" stroke-width="2"/><text x="625" y="152" text-anchor="middle" font-size="17" font-weight="400"><tspan x="625" dy="0">revise / observe</tspan><tspan x="625" dy="24">UI 与检查报告</tspan></text>
+<path d="M240,164h32" fill="none" stroke="#245e96" stroke-width="3" marker-end="url(#arrow)"/>
+<path d="M485,164h32" fill="none" stroke="#245e96" stroke-width="3" marker-end="url(#arrow)"/>
+<text x="380" y="233" text-anchor="middle" font-size="16" font-weight="400"><tspan x="380" dy="0">保留：目标延续、代码复用未知、验收与实现分别记录</tspan></text>
+<text x="380" y="280" text-anchor="middle" font-size="19" font-weight="700"><tspan x="380" dy="0">T12  整批撤回，责任拆开继续</tspan></text>
+<rect x="30" y="298" width="210" height="82" rx="9" fill="#edf5ff" stroke="#366a9d" stroke-width="2"/><text x="135" y="327" text-anchor="middle" font-size="17" font-weight="400"><tspan x="135" dy="0">open 子工作</tspan><tspan x="135" dy="24">分别推进</tspan></text>
+<rect x="275" y="298" width="210" height="82" rx="9" fill="#edf5ff" stroke="#366a9d" stroke-width="2"/><text x="380" y="327" text-anchor="middle" font-size="17" font-weight="400"><tspan x="380" dy="0">bind 责任分配</tspan><tspan x="380" dy="24">保留原要求</tspan></text>
+<rect x="520" y="298" width="210" height="82" rx="9" fill="#edf5ff" stroke="#366a9d" stroke-width="2"/><text x="625" y="327" text-anchor="middle" font-size="17" font-weight="400"><tspan x="625" dy="0">revise 父工作</tspan><tspan x="625" dy="24">保留剩余验收</tspan></text>
+<path d="M240,339h32" fill="none" stroke="#245e96" stroke-width="3" marker-end="url(#arrow)"/>
+<path d="M485,339h32" fill="none" stroke="#245e96" stroke-width="3" marker-end="url(#arrow)"/>
+<text x="380" y="408" text-anchor="middle" font-size="16" font-weight="400"><tspan x="380" dy="0">保留：子项完成、未暂存草稿、父项验收分别成立</tspan></text>
+<text x="380" y="455" text-anchor="middle" font-size="19" font-weight="700"><tspan x="380" dy="0">T02  新设计采用，旧版持有规则保留</tspan></text>
+<rect x="30" y="473" width="210" height="82" rx="9" fill="#edf5ff" stroke="#366a9d" stroke-width="2"/><text x="135" y="502" text-anchor="middle" font-size="17" font-weight="400"><tspan x="135" dy="0">observe / revise</tspan><tspan x="135" dy="24">记录开发演化</tspan></text>
+<rect x="275" y="473" width="210" height="82" rx="9" fill="#edf5ff" stroke="#366a9d" stroke-width="2"/><text x="380" y="502" text-anchor="middle" font-size="17" font-weight="400"><tspan x="380" dy="0">select 设计采用</tspan><tspan x="380" dy="24">限定作用范围</tspan></text>
+<rect x="520" y="473" width="210" height="82" rx="9" fill="#edf5ff" stroke="#366a9d" stroke-width="2"/><text x="625" y="502" text-anchor="middle" font-size="17" font-weight="400"><tspan x="625" dy="0">保留设计规则</tspan><tspan x="625" dy="24">运行规则随设计保存</tspan></text>
+<path d="M240,514h32" fill="none" stroke="#245e96" stroke-width="3" marker-end="url(#arrow)"/>
+<path d="M485,514h32" fill="none" stroke="#245e96" stroke-width="3" marker-end="url(#arrow)"/>
+<text x="380" y="583" text-anchor="middle" font-size="16" font-weight="400"><tspan x="380" dy="0">保留：旧版持有、最终释放与重启解析各自的条件</tspan></text>
+<text x="380" y="632" text-anchor="middle" font-size="17" font-weight="700"><tspan x="380" dy="0">共同底座：准确前态 · 显式变化 · 范围与来源 · 相关更新成组</tspan></text>
+</g></svg>

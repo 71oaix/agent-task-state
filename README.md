@@ -2,13 +2,13 @@
 title: Agent 任务状态管理论文项目
 status: active
 created: 2026-10-09
-updated: 2026-10-23
+updated: 2026-10-25
 tags: [research, task-state, entrypoint]
 ---
 
 # Agent 任务状态管理论文项目
 
-2026-10-23：完成[工作操作四轮检验](docs/research/change-graph-task-state/work-operation-rounds-v0.1.md)，形成[7核心候选、11组合、12待补证的完整清单](docs/research/change-graph-task-state/work-operation-candidates-v0.2.md)。下一步固定T14转换规约，再决定原型。
+2026-10-25：完成[工作转换的本地检验](docs/research/change-graph-task-state/transition-rule-review.md)，现行候选见[v0.3](docs/research/change-graph-task-state/work-operation-candidates-v0.3.md)。T14/T12/T02 的规则已具体化，独立 Qoder 检验等待配置恢复。
 
 **Agent 接手只从[当前状态与执行入口](docs/research/change-graph-task-state/HANDOFF.md)开始。**不需要聊天历史。该入口说明目前做到哪一步、下一项工作、验收办法和权限边界。
 
