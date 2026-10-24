@@ -126,7 +126,7 @@ R01—R12 是规则族，不是十二个调用接口。身份判断、责任分�
 
 登记旧尝试的已知范围；实际开启时间未知。
 
-- 前态：该研究对象尚未登记，要求身份不存在；后态：`W14old@1`。
+- 前态：该研究对象尚未登记，要求 expected=absent；后态：`W14old@1`。
 - 新增/改写：`{"code_reuse": null, "contract": "session revision / feedback.upsert", "goal": "G14", "source_identity": "#1010", "status": "historical_attempt"}`。
 - 保留：初次登记，无旧字段；其他对象均不改变。
 - 引用：`G14@1`；范围：`T14`。
@@ -138,7 +138,7 @@ R01—R12 是规则族，不是十二个调用接口。身份判断、责任分�
 
 保存检查报告及三个不兼容点。
 
-- 前态：该研究对象尚未登记，要求身份不存在；后态：`O14inspection@1`。
+- 前态：该研究对象尚未登记，要求 expected=absent；后态：`O14inspection@1`。
 - 新增/改写：`{"reported_method": "old branch inspection", "result": ["API incompatible with landed backend", "duplicate backend", "directory drift"], "subject": "W14old", "verification_level": "author_report"}`。
 - 保留：初次登记，无旧字段；其他对象均不改变。
 - 引用：`W14old@1`；`B14@1`；范围：`T14`。
@@ -150,7 +150,7 @@ R01—R12 是规则族，不是十二个调用接口。身份判断、责任分�
 
 保存路线取舍及依据。
 
-- 前态：该研究对象尚未登记，要求身份不存在；后态：`J14route@1`。
+- 前态：该研究对象尚未登记，要求 expected=absent；后态：`J14route@1`。
 - 新增/改写：`{"applicability": "feedback Web surface", "conclusion": "close old attempt as superseded and rewrite UI", "evidence": "O14inspection", "supersedes": null}`。
 - 保留：初次登记，无旧字段；其他对象均不改变。
 - 引用：`O14inspection@1`；范围：`T14`。
@@ -174,7 +174,7 @@ R01—R12 是规则族，不是十二个调用接口。身份判断、责任分�
 
 登记同一用户目标下的新尝试。
 
-- 前态：该研究对象尚未登记，要求身份不存在；后态：`W14new@1`。
+- 前态：该研究对象尚未登记，要求 expected=absent；后态：`W14new@1`。
 - 新增/改写：`{"goal": "G14", "predecessor": "W14old", "responsibility": "UI against landed backend", "source_identity": null, "status": "rewrite_as_reported"}`。
 - 保留：初次登记，无旧字段；其他对象均不改变。
 - 引用：`G14@1`；`W14old@2`；范围：`T14`。
@@ -186,7 +186,7 @@ R01—R12 是规则族，不是十二个调用接口。身份判断、责任分�
 
 把新 UI 的契约依赖与旧代码取用分开。
 
-- 前态：该研究对象尚未登记，要求身份不存在；后态：`L14contract@1`。
+- 前态：该研究对象尚未登记，要求 expected=absent；后态：`L14contract@1`。
 - 新增/改写：`{"code_ancestry": null, "from": "W14new", "range": "per-message feedback Web UI", "relation": "uses_contract", "to": "B14"}`。
 - 保留：初次登记，无旧字段；其他对象均不改变。
 - 引用：`W14new@1`；`B14@1`；范围：`T14`。
@@ -222,7 +222,7 @@ R01—R12 是规则族，不是十二个调用接口。身份判断、责任分�
 
 保存作者报告的检查及覆盖范围。
 
-- 前态：该研究对象尚未登记，要求身份不存在；后态：`O14e2e@1`。
+- 前态：该研究对象尚未登记，要求 expected=absent；后态：`O14e2e@1`。
 - 新增/改写：`{"accepting_actor": null, "method": "shipped bundle Web E2E", "result": ["rate", "note", "reload restore", "retract"], "subject": "U14", "verification_level": "author_report"}`。
 - 保留：初次登记，无旧字段；其他对象均不改变。
 - 引用：`U14@2`；范围：`T14`。
@@ -254,6 +254,317 @@ R01—R12 是规则族，不是十二个调用接口。身份判断、责任分�
 | 新旧代码来源已知吗？ | 未知；W14old.code_reuse 和 L14contract.code_ancestry 均为 null。 | T14.01/06 |
 | 实施与检查结果？ | U14@2 保存 MessageId、串行变更、冲突响应；O14e2e@1 保存作者报告的 E2E 四项范围。 | T14.08/09 |
 | 剩余责任或验收？ | 来源确认用户可见入口存在；最终有权验收主体及完整验收状态未知，不能补写已通过或仍无入口。 | T14.09/10 |
+
+以上为主作者离线读回，独立读回尚待执行。
+
+<a id="t12"></a>
+## T12：整批撤回后分别推进，父责任保留
+
+拆分保留的是责任，而非把父项状态复制给子项。我们将 S029 的清单概括为独立功能、Turn 行为、通知与 Context、产品分组、功能验收、性能验收六类：独立功能包含来源已列明的设置/摘要/视觉/过滤范围；Turn 对应 6/7/10/11，通知与 Context 对应 8/9-context，产品分组对应完整 grouping 要求。原始逐功能要求继续由 S029 负责；六类是本研究的责任索引。
+
+本轮修订：拆分前保存六类完整责任；三子项承接前四类，父项保留两类验收。共同更新作为 T12.split 组检查。若责任分类遗漏原要求，集合检查本身无法发现，必须由来源核对补正。
+
+### 初始对象
+
+<details><summary>展开初始描述及未知项</summary>
+
+```json
+{
+  "G12": {
+    "revision": 1,
+    "kind": "goal",
+    "fields": {
+      "label": "三档聊天显示与分组",
+      "requirements": [
+        "independent_visuals",
+        "turn_behavior",
+        "trigger_and_context",
+        "product_groups",
+        "functional_acceptance",
+        "performance_acceptance"
+      ],
+      "acceptance": "pending"
+    }
+  },
+  "W12parent": {
+    "revision": 1,
+    "kind": "work",
+    "fields": {
+      "goal": "G12",
+      "source_identity": "#4565",
+      "adoption": "merged_then_reverted_as_reported",
+      "retained_reference": "original PR",
+      "allocation": null,
+      "residual": [
+        "independent_visuals",
+        "turn_behavior",
+        "trigger_and_context",
+        "product_groups",
+        "functional_acceptance",
+        "performance_acceptance"
+      ],
+      "acceptance": "pending"
+    }
+  },
+  "F12": {
+    "revision": 1,
+    "kind": "artifact",
+    "fields": {
+      "label": "Definition-owned Build Group foundation",
+      "implementation": null,
+      "product_integration": "incomplete",
+      "performance_acceptance": "pending"
+    }
+  }
+}
+```
+
+</details>
+
+### 转换总览
+
+| 步骤 | 操作与对象 | 具体变化 |
+|---|---|---|
+| T12.01 | `observe(O12revert)` | 保存整体撤回和检查盲区；需求继续保留 |
+| T12.02 | `open(W12visual)` | 登记独立视觉工作及其状态维度 |
+| T12.03 | `open(W12turn)` | 登记草稿所在工作及剩余责任 |
+| T12.04 | `open(W12groups)` | 产品分组工作与已完成基础分开 |
+| T12.05 | `bind(L12allocation)` | 显式列明分配；保留父层验收责任 |
+| T12.06 | `revise(W12parent)` | 父项记录分配和剩余验收；原范围完整保留 |
+| T12.07 | `revise(F12)` | 分组基础有实现报告，产品接入仍未完成 |
+| T12.08 | `observe(O12checks)` | 检查结果限定到实际 channel |
+
+<details><summary>展开逐步调用：前态、效果、保留、来源与拒绝规则</summary>
+
+#### T12.01 · observe(O12revert)
+
+保存整体撤回和检查盲区；需求继续保留。
+
+- 前态：该研究对象尚未登记，要求 expected=absent；后态：`O12revert@1`。
+- 新增/改写：`{"method": "author history and benchmark coverage review", "result": "batch reverted eight minutes after merge due performance", "subject": "W12parent", "uncovered": "streaming grouping and seat re-render hot paths"}`。
+- 保留：初次登记，无旧字段；其他对象均不改变。
+- 引用：`W12parent@1`；范围：`T12`。
+- 调用者判断：撤回的是实现组合，不是产品要求。
+- 依据：[T12.01](dsh-process-truth-v1.md#t12)；[T12.02](dsh-process-truth-v1.md#t12)；报告归属：来源作者，确切个人未知；历史事件时间未知；可见块：`S028/S029/S022 partial order`。
+- 检查/拒绝：R01, R02, R03, R04, R05, R12。来源报告投影不声称执行过历史 API。
+
+#### T12.02 · open(W12visual)
+
+登记独立视觉工作及其状态维度。
+
+- 前态：该研究对象尚未登记，要求 expected=absent；后态：`W12visual@1`。
+- 新增/改写：`{"acceptance": "pending", "commit": "reported committed", "completion": "reported complete scope", "destination": "presentation channel", "goal": "G12", "responsibility": ["independent_visuals"]}`。
+- 保留：初次登记，无旧字段；其他对象均不改变。
+- 引用：`G12@1`；范围：`T12`。
+- 调用者判断：分支承接工作为研究身份；完成的仅为来源列出的独立范围。
+- 依据：[T12.03](dsh-process-truth-v1.md#t12)；[T12.04](dsh-process-truth-v1.md#t12)；报告归属：来源作者，确切个人未知；历史事件时间未知；可见块：`S028/S029/S022 partial order`。
+- 检查/拒绝：R01, R02, R03, R04, R05, R12；逻辑组 `T12.split` 整体检查。来源报告投影不声称执行过历史 API。
+
+#### T12.03 · open(W12turn)
+
+登记草稿所在工作及剩余责任。
+
+- 前态：该研究对象尚未登记，要求 expected=absent；后态：`W12turn@1`。
+- 新增/改写：`{"acceptance": "pending", "commit": "unstaged", "completion": "incomplete", "destination": "turnstep worktree", "goal": "G12", "implementation": "drafts written", "responsibility": ["turn_behavior", "trigger_and_context"]}`。
+- 保留：初次登记，无旧字段；其他对象均不改变。
+- 引用：`G12@1`；范围：`T12`。
+- 调用者判断：有草稿和已提交分别记录。
+- 依据：[T12.03](dsh-process-truth-v1.md#t12)；[T12.04](dsh-process-truth-v1.md#t12)；报告归属：来源作者，确切个人未知；历史事件时间未知；可见块：`S028/S029/S022 partial order`。
+- 检查/拒绝：R01, R02, R03, R04, R05, R12；逻辑组 `T12.split` 整体检查。来源报告投影不声称执行过历史 API。
+
+#### T12.04 · open(W12groups)
+
+产品分组工作与已完成基础分开。
+
+- 前态：该研究对象尚未登记，要求 expected=absent；后态：`W12groups@1`。
+- 新增/改写：`{"acceptance": "pending", "completion": "incomplete", "foundation": "F12", "goal": "G12", "responsibility": ["product_groups"]}`。
+- 保留：初次登记，无旧字段；其他对象均不改变。
+- 引用：`G12@1`；`F12@1`；范围：`T12`。
+- 调用者判断：工作边界是研究索引，不虚构源码新建事件。
+- 依据：[T12.05](dsh-process-truth-v1.md#t12)；报告归属：来源作者，确切个人未知；历史事件时间未知；可见块：`S028/S029/S022 partial order`。
+- 检查/拒绝：R01, R02, R03, R04, R05, R12；逻辑组 `T12.split` 整体检查。来源报告投影不声称执行过历史 API。
+
+#### T12.05 · bind(L12allocation)
+
+显式列明分配；保留父层验收责任。
+
+- 前态：该研究对象尚未登记，要求 expected=absent；后态：`L12allocation@1`。
+- 新增/改写：`{"allocation": {"W12groups": ["product_groups"], "W12turn": ["turn_behavior", "trigger_and_context"], "W12visual": ["independent_visuals"]}, "from": "W12parent", "overlap": [], "relation": "responsibility_allocation", "to": ["W12visual", "W12turn", "W12groups"], "unresolved_partition": []}`。
+- 保留：初次登记，无旧字段；其他对象均不改变。
+- 引用：`W12parent@1`；`W12visual@1`；`W12turn@1`；`W12groups@1`；范围：`T12`。
+- 调用者判断：六项是本次概括的责任单元；逐项原始功能清单仍由 S029 负责。
+- 依据：[T12.03](dsh-process-truth-v1.md#t12)；[T12.04](dsh-process-truth-v1.md#t12)；[T12.05](dsh-process-truth-v1.md#t12)；报告归属：来源作者，确切个人未知；历史事件时间未知；可见块：`S028/S029/S022 partial order`。
+- 检查/拒绝：R01, R02, R04, R06, R08, R11, R12；逻辑组 `T12.split` 整体检查。来源报告投影不声称执行过历史 API。
+
+#### T12.06 · revise(W12parent)
+
+父项记录分配和剩余验收；原范围完整保留。
+
+- 前态：`W12parent@1`；后态：`W12parent@2`。
+- 新增/改写：`{"allocation": "L12allocation", "residual": ["functional_acceptance", "performance_acceptance"]}`。
+- 保留：`acceptance`、`adoption`、`goal`、`retained_reference`、`source_identity`。
+- 引用：`L12allocation@1`；范围：`T12`。
+- 调用者判断：责任分类为调用者判断；不能把子项完成当作整体验收。
+- 依据：[T12.03](dsh-process-truth-v1.md#t12)；[T12.06](dsh-process-truth-v1.md#t12)；报告归属：来源作者，确切个人未知；历史事件时间未知；可见块：`S028/S029/S022 partial order`。
+- 检查/拒绝：R01, R02, R03, R04, R08, R11, R12；逻辑组 `T12.split` 整体检查。来源报告投影不声称执行过历史 API。
+
+#### T12.07 · revise(F12)
+
+分组基础有实现报告，产品接入仍未完成。
+
+- 前态：`F12@1`；后态：`F12@2`。
+- 新增/改写：`{"implementation": "implemented as source reports"}`。
+- 保留：`label`、`performance_acceptance`、`product_integration`。
+- 引用：`W12groups@1`；范围：`T12`。
+- 调用者判断：foundation 与 product_groups 的范围不同。
+- 依据：[T12.05](dsh-process-truth-v1.md#t12)；报告归属：来源作者，确切个人未知；历史事件时间未知；可见块：`S028/S029/S022 partial order`。
+- 检查/拒绝：R01, R02, R03, R04, R05, R12。来源报告投影不声称执行过历史 API。
+
+#### T12.08 · observe(O12checks)
+
+检查结果限定到实际 channel。
+
+- 前态：该研究对象尚未登记，要求 expected=absent；后态：`O12checks@1`。
+- 新增/改写：`{"excluded": ["turnstep drafts", "real-model GUI demo", "performance acceptance"], "result": "build/lint/coverage checks pass as reported", "subject": "W12visual", "verification_level": "author_report"}`。
+- 保留：初次登记，无旧字段；其他对象均不改变。
+- 引用：`W12visual@1`；范围：`T12`。
+- 调用者判断：核对测试范围；不传播到另一个 worktree。
+- 依据：[T12.06](dsh-process-truth-v1.md#t12)；报告归属：来源作者，确切个人未知；历史事件时间未知；可见块：`S028/S029/S022 partial order`。
+- 检查/拒绝：R01, R02, R03, R04, R05, R12。来源报告投影不声称执行过历史 API。
+
+</details>
+
+### 读回
+
+| 问题 | 仅据表示可恢复的回答 | 记录入口 |
+|---|---|---|
+| 整批撤回了什么？ | 撤回整批实现组合，保留原产品需求和 PR 参考；没有据此结束父目标。 | T12.01 |
+| 责任去了哪里？ | visual、turn、groups 三项分工；功能和性能整体验收留在父项。 | T12.02-06 |
+| 已完成与草稿？ | 来源列明的独立范围已提交，turnstep 部分草稿未暂存；两种状态单独保存。 | T12.02/03 |
+| 基础完成意味着什么？ | F12@2 仅有基础实现报告，产品分组及性能接入仍未完成。 | T12.04/07 |
+| 验证覆盖哪里？ | O12checks@1 仅覆盖 presentation channel，排除 turnstep、真实模型 GUI 和性能验收。 | T12.08 |
+| 父项为何仍未验收？ | G12/W12parent 的验收仍 pending，原需求保留；子项 completion 不写父验收。 | T12.06/08 |
+
+以上为主作者离线读回，独立读回尚待执行。
+
+<a id="t02"></a>
+## T02：开发演化记录与产品运行规则分层
+
+本例记录的是一次开发设计与实现演化。旧运行版被保留、最后释放才清理，是来源提供的量化规则；来源没有给出具体 Agent、runtime 版本或释放事件。规则保存在 C02 内容中即可。为让 bind 出场而添加一个自指联系不会增加信息，因此本例没有额外的持有关系事件。
+
+### 初始对象
+
+<details><summary>展开初始描述及未知项</summary>
+
+```json
+{
+  "W02": {
+    "revision": 1,
+    "kind": "work",
+    "fields": {
+      "label": "预设配置演化",
+      "implementation": "per-Agent directory presets as reported",
+      "commit": null
+    }
+  },
+  "C02": {
+    "revision": 1,
+    "kind": "artifact",
+    "fields": {
+      "layer": "product_design",
+      "definition": "per-Agent preset directories; Host shared",
+      "update_rule": null,
+      "holder_rule": null,
+      "cleanup_rule": null,
+      "restart_rule": null,
+      "activation_rule": null
+    }
+  },
+  "A02": {
+    "revision": 1,
+    "kind": "adoption",
+    "fields": {
+      "scope": "documented preset implementation design",
+      "selected": null,
+      "effect": "unknown"
+    }
+  }
+}
+```
+
+</details>
+
+### 转换总览
+
+| 步骤 | 操作与对象 | 具体变化 |
+|---|---|---|
+| T02.01 | `observe(O02issues)` | 记录先前实现遇到的问题 |
+| T02.02 | `revise(C02)` | 修订产品设计；规则描述多版本共存条件 |
+| T02.03 | `revise(W02)` | 记录已报告的开发实现变化 |
+| T02.04 | `select(A02)` | 在开发设计层记录采用 |
+
+<details><summary>展开逐步调用：前态、效果、保留、来源与拒绝规则</summary>
+
+#### T02.01 · observe(O02issues)
+
+记录先前实现遇到的问题。
+
+- 前态：该研究对象尚未登记，要求 expected=absent；后态：`O02issues@1`。
+- 新增/改写：`{"result": ["Host consumers missing moved services", "unload may write back input", "preset identity not all persisted", "missing idle release"], "subject": "W02", "verification_level": "author_report"}`。
+- 保留：初次登记，无旧字段；其他对象均不改变。
+- 引用：`W02@1`；`C02@1`；范围：`T02`。
+- 调用者判断：按来源可见顺序登记，不补出精确故障发生时间。
+- 依据：[T02.01](dsh-process-truth-v1.md#t02)；[T02.02](dsh-process-truth-v1.md#t02)；报告归属：来源作者，确切个人未知；历史事件时间未知；可见块：`S030`。
+- 检查/拒绝：R01, R02, R03, R04, R05, R12。来源报告投影不声称执行过历史 API。
+
+#### T02.02 · revise(C02)
+
+修订产品设计；规则描述多版本共存条件。
+
+- 前态：`C02@1`；后态：`C02@2`。
+- 新增/改写：`{"activation_rule": "persistence and activation outcomes separate; failed activation rejects new bindings", "cleanup_rule": "dispose retired tree only on final release", "definition": "ordinary Cordis declarations; registry owns runtime revisions", "holder_rule": "Agents/children/cold readers retain exact revision", "restart_rule": "resolve saved identity against current configuration; missing definition fails; executable old revisions process-local", "update_rule": "update retires former runtime revision"}`。
+- 保留：`layer`。
+- 引用：`O02issues@1`；范围：`T02`。
+- 调用者判断：保存量化规则，不虚构 runtime-r1、runtime-r2 或实际 Agent。
+- 依据：[T02.03](dsh-process-truth-v1.md#t02)；[T02.04](dsh-process-truth-v1.md#t02)；[T02.05](dsh-process-truth-v1.md#t02)；报告归属：来源作者，确切个人未知；历史事件时间未知；可见块：`S005`。
+- 检查/拒绝：R01, R02, R03, R04, R05, R12。来源报告投影不声称执行过历史 API。
+
+#### T02.03 · revise(W02)
+
+记录已报告的开发实现变化。
+
+- 前态：`W02@1`；后态：`W02@2`。
+- 新增/改写：`{"commit": "d1e22a7e247060496e1acdba9ef3be1700e23ec7", "implementation": "declarative presets as reported"}`。
+- 保留：`label`。
+- 引用：`C02@2`；范围：`T02`。
+- 调用者判断：该 commit 说明开发提交；不是某个运行实例的版本。
+- 依据：[T02.03](dsh-process-truth-v1.md#t02)；报告归属：来源作者，确切个人未知；历史事件时间未知；可见块：`S005`。
+- 检查/拒绝：R01, R02, R03, R04, R05, R12。来源报告投影不声称执行过历史 API。
+
+#### T02.04 · select(A02)
+
+在开发设计层记录采用。
+
+- 前态：`A02@1`；后态：`A02@2`。
+- 新增/改写：`{"effect": "documented implementation adopts this design", "selected": "C02@2"}`。
+- 保留：`scope`。
+- 引用：`C02@2`；`W02@2`；范围：`documented preset implementation design`。
+- 调用者判断：作用范围是已报告实现设计，不是所有在跑会话。
+- 依据：[T02.03](dsh-process-truth-v1.md#t02)；报告归属：来源作者，确切个人未知；历史事件时间未知；可见块：`S005`。
+- 检查/拒绝：R01, R02, R03, R04, R07, R09, R12。来源报告投影不声称执行过历史 API。
+
+</details>
+
+### 读回
+
+| 问题 | 仅据表示可恢复的回答 | 记录入口 |
+|---|---|---|
+| 开发变化？ | W02@2 报告声明式实现提交；C02@2 保存替代后的设计。 | T02.02/03 |
+| 谁采用什么？ | A02@2 的范围是文档报告的实现设计，选中 C02@2；没有所有运行会话的采用记录。 | T02.04 |
+| 旧版为何还能存在？ | C02@2 的量化规则：旧 runtime 修订退役后，现有持有者保留，最后释放才清理。 | T02.02 |
+| 重启如何处理？ | 按保存身份解析当前配置；缺定义失败；旧可执行修订仅进程内存活。 | T02.02 |
+| 有真实运行实例吗？ | 本表示没有：来源没有提供具体持有/释放实例。本轮 runtime 探针另标 synthetic。 | T02.02/04 |
+| 保存与激活关系？ | 两种结果分别报告；激活失败拒绝新绑定，不能由保存成功推出激活成功。 | T02.02 |
 
 以上为主作者离线读回，独立读回尚待执行。
 
@@ -291,7 +602,38 @@ R01—R12 是规则族，不是十二个调用接口。身份判断、责任分�
 | P06 T14 | revise(U14) 的声明写集顺带包含 A14 | **拒绝**：单对象修订的声明效果越界；采用须有独立显式效果。 | 结构可查；R03/R07 |
 | P07 T14 | 补录旧后台报告后，以入库顺序重置 G14.ui_status=absent | **只入历史报告**：早期事件不自动取代后续结果；缺乏当前生效依据。 | 混合；R10 |
 | P08 T14 | 未知源码前版，却声明执行了对准确源码版的补丁 | **拒绝该执行断言；可保存报告**：描述记录 expected 与工件 code_revision 属于不同空间。 | 结构可查；R02/R05 |
+| P09 T12 | 子项 complete 触发父项 acceptance=accepted | **拒绝自动传播**：子项写集不含父验收；有权验收依据未给出。 | 混合；R03/R05 |
+| P10 T12 | 分配后遗漏 trigger_and_context 且 residual 不含它 | **拒绝完整拆分确认**：固定责任集合出现无人承接项。 | 结构可查；R08 |
+| P11 T12 | 同一责任给两个子项，未声明重叠 | **拒绝完整拆分确认**：结构发现重叠；调用者需声明允许共享或重新划分。 | 结构可查；R08 |
+| P12 T12 | 只完成 split 组的 open，直接展示为责任已全部转移 | **保存未完成提案**：组尚未完成分配/父残余更新。 | 结构可查；R11 |
+| P13 T12 | 分组基础 implemented 推导产品分组 complete | **保存报告，阻止无依据确认**：基础和产品范围不同；需核对 T12.05。 | 语义需核对；R05/R12 |
+| P14 T12 | presentation channel 检查通过扩展到 turnstep 草稿 | **保存原范围报告**：来源明确排除另 worktree；越界确认无依据。 | 语义需核对；R05/R12 |
+| P15 T02 | 根据设计文字创建已发生的 Agent-a 持有 r-old 事件 | **拒绝作为真实实例事件**：没有实例身份及实例事件依据。 | 混合；R09 |
+| P16 T02 | 合成：新定义采用 r-new 后自动删除 holder-a -> r-old | **拒绝隐式删边**：不同 scope；采用新版本不包含持有者释放事件。 | 结构可查；R03/R07/R09 |
+| P17 T02 | 合成：没有 final-release 依据，清理仍被持有的 r-old | **拒绝规则内清理**：违反已声明的量化持有/清理条件。 | 结构可查；R09 |
+| P18 T02 | 合成：两个采用更新都基于 scope-X@1，顺序覆盖 | **第二项拒绝当前应用，保留候选**：第二项 expected 已过期；不替调用者决定路线。 | 结构可查；R02/R07 |
 | P19 T14 | 合法补录缺源码版本的作者实现报告 | **接受报告**：足以登记来源报告；source code_revision=null 保留。 | 结构可查；R02/R05/R12 |
+| P20 T02 | 合成：scope-X 与 scope-Y 各自采用不同版本 | **接受，分别保留**：两者未写同一采用对象；共同依赖仍需检查。 | 结构可查；R07 |
+
+## 规则回查其余十三段
+
+本表核对本轮规则对固定底稿事实的影响；不把它算作十三次完整编码或独立读回。所有事实保持原文，原来未知的原因、代码复用和运行实例继续未知。
+
+| 过程 | 应用规则与事实 | 恢复出的关键区别 | 判断及剩余事项 |
+|---|---|---|---|
+| [T01](dsh-process-truth-v1.md#t01) | R02/R03/R05；T01.02-05 | 局部撤回保持独立修补；撤回决定、执行中间态、消费者适配分开 | 适用；无额外规则；未取得准确源码基线时保留提交报告，不构造可执行补丁 |
+| [T03](dsh-process-truth-v1.md#t03) | R04/R05/R08/R10；T03.01-06 | 首次迁移合入与撤回、后续流式迁移、LogicalSession 阶段分别记录 | 适用；阶段父责任按 R08；首次撤回原因和两个实现代码复用仍未知 |
+| [T04](dsh-process-truth-v1.md#t04) | R03/R06/R07；T04.01-06 | 机制替换、独立名单任务与当前投递方式按对象/范围保存 | 适用；无额外规则；不能由成员机制统一推导所有能力已完成 |
+| [T05](dsh-process-truth-v1.md#t05) | R03/R05/R06；T05.01-05 | Creator 入口与存储边界分别保存，替代范围显式化 | 适用；无额外规则；文档中的实现状态按实际覆盖范围保留 |
+| [T06](dsh-process-truth-v1.md#t06) | R05/R06/R09；T06.01-06 | Schedule 状态和投递规则存为契约；与 Team 共享入口不合并两份持久状态 | 适用；无额外规则；运行投递事件需另有实例证据 |
+| [T07](dsh-process-truth-v1.md#t07) | R03/R06/R07；T07.01-05 | E2B 退出与 SSH 接续；共享接口保留，具体提供者退出范围单列 | 适用；无额外规则；接口连续不构成旧实现源码继承 |
+| [T08](dsh-process-truth-v1.md#t08) | R05/R06/R07/R09；T08.01-06 | 不同消费者规则分别保存；已报告采用不因缺运行事件被抹掉 | 适用；无额外规则；workflow/model 的投递效果限定各自消费者 |
+| [T09](dsh-process-truth-v1.md#t09) | R03/R05/R09；T09.01-05 | 旧解释、评审、DOM 保活方案分开；保留规则不伪写为撤回历史 | 适用；无额外规则；产品保活规则与真实实例寿命不同 |
+| [T10](dsh-process-truth-v1.md#t10) | R05/R06/R09；T10.01-05 | Goal 持久化、Host/UI 权限主体和后续修补分开 | 适用；无额外规则；产品权限规则不能充当开发工作的授权事件 |
+| [T11](dsh-process-truth-v1.md#t11) | R03/R05/R06；T11.01-05 | 评审否定交接协议，开始即登记方案及限制分别保存 | 适用；无额外规则；新方案设计不自动变成每次任务的运行事件 |
+| [T13](dsh-process-truth-v1.md#t13) | R04/R05/R10/R12；T13.01-05 | 旧延迟解释、失败修补、测量、新判断与随包依赖各自留存 | 适用；judge 修正需旧判断引用；本轮未对这五步另做完整状态转换；旧推演继续查前轮 |
+| [T15](dsh-process-truth-v1.md#t15) | R03/R05/R06/R09；T15.01-05 | 共享转换/独立引擎/交付 payload 分对象；应用运行、签名和发布分维度 | 适用；无额外规则；作者运行成功不等同完整交付验收 |
+| [T16](dsh-process-truth-v1.md#t16) | R02/R03/R05/R12；T16.01-04 | V3→V4 规则存为迁移契约；保留源代际；不虚构 V4 曾支持旧包装 | 适用；无额外规则；契约不能替代某次真实迁移输入输出 |
 
 ## 检查记录与待执行工作
 
