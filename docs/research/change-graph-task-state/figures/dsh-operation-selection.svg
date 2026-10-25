@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="740" viewBox="0 0 760 740"><title>工作入口与显式组合规则</title><desc>三条组合路径保存判断修正、工作接续和责任拆分，底部单独表示有范围的当前采用。</desc><defs><marker id="a" markerWidth="9" markerHeight="9" refX="8" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0L8 4L0 8Z" fill="#245e96"/></marker></defs><rect width="760" height="740" fill="white"/><g fill="#193e61" font-family="Microsoft YaHei,sans-serif">
+<text x="380" y="36" text-anchor="middle" font-size="24" font-weight="700"><tspan x="380" dy="0">四个工作入口怎样组合</tspan></text>
+<text x="380" y="68" text-anchor="middle" font-size="17" font-weight="400"><tspan x="380" dy="0">入口简化，来源、版本、范围和责任规则显式保留</tspan></text>
+<text x="380" y="105" text-anchor="middle" font-size="20" font-weight="700"><tspan x="380" dy="0">判断修正 · T13</tspan></text>
+<rect x="35" y="123" width="300" height="78" rx="9" fill="#edf5ff" stroke="#366a9d" stroke-width="2"/><text x="185.0" y="151" text-anchor="middle" font-size="17" font-weight="400"><tspan x="185.0" dy="0">statement 记录陈述</tspan><tspan x="185.0" dy="25">type：观察 / 判断</tspan></text>
+<rect x="425" y="123" width="300" height="78" rx="9" fill="#edf5ff" stroke="#366a9d" stroke-width="2"/><text x="575.0" y="151" text-anchor="middle" font-size="17" font-weight="400"><tspan x="575.0" dy="0">revise 修订判断</tspan><tspan x="575.0" dy="25">旧解释与证据可查</tspan></text>
+<path d="M340,162H419" fill="none" stroke="#245e96" stroke-width="3" marker-end="url(#a)"/>
+<text x="380" y="229" text-anchor="middle" font-size="16" font-weight="400"><tspan x="380" dy="0">观察和判断共用入口；类型、依据与适用范围分别保存</tspan></text>
+<text x="380" y="260" text-anchor="middle" font-size="20" font-weight="700"><tspan x="380" dy="0">尝试接续 · T14 / T03</tspan></text>
+<rect x="35" y="278" width="300" height="78" rx="9" fill="#edf5ff" stroke="#366a9d" stroke-width="2"/><text x="185.0" y="306" text-anchor="middle" font-size="17" font-weight="400"><tspan x="185.0" dy="0">create 创建新工作</tspan><tspan x="185.0" dy="25">身份与初始责任</tspan></text>
+<rect x="425" y="278" width="300" height="78" rx="9" fill="#edf5ff" stroke="#366a9d" stroke-width="2"/><text x="575.0" y="306" text-anchor="middle" font-size="17" font-weight="400"><tspan x="575.0" dy="0">revise 收束旧尝试</tspan><tspan x="575.0" dy="25">处置与后继明确</tspan></text>
+<path d="M340,317H419" fill="none" stroke="#245e96" stroke-width="3" marker-end="url(#a)"/>
+<text x="380" y="384" text-anchor="middle" font-size="16" font-weight="400"><tspan x="380" dy="0">open / close 是组合；目标继续，剩余责任保留</tspan></text>
+<text x="380" y="415" text-anchor="middle" font-size="20" font-weight="700"><tspan x="380" dy="0">责任拆分 · T12</tspan></text>
+<rect x="35" y="433" width="300" height="78" rx="9" fill="#edf5ff" stroke="#366a9d" stroke-width="2"/><text x="185.0" y="461" text-anchor="middle" font-size="17" font-weight="400"><tspan x="185.0" dy="0">create 创建子工作</tspan><tspan x="185.0" dy="25">各自推进</tspan></text>
+<rect x="425" y="433" width="300" height="78" rx="9" fill="#edf5ff" stroke="#366a9d" stroke-width="2"/><text x="575.0" y="461" text-anchor="middle" font-size="17" font-weight="400"><tspan x="575.0" dy="0">revise 父项与引用</tspan><tspan x="575.0" dy="25">分配和残余成组</tspan></text>
+<path d="M340,472H419" fill="none" stroke="#245e96" stroke-width="3" marker-end="url(#a)"/>
+<text x="380" y="539" text-anchor="middle" font-size="16" font-weight="400"><tspan x="380" dy="0">关系进入有类型精确引用；按需赋予独立关系身份</tspan></text>
+<rect x="90" y="595" width="580" height="78" rx="9" fill="#edf5ff" stroke="#366a9d" stroke-width="2"/><text x="380.0" y="623" text-anchor="middle" font-size="17" font-weight="400"><tspan x="380.0" dy="0">select 改变指定范围的当前采用</tspan><tspan x="380.0" dy="25">与历史版本、其他持有范围分别保存</tspan></text>
+<text x="380" y="713" text-anchor="middle" font-size="16" font-weight="400"><tspan x="380" dy="0">每一步都绑定对象、前版、来源和作用范围</tspan></text>
+</g></svg>

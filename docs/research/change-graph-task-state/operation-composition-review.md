@@ -8,6 +8,8 @@ tags: [research, primitives, composition-check]
 
 # DSH 真实过程的元操作组合与语义检查
 
+2026-10-25 最新：[筛选实验](operation-selection-review.md)已完成逐步更新、组合与删除重放；现行候选仅查[v0.4](work-operation-candidates-v0.4.md)。独立运行与主 Agent 走查分开；后续不默认三并发。
+
 2026-10-25：[工作转换检验](transition-rule-review.md)已展开 T14/T12/T02 的具体对象、前态、效果、保留和拒绝条件，并回查其余十三段。现行定义见[候选 v0.3](work-operation-candidates-v0.3.md)；Qoder MCP 已移除，独立检验另行安排。
 
 2026-10-23：[分轮结论](work-operation-rounds-v0.1.md)完成身份、责任、采用范围及全部16段检验。当前为7核心候选、11组合、12待补证；[完整清单](work-operation-candidates-v0.2.md)统一定义，[明细](work-operation-rounds-v0.1-evidence.md)保存全部取舍。

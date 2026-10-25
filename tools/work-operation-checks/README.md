@@ -26,3 +26,5 @@ relation 要有 relation/from/to/scope；adoption 与 decision 要有 scope/sele
 成功返回 applied、新状态、changes；历史追加被替换的完整对象快照。失败原子返回 rejected、原状态副本、错误码和空 changes。输入对象不被修改。replay 输入 `{initial_state, transactions:[{transaction,expected}]}`，顺序处理，拒绝的事务不改变后续状态。export 输出 objects/relations/adoptions 公共投影，把 inline links 与 relation、decision 与 adoption 对齐；投影省去本地 revision、来源和历史，原状态仍完整保留。CLI JSON 键排序固定。
 
 这是受限离线原型：不含持久数据库、并发服务、自动真实性/语义支持判断、自由文本责任分析或完整领域模式；结果相等只说明该显式编码下的记录效果相等。
+
+显式 refs 随对象版本保存。修订时省略 refs 继承前版，显式列表替换；旧版保留旧 refs。交付审查补上了这一存留保证，旧实验输出未覆盖，原始提案已用交付版本地重放。

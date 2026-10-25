@@ -182,8 +182,9 @@ def apply_transaction(state, transaction, expected=None):
             obj = {"kind": kind, "revision": 1 if create else old["revision"] + 1, "fields": fields,
                    "provenance": deepcopy(provenance)}
             validate_object(target, obj, old, provenance)
-            refs = command.get("refs", [])
+            refs = command.get("refs", deepcopy(old.get("refs", [])) if old else [])
             require(isinstance(refs, list), "reference", "refs must be a list")
+            obj["refs"] = deepcopy(refs)
             explicit_refs.extend(refs)
             if old:
                 working["history"].append({"id": target, **deepcopy(old)})

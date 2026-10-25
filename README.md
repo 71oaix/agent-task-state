@@ -8,7 +8,7 @@ tags: [research, task-state, entrypoint]
 
 # Agent 任务状态管理论文项目
 
-2026-10-25：完成[工作转换的本地检验](docs/research/change-graph-task-state/transition-rule-review.md)，现行候选见[v0.3](docs/research/change-graph-task-state/work-operation-candidates-v0.3.md)。T14/T12/T02 的规则已具体化，Qoder MCP 已移除，独立检验另行安排。
+2026-10-25：完成[逐步更新筛选](docs/research/change-graph-task-state/operation-selection-review.md)，现行[候选 v0.4](docs/research/change-graph-task-state/work-operation-candidates-v0.4.md)采用四个工作入口与显式组合规则；独立检验和本地走查分开报告。
 
 **Agent 接手只从[当前状态与执行入口](docs/research/change-graph-task-state/HANDOFF.md)开始。**不需要聊天历史。该入口说明目前做到哪一步、下一项工作、验收办法和权限边界。
 

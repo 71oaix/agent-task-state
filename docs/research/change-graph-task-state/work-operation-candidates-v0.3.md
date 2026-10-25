@@ -1,15 +1,16 @@
 ---
 title: 工作操作候选 v0.3：共同版本底座与七个语义入口
-status: active
+status: archived
 created: 2026-10-25
 updated: 2026-10-25
 tags: [research, work-operations, candidate]
 supersedes: work-operation-candidates-v0.2.md
+superseded_by: work-operation-candidates-v0.4.md
 ---
 
 # 工作操作候选 v0.3：共同版本底座与七个语义入口
 
-**当前保留七个语义接口候选，底层优先共用版本登记与检查规则。**十一项组合、十二项待补证保持前轮去向；三十项名称新增和删除均为零。本页替代 v0.2，成为唯一现行候选清单。[本轮依据](transition-rule-review.md)给出 T14、T12、T02 的完整转换，主结论从[工程全景](dsh-work-history.md)阅读。
+**当前保留七个语义接口候选，底层优先共用版本登记与检查规则。**十一项组合、十二项待补证保持前轮去向；三十项名称新增和删除均为零。本页替代 v0.2，作为前轮候选保存；现行清单见[候选 v0.4](work-operation-candidates-v0.4.md)。[本轮依据](transition-rule-review.md)给出 T14、T12、T02 的完整转换，主结论从[工程全景](dsh-work-history.md)阅读。
 
 本轮的进展是接口效果具体化：open 创建可跟踪工作初版，close 修订指定尝试的处置，select 只改变一个范围的采用。统一 record 可以承载相同效果，但必须保留这些类型约束。已有目标和成果初始登记、相关变化成组也计入底座。open/close 优先检验为便利封装；最终分类等待独立使用结果。
 

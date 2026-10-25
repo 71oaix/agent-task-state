@@ -15,8 +15,10 @@ supersedes:
 
 | 资产 | 来源与版本 | 责任与边界 | 下一步 |
 |---|---|---|---|
-| [元操作筛选](../research/change-graph-task-state/operation-selection-review.md) | 2026-10-25；逐步更新比较；新批次 dsh-operation-selection-2026-10-25 | 已授权离线检查器与 Codex 独立子代理；执行中 | 四组裁定与组合复查 |
-| [工作操作 v0.3](../research/change-graph-task-state/work-operation-candidates-v0.3.md) | 2026-10-25；唯一现行工作接口清单；v0.2 历史保留 | 7 语义入口 / 11 组合 / 12 待补证；统一底座为原型建议 | 独立构造/读回后裁定便利接口并决定原型实现 |
+| [工作操作检查器](../../tools/work-operation-checks/README.md) | 自有 Python 标准库实现；18 项测试；v2 原始实验与 v3 引用存留修复分开保存 | 记录更新/拒绝/重放，不判自由文字真伪、不执行 DSH | 复用当前实现；成本优先本地验证 |
+| [工作操作 v0.4](../research/change-graph-task-state/work-operation-candidates-v0.4.md) | 2026-10-25；唯一现行候选；原编号保留 | 四个工作入口；两入口对照也可表达，规则复杂性必须计入 | 必要关系身份/并发采用反例契约，复用当前检查器 |
+| [元操作筛选](../research/change-graph-task-state/operation-selection-review.md) | 2026-10-25；逐步更新比较；新批次 dsh-operation-selection-2026-10-25 | 记录检查器与四组校准完成；跨过程独立/主 Agent 范围分开 | 本轮已裁定，后续按必要争议控制审阅成本 |
+| [工作操作 v0.3](../research/change-graph-task-state/work-operation-candidates-v0.3.md) | 2026-10-25；前轮工作接口清单；由 v0.4 接替 | 7 语义入口 / 11 组合 / 12 待补证；统一底座为原型建议 | 独立构造/读回后裁定便利接口并决定原型实现 |
 | [工作转换检验](../research/change-graph-task-state/transition-rule-review.md) | 2026-10-25；固定来源的逐步转换、规则与期待探针 | 主 Agent 离线走查；Qoder 已移除；独立检验已由新轮次接续；本批次 artifacts/agent-task-state/maintenance/dsh-transitions-2026-10-25/ | 完成跨案例检查并明确原型 gate |
 | [DSH 工程全景](../research/change-graph-task-state/dsh-work-history.md)、[过程底稿 v1](../research/change-graph-task-state/dsh-process-truth-v1.md)、[机制比较](../research/change-graph-task-state/dsh-representation-comparison-v1.md) | 2026-10-20；固定86a4022；16过程/83事实/49来源对象 | 主Agent同作者离线表达、读回与删减；非独立盲测、数据库实现或长程任务效果 | 复核子工作身份、关系修订和选择范围后提出离线原型范围 |
 | [DSH truth v0.1](../research/change-graph-task-state/dsh-truth-v0.1.md)、[证据](../research/change-graph-task-state/dsh-truth-v0.1-evidence.md) | 2026-10-19；十过程/54事实/36来源；固定86a4022；阅读版与详细对照分工 | 编码前独立底稿；公开证据边界，非全项目完整事件流或独立复现 | 原54条事实已完整进入底稿v1和同输入比较；独立盲重建未执行 |

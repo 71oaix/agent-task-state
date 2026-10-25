@@ -24,6 +24,16 @@ def cmd(op, target, **extra):
 
 
 class CheckerTests(unittest.TestCase):
+    def test_explicit_basis_refs_are_persisted_and_revision_scoped(self):
+        first = apply_transaction(self.state, tx(cmd("create", "claim", kind="report",
+            fields={"result": "attributed finding"}, refs=[ref("child")])), {"claim": "absent"})
+        self.assertEqual(first["state"]["objects"]["claim"]["refs"], [ref("child")])
+        second = apply_transaction(first["state"], tx(cmd("revise", "claim", delta={"note": "more detail"})), {"claim": 1})
+        self.assertEqual(second["state"]["objects"]["claim"]["refs"], [ref("child")])
+        third = apply_transaction(second["state"], tx(cmd("revise", "claim", delta={"note": "changed basis"}, refs=[])), {"claim": 2})
+        self.assertEqual(third["state"]["objects"]["claim"]["refs"], [])
+        self.assertEqual(third["state"]["history"][-1]["refs"], [ref("child")])
+
     def test_statement_scope_can_be_revised_without_overwriting_history(self):
         state = {"objects": {"j": obj("statement", type="judgment", conclusion="limited inference",
                  evidence=["source-1"], scope="first visible report")}, "history": []}
