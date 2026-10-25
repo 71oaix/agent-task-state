@@ -52,7 +52,7 @@ def validate_object(oid, obj, old, provenance):
     require(isinstance(fields, dict), "type", oid + " fields must be an object")
     if old:
         require(kind == old["kind"], "kind", "kind is immutable")
-        if "scope" in old["fields"]:
+        if kind in {"relation", "adoption", "decision"} and "scope" in old["fields"]:
             require(fields.get("scope") == old["fields"]["scope"], "scope", "scope cannot change")
     if kind in {"statement", "observation", "judgment"}:
         stype = fields.get("type", kind)
@@ -82,6 +82,8 @@ def field_references(obj):
     if kind in {"adoption", "decision"}:
         selected = fields["selected"]
         values += selected if isinstance(selected, list) else [selected]
+        if fields.get("supersedes") is not None:
+            values.append(fields["supersedes"])
     for link in fields.get("links", []):
         require(isinstance(link, dict) and {"relation", "from", "to", "scope"} <= link.keys(),
                 "reference", "inline links need relation/from/to/scope")
@@ -200,6 +202,10 @@ def apply_transaction(state, transaction, expected=None):
             for ref in field_references(working["objects"][target]):
                 require(endpoint(ref, target) in versions, "reference", "field reference revision does not exist")
         validate_allocations(working["objects"])
+        resolution = resolve_adoptions(working)
+        if resolution["errors"]:
+            error = resolution["errors"][0]
+            raise Invalid(error["code"], error["message"])
         return {"status": "applied", "state": working, "errors": [], "changes": changes,
                 "group": transaction.get("group")}
     except (Invalid, KeyError, TypeError) as exc:
@@ -226,6 +232,65 @@ def export_projection(state):
     sort_key = lambda value: json.dumps(value, sort_keys=True, ensure_ascii=False)
     return {"objects": objects, "relations": sorted(relations, key=sort_key),
             "adoptions": sorted(adoptions, key=sort_key)}
+
+
+def resolve_adoptions(state):
+    """Resolve explicit scope histories; append-log forks remain conflicts, never last-write wins."""
+    versions = known_versions(state)
+    nodes = {key: value for key, value in versions.items()
+             if value["kind"] == "adoption" or
+             (value["kind"] == "decision" and value["fields"].get("effective") is True)}
+    edges, errors = {key: set() for key in nodes}, []
+    previous_versions = {}
+    for key, value in sorted(nodes.items()):
+        try:
+            fields = value["fields"]
+            require(isinstance(fields.get("scope"), str) and bool(fields["scope"]),
+                    "scope", "adoption scope must be a nonempty string")
+            require("selected" in fields, "scope", "adoption selected value required")
+            earlier = previous_versions.get(key[0])
+            if earlier is not None:
+                require(nodes[earlier]["fields"]["scope"] == fields["scope"],
+                        "scope", "same-ID adoption history changed scope")
+                edges[key].add(earlier)
+            previous_versions[key[0]] = key
+            if fields.get("supersedes") is not None:
+                prior = endpoint(fields["supersedes"], "adoption supersedes")
+                require(prior in nodes, "reference", "adoption predecessor missing/not effective")
+                require(prior != key, "cycle", "adoption cannot supersede itself")
+                require(nodes[prior]["fields"]["scope"] == fields["scope"],
+                        "scope", "adoption predecessor scope differs")
+                edges[key].add(prior)
+        except Invalid as exc:
+            errors.append({"code": exc.code, "message": str(exc), "record": list(key)})
+    # Kahn's algorithm includes implicit same-ID version edges in cycle checks.
+    incoming = {key: 0 for key in nodes}
+    for priors in edges.values():
+        for prior in priors:
+            incoming[prior] += 1
+    ready = sorted(key for key, count in incoming.items() if count == 0)
+    visited = 0
+    while ready:
+        key = ready.pop()
+        visited += 1
+        for prior in sorted(edges[key]):
+            incoming[prior] -= 1
+            if incoming[prior] == 0:
+                ready.append(prior)
+    if visited != len(nodes):
+        errors.append({"code": "cycle", "message": "adoption supersession cycle"})
+    if errors:
+        return {"scopes": {}, "errors": errors}
+    consumed = set().union(*edges.values()) if edges else set()
+    grouped = {}
+    for key, value in sorted(nodes.items()):
+        if key not in consumed:
+            grouped.setdefault(value["fields"]["scope"], []).append({
+                "record": {"id": key[0], "revision": key[1]},
+                "selected": deepcopy(value["fields"]["selected"])})
+    return {"scopes": {scope: {"status": "resolved" if len(heads) == 1 else "conflict",
+                               "heads": heads} for scope, heads in sorted(grouped.items())},
+            "errors": errors}
 
 
 def replay(initial_state, transactions):
