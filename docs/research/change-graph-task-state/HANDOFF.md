@@ -8,6 +8,8 @@ tags: [research, work-operations, candidate]
 
 # Agent 接手入口与当前执行状态
 
+当前执行[元操作筛选计划](operation-selection-review.md)：用户已批准小型离线检查器与独立 Codex 子代理更新实验。工具位于 Agent任务状态管理/tools/work-operation-checks/；新批次 artifacts/agent-task-state/maintenance/dsh-operation-selection-2026-10-25/。四组先校准再冻结跨过程检查，保留每步首次输出、一次修正与裁定。下文为上一阶段交接背景，当前推进以此新轮次为准。
+
 先读[工程全景的本轮结论](dsh-work-history.md)，现行候选只查[工作操作 v0.3](work-operation-candidates-v0.3.md)，本轮完整转换与原型规格查[工作转换检验](transition-rule-review.md)。v0.2 已归档，前轮原始答卷继续保留。
 
 已完成：T14 十步、T12 八步、T02 四步的具体对象/前态/效果/保留/来源映射；两种机制同效果编码；普通文档对照；二十项错误/正常输入及主作者期待判定；七入口删除与替代规则；其余十三段影响走查。本地静态核对验证材料内部一致，未实现状态引擎。候选去向仍为 7 语义入口、11 组合、12 待补证，名称新增/删除 0；原型建议是统一登记底座加类型检查和语义入口。
