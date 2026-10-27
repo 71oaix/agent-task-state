@@ -2,11 +2,25 @@
 title: Agent 接手入口与当前执行状态
 status: active
 created: 2026-10-23
-updated: 2026-10-25
+updated: 2026-10-27
 tags: [research, operation-selection]
 ---
 
 # Agent 接手入口与当前执行状态
+
+2026-10-27 执行用户批准的“形成可用工作操作并完整表达 DSH”计划。使用当前独立分支，起始 HEAD 2861b5934e09a2002702309df67a86f6b2033071。当前四入口 create/revise/statement/select；本轮优先可用组合，不按函数数量压缩。
+
+当前实现：tools/work-operation-checks/workbench.py、EXPRESSION.md、reader.html、test_workbench.py；组合含 partial_revert、replace_parts、split、rework、close、reuse、adopt、correct；新文件尚未提交。Loader 主 Agent 预分析和可运行示范位于本工作树 artifacts/agent-task-state/maintenance/dsh-workbench-2026-10-27/；图已渲染，移动/桌面及历史查询交互检查通过。
+
+CodeBuddy 批次1任务 c0282143-6631-471f-8a7d-91b860d42ba5，deepseek-v4.1-flash/max，edit 仅允许 cases/pack1.json，包含 T01/T03/T12/T14。任务仍运行时不改其文件、不重复提交。此文件初稿四案可重放，主 Agent 来源复核已发现决定/落地时态、T12 用后续信息提前分配责任、unknown 被写成 not_started 等问题；裁定草稿在 sol-review-in-progress.json。待任务完成先保存原稿和原始 result，再修正、冻结包1。
+
+下一动作：包1校准后依序派 CodeBuddy 包2(T02/T04/T06/T08)、包3(T05/T07/T09/T15)、包4(T10/T11/T13/T16)，只读取固定底稿、EXPRESSION、既有代码和包1示范，避免全资料扫描。每包仍用独立白名单 JSON，HEAD 变化前须确认无 edit 在排队。主 Agent 检验每步、覆盖和来源含义后继续。
+
+随后全量 build 到新的 ignored 输出目录，建立83事实/16缺口对应、七条跨过程和两条内部包含关系，CodeBuddy 用新上下文对选定片段读回。source truth 不修改；模型编码和模型自检不计为独立检验。程序拒绝与语义来源审查分开。最终形成候选v0.5、更新dsh-work-history与operation-composition-review、索引/资产、固定提交集中审阅。计划未完成时不能报完成。
+
+本轮已明确授权 CodeBuddy 服务分工，不使用 Qoder，不默认 Codex 子代理三并发。失败先取回状态/结果，禁止自动重发；用量无回执保持未知。控制成本优先主 Agent 与本地脚本。CodeBuddy interface contract_revision=2.0、串行队列；其工具白名单不是OS隔离。
+
+<details><summary>2026-10-25 上轮接手记录</summary>
 
 先读[本轮主结论](dsh-work-history.md)，现行规则只查[候选 v0.4](work-operation-candidates-v0.4.md)，依据与范围查[筛选实验](operation-selection-review.md)。v0.3 已归档，前轮资料保留。
 
@@ -23,3 +37,5 @@ tags: [research, operation-selection]
 用户已要求控制成本：禁止默认三并发；默认主 Agent 加确定性脚本。仅当一个具体争议会改变候选去向且主 Agent 无法可靠裁定时，调用一次最小材料的独立审阅；用量/费用未知不能写为零。Qoder 已移除，不重连、不改用付费服务、不重试额度错误。
 
 研究工作树 artifacts/worktrees/task-state-activities，分支 codex/task-state-activity-research。提交状态从 Git 核对，保护其他项目未提交内容。固定资料截至 2026-10-15，底稿 v1 和前轮答卷不变；已知来源缺口保留未知。
+
+</details>

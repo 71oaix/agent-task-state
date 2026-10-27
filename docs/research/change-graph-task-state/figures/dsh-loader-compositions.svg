@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="890" viewBox="0 0 760 890" role="img" aria-label="Loader 局部撤回：开发变化、操作组合与留下的工作">
+<defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9" fill="#315c7c"/></marker></defs>
+<rect width="760" height="890" fill="#fff"/>
+<style>text{font-family:'Microsoft YaHei',system-ui,sans-serif;fill:#19364e} .title{font-size:24px;font-weight:700}.head{font-size:18px;font-weight:700}.body{font-size:16px}.small{font-size:14px;fill:#47647b}.box{fill:#edf5fc;stroke:#527f9e;stroke-width:2}.line{stroke:#315c7c;stroke-width:2.5;fill:none;marker-end:url(#arrow)}</style>
+<text class="title" x="32" y="43">一次撤回，怎样保住继续工作的依据</text>
+<text class="small" x="32" y="72">DSH Loader · 节点按来源可见顺序排列 · 箭头表示记录更新</text>
+<text class="head" x="38" y="113">真实开发变化</text><text class="head" x="407" y="113">操作怎样保存它</text>
+<rect class="box" x="30" y="132" width="310" height="108" rx="8"/>
+<text class="head" x="48" y="161">加入事务式重载</text>
+<text class="body" x="48" y="188">配置修改失败时保留旧代际。</text>
+<text class="small" x="48" y="218">T01.01 · 提交与回顾记录</text>
+<path class="line" d="M345 185 H395"/>
+<rect class="box" x="405" y="132" width="325" height="108" rx="8"/>
+<text class="head" x="423" y="161">revise：明确当前组成</text>
+<text class="body" x="423" y="188">将事务保证记入 Loader 版本。</text>
+<text class="small" x="423" y="218">来源报告与独立运行验收分开</text>
+<path class="line" d="M185 245 V282"/>
+<rect class="box" x="30" y="292" width="310" height="145" rx="8"/>
+<text class="head" x="48" y="321">选择性撤回</text>
+<text class="body" x="48" y="349">撤回事务重载，保留文件初始化、</text>
+<text class="body" x="48" y="375">模块导出修补及无关插件能力。</text>
+<text class="small" x="48" y="406">理由：维护上游偏离成本</text>
+<path class="line" d="M345 364 H395"/>
+<rect class="box" x="405" y="292" width="325" height="145" rx="8"/>
+<text class="head" x="423" y="321">partial_revert → revise</text>
+<text class="body" x="423" y="349">逐项声明撤回和保留范围。</text>
+<text class="body" x="423" y="375">旧版可查，独立修补继续存在。</text>
+<text class="small" x="423" y="406">范围未交代完整时拒绝组合</text>
+<path class="line" d="M185 442 V479"/>
+<rect class="box" x="30" y="489" width="310" height="124" rx="8"/>
+<text class="head" x="48" y="518">撤回后继续适配与修补</text>
+<text class="body" x="48" y="546">出现消费者适配提交，</text>
+<text class="body" x="48" y="572">随后继续修补启动失败策略。</text>
+<text class="small" x="48" y="596">T01.04 · 多次提交分别可查</text>
+<path class="line" d="M345 551 H395"/>
+<rect class="box" x="405" y="489" width="325" height="124" rx="8"/>
+<text class="head" x="423" y="518">statement ＋ revise</text>
+<text class="body" x="423" y="546">记录实施报告与成果新版本，</text>
+<text class="body" x="423" y="572">保留消费者承担的后续责任。</text>
+<text class="small" x="423" y="596">工作继续推进，目标完成另有依据</text>
+<path class="line" d="M185 618 V655"/>
+<rect class="box" x="30" y="665" width="310" height="124" rx="8"/>
+<text class="head" x="48" y="694">当前设计责任重新划分</text>
+<text class="body" x="48" y="722">Loader 可留下部分应用配置；</text>
+<text class="body" x="48" y="748">消费者审查实际激活结果。</text>
+<text class="small" x="48" y="772">T01.05 · 截止快照的设计记录</text>
+<path class="line" d="M345 727 H395"/>
+<rect class="box" x="405" y="665" width="325" height="124" rx="8"/>
+<text class="head" x="423" y="694">revise ＋ select</text>
+<text class="body" x="423" y="722">修订契约，选用准确成果版本。</text>
+<text class="body" x="423" y="748">采用范围限定为记录中的策略。</text>
+<text class="small" x="423" y="772">其他成果、使用范围不自动变更</text>
+<text class="body" x="32" y="837">接手者可以查清：撤回什么、保留什么、为什么改、后续责任在哪里。</text>
+<text class="small" x="32" y="867">create 建立研究对象身份；每次变化保存前版、来源、作用范围与展开步骤。</text>
+</svg>

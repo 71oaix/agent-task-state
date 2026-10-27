@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="zh-CN">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>DSH 工作演化 · 操作工作台</title>
+<style>
+:root{color-scheme:light;--ink:#19364e;--muted:#47647b;--line:#668aa7;--paper:#fff;--wash:#eef5fa}
+*{box-sizing:border-box}body{margin:0;background:#f4f7fa;color:var(--ink);font:16px/1.8 system-ui,"Microsoft YaHei",sans-serif}main{max-width:1020px;margin:auto;padding:28px 24px 60px}h1{font-size:28px;line-height:1.4;letter-spacing:.03em}h2{font-size:22px;line-height:1.5}h3{font-size:18px;margin:0 0 10px}p{max-width:76ch}a{color:#165d91;text-underline-offset:3px}.lede{color:var(--muted)}.card,article{background:var(--paper);border:1px solid #b8cad8;border-radius:8px;padding:24px;margin:20px 0}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.lane{border-left:4px solid #487eaa;padding:10px 16px;background:var(--wash)}.lane p{margin:4px 0}.pill{font-size:14px;display:inline-block;margin:3px 8px 3px 0}.bar{position:sticky;top:0;background:#f4f7fa;padding:12px 0;z-index:2;display:flex;gap:12px;flex-wrap:wrap;align-items:center}select,button{font:inherit;max-width:100%;padding:7px 12px;background:#fff;border:1px solid var(--line);border-radius:6px;color:var(--ink)}button{cursor:pointer}select:focus,button:focus,summary:focus{outline:3px solid #80b2d6;outline-offset:2px}summary{cursor:pointer;padding:7px 0;font-weight:600}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:var(--wash);padding:16px;font:13px/1.65 ui-monospace,monospace;overflow:auto}code{overflow-wrap:anywhere}.fact{border-left:3px solid var(--line);padding-left:14px}.flow{max-width:700px;margin:18px auto}.node{padding:14px 18px;border:2px solid var(--line);border-radius:7px;background:var(--wash)}.node small{color:var(--muted)}.arrow{text-align:center;font-size:25px;line-height:1.3;color:#285677}.meta{color:var(--muted);font-size:14px}.source{display:flex;gap:14px;flex-wrap:wrap}.split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px}.key{font-weight:600}.status{font-size:14px;color:var(--muted)}[hidden]{display:none!important}@media(max-width:650px){main{padding:18px 14px 40px}.grid,.split{grid-template-columns:1fr}.card,article{padding:18px}h1{font-size:24px}.bar{position:static}}
+</style>
+<main>
+<p class="meta">固定资料截至 2026 年 10 月 15 日 · 可执行研究示范</p>
+<h1>DSH 的工作怎样持续生长</h1>
+<p class="lede">从工程全景进入一段真实过程，查看发生了什么、怎样用操作保存，以及哪些成果和责任继续留下。操作展开和版本内容按需查看。</p>
+<details class="card" open><summary>八条工作线</summary><div id="lanes" class="grid"></div></details>
+<div class="bar"><label for="case">开发过程</label><select id="case"></select><button id="all">展开操作明细</button></div>
+<div id="content"></div>
+<section class="card"><h2>沿联系找到其他工作</h2><p>这些连接说明工作怎样相遇。每条连接保留具体含义和依据；共享机制、成果依赖与因果按来源分别阅读。</p><div id="cross" class="grid"></div></section>
+<details class="card"><summary>查指定对象的历史版本</summary><p>先选对象，再选版本。旧版保存当时的内容与来源。</p><div class="bar"><label for="obj">对象</label><select id="obj"></select><label for="rev">版本</label><select id="rev"></select><button id="lookup">查看</button></div><div id="version"></div></details>
+</main>
+<script>
+const data=__BUNDLE__;
+const $=s=>document.querySelector(s);
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+const names={create:'建立对象',revise:'修订版本',partial_revert:'部分撤回',replace_parts:'替换组成',split:'拆分责任',rework:'接续重做',close:'收束尝试',reuse:'引用与复用',adopt:'选用版本',correct:'修正判断'};
+const lanes=[['插件与配置',['T01','T02','T05']],['会话与上下文',['T03']],['Agent 协作',['T04','T08']],['执行与权限',['T07','T11','T13']],['人类工作台',['T09','T12','T14']],['模型与消息',['T16']],['自动化',['T06','T10']],['交付与平台',['T15']]];
+function clean(s){return s.replace(/\[S\d+\]\([^)]+\)/g,'').replace(/（[^（）]*；[\s、]*）/g,'').trim();}
+function first(s){return clean(s).split('。')[0]+'。';}
+function pre(x){return '<pre>'+esc(JSON.stringify(x,null,2))+'</pre>';}
+function versions(c,id){return [...c.state.history.filter(v=>v.id===id),{id,...c.state.objects[id]}].sort((a,b)=>a.revision-b.revision);}
+function choose(id){$('#case').value=id;render();$('#content').scrollIntoView({block:'start'});}
+for(const [id,c] of Object.entries(data.cases))$('#case').add(new Option(id+' · '+c.title,id));
+$('#lanes').innerHTML=lanes.filter(([,ids])=>ids.some(id=>data.cases[id])).map(([title,ids])=>'<div class="lane"><strong>'+esc(title)+'</strong><p>'+ids.filter(id=>data.cases[id]).map(id=>'<a class="pill" href="#'+id+'" data-case="'+id+'">'+esc(id+' '+data.cases[id].title.split('：')[0])+'</a>').join('')+'</p></div>').join('');
+document.addEventListener('click',e=>{const a=e.target.closest('[data-case]');if(a){e.preventDefault();choose(a.dataset.case);}});
+function render(){
+ const c=data.cases[$('#case').value];$('#version').innerHTML='';$('#obj').innerHTML='';
+ for(const o of Object.keys(c.state.objects))$('#obj').add(new Option(o,o));revs();
+ let out='<section class="card"><h2>'+esc(c.id+' · '+c.title)+'</h2><p>沿图从上往下阅读；每个节点对应一次来源可见的变化。下面的段落解释变化，展开后可查组合操作和保存版本。</p><div class="flow">';
+ for(const e of c.events){const f=c.state.objects['fact/'+e.facts[0]].fields;out+='<div class="node"><strong>'+esc(first(f.result))+'</strong><br><small>'+esc(e.trace.filter(t=>t.kind==='composition').map(t=>names[t.prepared.action.action]).join(' → ')||'登记来源报告')+'</small></div><div class="arrow">↓</div>';}
+ out=out.replace(/<div class="arrow">↓<\/div>$/,'')+'</div></section>';
+ for(const e of c.events){
+  out+='<article><h3>'+esc(e.step)+'</h3>';
+  for(const fid of e.facts){const f=c.state.objects['fact/'+fid].fields;out+='<p class="fact">'+esc(clean(f.result))+'</p><p class="source meta">'+esc(fid)+' · '+f.sources.map(s=>'<a target="_blank" rel="noreferrer" href="'+esc(s.url)+'">'+esc(s.id)+'</a>').join(' ')+'</p>';}
+  for(const t of e.trace.filter(t=>t.kind==='composition')){
+   const a=t.prepared.action;let why=a.reason||a.range||a.disposition||a.scope||'';
+   out+='<details class="operation"><summary>'+esc(names[a.action])+'：'+esc(t.changes.map(v=>v.target+' @'+v.after).join('、'))+'</summary>';
+   if(why)out+='<p>'+esc(why)+'</p>';
+   out+='<p class="key">实际展开</p>'+pre(t.prepared.transaction.commands)+'<p class="key">保存后的版本</p>';
+   for(const change of t.changes)out+=pre(versions(c,change.target).find(v=>v.revision===change.after));
+   out+='</details>';
+  }
+  out+='</article>';
+ }
+ const gap=c.state.objects['fact/'+c.id+'.GAP'].fields;
+ const adopted=Object.entries(c.state.objects).filter(([k,v])=>v.kind==='adoption');
+ out+='<section class="card"><h2>这一段留下了什么</h2><div class="split"><div><h3>记录中的采用范围</h3>'+(adopted.length?adopted.map(([id,v])=>'<p><strong>'+esc(v.fields.scope)+'</strong><br>'+esc(v.fields.reason)+'<br><span class="meta">'+esc(v.fields.selected.map(s=>s.id+' @'+s.revision).join('、'))+'</span></p>').join(''):'<p>来源未被编码为独立采用决定；具体实施与报告保存在对象版本中。</p>')+'</div><div><h3>继续接手要知道</h3><p>'+esc(gap.result)+'</p></div></div><details><summary>全部当前对象</summary>'+pre(Object.fromEntries(Object.entries(c.state.objects).filter(([k])=>!k.startsWith('fact/'))))+'</details></section>';
+ $('#content').innerHTML=out;
+ $('#cross').innerHTML=data.cross_links.filter(x=>x.endpoints.includes(c.id)).map(x=>'<div class="lane"><strong>'+esc(x.label)+'</strong><p>'+esc(x.meaning)+'</p><p class="meta">'+esc(x.basis)+'</p>'+x.endpoints.filter(id=>id!==c.id).map(id=>'<a href="#'+id+'" data-case="'+id+'">查看 '+esc(id)+'</a>').join(' ')+'</div>').join('')||'<p>固定底稿未给这段登记跨过程连接。</p>';
+}
+function revs(){const c=data.cases[$('#case').value];$('#rev').innerHTML='';for(const v of versions(c,$('#obj').value))$('#rev').add(new Option('@'+v.revision,v.revision));$('#rev').value=c.state.objects[$('#obj').value].revision;}
+$('#case').onchange=render;$('#obj').onchange=revs;$('#lookup').onclick=()=>{const c=data.cases[$('#case').value];$('#version').innerHTML=pre(versions(c,$('#obj').value).find(v=>v.revision==$('#rev').value));};
+$('#all').onclick=()=>{const nodes=[...document.querySelectorAll('.operation')],open=nodes.some(n=>!n.open);nodes.forEach(n=>n.open=open);$('#all').textContent=open?'收起操作明细':'展开操作明细';};
+render();
+</script>
+</html>

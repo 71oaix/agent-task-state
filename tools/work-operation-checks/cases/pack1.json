@@ -1,0 +1,1367 @@
+{
+  "schema": 1,
+  "cases": [
+    {
+      "id": "T01",
+      "title": "插件加载：加入事务重载，后来选择性撤回",
+      "objects": [
+        {
+          "id": "T01/goal",
+          "kind": "goal",
+          "fields": {
+            "title": "Loader 配置重载的可靠性",
+            "status": "unknown",
+            "domain": "development",
+            "research_scope": "研究者建立的过程目标身份，不是上游登记的同名目标",
+            "initial_unknown": "完成标准、决策者与验收责任均未知"
+          }
+        },
+        {
+          "id": "T01/work",
+          "kind": "work",
+          "fields": {
+            "title": "Loader 配置重载",
+            "status": "unknown",
+            "domain": "development",
+            "research_scope": "T01 过程的研究工作身份；初始不预设实现方案",
+            "implementation": "unknown",
+            "verification": "unknown",
+            "acceptance": "unknown",
+            "initial_unknown": "最终范围与验收状态"
+          }
+        },
+        {
+          "id": "T01/loader",
+          "kind": "contract",
+          "fields": {
+            "title": "Loader 配置重载的行为与责任",
+            "status": "unknown",
+            "domain": "product_design",
+            "scope": "配置重载的行为与责任边界",
+            "implementation": "unknown",
+            "verification": "unknown",
+            "acceptance": "unknown",
+            "adoption": "unknown",
+            "details": "unknown"
+          }
+        }
+      ],
+      "steps": [
+        {
+          "id": "T01.S01",
+          "facts": [
+            "T01.01"
+          ],
+          "actions": [
+            {
+              "action": "create",
+              "id": "T01/attempt",
+              "kind": "work",
+              "fields": {
+                "title": "配置重载改动集",
+                "status": "reported_committed",
+                "domain": "development",
+                "approach": "transactional config reload",
+                "commit": "195f7fa9af0ff33e75f44e767a23b8e1e8aaa200",
+                "landed_date": "2026-08-02",
+                "implementation": "reported_committed",
+                "verification": "unknown",
+                "acceptance": "unknown",
+                "parts": {
+                  "transactional_reload": {
+                    "status": "reported_implemented",
+                    "description": "提交加入事务式配置重载；截止版本设计记录回顾其在配置修改失败后保留旧插件代际",
+                    "attribution": "commit_record + retrospective_report"
+                  }
+                },
+                "source_boundary": "事务式重载的运行效果沿用作者回顾，未独立复验"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T01/loader",
+              "delta": {
+                "status": "reported_implemented",
+                "implementation": "reported_transactional_reload",
+                "guarantee": "配置修改失败后保留旧插件代际",
+                "guarantee_attribution": "截止版本设计记录的回顾，不是本次独立观察",
+                "transactional": true,
+                "verification": "unknown",
+                "acceptance": "unknown",
+                "adoption": "unknown"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T01/work",
+              "delta": {
+                "status": "reported_transactional_reload",
+                "current_approach": "transactional config reload",
+                "current_attempt": "T01/attempt",
+                "implementation": "reported_committed",
+                "verification": "unknown",
+                "acceptance": "unknown"
+              }
+            },
+            {
+              "action": "reuse",
+              "owner": "T01/attempt",
+              "provider": "T01/loader",
+              "relation": "implements",
+              "range": "事务式配置重载实现 T01.01 记录的行为契约"
+            }
+          ]
+        },
+        {
+          "id": "T01.S02",
+          "facts": [
+            "T01.02"
+          ],
+          "actions": [
+            {
+              "action": "revise",
+              "id": "T01/attempt",
+              "delta": {
+                "status": "withdrawal_recorded",
+                "issue": "#932",
+                "withdrawal_scope": "#932 的五个提交",
+                "withdrawal_reason": "候选导入、回滚和生命周期处理使 vendored 实现偏离上游过多",
+                "withdrawal_decision": "recorded_decision",
+                "decision_actor": "unknown",
+                "scope_boundary": "研究编码只跟踪撤回后仍可区分的事务式重载与保留项；五个提交的完整 diff 未取得"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T01/loader",
+              "delta": {
+                "status": "reported_scheduled_for_withdrawal",
+                "note": "撤回决定已记录；撤回提交尚未在本步出现",
+                "planned_transactional": false
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T01/work",
+              "delta": {
+                "status": "withdrawal_decided; not_yet_landed",
+                "withdrawal_scope": "#932 的五个提交"
+              }
+            }
+          ]
+        },
+        {
+          "id": "T01.S03",
+          "facts": [
+            "T01.03"
+          ],
+          "actions": [
+            {
+              "action": "revise",
+              "id": "T01/attempt",
+              "delta": {
+                "status": "withdrawal_decided; retention_recorded",
+                "parts": {
+                  "transactional_reload": {
+                    "status": "reported_implemented",
+                    "description": "提交加入事务式配置重载；截止版本设计记录回顾其在配置修改失败后保留旧插件代际",
+                    "attribution": "commit_record + retrospective_report"
+                  },
+                  "file_init_patch": {
+                    "status": "reported_retained",
+                    "description": "文件初始化修补；撤回时保留",
+                    "attribution": "recorded_decision"
+                  },
+                  "module_export_patch": {
+                    "status": "reported_retained",
+                    "description": "模块导出修补；撤回时保留",
+                    "attribution": "recorded_decision"
+                  },
+                  "repo_plugin_capability": {
+                    "status": "reported_retained",
+                    "description": "较大合并中的无关仓库插件能力；撤回时保留",
+                    "attribution": "recorded_decision",
+                    "relationship_to_932": "不属于 #932 的五个提交"
+                  }
+                },
+                "retention_source": "recorded_decision; decision_actor unknown"
+              }
+            },
+            {
+              "action": "partial_revert",
+              "id": "T01/attempt",
+              "withdraw": [
+                "transactional_reload"
+              ],
+              "retain": [
+                "file_init_patch",
+                "module_export_patch",
+                "repo_plugin_capability"
+              ],
+              "reason": "撤回 #932 的事务式重载；保留文件初始化、模块导出修补及较大合并中的无关仓库插件能力"
+            },
+            {
+              "action": "revise",
+              "id": "T01/loader",
+              "delta": {
+                "status": "reported_scheduled_for_withdrawal",
+                "retained_patches": [
+                  "file_init_patch",
+                  "module_export_patch"
+                ],
+                "unrelated_capability": "repo_plugin_capability",
+                "retention_note": "已记录保留项；撤回提交在后续步骤出现"
+              }
+            }
+          ]
+        },
+        {
+          "id": "T01.S04",
+          "facts": [
+            "T01.04"
+          ],
+          "actions": [
+            {
+              "action": "create",
+              "id": "T01/revert",
+              "kind": "artifact",
+              "fields": {
+                "title": "撤回 #932 事务式加载改动",
+                "status": "reported_committed",
+                "domain": "development",
+                "commit": "e07f41d5fd8ca172287fda0f923b4d1f69c592f3",
+                "date": "2026-09-09",
+                "scope": "Revert #932 transactional Cordis reload changes",
+                "implementation": "reported_committed",
+                "verification": "unknown",
+                "acceptance": "unknown"
+              }
+            },
+            {
+              "action": "create",
+              "id": "T01/adapt",
+              "kind": "artifact",
+              "fields": {
+                "title": "消费者适配非事务 Loader",
+                "status": "reported_committed",
+                "domain": "development",
+                "commit": "2abb542a222032b1ad3c5abd7bb65ffffe15b8de",
+                "date": "2026-09-09",
+                "scope": "Adapt current consumers to nontransactional Cordis Loader",
+                "implementation": "reported_committed",
+                "verification": "unknown",
+                "acceptance": "unknown"
+              }
+            },
+            {
+              "action": "create",
+              "id": "T01/boot",
+              "kind": "work",
+              "fields": {
+                "title": "启动失败策略修补",
+                "status": "reported_committed",
+                "domain": "development",
+                "commit": "f4a7dd607709025bc3ad19dab8ffbb038cd13962",
+                "date": "2026-09-11",
+                "patch": "preserve failure policy on nontransactional Loader",
+                "implementation": "reported_committed",
+                "verification": "unknown",
+                "acceptance": "unknown",
+                "completion": "continues; no completion evidence"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T01/attempt",
+              "delta": {
+                "implementation": "reported_reverted",
+                "reverted_date": "2026-09-09"
+              }
+            },
+            {
+              "action": "close",
+              "id": "T01/attempt",
+              "disposition": "#932 的五个提交已撤回；文件初始化、模块导出与无关仓库插件能力保留"
+            },
+            {
+              "action": "revise",
+              "id": "T01/loader",
+              "delta": {
+                "status": "reported_revert_landed",
+                "transactional": false,
+                "revert_commit": "e07f41d5fd8ca172287fda0f923b4d1f69c592f3",
+                "consumer_adaptation_commit": "2abb542a222032b1ad3c5abd7bb65ffffe15b8de",
+                "boot_policy_patch": "f4a7dd607709025bc3ad19dab8ffbb038cd13962",
+                "verification": "unknown"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T01/work",
+              "delta": {
+                "status": "reverted; followup_patch_open",
+                "revert_date": "2026-09-09",
+                "consumer_adaptation_date": "2026-09-09",
+                "boot_patch_date": "2026-09-11"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T01/goal",
+              "delta": {
+                "status": "open",
+                "completion": "not_established",
+                "note": "撤回旧尝试未结束目标"
+              }
+            },
+            {
+              "action": "reuse",
+              "owner": "T01/adapt",
+              "provider": "T01/loader",
+              "relation": "uses_contract",
+              "range": "现有消费者适配为非事务 Loader 契约；不表示旧事务保证仍有效"
+            },
+            {
+              "action": "reuse",
+              "owner": "T01/boot",
+              "provider": "T01/loader",
+              "relation": "depends_on",
+              "range": "启动失败策略修补以非事务 Loader 为上下文"
+            }
+          ]
+        },
+        {
+          "id": "T01.S05",
+          "facts": [
+            "T01.05"
+          ],
+          "actions": [
+            {
+              "action": "revise",
+              "id": "T01/loader",
+              "delta": {
+                "status": "reported_current",
+                "failure_behavior": "插件失败可以留下部分应用的配置树",
+                "automatic_restore": "none; Loader 不自动恢复旧配置",
+                "consumer_responsibility": "需要可用插件的消费者自行审查实际激活结果",
+                "responsibility_change": {
+                  "prior": "Loader 在配置失败后保留旧插件代际",
+                  "current": "Loader 不自动恢复；消费者审查实际激活"
+                },
+                "implementation": "reported_revert_landed",
+                "verification": "documented_result; 独立运行核验未做",
+                "acceptance": "unknown",
+                "adoption": "unknown"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T01/work",
+              "delta": {
+                "status": "open",
+                "remaining": [
+                  "consumer_review_actual_activation",
+                  "startup_failure_policy_continues"
+                ],
+                "completion": "not_reached",
+                "implementation": "reverted_nontransactional",
+                "verification": "documented_result",
+                "acceptance": "unknown"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T01/boot",
+              "delta": {
+                "status": "open",
+                "remaining": "启动失败策略继续修补",
+                "last_reported_patch": "f4a7dd607709025bc3ad19dab8ffbb038cd13962",
+                "completion": "not_established"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T01/goal",
+              "delta": {
+                "status": "open",
+                "completion": "not_established",
+                "remaining": [
+                  "consumer_review_actual_activation",
+                  "startup_failure_policy_continues"
+                ]
+              }
+            },
+            {
+              "action": "adopt",
+              "id": "T01/policy",
+              "scope": "T01/documented_loader_policy_at_cutoff",
+              "selected": [
+                "T01/loader"
+              ],
+              "reason": "截止设计记录的采用策略，运行实例与独立验收另记"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "T03",
+      "title": "会话迁移：一次合入与撤回，之后再引入流式实现",
+      "objects": [
+        {
+          "id": "T03/goal",
+          "kind": "goal",
+          "fields": {
+            "title": "会话格式迁移的持续目标",
+            "status": "unknown",
+            "domain": "development",
+            "research_scope": "研究者建立的目标身份；不声称上游有同名目标",
+            "initial_unknown": "完成标准与验收责任"
+          }
+        },
+        {
+          "id": "T03/work",
+          "kind": "work",
+          "fields": {
+            "title": "会话格式迁移实现",
+            "status": "unknown",
+            "domain": "development",
+            "research_scope": "T03 的研究工作身份；初次方案未知",
+            "implementation": "unknown",
+            "verification": "unknown",
+            "acceptance": "unknown",
+            "initial_unknown": "迁移范围与当前实现状态"
+          }
+        },
+        {
+          "id": "T03/protocol",
+          "kind": "contract",
+          "fields": {
+            "title": "会话格式代际与迁移规则",
+            "status": "unknown",
+            "domain": "product_design",
+            "scope": "会话格式迁移的协议边界",
+            "implementation": "unknown",
+            "verification": "unknown",
+            "acceptance": "unknown",
+            "adoption": "unknown",
+            "details": "unknown"
+          }
+        }
+      ],
+      "steps": [
+        {
+          "id": "T03.S01",
+          "facts": [
+            "T03.01"
+          ],
+          "actions": [
+            {
+              "action": "create",
+              "id": "T03/stream1",
+              "kind": "work",
+              "fields": {
+                "title": "#2698 流式格式迁移管线",
+                "status": "reported_merged",
+                "domain": "development",
+                "pr": "#2698",
+                "commit": "3fefcdbe3f83a309f05075b9e9f05450509318ed",
+                "date": "2026-08-25",
+                "scope": "提交正文称其为流式格式迁移管线",
+                "implementation": "reported_merged",
+                "verification": "unknown",
+                "acceptance": "unknown"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T03/work",
+              "delta": {
+                "status": "attempt1_reported_merged",
+                "current_attempt": "T03/stream1",
+                "implementation": "reported_merged",
+                "verification": "unknown"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T03/protocol",
+              "delta": {
+                "status": "reported_pipeline_introduced",
+                "pipeline_claim": "streaming format migration pipeline",
+                "implementation": "reported_merged",
+                "verification": "unknown"
+              }
+            },
+            {
+              "action": "reuse",
+              "owner": "T03/stream1",
+              "provider": "T03/protocol",
+              "relation": "implements",
+              "range": "第一个已合入管线声称实现迁移；具体契约内容未独立核对"
+            }
+          ]
+        },
+        {
+          "id": "T03.S02",
+          "facts": [
+            "T03.02"
+          ],
+          "actions": [
+            {
+              "action": "close",
+              "id": "T03/stream1",
+              "disposition": "同日撤回；撤回理由待查"
+            },
+            {
+              "action": "revise",
+              "id": "T03/work",
+              "delta": {
+                "status": "attempt1_reverted; reason_unknown",
+                "goal_effect": "目标未完成；后续实现待查",
+                "implementation": "reverted",
+                "verification": "unknown"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T03/protocol",
+              "delta": {
+                "status": "reverted; reason_unknown",
+                "pipeline_status": "withdrawn",
+                "implementation": "reverted",
+                "verification": "unknown"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T03/goal",
+              "delta": {
+                "status": "open",
+                "completion": "not_established",
+                "remaining": "后续迁移尝试与验收未知"
+              }
+            }
+          ]
+        },
+        {
+          "id": "T03.S03",
+          "facts": [
+            "T03.03"
+          ],
+          "actions": [
+            {
+              "action": "create",
+              "id": "T03/stream2",
+              "kind": "work",
+              "fields": {
+                "title": "#3585 后续流式迁移实现",
+                "status": "reported_merged",
+                "domain": "development",
+                "pr": "#3585",
+                "commit": "80306f51a6f36e26c71bcf0be5621af6b8ad8e65",
+                "date": "2026-09-06",
+                "scope": "属于后来的流式迁移实现",
+                "relationship_to_attempt1": "unknown; 两次实现的对应关系待查",
+                "reuse_scope": "unknown; 不声称与 #2698 共用代码",
+                "implementation": "reported_merged",
+                "verification": "unknown",
+                "acceptance": "unknown"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T03/work",
+              "delta": {
+                "status": "attempt2_reported_merged",
+                "current_attempt": "T03/stream2",
+                "relationship_to_attempt1": "unknown",
+                "implementation": "reported_merged"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T03/protocol",
+              "delta": {
+                "status": "reported_streaming_implementation_landed",
+                "relation_between_attempts": "unknown",
+                "note": "不把两次实现合并成同一次 rework"
+              }
+            }
+          ]
+        },
+        {
+          "id": "T03.S04",
+          "facts": [
+            "T03.04"
+          ],
+          "actions": [
+            {
+              "action": "create",
+              "id": "T03/mem-report",
+              "kind": "report",
+              "fields": {
+                "title": "整份转换实现的 116 MB 会话测量",
+                "status": "author_reported",
+                "domain": "development",
+                "measurement": "116 MB 会话在整份转换实现中耗尽 16 GB Node 进程",
+                "implementation_identity": "unknown; 未与 #2698 或 #3585 对齐",
+                "attribution": "author_reported_failure; 独立复测未做",
+                "source_note_date": "2026-08-31"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T03/work",
+              "delta": {
+                "memory_failure": "reported; 整份转换实现的具体身份未知",
+                "approach_under_review": true
+              }
+            }
+          ]
+        },
+        {
+          "id": "T03.S05",
+          "facts": [
+            "T03.05"
+          ],
+          "actions": [
+            {
+              "action": "revise",
+              "id": "T03/protocol",
+              "delta": {
+                "status": "reported_design_adopted",
+                "approach": "每份会话独立的有状态转换阶段",
+                "record_date": "2026-08-31",
+                "visibility_note": "截止快照回顾；不按本步顺序声明事件先后",
+                "failure_evidence": "T03/mem-report：整份转换实现的作者报告；具体实现身份未知",
+                "preservation": {
+                  "source_files": "原已提交格式文件保留",
+                  "publish": "仅发布最终当前代际",
+                  "intermediate_formats": "中间格式不逐份落盘",
+                  "generation_rules": "不同历史代际的解释和拒绝规则分别保留"
+                },
+                "implementation": "unknown; 截止快照为设计记录",
+                "verification": "unknown",
+                "acceptance": "unknown",
+                "adoption": "unknown; 设计记录采用，不等于当前运行现场已选择"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T03/stream2",
+              "delta": {
+                "relation_to_staged_design": "unknown; 设计记录未说明 #3585 是否即该阶段实现",
+                "implementation": "reported_merged; 与分阶段设计的关系未知"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T03/work",
+              "delta": {
+                "status": "staged_design_recorded; implementation_scope_unknown",
+                "current_approach": "stateful streaming stages per session",
+                "implementation": "design_recorded; implementation unknown"
+              }
+            }
+          ]
+        },
+        {
+          "id": "T03.S06",
+          "facts": [
+            "T03.06"
+          ],
+          "actions": [
+            {
+              "action": "create",
+              "id": "T03/rebuild",
+              "kind": "work",
+              "fields": {
+                "title": "LogicalSession 存储重建",
+                "status": "proposed",
+                "domain": "development",
+                "proposal_status": "proposed",
+                "stages": {
+                  "1": {
+                    "status": "draft work complete"
+                  },
+                  "2": {
+                    "status": "draft work complete"
+                  },
+                  "3": {
+                    "status": "implementation and remote CI recorded; still draft"
+                  },
+                  "4": {
+                    "status": "incomplete"
+                  },
+                  "5": {
+                    "status": "incomplete"
+                  }
+                },
+                "implementation": "stage 3 implementation and remote CI recorded; overall proposal remains draft",
+                "verification": "stage 3 remote CI is reported; independent verification unknown",
+                "acceptance": "unknown",
+                "responsibility_note": "stage labels are research labels, not upstream task ids"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T03/work",
+              "delta": {
+                "status": "open",
+                "remaining": [
+                  "stage4",
+                  "stage5",
+                  "staged migration implementation and acceptance"
+                ],
+                "storage_rebuild": "T03/rebuild proposed",
+                "relation_to_protocol": "not stated; recorded as related proposal"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T03/goal",
+              "delta": {
+                "status": "open",
+                "completion": "not_established",
+                "remaining": [
+                  "staged migration implementation/acceptance",
+                  "LogicalSession rebuild stages 4-5"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "T12",
+      "title": "聊天折叠：从整批迁移拆为独立功能与分组基础",
+      "objects": [
+        {
+          "id": "T12/goal",
+          "kind": "goal",
+          "fields": {
+            "title": "聊天内容的呈现与折叠",
+            "status": "unknown",
+            "domain": "product_design",
+            "research_scope": "研究者建立的产品目标身份",
+            "initial_unknown": "验收标准与范围"
+          }
+        },
+        {
+          "id": "T12/work",
+          "kind": "work",
+          "fields": {
+            "title": "聊天折叠迁移",
+            "status": "unknown",
+            "domain": "development",
+            "research_scope": "T12 的研究工作身份；初始不预设实现与拆分方案",
+            "implementation": "unknown",
+            "verification": "unknown",
+            "acceptance": "unknown",
+            "initial_unknown": "迁移范围与验收状态"
+          }
+        }
+      ],
+      "steps": [
+        {
+          "id": "T12.S01",
+          "facts": [
+            "T12.01"
+          ],
+          "actions": [
+            {
+              "action": "create",
+              "id": "T12/pr",
+              "kind": "artifact",
+              "fields": {
+                "title": "PR #4565 整批聊天迁移",
+                "status": "reported_scope; merge_not_yet_registered",
+                "domain": "development",
+                "pr": "#4565",
+                "scope": "三种详略模式、过程分组、整轮状态、触发通知、工具视觉和行隐藏",
+                "implementation": "reported_scope; merge_not_yet_registered",
+                "verification": "unknown",
+                "acceptance": "unknown",
+                "source_boundary": "范围按记录登记；评审与运行现场未取得"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T12/work",
+              "delta": {
+                "status": "reported_scope; merge_not_yet_registered",
+                "batch_scope": "PR #4565 同时包含六类变化",
+                "pr": "#4565",
+                "responsibilities": [
+                  "three_detail_modes",
+                  "process_grouping",
+                  "whole_turn_status",
+                  "trigger_notification",
+                  "tool_visuals",
+                  "row_hiding"
+                ],
+                "responsibility_note": "职责 tokens 是研究者对六项已报告变化的标签，不是上游任务 ID",
+                "implementation": "reported_scope; merge_not_yet_registered",
+                "verification": "unknown",
+                "acceptance": "unknown"
+              }
+            }
+          ]
+        },
+        {
+          "id": "T12.S02",
+          "facts": [
+            "T12.02"
+          ],
+          "actions": [
+            {
+              "action": "revise",
+              "id": "T12/work",
+              "delta": {
+                "status": "reported_batch_reverted",
+                "merge_duration": "eight minutes",
+                "performance_finding": "整批功能合并八分钟后因性能回退",
+                "benchmark_gap": "原有六项基准没有覆盖流式分组和节点重渲染的新热路径",
+                "performance_attribution": "architecture record; author_reported_history",
+                "implementation": "reverted",
+                "verification": "performance regression author-reported; independent measurement unknown"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T12/pr",
+              "delta": {
+                "status": "reported_batch_reverted",
+                "disposition": "整批撤回；保留为原方案参考",
+                "performance_finding": "整批功能合并八分钟后因性能回退"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T12/goal",
+              "delta": {
+                "status": "open",
+                "completion": "not_established",
+                "note": "整批回退未结束目标"
+              }
+            }
+          ]
+        },
+        {
+          "id": "T12.S03",
+          "facts": [
+            "T12.03"
+          ],
+          "actions": [
+            {
+              "action": "split",
+              "id": "T12/work",
+              "children": [
+                {
+                  "id": "T12/independent",
+                  "title": "presentation channel 中的独立已完成范围",
+                  "responsibilities": [],
+                  "status": "reported_scope; detailed_assignment_unknown"
+                },
+                {
+                  "id": "T12/grouping",
+                  "title": "turnstep 中待推进范围；分组细节尚未登记",
+                  "responsibilities": [],
+                  "status": "reported_scope; detailed_assignment_unknown"
+                }
+              ],
+              "residual": [
+                "three_detail_modes",
+                "process_grouping",
+                "whole_turn_status",
+                "trigger_notification",
+                "tool_visuals",
+                "row_hiding"
+              ],
+              "overlaps": []
+            },
+            {
+              "action": "revise",
+              "id": "T12/work",
+              "delta": {
+                "status": "reverted_and_split",
+                "split_basis": "已完成独立功能留在 presentation channel；未完成部分留在 turnstep worktree",
+                "original_pr_reference": "#4565 仅作参考",
+                "reference_scope": "未声明代码复用范围",
+                "residual_owner": "父记录保留六项细分责任，待来源足以逐项分配",
+                "allocation_basis": "本步只知已完成/未完成分开；细项归属未知，不能用 T12.04/05 提前分配"
+              }
+            },
+            {
+              "action": "reuse",
+              "owner": "T12/work",
+              "provider": "T12/pr",
+              "relation": "historical_reference",
+              "range": "原 PR 保留为参考；不承诺代码复用"
+            }
+          ]
+        },
+        {
+          "id": "T12.S04",
+          "facts": [
+            "T12.04"
+          ],
+          "actions": [
+            {
+              "action": "revise",
+              "id": "T12/independent",
+              "delta": {
+                "status": "reported_partial_committed",
+                "commit_scope": "部分独立视觉、摘要和过滤功能已提交",
+                "draft_scope": "若干行为仍为未暂存草稿；具体项目未枚举",
+                "parent_residual_drafts": [
+                  "whole_turn_status",
+                  "trigger_notification"
+                ],
+                "implementation": "partial_committed; 未暂存草稿仍存在",
+                "verification": "unknown",
+                "acceptance": "pending"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T12/work",
+              "delta": {
+                "status": "reverted_and_split; partial_committed",
+                "unstaged_drafts": [
+                  "whole_turn_status",
+                  "trigger_notification",
+                  "some behavior items"
+                ],
+                "draft_location": "turnstep worktree",
+                "implementation": "partial_committed",
+                "acceptance": "pending"
+              }
+            }
+          ]
+        },
+        {
+          "id": "T12.S05",
+          "facts": [
+            "T12.05"
+          ],
+          "actions": [
+            {
+              "action": "revise",
+              "id": "T12/grouping",
+              "delta": {
+                "status": "foundation_implemented; product_behavior_pending",
+                "foundation": "Definition-owned 分组基础已有 implemented 记录",
+                "pending": [
+                  "product_grouping_behavior",
+                  "performance_requirements"
+                ],
+                "implementation": "foundation implemented",
+                "verification": "implemented record; product behavior and performance not verified",
+                "acceptance": "pending",
+                "title": "turnstep 待推进范围与分组基础"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T12/work",
+              "delta": {
+                "status": "reverted_and_split; grouping_foundation_implemented; acceptance_pending",
+                "grouping_status": "foundation implemented; product behavior and performance requirements still incomplete"
+              }
+            }
+          ]
+        },
+        {
+          "id": "T12.S06",
+          "facts": [
+            "T12.06"
+          ],
+          "actions": [
+            {
+              "action": "revise",
+              "id": "T12/independent",
+              "delta": {
+                "verification": {
+                  "build": "author_reported_pass",
+                  "lint": "author_reported_pass",
+                  "coverage": "author_reported_pass",
+                  "gui_demo": "pending",
+                  "performance_measurement": "pending"
+                },
+                "verification_attribution": "channel checks author-reported; real model GUI demo and performance measurement not done",
+                "acceptance": "pending"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T12/work",
+              "delta": {
+                "status": "open; acceptance_pending",
+                "verification": "presentation channel build/lint/coverage author-reported pass; real model GUI demo and performance measurement pending",
+                "product_integration": "pending",
+                "completion": "not_established",
+                "acceptance": "pending"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T12/goal",
+              "delta": {
+                "status": "open",
+                "acceptance": "pending",
+                "completion": "not_established"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "T14",
+      "title": "消息反馈：旧全栈方案因接口演化转为重做 UI",
+      "objects": [
+        {
+          "id": "T14/goal",
+          "kind": "goal",
+          "fields": {
+            "title": "消息反馈的 Web 用户功能",
+            "status": "unknown",
+            "domain": "product_design",
+            "research_scope": "研究者建立的产品目标身份",
+            "initial_unknown": "验收标准与用户需求完成条件"
+          }
+        },
+        {
+          "id": "T14/work",
+          "kind": "work",
+          "fields": {
+            "title": "消息反馈 Web 入口",
+            "status": "unknown",
+            "domain": "development",
+            "research_scope": "T14 的研究工作身份；初始不预设实现方案",
+            "implementation": "unknown",
+            "verification": "unknown",
+            "acceptance": "unknown",
+            "initial_unknown": "实现范围与验收状态"
+          }
+        },
+        {
+          "id": "T14/backend",
+          "kind": "contract",
+          "fields": {
+            "title": "消息反馈后端",
+            "status": "unknown",
+            "domain": "development",
+            "scope": "消息反馈的后端接口与持久化边界",
+            "implementation": "unknown",
+            "verification": "unknown",
+            "acceptance": "unknown",
+            "adoption": "unknown",
+            "details": "unknown"
+          }
+        }
+      ],
+      "steps": [
+        {
+          "id": "T14.S01",
+          "facts": [
+            "T14.01"
+          ],
+          "actions": [
+            {
+              "action": "revise",
+              "id": "T14/backend",
+              "delta": {
+                "status": "reported_landed",
+                "components": [
+                  "persistent feedback sidecar",
+                  "Host methods"
+                ],
+                "web_entry": "absent",
+                "landing": "#2217",
+                "implementation": "reported_landed",
+                "verification": "unknown",
+                "acceptance": "unknown",
+                "adoption": "unknown",
+                "user_feature": "incomplete at this point"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T14/work",
+              "delta": {
+                "status": "backend_landed; web_entry_missing; user_need_incomplete",
+                "backend": "T14/backend",
+                "source_visibility": "单份笔记的回顾顺序；确切日期未知",
+                "implementation": "backend reported landed; Web entry absent",
+                "verification": "unknown",
+                "acceptance": "unknown"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T14/goal",
+              "delta": {
+                "status": "open",
+                "completion": "not_established",
+                "web_entry": "missing",
+                "user_need": "incomplete"
+              }
+            }
+          ]
+        },
+        {
+          "id": "T14.S02",
+          "facts": [
+            "T14.02"
+          ],
+          "actions": [
+            {
+              "action": "create",
+              "id": "T14/old",
+              "kind": "work",
+              "fields": {
+                "title": "#1010 旧全栈反馈尝试",
+                "status": "historical_attempt; branch_state_unknown",
+                "domain": "development",
+                "attempt": "#1010",
+                "interface": "session-level revision + feedback.upsert",
+                "implementation": "reported_early_implementation; branch state unknown",
+                "verification": "unknown",
+                "acceptance": "unknown",
+                "full_stack_scope": "unknown"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T14/backend",
+              "delta": {
+                "prior_interface": "session-level revision + feedback.upsert (#1010)",
+                "current_interface": "per-item ifVersion + messageFeedback.put",
+                "directory": "renamed",
+                "interface_change": "recorded",
+                "incompatibility": "not yet stated in this step",
+                "implementation": "reported_landed (#2217)"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T14/work",
+              "delta": {
+                "status": "backend_contract_changed; old_attempt_outdated",
+                "old_attempt": "T14/old",
+                "current_backend": "T14/backend"
+              }
+            }
+          ]
+        },
+        {
+          "id": "T14.S03",
+          "facts": [
+            "T14.03"
+          ],
+          "actions": [
+            {
+              "action": "rework",
+              "old": "T14/old",
+              "new": "T14/ui",
+              "goal": "T14/goal",
+              "reason": "旧分支接口不兼容、存在重复后端且目录已漂移；以 superseded 关闭并重写 UI",
+              "reference_scope": "旧分支仅作历史来源；未证明代码复用范围",
+              "new_fields": {
+                "title": "按逐项版本后端重写的消息反馈 UI",
+                "status": "planned",
+                "domain": "development",
+                "backend_interface": "per-item ifVersion + messageFeedback.put",
+                "implementation": "unknown_at_decision; rework_planned",
+                "verification": "unknown",
+                "acceptance": "unknown"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T14/backend",
+              "delta": {
+                "status": "reported_retained",
+                "incompatibility": "recorded reason: 旧接口与当前后端不兼容",
+                "adoption": "current backend continues; old branch retained as historical_reference; code reuse unknown"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T14/work",
+              "delta": {
+                "status": "old_branch_superseded; backend_retained; ui_planned",
+                "superseded_attempt": "T14/old",
+                "new_attempt": "T14/ui"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T14/goal",
+              "delta": {
+                "status": "open",
+                "completion": "not_established",
+                "current_attempt": "T14/ui"
+              }
+            },
+            {
+              "action": "reuse",
+              "owner": "T14/ui",
+              "provider": "T14/backend",
+              "range": "逐项 ifVersion 与 messageFeedback.put 后端契约；代码来源未知",
+              "relation": "uses_contract"
+            }
+          ]
+        },
+        {
+          "id": "T14.S04",
+          "facts": [
+            "T14.04"
+          ],
+          "actions": [
+            {
+              "action": "revise",
+              "id": "T14/ui",
+              "delta": {
+                "status": "reported_implemented",
+                "message_id_backfill": "为已完成消息补入 MessageId",
+                "versioning": "按逐项版本串行变更",
+                "conflict_handling": "用冲突响应更新本地项",
+                "implementation": "reported_implemented",
+                "verification": {
+                  "persistent_recovery_e2e": "author_reported",
+                  "independent": "unknown"
+                },
+                "acceptance": "unknown"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T14/work",
+              "delta": {
+                "status": "ui_reported_implemented; acceptance_pending",
+                "implementation": "UI reported implemented",
+                "verification": "persistent recovery E2E author-reported; independent verification unknown",
+                "acceptance": "unknown",
+                "user_feature": "reported available; not independently accepted"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T14/goal",
+              "delta": {
+                "status": "open",
+                "acceptance": "author_report_only; independent verification pending",
+                "completion": "not_established"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "difficulties": [
+    {
+      "case": "T01",
+      "facts": [
+        "T01.01",
+        "T01.03"
+      ],
+      "problem": "T01.01 只能支持事务式重载这一点；文件初始化、模块导出和无关仓库插件能力要到 T01.03 才作为保留项出现。若在初始对象或 T01.01 就写入完整 parts，会把后来的处置提前到起点，制造未卜先知。",
+      "handling": "T01.01 只建立 transactional_reload 一个组成项；T01.03 先补记保留项的组成边界，再在同一事实步骤执行 partial_revert，只把 transactional_reload 标为 withdrawn。补记动作是记录可见性造成的编码步骤，不声称这些保留项在 8 月已按该名称存在。"
+    },
+    {
+      "case": "T01",
+      "facts": [
+        "T01.02",
+        "T01.04"
+      ],
+      "problem": "T01.02 是记录下来的撤回决定，T01.04 才是撤回提交和消费者适配提交。若把 T01.02 直接写成已撤回，会把决定冒充为运行现场已经完成的清理。",
+      "handling": "T01.02 只把尝试标为 withdrawal_recorded，保留未落地说明；T01.03 的 partial_revert 明确是记录范围的退出；T01.04 才 close 旧尝试并记录撤回提交。这样决定、记录范围和提交事件分开。"
+    },
+    {
+      "case": "T01",
+      "facts": [
+        "T01.05"
+      ],
+      "problem": "消费者审查实际激活结果是一项产品行为责任，不是新的开发工作项；若另建一个 consumer work，会凭空造出上游没有的工作边界和负责人。",
+      "handling": "把责任变化放进 T01/loader 契约的 responsibility_change 和 consumer_responsibility 字段，并让 T01/goal 与 T01/work 保持 open。没有新增消费者工作身份，也没有把责任转移写成已完成事件。"
+    },
+    {
+      "case": "T03",
+      "facts": [
+        "T03.01",
+        "T03.02",
+        "T03.03"
+      ],
+      "problem": "第一次流式管线已合入并同日撤回，第二次流式实现也出现了，但底稿明确说两次实现的对应关系和复用范围待查。使用 rework 会自动建立同目标新尝试和历史参考关系，正好越过这条未知边界。",
+      "handling": "分别建立 T03/stream1 和 T03/stream2；T03/stream1 用 close 记录同日撤回和未知理由；T03/stream2 只记录 reported_merged，并把 relationship_to_attempt1 与 reuse_scope 写成 unknown。没有使用 rework，也不把两次实现连成同一次返工。"
+    },
+    {
+      "case": "T03",
+      "facts": [
+        "T03.04"
+      ],
+      "problem": "116 MB 会话耗尽 16 GB Node 进程的作者报告说的是整份转换实现，但没有说明它对应 #2698、#3585 还是另一实现。直接挂到某个 work 上会虚构测量对象。",
+      "handling": "建立 T03/mem-report 报告对象，保留 measurement 和 author_reported 归属，同时把 implementation_identity 明确写成 unknown；T03/work 只记录内存失败待复核，T03/protocol 在采用分阶段设计时引用该报告为证据，不把失败归给任一提交。"
+    },
+    {
+      "case": "T03",
+      "facts": [
+        "T03.05",
+        "T03.06"
+      ],
+      "problem": "T03.05 是设计记录采用分阶段转换，不等于当前运行现场已经选择该实现；T03.06 的阶段 3 有实现和远程 CI 记录，但整体仍是 proposed/draft。把设计采用写成 adopt，或把阶段 3 写成整体完成，都会混淆记录采用、实现和验收。",
+      "handling": "T03/protocol 用 reported_design_adopted 和 adoption=unknown 保存设计层采用；没有执行 adopt。T03/rebuild 保留 proposed、逐阶段状态和 acceptance=not started，阶段 3 的 CI 只作为作者报告，不提升为整体完成。"
+    },
+    {
+      "case": "T12",
+      "facts": [
+        "T12.01",
+        "T12.03"
+      ],
+      "problem": "底稿只给出 PR 中的六类变化，没有给出后续独立功能、分组基础和残置责任的正式任务清单。split 需要责任 token，而 token 很容易被误读为上游任务 ID 或产品承诺。",
+      "handling": "校准后修正：本步只建立已完成/未完成两种承接范围；子项细分 tokens 仍未知，六项细分责任保留父残余。后续按来源补记局部实现状态，不提前猜测责任归属。"
+    },
+    {
+      "case": "T12",
+      "facts": [
+        "T12.02",
+        "T12.04"
+      ],
+      "problem": "整批性能回退、六项基准未覆盖新热路径、未暂存草稿都来自作者报告；其中“若干行为”没有逐项枚举。把它们写成独立测量或补出一个新 token，会超出证据。",
+      "handling": "T12/work 用 reported_batch_reverted 和 performance_attribution 保留作者归属；未暂存草稿放在父工作的 unstaged_drafts 中，独立子工作只记录已提交的视觉、摘要和过滤，并把“若干行为”保留为未枚举范围。"
+    },
+    {
+      "case": "T12",
+      "facts": [
+        "T12.05",
+        "T12.06"
+      ],
+      "problem": "分组基础已有 implemented 记录，但产品分组行为和性能要求仍未完成；该 channel 的 build/lint/coverage 通过也只是作者报告，不能据此宣称整体验收。",
+      "handling": "T12/grouping 用 foundation_implemented; product_behavior_pending 和 pending 列表区分基础实现与产品验收；T12/independent 的 verification 逐项标 author_reported_pass，GUI 演示和性能测量保持 pending；T12/goal 与 T12/work 都以 acceptance_pending 收束。"
+    },
+    {
+      "case": "T14",
+      "facts": [
+        "T14.01",
+        "T14.02",
+        "T14.03"
+      ],
+      "problem": "后端先落地时 Web 入口还没有，用户需求未完成；旧 #1010 的接口和目录又已漂移。若在 T14.01 就建立并关闭旧尝试，或在 T14.02 就重写 UI，会把后来的检查决定提前。",
+      "handling": "T14.01 只记录 backend_landed、web_entry_missing 和 goal open；T14.02 才建立 #1010 旧尝试并保留其旧接口；T14.03 有“检查旧分支后选择 superseded 并重写”的事实证据，才执行 rework，新 UI 在此时只标 planned，不标已实现。"
+    },
+    {
+      "case": "T14",
+      "facts": [
+        "T14.04"
+      ],
+      "problem": "新 UI 的 MessageId 补入、逐项版本串行变更和冲突响应更新是已报告实现；持久恢复 E2E 也是作者报告。若把 E2E 当作独立验收，会把作者测试提升为整体完成。",
+      "handling": "T14/ui 的 verification 分成 persistent_recovery_e2e=author_reported 与 independent=unknown；T14/work 和 T14/goal 保留 acceptance_pending。rework 只说明旧分支作为历史参考，不承诺代码复用。"
+    }
+  ]
+}

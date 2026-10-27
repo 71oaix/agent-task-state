@@ -1,4 +1,26 @@
-# 离线记录更新检查器
+# 工作操作与 DSH 演化工作台
+
+在原有版本检查器上，新增可执行组合、指定版本查询和 DSH 过程阅读器。选择一段过程，可以看见来源事实、展开的基本操作、前后版本及未完成责任。
+
+在仓库根目录运行（输出目录必须是新目录，以保留旧结果）：
+
+```powershell
+python Agent任务状态管理/tools/work-operation-checks/workbench.py build --out artifacts/agent-task-state/maintenance/dsh-workbench-new
+python Agent任务状态管理/tools/work-operation-checks/workbench.py case T01
+python Agent任务状态管理/tools/work-operation-checks/workbench.py case T01 --object T01/loader --revision 2
+python -m unittest discover -s Agent任务状态管理/tools/work-operation-checks -v
+```
+
+打开输出目录中的 `index.html` 可浏览全部过程、组合展开、证据入口、跨工作联系和历史版本；`bundle.json` 保存实际记录与展开，T01.md 等是逐步明细。四个案例包和 [表达契约](EXPRESSION.md) 是可维护输入；固定来源继续从研究底稿读取。来源更新须另存底稿版本。
+
+`expand(state, action, provenance)` 只生成准备包，固定读写前版与精确引用；`apply_prepared` 检查前态并应用；`execute_step` 依序登记来源与展开动作，任一动作失败则整步回退到调用前状态；`run_case` 重放整段。`query` 查询当前或指定版本，`readback_view` 导出隔离读回所用的对象、历史和效果，来源全文可另按权限查证。
+
+组合包括部分撤回、组成替换、责任拆分、接续重做、尝试收束、范围引用/复用、版本采用、判断修正。它们展开为 create/revise/statement/select；每次展开和原子回执都保留。字段中的精确引用表示可追溯关系，来源是否支持工程判断由语义核对承担。
+
+研究者建立的身份是索引；产品设计规则、开发事件、作者报告和实际验收按来源分别保存。status 仍允许各案例的领域描述；本轮优先保住含义，后续根据真实使用再统一领域状态。
+
+<details><summary>原记录检查器接口与兼容规则</summary>
+
 
 Python 标准库实现的小型确定性检查器，比较语义操作与通用类型更新的显式记录效果。只检查结构约束，不推断文字是否真实、证据是否支持结论，也不评判实验答案。
 
@@ -28,3 +50,5 @@ relation 要有 relation/from/to/scope；adoption 与 decision 要有 scope/sele
 这是受限离线原型：不含持久数据库、并发服务、自动真实性/语义支持判断、自由文本责任分析或完整领域模式；结果相等只说明该显式编码下的记录效果相等。
 
 显式 refs 随对象版本保存。修订时省略 refs 继承前版，显式列表替换；旧版保留旧 refs。交付审查补上了这一存留保证，旧实验输出未覆盖，原始提案已用交付版本地重放。
+
+</details>
