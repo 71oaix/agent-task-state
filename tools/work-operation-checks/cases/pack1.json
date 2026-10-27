@@ -294,7 +294,10 @@
                 "boot_policy_patch": "f4a7dd607709025bc3ad19dab8ffbb038cd13962",
                 "verification": "unknown",
                 "note": "已登记撤回与消费者适配提交；旧事务保证属于历史实现描述",
-                "guarantee_scope": "historical_transactional_design; new_guarantee_in_following_record"
+                "guarantee_scope": "post_revert_guarantee_not_yet_described_here",
+                "implementation": "reported_revert_landed",
+                "historical_guarantee": "事务式重载曾报告配置失败保留旧插件代际",
+                "guarantee": "unknown_at_this_record; current_cutoff_contract_recorded_in_T01.05"
               }
             },
             {
@@ -307,7 +310,8 @@
                 "boot_patch_date": "2026-09-11",
                 "current_approach": "nontransactional Loader with consumer activation checks",
                 "historical_attempt": "T01/attempt",
-                "current_attempt": "T01/boot"
+                "current_attempt": "T01/boot",
+                "implementation": "reverted_nontransactional"
               }
             },
             {
@@ -1396,7 +1400,7 @@
         "T03.06"
       ],
       "problem": "T03.05 是设计记录采用分阶段转换，不等于当前运行现场已经选择该实现；T03.06 的阶段 3 有实现和远程 CI 记录，但整体仍是 proposed/draft。把设计采用写成 adopt，或把阶段 3 写成整体完成，都会混淆记录采用、实现和验收。",
-      "handling": "T03/protocol 用 reported_design_adopted 和 adoption=unknown 保存设计层采用；没有执行 adopt。T03/rebuild 保留 proposed、逐阶段状态和 acceptance=not started，阶段 3 的 CI 只作为作者报告，不提升为整体完成。"
+      "handling": "T03/protocol 用 reported_design_adopted 和 adoption=unknown 保存设计层采用；没有执行 adopt。T03/rebuild 保留 proposed、逐阶段状态和 acceptance=unknown，阶段 3 的 CI 只作为作者报告，不提升为整体完成。"
     },
     {
       "case": "T12",

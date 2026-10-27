@@ -21,7 +21,9 @@
 const data=__BUNDLE__;
 const $=s=>document.querySelector(s);
 function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
-const names={create:'建立对象',revise:'修订版本',partial_revert:'部分撤回',replace_parts:'替换组成',split:'拆分责任',rework:'接续重做',close:'收束尝试',reuse:'引用与复用',adopt:'选用版本',correct:'修正判断'};
+const natureLabels={commit_record:'提交记录',retrospective_report:'回顾记录',recorded_decision:'来源记载的决定',author_reported_measurement:'作者测量报告',author_reported_diagnosis:'作者诊断报告',documented_state:'文档记载状态',documented_result:'文档记载结果',documented_transition:'文档记载变更',recorded_transition:'变更记录',recorded_review:'来源评审',recorded_rationale:'变更理由',recorded_plan:'来源计划',documented_scope:'范围记录',documented_limit:'适用限制',documented_dependency:'依赖记录',documented_constraint:'约束记录',documented_preservation:'保留规则',documented_partial_result:'部分结果',author_reported_history:'作者历史报告',author_reported_failure:'作者失败报告',author_reported_findings:'作者问题报告',author_reported_trial:'作者试验报告',author_reported_fix:'作者修复报告',author_reported_remaining_issue:'作者遗留问题报告'};
+function nature(s){return String(s||'来源记录').split(' + ').map(k=>natureLabels[k]||k).join(' + ');}
+const names={statement:'登记观察或判断',create:'建立对象',revise:'修订版本',partial_revert:'部分撤回',replace_parts:'替换组成',split:'拆分责任',rework:'接续重做',close:'收束尝试',reuse:'引用与复用',adopt:'选用版本',correct:'修正判断'};
 const lanes=[['插件与配置',['T01','T02','T05']],['会话与上下文',['T03']],['Agent 协作',['T04','T08']],['执行与权限',['T07','T11','T13']],['人类工作台',['T09','T12','T14']],['模型与消息',['T16']],['自动化',['T06','T10']],['交付与平台',['T15']]];
 function clean(s){return s.replace(/\[S\d+\]\([^)]+\)/g,'').replace(/（[^（）]*；[\s、]*）/g,'').trim();}
 function first(s){return clean(s).split('。')[0]+'。';}
@@ -30,16 +32,16 @@ function versions(c,id){return [...c.state.history.filter(v=>v.id===id),{id,...c
 function choose(id){$('#case').value=id;render();$('#content').scrollIntoView({block:'start'});}
 for(const [id,c] of Object.entries(data.cases))$('#case').add(new Option(id+' · '+c.title,id));
 $('#lanes').innerHTML=lanes.filter(([,ids])=>ids.some(id=>data.cases[id])).map(([title,ids])=>'<div class="lane"><strong>'+esc(title)+'</strong><p>'+ids.filter(id=>data.cases[id]).map(id=>'<a class="pill" href="#'+id+'" data-case="'+id+'">'+esc(id+' '+data.cases[id].title.split('：')[0])+'</a>').join('')+'</p></div>').join('');
-document.addEventListener('click',e=>{const f=e.target.closest('[data-fact]');if(f){e.preventDefault();choose(f.dataset.fact.split('.')[0]);requestAnimationFrame(()=>document.getElementById(f.dataset.fact)?.scrollIntoView({block:'center'}));return;}const a=e.target.closest('[data-case]');if(a){e.preventDefault();choose(a.dataset.case);}});
+document.addEventListener('click',e=>{const o=e.target.closest('[data-object]');if(o){e.preventDefault();const cid=o.dataset.object.split('/')[0];if(cid!==$('#case').value)choose(cid);$('#obj').value=o.dataset.object;revs();if(o.dataset.revision)$('#rev').value=o.dataset.revision;$('#lookup').closest('details').open=true;$('#lookup').click();$('#version').scrollIntoView({block:'center'});return;}const f=e.target.closest('[data-fact]');if(f){e.preventDefault();choose(f.dataset.fact.split('.')[0]);requestAnimationFrame(()=>document.getElementById(f.dataset.fact)?.scrollIntoView({block:'center'}));return;}const a=e.target.closest('[data-case]');if(a){e.preventDefault();choose(a.dataset.case);}});
 function render(){
  const c=data.cases[$('#case').value];$('#version').innerHTML='';$('#obj').innerHTML='';
  for(const o of Object.keys(c.state.objects))$('#obj').add(new Option(o,o));revs();
  let out='<section class="card"><h2>'+esc(c.id+' · '+c.title)+'</h2><p>沿图从上往下阅读；每个节点对应一组有来源的变化，顺序沿用底稿。下面的段落解释变化，展开后可查组合操作和保存版本。</p><div class="flow">';
- for(const e of c.events){const f=c.state.objects['fact/'+e.facts[0]].fields;out+='<div class="node"><strong>'+esc(first(f.result))+'</strong><br><small>'+esc(e.trace.filter(t=>t.kind==='composition').map(t=>names[t.prepared.action.action]).join(' → ')||'登记来源报告')+'</small></div><div class="arrow">↓</div>';}
+ for(const e of c.events){const f=versions(c,'fact/'+e.facts[0]).find(v=>v.revision===1).fields;out+='<div class="node"><strong>'+esc(first(f.result))+'</strong><br><small>'+esc(e.trace.filter(t=>t.kind==='composition').map(t=>names[t.prepared.action.action]).join(' → ')||'登记来源报告')+'</small></div><div class="arrow">↓</div>';}
  out=out.replace(/<div class="arrow">↓<\/div>$/,'')+'</div></section>';
  for(const e of c.events){
   out+='<article><h3>'+esc(e.step)+'</h3>';
-  for(const fid of e.facts){const f=c.state.objects['fact/'+fid].fields;out+='<p class="fact" id="'+esc(fid)+'">'+esc(clean(f.result))+'</p><p class="source meta">'+esc(fid)+' · '+f.sources.map(s=>'<a target="_blank" rel="noreferrer" href="'+esc(s.url)+'">'+esc(s.id)+'</a>').join(' ')+'</p>';}
+  for(const fid of e.facts){const f=versions(c,'fact/'+fid).find(v=>v.revision===1).fields;out+='<p class="fact" id="'+esc(fid)+'">'+esc(clean(f.result))+'</p><p class="source meta">'+esc(fid)+' · '+esc(nature(f.source_nature))+' · <span title="'+esc(f.source_actor)+'">归属：原作者/提交记录</span> '+f.sources.map(s=>'<a target="_blank" rel="noreferrer" href="'+esc(s.url)+'">'+esc(s.id)+'</a>').join(' ')+'</p>';}
   for(const t of e.trace.filter(t=>t.kind==='composition')){
    const a=t.prepared.action;let why=a.reason||a.range||a.disposition||a.scope||'';
    out+='<details class="operation"><summary>'+esc(names[a.action])+'：'+esc(t.changes.map(v=>v.target+' @'+v.after).join('、'))+'</summary>';
@@ -50,11 +52,22 @@ function render(){
   }
   out+='</article>';
  }
+ const labels={proposed:'提议中',draft_work_complete:'草稿工作完成',implementation_and_remote_CI_recorded_still_draft:'实现与远程 CI 已报告，仍为草稿',incomplete:'未完成',reported_partial_committed:'已报告部分功能提交','foundation_implemented; product_behavior_pending':'分组基础已实现，产品行为待完成'};
+ for(const [id,parent] of Object.entries(c.state.objects).filter(([,v])=>v.fields.allocations)){
+  out+='<section class="card"><h2>这项工作怎样拆开推进</h2><div class="flow"><div class="node"><strong>'+esc(parent.fields.title||id)+'</strong><br>'+esc(labels[parent.fields.status]||parent.fields.status)+'</div><div class="arrow">↓</div><div class="grid">';
+  for(const childId of Object.keys(parent.fields.allocations)){const child=c.state.objects[childId];out+='<div class="node"><strong>'+esc(child.fields.title)+'</strong><p>'+esc(labels[child.fields.status]||child.fields.status)+'</p><a href="#version" data-object="'+esc(childId)+'">查看对象与版本</a></div>';}
+  out+='</div></div><p>'+esc(parent.fields.residual_semantics||'父项与各子阶段分别保存进度，整体完成依据单独记录。')+'</p></section>';
+ }
  const gap=c.state.objects['fact/'+c.id+'.GAP'].fields;
- const adopted=Object.entries(c.state.objects).filter(([k,v])=>v.kind==='adoption');
- out+='<section class="card"><h2>这一段留下了什么</h2><div class="split"><div><h3>记录中的采用范围</h3>'+(adopted.length?adopted.map(([id,v])=>'<p><strong>'+esc(v.fields.scope)+'</strong><br>'+esc(v.fields.reason)+'<br><span class="meta">'+esc(v.fields.selected.map(s=>s.id+' @'+s.revision).join('、'))+'</span></p>').join(''):'<p>来源未被编码为独立采用决定；具体实施与报告保存在对象版本中。</p>')+'</div><div><h3>继续接手要知道</h3><p>'+esc(gap.result)+'</p></div></div><details><summary>全部当前对象</summary>'+pre(Object.fromEntries(Object.entries(c.state.objects).filter(([k])=>!k.startsWith('fact/'))))+'</details></section>';
+ const scopes=Object.entries(c.adoptions.scopes);let adopted='';
+ for(const [scope,resolution] of scopes){adopted+='<div class="adoption"><strong>'+esc(scope)+'</strong><p class="status">'+(resolution.status==='conflict'?'采用有冲突：保留多个分支，待协调':'当前解析结果：唯一采用分支')+'</p>';
+  for(const head of resolution.heads){const record=versions(c,head.record.id).find(v=>v.revision===head.record.revision);const selected=Array.isArray(head.selected)?head.selected:[head.selected];adopted+='<p>'+esc(record.fields.reason||'依据见决定记录')+'<br><span class="meta">'+esc(head.record.id+' @'+head.record.revision)+'</span><br>'+selected.map(ref=>'<a class="pill" href="#version" data-object="'+esc(ref.id)+'" data-revision="'+ref.revision+'">'+esc(ref.id+'：采用快照 @'+ref.revision+'，当前说明 @'+c.state.objects[ref.id].revision)+'</a>').join(' ')+'</p>';}
+  adopted+='</div>';
+ }
+ if(c.adoptions.errors.length)adopted='<p>采用记录结构存在问题，需查证后协调。</p>'+pre(c.adoptions.errors);
+ out+='<section class="card"><h2>这一段留下了什么</h2><div class="split"><div><h3>记录中的采用范围</h3>'+(adopted||'<p>来源未被编码为独立采用决定；具体实施与报告保存在对象版本中。</p>')+'</div><div><h3>继续接手要知道</h3><p>'+esc(gap.result)+'</p></div></div><details><summary>全部当前对象</summary>'+pre(Object.fromEntries(Object.entries(c.state.objects).filter(([k])=>!k.startsWith('fact/'))))+'</details></section>';
  $('#content').innerHTML=out;
- $('#cross').innerHTML=data.cross_links.filter(x=>x.endpoints.includes(c.id)).map(x=>'<div class="lane"><strong>'+esc(x.label)+'</strong><p>'+esc(x.meaning)+'</p><p class="meta">'+esc(x.basis)+'</p><p>'+ (x.evidence_facts||[]).map(fid=>'<a class="pill" href="#'+esc(fid)+'" data-fact="'+esc(fid)+'">'+esc(fid)+'</a>').join('')+'</p>'+x.endpoints.filter(id=>id!==c.id).map(id=>'<a href="#'+id+'" data-case="'+id+'">查看 '+esc(id)+'</a>').join(' ')+'</div>').join('')||'<p>固定底稿未给这段登记跨过程连接。</p>';
+ $('#cross').innerHTML=data.cross_links.filter(x=>x.endpoints.includes(c.id)).map(x=>'<div class="lane"><strong>'+esc(x.label)+'</strong><p>'+esc(x.meaning)+'</p><p class="meta">'+esc(x.basis)+'</p><p>'+ (x.evidence_facts||[]).map(fid=>'<a class="pill" href="#'+esc(fid)+'" data-fact="'+esc(fid)+'">'+esc(fid)+'</a>').join('')+'</p><p>'+x.record_endpoints.map(ref=>'<a class="pill" href="#version" data-object="'+esc(ref.id)+'" data-revision="'+ref.revision+'">'+esc(ref.id+' @'+ref.revision)+'</a>').join(' ')+'</p>'+x.endpoints.filter(id=>id!==c.id).map(id=>'<a href="#'+id+'" data-case="'+id+'">查看 '+esc(id)+'</a>').join(' ')+'</div>').join('')||'<p>固定底稿未给这段登记跨过程连接。</p>';
 }
 function revs(){const c=data.cases[$('#case').value];$('#rev').innerHTML='';for(const v of versions(c,$('#obj').value))$('#rev').add(new Option('@'+v.revision,v.revision));$('#rev').value=c.state.objects[$('#obj').value].revision;}
 $('#case').onchange=render;$('#obj').onchange=revs;$('#lookup').onclick=()=>{const c=data.cases[$('#case').value];$('#version').innerHTML=pre(versions(c,$('#obj').value).find(v=>v.revision==$('#rev').value));};

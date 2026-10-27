@@ -14,7 +14,7 @@ RESEARCH = HERE.parents[1] / "docs/research/change-graph-task-state"
 PACKS = HERE / "cases"
 RELATIONS = {"implements", "uses_contract", "reuses_result", "historical_reference",
              "depends_on", "shared_mechanism", "contains"}
-ACTIONS = {"create", "revise", "partial_revert", "replace_parts", "split", "rework",
+ACTIONS = {"create", "statement", "revise", "partial_revert", "replace_parts", "split", "rework",
            "close", "reuse", "adopt", "correct"}
 QUESTIONS = ["目标与工作", "提议、实施、观察与采用", "替代与保留", "变化原因与未知",
              "未完成与责任", "跨工作联系"]
@@ -90,6 +90,7 @@ def version(state, oid, revision=None):
 def expand(state, action, provenance):
     """Prepare exact writes and reads without mutating input; every composition is visible."""
     commands, expected, reads = [], {}, {}
+    need(isinstance(action, dict), "action must be an object")
     name = action.get("action")
     need(name in ACTIONS, "unsupported action " + str(name))
 
@@ -133,6 +134,8 @@ def expand(state, action, provenance):
 
     if name == "create":
         add(action["id"], action["kind"], action["fields"])
+    elif name == "statement":
+        add(action["id"], "statement", action["fields"], op="statement")
     elif name == "revise":
         need(bool(action["delta"]), "empty revision")
         change(action["id"], action["delta"])
@@ -204,6 +207,8 @@ def expand(state, action, provenance):
         prior = ref(action["prior"])
         need(version(state, prior["id"], prior["revision"])["kind"] in {"statement", "judgment", "observation"},
              "correction needs a previous statement")
+        need(version(state, prior["id"], prior["revision"])["fields"].get("domain") != "source_record",
+             "correct the proposition, not the fact that its author reported it")
         evidence = [{"id": "fact/" + fid, "revision": 1} for fid in action["evidence"]]
         for item in evidence:
             version(state, item["id"], 1)
@@ -241,6 +246,7 @@ def apply_prepared(state, packet):
 
 
 def execute_step(state, step, corpus_case):
+    step, corpus_case = deepcopy(step), deepcopy(corpus_case)
     before = deepcopy(state)
     current = deepcopy(state)
     trace = []
@@ -328,10 +334,17 @@ def query(result, oid=None, revision=None, scope=None):
     if scope:
         resolved = resolve_adoptions(state)
         need(not resolved["errors"], str(resolved["errors"]))
-        return {"scope": scope, **resolved["scopes"].get(scope, {"status": "unrecorded", "heads": []})}
-    return {"id": result["id"], "objects": [{"id": k, **v} for k, v in state["objects"].items()
+        selection = resolved["scopes"].get(scope, {"status": "unrecorded", "heads": []})
+        descriptions = []
+        for head in selection["heads"]:
+            selected = head["selected"]
+            for ref in selected if isinstance(selected, list) else [selected]:
+                descriptions.append({"selected": ref, "snapshot": version(state, ref["id"], ref["revision"]),
+                                     "latest_description": version(state, ref["id"])})
+        return deepcopy({"scope": scope, **selection, "record_views": descriptions})
+    return deepcopy({"id": result["id"], "objects": [{"id": k, **v} for k, v in state["objects"].items()
              if not k.startswith("fact/")], "adoptions": resolve_adoptions(state),
-            "unknowns": [v["fields"]["result"] for k, v in state["objects"].items() if k.endswith(".GAP")]}
+            "unknowns": [v["fields"]["result"] for k, v in state["objects"].items() if k.endswith(".GAP")]})
 
 
 def coverage(result, corpus_case):
@@ -339,7 +352,7 @@ def coverage(result, corpus_case):
     for fid in corpus_case["facts"]:
         event = next(e for e in result["events"] if fid in e["facts"])
         effects = [c for t in event["trace"] if t["kind"] == "composition" for c in t["changes"]]
-        rows.append({"fact": fid, "statement": "fact/" + fid, "step": event["step"],
+        rows.append({"fact": fid, "statement": "fact/" + fid, "statement_revision": 1, "step": event["step"],
                      "effect_versions": effects, "alignment": "source_mapping_requires_semantic_review"})
     return rows
 
@@ -406,14 +419,14 @@ def build_all():
 def readback_view(result, connections=None):
     """Primary records for an independent reader; source prose lives in the evidence packet."""
     state = result["state"]
-    return {"id": result["id"], "title": result["title"],
+    return deepcopy({"id": result["id"], "title": result["title"],
         "objects": {k: deepcopy(v) for k, v in state["objects"].items() if not k.startswith("fact/")},
         "history": [deepcopy(v) for v in state["history"] if not v["id"].startswith("fact/")],
         "steps": [{"id": e["step"], "facts": e["facts"],
                    "effects": [{"action": t["prepared"]["action"], "changes": t["changes"]}
                                for t in e["trace"] if t["kind"] == "composition"]} for e in result["events"]],
         "research_gap": state["objects"]["fact/" + result["id"] + ".GAP"]["fields"]["result"],
-        "connections": deepcopy(connections or []), "questions": QUESTIONS}
+        "connections": deepcopy(connections or []), "questions": QUESTIONS})
 
 
 def timeline_markdown(result):
@@ -423,7 +436,7 @@ def timeline_markdown(result):
     for event in result["events"]:
         lines += ["## " + event["step"], ""]
         for fid in event["facts"]:
-            fact = result["state"]["objects"]["fact/" + fid]["fields"]
+            fact = versions[("fact/" + fid, 1)]["fields"]
             lines += [f"**{fid}** {fact['result']}", ""]
         for trace in event["trace"]:
             if trace["kind"] != "composition":
@@ -442,7 +455,10 @@ def timeline_markdown(result):
 
 def render_html(bundle):
     """Standalone reader built only from the saved bundle; no network dependencies."""
-    payload = json.dumps(bundle, ensure_ascii=False).replace('<', '\\u003c')
+    view = deepcopy(bundle)
+    for result in view["cases"].values():
+        result["adoptions"] = resolve_adoptions(result["state"])
+    payload = json.dumps(view, ensure_ascii=False).replace('<', '\\u003c')
     return (HERE / 'reader.html').read_text(encoding='utf-8').replace('__BUNDLE__', payload)
 
 

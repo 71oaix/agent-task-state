@@ -2,7 +2,7 @@
 title: 工作操作候选 v0.4：四个工作入口与组合规则
 status: archived
 created: 2026-10-25
-updated: 2026-10-25
+updated: 2026-10-27
 tags: [research, work-operations, candidate]
 supersedes: work-operation-candidates-v0.3.md
 superseded_by: work-operation-candidates-v0.5.md

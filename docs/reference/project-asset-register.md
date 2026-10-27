@@ -15,7 +15,7 @@ supersedes:
 
 | 资产 | 来源与版本 | 责任与边界 | 下一步 |
 |---|---|---|---|
-| [工作操作工作台](../../tools/work-operation-checks/README.md) | 2026-10-27；原检查器与新增组合执行/历史查询/阅读器 | 16段、83来源事实与16研究缺口；模型原稿和Sol裁定分开；独立读回有明确输入范围 | 处理定向读回与固定提交审查后进入工作视图接续 |
+| [工作操作工作台](../../tools/work-operation-checks/README.md) | 2026-10-27；原检查器与新增组合执行/历史查询/阅读器 | 16段、83来源事实与16研究缺口；模型原稿和Sol裁定分开；独立读回有明确输入范围 | 定向读回、固定提交审查与Sol修复已完成；下一轮工作视图接续 |
 | [工作操作v0.5](../research/change-graph-task-state/work-operation-candidates-v0.5.md) | 2026-10-27；唯一现行候选；四入口与八类可执行组合 | 初版可用机制；记录版本、产品版本、范围与知识状态分别保存 | 以使用中的具体失败迭代，下一轮压缩后接续 |
 | [工作操作v0.4](../research/change-graph-task-state/work-operation-candidates-v0.4.md) | 2026-10-25；历史筛选，由v0.5接替 | 四入口及两入口强对照的依据保留 | 查历史取舍 |
 | [元操作筛选](../research/change-graph-task-state/operation-selection-review.md) | 2026-10-25；逐步更新比较；新批次 dsh-operation-selection-2026-10-25 | 记录检查器与四组校准完成；跨过程独立/主 Agent 范围分开 | 本轮已裁定，后续按必要争议控制审阅成本 |

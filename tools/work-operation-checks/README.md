@@ -13,7 +13,7 @@ python -m unittest discover -s Agent任务状态管理/tools/work-operation-chec
 
 打开输出目录中的 `index.html` 可浏览全部过程、组合展开、证据入口、跨工作联系和历史版本；`bundle.json` 保存实际记录与展开，T01.md 等是逐步明细。四个案例包和 [表达契约](EXPRESSION.md) 是可维护输入；固定来源继续从研究底稿读取。来源更新须另存底稿版本。
 
-`expand(state, action, provenance)` 只生成准备包，固定读写前版与精确引用；`apply_prepared` 检查前态并应用；`execute_step` 依序登记来源与展开动作，任一动作失败则整步回退到调用前状态；`run_case` 重放整段。`query` 查询当前或指定版本，`readback_view` 导出隔离读回所用的对象、历史和效果，来源全文可另按权限查证。
+`expand(state, action, provenance)` 只生成准备包，固定读写前版与精确引用；`apply_prepared` 检查前态并应用；`execute_step` 依序登记来源与展开动作，任一动作失败则整步回退到调用前状态；`run_case` 重放整段。`query` 查询当前或指定版本；按scope查询同时返回采用时快照和该对象的当前说明，后续说明不自动改写采用，`readback_view` 导出隔离读回所用的对象、历史和效果，来源全文可另按权限查证。
 
 组合包括部分撤回、组成替换、责任拆分、接续重做、尝试收束、范围引用/复用、版本采用、判断修正。它们展开为 create/revise/statement/select；每次展开和原子回执都保留。字段中的精确引用表示可追溯关系，来源是否支持工程判断由语义核对承担。
 

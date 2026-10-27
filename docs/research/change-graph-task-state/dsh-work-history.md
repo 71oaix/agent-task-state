@@ -10,19 +10,25 @@ tags: [dsh, work-history, truth]
 
 ## 可运行的工作操作与 DSH 演化
 
-**现在可以选择一段 DSH 开发过程，逐步看它怎样变化、怎样保存，以及留下哪些成果和责任。**[打开操作工作台](../../../../artifacts/agent-task-state/maintenance/dsh-workbench-2026-10-27/delivery-v4/index.html)，从八条工作线进入已有16段过程；每段可展开操作、查指定版本并沿证据追溯。
+**现在可以选择一段 DSH 开发过程，逐步看它怎样变化、怎样保存，以及留下哪些成果和责任。**[打开操作工作台](../../../../artifacts/agent-task-state/maintenance/dsh-workbench-2026-10-27/delivery-final/index.html)，从八条工作线进入已有16段过程；每段可展开操作、查指定版本并沿证据追溯。
 
 ![基本入口组合成工作功能](figures/dsh-workbench-compositions.png)
+
+[放大组合图](figures/dsh-workbench-compositions.svg)。
 
 图从上往下读：四个基本入口保存对象与版本；中间的工作功能明确一次变化的范围；底部用这些组合描述不同工程过程。例如，Loader撤回时列出退出与保留的组成，消息反馈重做时建立新尝试并延续原目标，聊天拆分时保留父项尚未分配的责任。工作台展示的是这些动作实际执行后的记录。[操作定义与组合](work-operation-candidates-v0.5.md)
 
 **本轮保留 create、revise、statement、select 四个基本入口，新增八种组合的可执行实现。**源语义核对促成的改进集中在规则：记录修订与产品运行版本分别保存；采用范围包含所属工作域；来源未说明的责任分配留在残余中；旧状态和已接受限制不自动变成当前事实或新待办。[展开研究与核对](operation-composition-review.md#2026-10-27可执行组合与语义对齐)
 
-### Loader：一次撤回怎样留下继续工作的依据
+<details><summary>展开Loader：一次撤回怎样留下继续工作的依据</summary>
 
 ![Loader开发变化与操作组合](figures/dsh-loader-compositions.png)
 
+[放大Loader图](figures/dsh-loader-compositions.svg)。
+
 左侧说明开发发生了什么，右侧说明记录怎样改变。撤回范围落到具体组成，保留项继续存在；之后的消费者适配和启动修补分别留下版本。接手者因此能解释旧保证为何退出、哪些修补仍在，以及消费者需要承担什么。图中对象修订号属于研究记录，实际提交和日期沿来源保存。[Loader真实过程](dsh-process-truth-v1.md#t01)
+
+</details>
 
 这版机制已经能够用于表达和查证。下一轮应拿它生成接手所需的工作视图，观察丢弃上下文后具体缺什么，再调整操作与对象。下方保留工程全景，用来理解这16段过程怎样连接到DSH整体。
 

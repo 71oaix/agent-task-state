@@ -8,21 +8,35 @@ tags: [research, operation-selection]
 
 # Agent 接手入口与当前执行状态
 
-先读[人类主成果](dsh-work-history.md)、[现行候选v0.5](work-operation-candidates-v0.5.md)，操作输入见[工具说明](../../../tools/work-operation-checks/README.md)。研究分支codex/task-state-activity-research，首阶段提交05c1f84；最新HEAD用Git核对。
+先读[人类主成果](dsh-work-history.md)、[现行候选v0.5](work-operation-candidates-v0.5.md)，运行方式见[工具说明](../../../tools/work-operation-checks/README.md)。本轮已完成。实现阶段提交05c1f84、a44a401；收尾修正以当前研究分支HEAD为准。
 
-2026-10-27已实现四个基本入口上的八类组合、全部16段DSH逐步表达、83条来源事实与16条研究缺口、七条跨过程关系与两组内部包含（共14条可查询关系）。五个存储阶段和两个聊天承接范围有独立身份。固定truth v1未改。
+## 当前可用成果
 
-工具在Agent任务状态管理/tools/work-operation-checks/。在仓库根运行 python -m unittest discover -s Agent任务状态管理/tools/work-operation-checks -v；37项当前通过。workbench.py提供build、case及--object/--revision/--scope/--step，输出目录必须新建。当前阅读器位于本工作树 artifacts/agent-task-state/maintenance/dsh-workbench-2026-10-27/delivery-v4/index.html；完整状态、展开和16段Markdown在同目录。图与16段交互已本机渲染，桌面/窄屏、对象历史与事实跳转通过。
+四个基本入口create/revise/statement/select，八类执行组合partial_revert、replace_parts、split、rework、close、reuse、adopt、correct。已完整表达固定16段、83条来源事实与16条研究缺口；七条跨过程联系与两组内部分解保存为14条可查询关系。五个存储阶段和两个聊天承接范围有独立身份。固定truth v1未改。
 
-来源裁定：记录修订、产品发布和运行修订分开；采用说明与adoption分身份，scope含工作域；旧状态/当前状态分开，未知/未完成/未分配/持续约束分别说明。四入口create/revise/statement/select不变，新增的是可执行组合，不按函数数证明最小。32个候选编号和去向保留。
+工具位于Agent任务状态管理/tools/work-operation-checks/。build生成完整工作台，case支持--object/--revision/--scope/--step；输出目录必须新建。当前本机阅读器：本工作树 artifacts/agent-task-state/maintenance/dsh-workbench-2026-10-27/delivery-final/index.html；同目录有bundle.json与16段逐步Markdown。本地程序回归41项通过，最终页面核验16段切换、指定版本、父子结构、精确端点/事实导航、报告性质、合成采用冲突，以及桌面/窄屏。
 
-CodeBuddy起稿包1/2/4并审查Sol起稿包3。任务c0282143首包及e32075a6首次读回为needs_attention，原因是主Agent改同Git根其他文件；工具证据已核对，实际模型允许输入哈希未变、读回只读input.json，原稿/结果/修正保留。包2=829b5c5e、包4及包3审阅=94ccb24c均completed。后续CodeBuddy使用独立工作树artifacts/worktrees/task-state-codebuddy-round1（HEAD2861b59），冻结期间不修改该Git根。
+## 已经裁定的规则
 
-首次24条独立上下文读回发现Loader旧字段、聊天实施状态及unknown/residual误读；已修正。当前定向四问任务 bf697373-1461-40cd-8e1a-aaebd944b28b，输入在CodeBuddy工作树的Agent任务状态管理/tools/work-operation-checks/readback-targeted/input.json，禁止重复提交或改其输入。它复查四个具体语义问题，原24答案保留；取回后源对照裁定。另一项收尾是固定提交CodeBuddy集中审查，需review_commit并且不把待完成写为完成。
+记录修订、产品发布和运行修订分别保存。选择查询同时提供采用时快照和当前说明；视图取副本，不反写工作状态。未知不等于未完成，未分配不等于未完成，持续限制不自动生成待办。旧保证、旧问题与当前状态有范围；correct精确指向被修正命题，来源报告另存，不因推翻解释而否定报告曾发生。
 
-本批原始与分析资料在 artifacts/agent-task-state/maintenance/dsh-workbench-2026-10-27/。semantic-rubric-before-full-encoding.json为Sol源参考，probes-pack1.json为8项实际合成更新，ordinary-documents-frozen-baseline.md为已维护普通文档对照。readback-v1未派单，readback-v2为首次实际24答案，模型输出和来源评分分开。delivery-v1至v4保留，不覆盖。
+32个候选编号和去向保留：4核心、14组合/便利、2合并、12待补证。本轮新增可执行实现和规则，核心候选新增0、移除0。v0.4归档，v0.5唯一现行。下一轮按用户指令推进工作视图与上下文压缩后接续，不再默认重枚举名称。
 
-本轮剩余：处理定向读回与固定提交审查，完成链接/锚点/Git差异收尾，保存最后提交并报告。下一研究轮围绕工作视图和压缩后接续。成本默认Sol加本地脚本，仅已授权CodeBuddy流水线，无Codex三并发；禁止自动重试失败任务，不切换付费服务，不运行DSH或SWE-Milestone。本轮CodeBuddy服务经用户明确授权，token/费用无回执时保持未知。
+## 验证与来源边界
+
+Sol负责实现、主来源走查和裁定；CodeBuddy起稿包1/2/4并审查Sol起稿包3。首次24条新上下文读回发现旧字段残留与unknown/residual误读；修正后只做四个问题的定向读回，关键区别恢复。定向任务bf697373 completed，JSON原文有孤立case-ID词元，另存仅格式规范化版本，答案文字未改；输入与原答卷保留。记录解释与阅读定义同时修改，不将结果单独归因于某接口。
+
+CodeBuddy固定a44a401审查（c885e691，completed）提出六项实质问题；Sol逐项修复并完成本地回归，最后差异由Sol复查。模型没有运行测试，不把模型审查覆盖范围扩展到后来提交。源码语义判断与程序一致性、图和交互验证分别保存。
+
+包1任务c0282143及初次读回e32075a6为needs_attention，原因是同Git根主Agent并行改文件；已核对路径/工具事件，读回允许输入哈希不变且仅观察到读取input。后续包2=829b5c5e、包4/包3审阅=94ccb24c以及定向/固定提交审查均completed。全部任务已终止，不重复派单。
+
+## 本地复现与接续
+
+本批根目录为本工作树 artifacts/agent-task-state/maintenance/dsh-workbench-2026-10-27/。四包模型原稿、source-walkthrough-final.json、readback-adjudication.json、code-review-adjudication.json、错误探针、普通文档基线与生成输出均保留。readback-v1未派单，v2为首次实际24答；delivery-v1至v4为历史生成物，delivery-final为现行。历史encode-pack3-sol.py、run-probes.py只作原始执行依据，不直接重跑覆盖当前文件；复现使用已提交fixtures与工具README命令并新建输出目录。
+
+CodeBuddy独立工作树artifacts/worktrees/task-state-codebuddy-round1保留冻结输入（HEAD2861b59），不是现行成果入口。正式成果在codex/task-state-activity-research，Git状态实时核对，保护其他项目内容。原始资料截止2026-10-15。本轮未运行DSH和任务效果实验；后续SWE-Milestone与付费实验需另行授权。
+
+成本继续采用Sol加本地脚本、必要的有界CodeBuddy任务；不默认Codex三并发，不重连Qoder，不自动重试失败任务或切换服务。无token/费用回执时记未知。
 
 <details><summary>2026-10-25 上轮接手记录</summary>
 

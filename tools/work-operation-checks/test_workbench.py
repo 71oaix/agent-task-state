@@ -102,6 +102,28 @@ class CompositionTests(unittest.TestCase):
         self.assertEqual(before, result["state"])
         self.assertEqual(before, self.state)
 
+    def test_saved_step_detaches_from_inputs_and_keeps_original_source(self):
+        corpus = {"id": "T01", "facts": {"T01.01": {"text": "original source", "nature": "reported",
+            "actor": "author", "sources": [{"id": "S001", "url": "https://example.test/source"}]}}}
+        step = {"id": "T01.S01", "facts": ["T01.01"], "actions": [
+            {"action": "revise", "id": "fact/T01.01", "delta": {"result": "later interpretation"}}]}
+        applied = w.execute_step(self.state, step, corpus)
+        self.assertEqual("applied", applied["status"])
+        result = {"id": "T01", "title": "history", "state": applied["state"],
+                  "initial_state": self.state, "events": [{k: v for k, v in applied.items() if k != "state"}]}
+        step["facts"].clear()
+        corpus["facts"]["T01.01"]["sources"][0]["url"] = "changed-after-call"
+        self.assertEqual(["T01.01"], result["events"][0]["facts"])
+        self.assertEqual("https://example.test/source", result["events"][0]["trace"][0]["transaction"]["commands"][0]["fields"]["sources"][0]["url"])
+        self.assertIn("original source", w.timeline_markdown(result))
+        self.assertEqual(result["state"], w.state_at(result, "T01.S01"))
+
+    def test_malformed_action_rejects_whole_step(self):
+        corpus = {"id": "T01", "facts": {"T01.01": {"text": "source", "nature": "reported", "actor": "author", "sources": []}}}
+        result = w.execute_step(self.state, {"id": "T01.S01", "facts": ["T01.01"], "actions": [None]}, corpus)
+        self.assertEqual("rejected", result["status"])
+        self.assertEqual(self.state, result["state"])
+
     def test_correction_keeps_failed_explanation_and_scoped_claim(self):
         corpus = {"id": "T13", "facts": {
             "T13.01": {"text": "delay hypothesis", "nature": "diagnosis", "actor": "author", "sources": []},
@@ -110,10 +132,16 @@ class CompositionTests(unittest.TestCase):
             result = w.execute_step(self.state, {"id": fid, "facts": [fid], "actions": []}, corpus)
             self.assertEqual("applied", result["status"])
             self.state = result["state"]
-        self.apply({"action": "correct", "id": "corrected", "prior": "fact/T13.01", "conclusion": "not solved by grace",
+        with self.assertRaises(w.ExpressionError):
+            w.expand(self.state, {"action": "correct", "id": "wrong", "prior": "fact/T13.01",
+                "conclusion": "not solved", "scope": "this failure", "evidence": ["T13.02"]}, P)
+        self.apply({"action": "statement", "id": "old-judgment", "fields": {"type": "judgment",
+                    "conclusion": "delay hypothesis", "evidence": ["T13.01"], "domain": "development_judgment"}})
+        self.apply({"action": "correct", "id": "corrected", "prior": "old-judgment", "conclusion": "not solved by grace",
                     "scope": "this host failure only", "evidence": ["T13.02"]})
         self.assertIn("fact/T13.01", self.state["objects"])
         self.assertEqual("this host failure only", self.state["objects"]["corrected"]["fields"]["scope"])
+        self.assertEqual({"id": "old-judgment", "revision": 1}, self.state["objects"]["corrected"]["fields"]["links"][0]["to"])
 
 
 class CorpusTests(unittest.TestCase):
@@ -128,9 +156,24 @@ class CorpusTests(unittest.TestCase):
         decided = w.state_at(result, "T01.S02")
         self.assertTrue(decided["objects"]["T01/loader"]["fields"]["transactional"])
         self.assertFalse(decided["objects"]["T01/loader"]["fields"]["planned_transactional"])
+        landed = w.state_at(result, "T01.S04")
+        self.assertEqual("reported_revert_landed", landed["objects"]["T01/loader"]["fields"]["implementation"])
+        self.assertEqual("reverted_nontransactional", landed["objects"]["T01/work"]["fields"]["implementation"])
         retained = w.state_at(result, "T01.S03")["objects"]["T01/attempt"]["fields"]["parts"]
         self.assertEqual("withdrawn", retained["transactional_reload"]["status"])
         self.assertEqual("reported_retained", retained["file_init_patch"]["status"])
+
+    def test_query_and_readback_cannot_mutate_saved_state(self):
+        result = self.case_result("T01")
+        before = deepcopy(result)
+        view = w.query(result)
+        view["objects"][0]["fields"]["status"] = "changed_by_reader"
+        scope = w.query(result, scope="T01/documented_loader_policy_at_cutoff")
+        scope["heads"][0]["selected"][0]["revision"] = 999
+        readback = w.readback_view(result)
+        readback["steps"][0]["facts"].clear()
+        readback["steps"][0]["effects"][0]["action"]["action"] = "changed_by_reader"
+        self.assertEqual(before, result)
 
     def test_runtime_revision_is_not_previous_architecture(self):
         result = self.case_result("T02")
@@ -141,6 +184,9 @@ class CorpusTests(unittest.TestCase):
         self.assertEqual("recovery_failure", legacy["missing_definition"])
         self.assertTrue(all(v["fields"]["scope"].startswith("T02/") for v in result["state"]["objects"].values()
                             if v["kind"] == "adoption"))
+        selected = w.query(result, scope="T02/documented_design")["record_views"][0]
+        self.assertEqual(1, selected["snapshot"]["revision"])
+        self.assertEqual(3, selected["latest_description"]["revision"])
 
     def test_unassigned_detail_is_not_inferred_from_later_source(self):
         result = self.case_result("T12")
@@ -186,6 +232,16 @@ class CorpusTests(unittest.TestCase):
         self.assertEqual("draft", objects["T03/stage3"]["fields"]["proposal_status"])
         self.assertEqual("reported_implemented", objects["T03/stage3"]["fields"]["implementation"])
         self.assertEqual("incomplete", objects["T03/stage5"]["fields"]["status"])
+        self.assertEqual("unknown", objects["T03/rebuild"]["fields"]["acceptance"])
+
+    def test_terminal_correction_targets_proposition_not_report(self):
+        result = self.case_result("T13")
+        objects = result["state"]["objects"]
+        judgment = objects["T13/judgment"]
+        self.assertEqual({"id": "T13/early-judgment", "revision": 1}, judgment["fields"]["links"][0]["to"])
+        self.assertEqual("source_record", objects["fact/T13.01"]["fields"]["domain"])
+        self.assertEqual("judgment", objects["T13/early-judgment"]["fields"]["type"])
+        self.assertIn({"id": "fact/T13.02", "revision": 1}, judgment["refs"])
 
     def test_frozen_input_and_cross_connections(self):
         corpus = w.load_corpus()

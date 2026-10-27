@@ -17,6 +17,7 @@ JSON 顶层为 `{"schema":1,"cases":[...]}`。每个案例有 `id`（T01 等）�
 | action | 参数与效果 |
 |---|---|
 | create | id, kind, fields；登记对象首版 |
+| statement | id, fields；登记独立观察或判断，使用statement基本入口 |
 | revise | id, delta；产生同一对象的新版本，旧版可查 |
 | partial_revert | id, withdraw:[part_key], retain:[part_key], reason；对象须已具有 parts 字典。仅把 withdraw 部分改为 withdrawn；retain 部分内容不变；保留其他字段 |
 | replace_parts | id, remove:[part_key], retain:[part_key], add:{key:value}, reason；指定旧部分退出、新部分进入，旧版和保留部分继续可查 |
@@ -25,9 +26,9 @@ JSON 顶层为 `{"schema":1,"cases":[...]}`。每个案例有 `id`（T01 等）�
 | close | id, disposition；只改工作关闭状态和处置，不改变父目标 |
 | reuse | owner, provider, range, relation；provider 为精确 `{id,revision}` 或当前对象 ID 字符串，由 prepare 固定为精确版本。relation 仅限 implements/uses_contract/reuses_result/historical_reference/depends_on/shared_mechanism/contains。range 明确取用范围；owner.links 追加类型化版本引用 |
 | adopt | id, scope, selected:[对象ID或精确版本], reason；创建或修订 adoption。scope 不变；每次明确采用版本，不影响其他 scope |
-| correct | id, prior, conclusion, scope, evidence:[事实编号]；prior 是先前 statement；新建 judgment，保留旧陈述，并记录 supersedes 类型关系及具体适用范围 |
+| correct | id, prior, conclusion, scope, evidence:[事实编号]；prior 是先前 statement；新建 judgment，保留旧陈述，并记录 corrects 关系及具体适用范围；prior指向被修正命题，来源报告留作依据 |
 
-四入口可直接使用；组合按已观察到的变化选择。事实只是报告或设计规则时，actions 可为空；此时必须把类型、结果和限制写入相应对象，或由事实陈述保留，不能虚构已经运行的事件。
+四个基本入口可经checker事务接口直接使用；案例组合层使用上表动作，并按已观察到的变化选择。事实只是报告或设计规则时，actions 可为空；此时必须把类型、结果和限制写入相应对象，或由事实陈述保留，不能虚构已经运行的事件。
 
 `parts` 的值使用对象，如 `{"status":"reported_implemented","description":"..."}`。withdrawn 说明退出该记录中的组成范围，不自动断言运行现场已完成清理。status、implementation、verification、acceptance、adoption 分字段保存；未知用 unknown，作者报告带 reported 前缀或归属说明。产品规则对象使用 `domain:"product_design"`；开发工作使用 `domain:"development"`。职责 tokens 由研究者标识，不能扩充来源承诺。
 

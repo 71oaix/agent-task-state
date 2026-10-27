@@ -499,6 +499,20 @@
               "delta": {
                 "phase": "early_wait_grace_diagnosis_reported"
               }
+            },
+            {
+              "action": "statement",
+              "id": "T13/early-judgment",
+              "fields": {
+                "type": "judgment",
+                "conclusion": "自托管Windows就绪故障属于提示符尾部延迟；引用已交付等待宽限修补",
+                "evidence": [
+                  "T13.01"
+                ],
+                "scope": "T13/this_windows_self_hosted_readiness_failure",
+                "domain": "development_judgment",
+                "attribution": "author_reported_diagnosis"
+              }
             }
           ]
         },
@@ -558,7 +572,10 @@
             {
               "action": "correct",
               "id": "T13/judgment",
-              "prior": "fact/T13.01",
+              "prior": {
+                "id": "T13/early-judgment",
+                "revision": 1
+              },
               "conclusion": "作者报告修补前后该用例均为20.8秒，等待宽限未解决本次自托管Windows就绪故障；直接探查显示宿主控制台滚屏后改写尾部格式，已经到达的非前缀字符串无法满足等待条件。",
               "scope": "T13/this_windows_self_hosted_readiness_failure",
               "evidence": [
@@ -953,6 +970,15 @@
       ],
       "problem": "旧问题与当前状态、持续约束与未完成任务容易混在remaining字段",
       "handling": "Sol源审：旧问题标历史范围，期限回退与格式拒绝列约束，明确前台分组为后续工作，七次成功归报告依据"
+    },
+    {
+      "case": "T13",
+      "facts": [
+        "T13.01",
+        "T13.03"
+      ],
+      "problem": "correct指向作者曾报告旧解释的来源事实，混淆命题与报告发生",
+      "handling": "建立旧解释判断对象，correct精确指向其首版；来源报告留在事实与refs，不被新判断否定"
     }
   ]
 }
