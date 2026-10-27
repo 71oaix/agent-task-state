@@ -30,16 +30,16 @@ function versions(c,id){return [...c.state.history.filter(v=>v.id===id),{id,...c
 function choose(id){$('#case').value=id;render();$('#content').scrollIntoView({block:'start'});}
 for(const [id,c] of Object.entries(data.cases))$('#case').add(new Option(id+' · '+c.title,id));
 $('#lanes').innerHTML=lanes.filter(([,ids])=>ids.some(id=>data.cases[id])).map(([title,ids])=>'<div class="lane"><strong>'+esc(title)+'</strong><p>'+ids.filter(id=>data.cases[id]).map(id=>'<a class="pill" href="#'+id+'" data-case="'+id+'">'+esc(id+' '+data.cases[id].title.split('：')[0])+'</a>').join('')+'</p></div>').join('');
-document.addEventListener('click',e=>{const a=e.target.closest('[data-case]');if(a){e.preventDefault();choose(a.dataset.case);}});
+document.addEventListener('click',e=>{const f=e.target.closest('[data-fact]');if(f){e.preventDefault();choose(f.dataset.fact.split('.')[0]);requestAnimationFrame(()=>document.getElementById(f.dataset.fact)?.scrollIntoView({block:'center'}));return;}const a=e.target.closest('[data-case]');if(a){e.preventDefault();choose(a.dataset.case);}});
 function render(){
  const c=data.cases[$('#case').value];$('#version').innerHTML='';$('#obj').innerHTML='';
  for(const o of Object.keys(c.state.objects))$('#obj').add(new Option(o,o));revs();
- let out='<section class="card"><h2>'+esc(c.id+' · '+c.title)+'</h2><p>沿图从上往下阅读；每个节点对应一次来源可见的变化。下面的段落解释变化，展开后可查组合操作和保存版本。</p><div class="flow">';
+ let out='<section class="card"><h2>'+esc(c.id+' · '+c.title)+'</h2><p>沿图从上往下阅读；每个节点对应一组有来源的变化，顺序沿用底稿。下面的段落解释变化，展开后可查组合操作和保存版本。</p><div class="flow">';
  for(const e of c.events){const f=c.state.objects['fact/'+e.facts[0]].fields;out+='<div class="node"><strong>'+esc(first(f.result))+'</strong><br><small>'+esc(e.trace.filter(t=>t.kind==='composition').map(t=>names[t.prepared.action.action]).join(' → ')||'登记来源报告')+'</small></div><div class="arrow">↓</div>';}
  out=out.replace(/<div class="arrow">↓<\/div>$/,'')+'</div></section>';
  for(const e of c.events){
   out+='<article><h3>'+esc(e.step)+'</h3>';
-  for(const fid of e.facts){const f=c.state.objects['fact/'+fid].fields;out+='<p class="fact">'+esc(clean(f.result))+'</p><p class="source meta">'+esc(fid)+' · '+f.sources.map(s=>'<a target="_blank" rel="noreferrer" href="'+esc(s.url)+'">'+esc(s.id)+'</a>').join(' ')+'</p>';}
+  for(const fid of e.facts){const f=c.state.objects['fact/'+fid].fields;out+='<p class="fact" id="'+esc(fid)+'">'+esc(clean(f.result))+'</p><p class="source meta">'+esc(fid)+' · '+f.sources.map(s=>'<a target="_blank" rel="noreferrer" href="'+esc(s.url)+'">'+esc(s.id)+'</a>').join(' ')+'</p>';}
   for(const t of e.trace.filter(t=>t.kind==='composition')){
    const a=t.prepared.action;let why=a.reason||a.range||a.disposition||a.scope||'';
    out+='<details class="operation"><summary>'+esc(names[a.action])+'：'+esc(t.changes.map(v=>v.target+' @'+v.after).join('、'))+'</summary>';
@@ -54,7 +54,7 @@ function render(){
  const adopted=Object.entries(c.state.objects).filter(([k,v])=>v.kind==='adoption');
  out+='<section class="card"><h2>这一段留下了什么</h2><div class="split"><div><h3>记录中的采用范围</h3>'+(adopted.length?adopted.map(([id,v])=>'<p><strong>'+esc(v.fields.scope)+'</strong><br>'+esc(v.fields.reason)+'<br><span class="meta">'+esc(v.fields.selected.map(s=>s.id+' @'+s.revision).join('、'))+'</span></p>').join(''):'<p>来源未被编码为独立采用决定；具体实施与报告保存在对象版本中。</p>')+'</div><div><h3>继续接手要知道</h3><p>'+esc(gap.result)+'</p></div></div><details><summary>全部当前对象</summary>'+pre(Object.fromEntries(Object.entries(c.state.objects).filter(([k])=>!k.startsWith('fact/'))))+'</details></section>';
  $('#content').innerHTML=out;
- $('#cross').innerHTML=data.cross_links.filter(x=>x.endpoints.includes(c.id)).map(x=>'<div class="lane"><strong>'+esc(x.label)+'</strong><p>'+esc(x.meaning)+'</p><p class="meta">'+esc(x.basis)+'</p>'+x.endpoints.filter(id=>id!==c.id).map(id=>'<a href="#'+id+'" data-case="'+id+'">查看 '+esc(id)+'</a>').join(' ')+'</div>').join('')||'<p>固定底稿未给这段登记跨过程连接。</p>';
+ $('#cross').innerHTML=data.cross_links.filter(x=>x.endpoints.includes(c.id)).map(x=>'<div class="lane"><strong>'+esc(x.label)+'</strong><p>'+esc(x.meaning)+'</p><p class="meta">'+esc(x.basis)+'</p><p>'+ (x.evidence_facts||[]).map(fid=>'<a class="pill" href="#'+esc(fid)+'" data-fact="'+esc(fid)+'">'+esc(fid)+'</a>').join('')+'</p>'+x.endpoints.filter(id=>id!==c.id).map(id=>'<a href="#'+id+'" data-case="'+id+'">查看 '+esc(id)+'</a>').join(' ')+'</div>').join('')||'<p>固定底稿未给这段登记跨过程连接。</p>';
 }
 function revs(){const c=data.cases[$('#case').value];$('#rev').innerHTML='';for(const v of versions(c,$('#obj').value))$('#rev').add(new Option('@'+v.revision,v.revision));$('#rev').value=c.state.objects[$('#obj').value].revision;}
 $('#case').onchange=render;$('#obj').onchange=revs;$('#lookup').onclick=()=>{const c=data.cases[$('#case').value];$('#version').innerHTML=pre(versions(c,$('#obj').value).find(v=>v.revision==$('#rev').value));};

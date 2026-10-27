@@ -8,17 +8,21 @@ tags: [research, operation-selection]
 
 # Agent 接手入口与当前执行状态
 
-2026-10-27 执行用户批准的“形成可用工作操作并完整表达 DSH”计划。使用当前独立分支，起始 HEAD 2861b5934e09a2002702309df67a86f6b2033071。当前四入口 create/revise/statement/select；本轮优先可用组合，不按函数数量压缩。
+先读[人类主成果](dsh-work-history.md)、[现行候选v0.5](work-operation-candidates-v0.5.md)，操作输入见[工具说明](../../../tools/work-operation-checks/README.md)。研究分支codex/task-state-activity-research，首阶段提交05c1f84；最新HEAD用Git核对。
 
-当前实现：tools/work-operation-checks/workbench.py、EXPRESSION.md、reader.html、test_workbench.py；组合含 partial_revert、replace_parts、split、rework、close、reuse、adopt、correct；新文件尚未提交。Loader 主 Agent 预分析和可运行示范位于本工作树 artifacts/agent-task-state/maintenance/dsh-workbench-2026-10-27/；图已渲染，移动/桌面及历史查询交互检查通过。
+2026-10-27已实现四个基本入口上的八类组合、全部16段DSH逐步表达、83条来源事实与16条研究缺口、七条跨过程关系与两组内部包含（共14条可查询关系）。五个存储阶段和两个聊天承接范围有独立身份。固定truth v1未改。
 
-CodeBuddy 批次1任务 c0282143-6631-471f-8a7d-91b860d42ba5，deepseek-v4.1-flash/max，edit 仅允许 cases/pack1.json，包含 T01/T03/T12/T14。任务仍运行时不改其文件、不重复提交。此文件初稿四案可重放，主 Agent 来源复核已发现决定/落地时态、T12 用后续信息提前分配责任、unknown 被写成 not_started 等问题；裁定草稿在 sol-review-in-progress.json。待任务完成先保存原稿和原始 result，再修正、冻结包1。
+工具在Agent任务状态管理/tools/work-operation-checks/。在仓库根运行 python -m unittest discover -s Agent任务状态管理/tools/work-operation-checks -v；37项当前通过。workbench.py提供build、case及--object/--revision/--scope/--step，输出目录必须新建。当前阅读器位于本工作树 artifacts/agent-task-state/maintenance/dsh-workbench-2026-10-27/delivery-v4/index.html；完整状态、展开和16段Markdown在同目录。图与16段交互已本机渲染，桌面/窄屏、对象历史与事实跳转通过。
 
-下一动作：包1校准后依序派 CodeBuddy 包2(T02/T04/T06/T08)、包3(T05/T07/T09/T15)、包4(T10/T11/T13/T16)，只读取固定底稿、EXPRESSION、既有代码和包1示范，避免全资料扫描。每包仍用独立白名单 JSON，HEAD 变化前须确认无 edit 在排队。主 Agent 检验每步、覆盖和来源含义后继续。
+来源裁定：记录修订、产品发布和运行修订分开；采用说明与adoption分身份，scope含工作域；旧状态/当前状态分开，未知/未完成/未分配/持续约束分别说明。四入口create/revise/statement/select不变，新增的是可执行组合，不按函数数证明最小。32个候选编号和去向保留。
 
-随后全量 build 到新的 ignored 输出目录，建立83事实/16缺口对应、七条跨过程和两条内部包含关系，CodeBuddy 用新上下文对选定片段读回。source truth 不修改；模型编码和模型自检不计为独立检验。程序拒绝与语义来源审查分开。最终形成候选v0.5、更新dsh-work-history与operation-composition-review、索引/资产、固定提交集中审阅。计划未完成时不能报完成。
+CodeBuddy起稿包1/2/4并审查Sol起稿包3。任务c0282143首包及e32075a6首次读回为needs_attention，原因是主Agent改同Git根其他文件；工具证据已核对，实际模型允许输入哈希未变、读回只读input.json，原稿/结果/修正保留。包2=829b5c5e、包4及包3审阅=94ccb24c均completed。后续CodeBuddy使用独立工作树artifacts/worktrees/task-state-codebuddy-round1（HEAD2861b59），冻结期间不修改该Git根。
 
-本轮已明确授权 CodeBuddy 服务分工，不使用 Qoder，不默认 Codex 子代理三并发。失败先取回状态/结果，禁止自动重发；用量无回执保持未知。控制成本优先主 Agent 与本地脚本。CodeBuddy interface contract_revision=2.0、串行队列；其工具白名单不是OS隔离。
+首次24条独立上下文读回发现Loader旧字段、聊天实施状态及unknown/residual误读；已修正。当前定向四问任务 bf697373-1461-40cd-8e1a-aaebd944b28b，输入在CodeBuddy工作树的Agent任务状态管理/tools/work-operation-checks/readback-targeted/input.json，禁止重复提交或改其输入。它复查四个具体语义问题，原24答案保留；取回后源对照裁定。另一项收尾是固定提交CodeBuddy集中审查，需review_commit并且不把待完成写为完成。
+
+本批原始与分析资料在 artifacts/agent-task-state/maintenance/dsh-workbench-2026-10-27/。semantic-rubric-before-full-encoding.json为Sol源参考，probes-pack1.json为8项实际合成更新，ordinary-documents-frozen-baseline.md为已维护普通文档对照。readback-v1未派单，readback-v2为首次实际24答案，模型输出和来源评分分开。delivery-v1至v4保留，不覆盖。
+
+本轮剩余：处理定向读回与固定提交审查，完成链接/锚点/Git差异收尾，保存最后提交并报告。下一研究轮围绕工作视图和压缩后接续。成本默认Sol加本地脚本，仅已授权CodeBuddy流水线，无Codex三并发；禁止自动重试失败任务，不切换付费服务，不运行DSH或SWE-Milestone。本轮CodeBuddy服务经用户明确授权，token/费用无回执时保持未知。
 
 <details><summary>2026-10-25 上轮接手记录</summary>
 

@@ -2,13 +2,13 @@
 title: Agent 任务状态管理论文项目
 status: active
 created: 2026-10-09
-updated: 2026-10-25
+updated: 2026-10-27
 tags: [research, task-state, entrypoint]
 ---
 
 # Agent 任务状态管理论文项目
 
-2026-10-25：完成[逐步更新筛选](docs/research/change-graph-task-state/operation-selection-review.md)，现行[候选 v0.4](docs/research/change-graph-task-state/work-operation-candidates-v0.4.md)采用四个工作入口与显式组合规则；独立检验和本地走查分开报告。
+2026-10-27：已有[可运行工作台](tools/work-operation-checks/README.md)与[工作操作v0.5](docs/research/change-graph-task-state/work-operation-candidates-v0.5.md)。四个基本入口组合出八类工作功能，完整表达既有16段DSH过程，并提供逐步重放、历史查询和来源入口。[先看图与实际效果](docs/research/change-graph-task-state/dsh-work-history.md)。
 
 **Agent 接手只从[当前状态与执行入口](docs/research/change-graph-task-state/HANDOFF.md)开始。**不需要聊天历史。该入口说明目前做到哪一步、下一项工作、验收办法和权限边界。
 
@@ -18,7 +18,7 @@ tags: [research, task-state, entrypoint]
 
 人类审阅读[研究计划 v1.1](docs/research/change-graph-task-state/research-plan-v1.1.md)：先调查真实软件开发活动，再确定持久记录和 Agent 工作，最后检验元操作如何组合。阶段成果与验收方式已列明。
 
-本轮已完成首批来源筛选、[活动地图](docs/research/change-graph-task-state/software-development-activity-map.md)和[记录/Agent 工作映射](docs/research/change-graph-task-state/activity-record-agent-mapping.md)。[元操作推演](docs/research/change-graph-task-state/operation-composition-review.md)现含本轮覆盖与删减依据；协议保持候选，原型未实施。
+本轮已完成首批来源筛选、[活动地图](docs/research/change-graph-task-state/software-development-activity-map.md)和[记录/Agent 工作映射](docs/research/change-graph-task-state/activity-record-agent-mapping.md)。[元操作推演](docs/research/change-graph-task-state/operation-composition-review.md)现含本轮覆盖与删减依据；当前可执行规则与原型见v0.5，历史推演保留。
 
 - [资料分类与位置](docs/reference/artifact-organization.md)：本地材料按性质保存；原始资料不等于研究结论。
 - [来源清单](docs/research/change-graph-task-state/source-inventory.md)：官方出处、版本、发表身份及核验范围。

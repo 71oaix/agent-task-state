@@ -117,6 +117,76 @@ class CompositionTests(unittest.TestCase):
 
 
 class CorpusTests(unittest.TestCase):
+    def case_result(self, cid):
+        cases, _ = w.load_cases()
+        if cid not in cases:
+            self.skipTest("case encoding in progress")
+        return w.run_case(cases[cid], w.load_corpus()["cases"][cid])
+
+    def test_loader_decision_does_not_pretend_implementation_changed(self):
+        result = self.case_result("T01")
+        decided = w.state_at(result, "T01.S02")
+        self.assertTrue(decided["objects"]["T01/loader"]["fields"]["transactional"])
+        self.assertFalse(decided["objects"]["T01/loader"]["fields"]["planned_transactional"])
+        retained = w.state_at(result, "T01.S03")["objects"]["T01/attempt"]["fields"]["parts"]
+        self.assertEqual("withdrawn", retained["transactional_reload"]["status"])
+        self.assertEqual("reported_retained", retained["file_init_patch"]["status"])
+
+    def test_runtime_revision_is_not_previous_architecture(self):
+        result = self.case_result("T02")
+        legacy = result["state"]["objects"]["T02/legacy-revision"]["fields"]
+        self.assertTrue(legacy["definition_ref"].startswith("unknown"))
+        self.assertEqual("T02/preset-declarative", legacy["links"][0]["to"]["id"])
+        self.assertEqual("uses_contract", legacy["links"][0]["relation"])
+        self.assertEqual("recovery_failure", legacy["missing_definition"])
+        self.assertTrue(all(v["fields"]["scope"].startswith("T02/") for v in result["state"]["objects"].values()
+                            if v["kind"] == "adoption"))
+
+    def test_unassigned_detail_is_not_inferred_from_later_source(self):
+        result = self.case_result("T12")
+        first = w.state_at(result, "T12.S01")
+        self.assertNotEqual("reported_merged", first["objects"]["T12/pr"]["fields"]["status"])
+        split = w.state_at(result, "T12.S03")["objects"]["T12/work"]["fields"]
+        self.assertEqual(set(split["responsibilities"]), set(split["residual"]))
+        self.assertTrue(all(not allocation for allocation in split["allocations"].values()))
+        self.assertEqual("pending", result["state"]["objects"]["T12/grouping"]["fields"]["acceptance"])
+
+    def test_ui_rework_retains_backend_without_asserting_code_reuse(self):
+        result = self.case_result("T14")
+        at_decision = w.state_at(result, "T14.S03")
+        ui = at_decision["objects"]["T14/ui"]["fields"]
+        self.assertTrue(ui["implementation"].startswith("unknown_at_decision"))
+        self.assertEqual("closed", at_decision["objects"]["T14/old"]["fields"]["status"])
+        relations = [l["relation"] for l in ui["links"]]
+        self.assertIn("uses_contract", relations)
+        self.assertIn("historical_reference", relations)
+        self.assertNotIn("reuses_result", relations)
+
+    def test_accepted_notification_limit_is_not_new_dedup_task(self):
+        result = self.case_result("T08")
+        objects = result["state"]["objects"]
+        part = objects["T08/session-contract"]["fields"]["parts"]["one_shot_provider_path"]
+        self.assertIn("unified_entry", part["status"])
+        goal = objects["T08/goal"]["fields"]
+        self.assertNotIn("notification_dedupe_decision", goal.get("remaining", []))
+        self.assertIn("完成通知允许重复", goal["accepted_limits"])
+
+    def test_shared_delivery_has_different_storage_guarantees(self):
+        team = self.case_result("T04")["state"]["objects"]
+        schedule = self.case_result("T06")["state"]["objects"]
+        self.assertEqual("none", team["T04/outbox"]["fields"]["pending_delivery"])
+        self.assertEqual("duplicate_delivery_possible", schedule["T06/delivery"]["fields"]["crash_effect"])
+        self.assertEqual("unknown", schedule["T06/delivery"]["fields"]["model_completion"])
+        self.assertEqual("retained", schedule["T06/history"]["fields"]["session_message_after_delete"])
+
+    def test_storage_phases_have_identity_without_completing_parent(self):
+        result = self.case_result("T03")
+        objects = result["state"]["objects"]
+        self.assertEqual("proposed", objects["T03/rebuild"]["fields"]["status"])
+        self.assertEqual("draft", objects["T03/stage3"]["fields"]["proposal_status"])
+        self.assertEqual("reported_implemented", objects["T03/stage3"]["fields"]["implementation"])
+        self.assertEqual("incomplete", objects["T03/stage5"]["fields"]["status"])
+
     def test_frozen_input_and_cross_connections(self):
         corpus = w.load_corpus()
         self.assertEqual(16, len(corpus["cases"]))
@@ -137,7 +207,19 @@ class CorpusTests(unittest.TestCase):
                         self.assertEqual(item["after"], w.query(result, item["target"], item["after"])["revision"])
             for fid in result["fact_coverage"]:
                 self.assertIn("fact/" + fid, result["state"]["objects"])
+            replayed = w.state_at(result, result["events"][-1]["step"])
+            final_without_gap = deepcopy(result["state"])
+            del final_without_gap["objects"]["fact/" + result["id"] + ".GAP"]
+            self.assertEqual(final_without_gap, replayed)
+            first = w.state_at(result, result["events"][0]["step"])
+            future = set(result["fact_coverage"]) - set(result["events"][0]["facts"])
+            self.assertTrue(all("fact/" + fid not in first["objects"] for fid in future))
         self.assertEqual(83, sum(len(x) for x in bundle["coverage"].values()))
+        self.assertEqual(16, len(bundle["gap_coverage"]))
+        relations = [v for v in bundle["state"]["objects"].values() if v["kind"] == "relation"]
+        self.assertEqual(14, len(relations))
+        self.assertTrue(all(v["refs"] for v in relations))
+        self.assertTrue(all(v["status"] == "resolved" for v in w.resolve_adoptions(bundle["state"])["scopes"].values()))
         self.assertEqual(bundle, json.loads(json.dumps(bundle, ensure_ascii=False)))
 
 

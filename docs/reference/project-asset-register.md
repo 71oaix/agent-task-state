@@ -2,7 +2,7 @@
 title: Agent任务状态管理项目资产索引
 status: active
 created: 2026-10-09
-updated: 2026-10-25
+updated: 2026-10-27
 tags: [asset-register, task-state, preservation]
 supersedes:
 ---
@@ -15,8 +15,9 @@ supersedes:
 
 | 资产 | 来源与版本 | 责任与边界 | 下一步 |
 |---|---|---|---|
-| [工作操作检查器](../../tools/work-operation-checks/README.md) | 自有 Python 标准库实现；18 项测试；v2 原始实验与 v3 引用存留修复分开保存 | 记录更新/拒绝/重放，不判自由文字真伪、不执行 DSH | 复用当前实现；成本优先本地验证 |
-| [工作操作 v0.4](../research/change-graph-task-state/work-operation-candidates-v0.4.md) | 2026-10-25；唯一现行候选；原编号保留 | 四个工作入口；两入口对照也可表达，规则复杂性必须计入 | 必要关系身份/并发采用反例契约，复用当前检查器 |
+| [工作操作工作台](../../tools/work-operation-checks/README.md) | 2026-10-27；原检查器与新增组合执行/历史查询/阅读器 | 16段、83来源事实与16研究缺口；模型原稿和Sol裁定分开；独立读回有明确输入范围 | 处理定向读回与固定提交审查后进入工作视图接续 |
+| [工作操作v0.5](../research/change-graph-task-state/work-operation-candidates-v0.5.md) | 2026-10-27；唯一现行候选；四入口与八类可执行组合 | 初版可用机制；记录版本、产品版本、范围与知识状态分别保存 | 以使用中的具体失败迭代，下一轮压缩后接续 |
+| [工作操作v0.4](../research/change-graph-task-state/work-operation-candidates-v0.4.md) | 2026-10-25；历史筛选，由v0.5接替 | 四入口及两入口强对照的依据保留 | 查历史取舍 |
 | [元操作筛选](../research/change-graph-task-state/operation-selection-review.md) | 2026-10-25；逐步更新比较；新批次 dsh-operation-selection-2026-10-25 | 记录检查器与四组校准完成；跨过程独立/主 Agent 范围分开 | 本轮已裁定，后续按必要争议控制审阅成本 |
 | [工作操作 v0.3](../research/change-graph-task-state/work-operation-candidates-v0.3.md) | 2026-10-25；前轮工作接口清单；由 v0.4 接替 | 7 语义入口 / 11 组合 / 12 待补证；统一底座为原型建议 | 独立构造/读回后裁定便利接口并决定原型实现 |
 | [工作转换检验](../research/change-graph-task-state/transition-rule-review.md) | 2026-10-25；固定来源的逐步转换、规则与期待探针 | 主 Agent 离线走查；Qoder 已移除；独立检验已由新轮次接续；本批次 artifacts/agent-task-state/maintenance/dsh-transitions-2026-10-25/ | 完成跨案例检查并明确原型 gate |

@@ -1,0 +1,2010 @@
+{
+  "schema": 1,
+  "cases": [
+    {
+      "id": "T02",
+      "title": "Agent 预设：按会话装载，改为声明式配置并保留旧修订",
+      "objects": [
+        {
+          "id": "T02/goal",
+          "kind": "goal",
+          "fields": {
+            "title": "Agent 预设装载方式的持续目标",
+            "status": "unknown",
+            "domain": "development",
+            "research_scope": "研究者建立的过程目标；不等同于上游任务或实际 Agent 实例",
+            "initial_unknown": "责任者、实际激活结果、局部修补日期"
+          }
+        },
+        {
+          "id": "T02/work",
+          "kind": "work",
+          "fields": {
+            "title": "Agent 预设装载方式迁移",
+            "status": "unknown",
+            "domain": "development",
+            "research_scope": "T02 的研究工作身份；初始不预设实现方案",
+            "implementation": "unknown",
+            "verification": "unknown",
+            "acceptance": "unknown",
+            "initial_unknown": "当前定义、实际运行结果与验收"
+          }
+        },
+        {
+          "id": "T02/preset-contract",
+          "kind": "contract",
+          "fields": {
+            "title": "Agent 预设定义与运行修订边界",
+            "status": "unknown",
+            "domain": "product_design",
+            "scope": "预设装载方式及其运行修订；不预设具体版本",
+            "implementation": "unknown",
+            "verification": "unknown",
+            "acceptance": "unknown",
+            "adoption": "unknown",
+            "details": "unknown"
+          }
+        }
+      ],
+      "steps": [
+        {
+          "id": "T02.S01",
+          "facts": [
+            "T02.01"
+          ],
+          "actions": [
+            {
+              "action": "revise",
+              "id": "T02/preset-contract",
+              "delta": {
+                "title": "按会话装载的 Agent 预设（旧定义）",
+                "status": "reported_documented_state",
+                "scope": "每个 Agent 装载自己的预设目录；Host 注册服务与跨会话设施共享",
+                "prior_model": "进程级配置决定全部会话能力",
+                "host_shared": [
+                  "registry_service",
+                  "cross_session_facilities"
+                ],
+                "implementation": "reported_documented_state",
+                "verification": "unknown",
+                "acceptance": "unknown",
+                "adoption": "documented_state",
+                "instance_evidence": "unknown; 未观察到具体 Agent 实例",
+                "source_note": "rc.7 记录回顾当时状态；不是本次运行观察"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T02/work",
+              "delta": {
+                "status": "reported_per_session_presets",
+                "current_definition": "T02/preset-contract",
+                "implementation": "reported_documented_state",
+                "verification": "unknown",
+                "acceptance": "unknown",
+                "unknown": [
+                  "commit_identity",
+                  "actual_activation_results"
+                ]
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T02/goal",
+              "delta": {
+                "status": "open",
+                "completion": "not_established"
+              }
+            },
+            {
+              "action": "reuse",
+              "owner": "T02/work",
+              "provider": "T02/preset-contract",
+              "relation": "uses_contract",
+              "range": "T02.01 记录的按会话装载；仅文档状态，不含运行实例验证"
+            }
+          ]
+        },
+        {
+          "id": "T02.S02",
+          "facts": [
+            "T02.02"
+          ],
+          "actions": [
+            {
+              "action": "create",
+              "id": "T02/integration-findings",
+              "kind": "artifact",
+              "fields": {
+                "title": "按会话预设的实施问题记录",
+                "status": "author_reported_findings",
+                "domain": "development",
+                "parts": {
+                  "host_reader_missing_services": {
+                    "status": "author_reported_finding_at_this_stage; later_resolution_unknown",
+                    "description": "Host 读者曾找不到移入会话的服务"
+                  },
+                  "unload_rewrites_inputs": {
+                    "status": "author_reported_finding_at_this_stage; later_resolution_unknown",
+                    "description": "卸载可能改写预设输入"
+                  },
+                  "storage_missing_preset_identity": {
+                    "status": "author_reported_finding_at_this_stage; later_resolution_unknown",
+                    "description": "存储后端未全部保存新增预设身份"
+                  },
+                  "idle_agent_release_timing": {
+                    "status": "author_reported_finding_at_this_stage; later_resolution_unknown",
+                    "description": "Host 缺少闲置 Agent 的释放时机"
+                  }
+                },
+                "attribution": "source_author_reported; independent verification unknown",
+                "scope": "四项实施问题；不分配具体修复责任",
+                "verification": "unknown"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T02/work",
+              "delta": {
+                "status": "author_reported_implementation_with_open_findings",
+                "findings": "T02/integration-findings",
+                "implementation": "author_reported_implementation; completion unknown",
+                "verification": "unknown",
+                "acceptance": "unknown",
+                "historical_findings_at_stage": [
+                  "host_reader_missing_services",
+                  "unload_rewrites_inputs",
+                  "storage_missing_preset_identity",
+                  "idle_agent_release_timing"
+                ]
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T02/preset-contract",
+              "delta": {
+                "findings_ref": "T02/integration-findings",
+                "known_gaps": [
+                  "host_reader_missing_services",
+                  "unload_rewrites_inputs",
+                  "storage_missing_preset_identity",
+                  "idle_agent_release_timing"
+                ],
+                "implementation": "author_reported_implementation_with_gaps",
+                "verification": "unknown"
+              }
+            }
+          ]
+        },
+        {
+          "id": "T02.S03",
+          "facts": [
+            "T02.03"
+          ],
+          "actions": [
+            {
+              "action": "create",
+              "id": "T02/preset-declarative",
+              "kind": "contract",
+              "fields": {
+                "title": "声明式预设与运行修订（当前定义）",
+                "status": "reported_landed_in_mainline",
+                "domain": "product_design",
+                "scope": "普通配置声明预设；注册器拥有运行修订及其插件树",
+                "config_form": "ordinary_config",
+                "revision_owner": "registrar",
+                "initial_commit": "d1e22a7e247060496e1acdba9ef3be1700e23ec7",
+                "mainline_date": "2026-09-21",
+                "release": "0.1.7-rc.2",
+                "prior_definition": "T02/preset-contract",
+                "implementation": "reported_landed",
+                "verification": "unknown",
+                "acceptance": "unknown",
+                "adoption": "documented_design",
+                "instance_evidence": "unknown; 未观察到具体 Agent 实例"
+              }
+            },
+            {
+              "action": "create",
+              "id": "T02/design-record",
+              "kind": "artifact",
+              "fields": {
+                "title": "声明式预设的设计采用记录",
+                "status": "recorded_transition",
+                "domain": "development",
+                "commit": "d1e22a7e247060496e1acdba9ef3be1700e23ec7",
+                "release": "0.1.7-rc.2",
+                "scope": "记录普通配置声明成为预设定义；不代替运行验收"
+              }
+            },
+            {
+              "action": "adopt",
+              "id": "T02/design-selection",
+              "scope": "T02/documented_design",
+              "selected": [
+                "T02/preset-declarative"
+              ],
+              "reason": "记录明确采用声明式定义；仅设计采用范围，不声称观察到实际 Agent 实例"
+            },
+            {
+              "action": "revise",
+              "id": "T02/preset-contract",
+              "delta": {
+                "status": "reported_prior_architecture; exact_runtime_definition_unknown",
+                "replacement": "T02/preset-declarative",
+                "implementation": "reported_prior_definition",
+                "verification": "unknown",
+                "acceptance": "unknown"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T02/work",
+              "delta": {
+                "status": "reported_declarative_presets_landed",
+                "current_definition": "T02/preset-declarative",
+                "prior_definition": "T02/preset-contract",
+                "implementation": "reported_landed",
+                "verification": "unknown",
+                "acceptance": "unknown",
+                "historical_findings_resolution": "unknown_after_architecture_change; not automatically current open tasks"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T02/goal",
+              "delta": {
+                "status": "open",
+                "completion": "not_established"
+              }
+            },
+            {
+              "action": "reuse",
+              "owner": "T02/work",
+              "provider": "T02/preset-declarative",
+              "relation": "uses_contract",
+              "range": "0.1.7-rc.2 声明式定义；旧定义保留在旧版本与既有引用中"
+            }
+          ]
+        },
+        {
+          "id": "T02.S04",
+          "facts": [
+            "T02.04"
+          ],
+          "actions": [
+            {
+              "action": "create",
+              "id": "T02/legacy-revision",
+              "kind": "artifact",
+              "fields": {
+                "title": "声明式架构下旧运行修订的保留规则",
+                "status": "documented_old_revision_retention_rule; instance_unknown",
+                "domain": "product_design",
+                "definition_ref": "unknown; 某次声明式定义更新前的版本，非旧架构记录",
+                "definition_generation": "unknown_within_declarative_architecture",
+                "revision_scope": "修改定义后旧修订退役；新激活使用当前定义",
+                "holder_classes": [
+                  "agent",
+                  "subagent",
+                  "temporary_reader"
+                ],
+                "holder_instances": "unknown; 未观察到具体实例",
+                "retention": "existing holders keep references; cleanup at last release",
+                "cleanup_trigger": "last_reference_release",
+                "scope": "仅已持有者的进程内引用；不延伸到新激活或重启",
+                "config_persistence": "reported_separately",
+                "activation_result": "reported_separately",
+                "observed_event": "none; documented lifecycle rule",
+                "implementation": "reported_documented",
+                "verification": "unknown",
+                "acceptance": "unknown"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T02/preset-declarative",
+              "delta": {
+                "revision_lifecycle": "definition change retires old revision for new activations",
+                "holder_rule": "existing agents, subagents and temporary readers keep references; cleanup at last release",
+                "config_persistence": "reported separately from activation result",
+                "old_revision_ref": "T02/legacy-revision",
+                "implementation": "reported_landed"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T02/preset-contract",
+              "delta": {
+                "distinction": "旧架构记录不代表声明式架构下仍被持有的旧运行定义"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T02/work",
+              "delta": {
+                "status": "revision_lifecycle_documented; actual_activation_unknown",
+                "old_revision": "T02/legacy-revision",
+                "holder_classes": [
+                  "agent",
+                  "subagent",
+                  "temporary_reader"
+                ],
+                "holder_instances": "unknown",
+                "implementation": "reported_documented",
+                "verification": "unknown",
+                "acceptance": "unknown"
+              }
+            },
+            {
+              "action": "reuse",
+              "owner": "T02/legacy-revision",
+              "provider": "T02/preset-declarative",
+              "relation": "uses_contract",
+              "range": "引用声明式架构的旧修订保留规则；具体旧定义内容和运行实例未知"
+            }
+          ]
+        },
+        {
+          "id": "T02.S05",
+          "facts": [
+            "T02.05"
+          ],
+          "actions": [
+            {
+              "action": "create",
+              "id": "T02/restart-rule",
+              "kind": "contract",
+              "fields": {
+                "title": "预设重启恢复规则",
+                "status": "documented_product_rule",
+                "domain": "product_design",
+                "resolve_by": "saved preset identity against current config",
+                "in_process_revision": "not restored",
+                "missing_definition": "recovery_failure",
+                "scope": "仅重启路径；不改变重启前已持有者的进程内引用",
+                "observed_restart": "none",
+                "implementation": "documented_rule",
+                "verification": "unknown",
+                "acceptance": "unknown"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T02/legacy-revision",
+              "delta": {
+                "restart_behavior": "not restored",
+                "restart_resolution": "saved identity -> current config",
+                "missing_definition": "recovery_failure",
+                "scope": "process-local only; ends at restart"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T02/preset-declarative",
+              "delta": {
+                "restart_resolution": "saved identity -> current config",
+                "missing_definition": "recovery_failure",
+                "restart_rule_ref": "T02/restart-rule"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T02/work",
+              "delta": {
+                "status": "documented_limit_recorded; acceptance_unknown",
+                "limits": [
+                  "in_process_old_revision_not_restored",
+                  "missing_definition_recovery_failure"
+                ],
+                "remaining_unknown": [
+                  "actual_activation_results",
+                  "local_patch_mainline_date"
+                ],
+                "implementation": "reported_documented",
+                "verification": "unknown",
+                "acceptance": "unknown"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T02/goal",
+              "delta": {
+                "status": "open",
+                "completion": "not_established",
+                "unknowns": [
+                  "actual_activation_results",
+                  "local_patch_mainline_date"
+                ],
+                "unknowns_are_not_new_tasks": true
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "T04",
+      "title": "Team 消息：从独立 outbox 改为目标 inbox，保留名单与任务",
+      "objects": [
+        {
+          "id": "T04/goal",
+          "kind": "goal",
+          "fields": {
+            "title": "Team 消息与成员状态的持久边界",
+            "status": "unknown",
+            "domain": "development",
+            "research_scope": "研究者建立的 Team 行为目标；不声称上游有同名目标",
+            "initial_unknown": "实际用户损失、模型处理状态与验收"
+          }
+        },
+        {
+          "id": "T04/work",
+          "kind": "work",
+          "fields": {
+            "title": "Team 消息投递改为目标 inbox",
+            "status": "unknown",
+            "domain": "development",
+            "research_scope": "T04 的研究工作身份；初始不预设实现与范围",
+            "implementation": "unknown",
+            "verification": "unknown",
+            "acceptance": "unknown",
+            "initial_unknown": "决定、合入、运行结果与责任归属"
+          }
+        },
+        {
+          "id": "T04/team-messaging",
+          "kind": "contract",
+          "fields": {
+            "title": "Team 消息接纳与成员/任务状态边界",
+            "status": "unknown",
+            "domain": "product_design",
+            "scope": "消息传输、接纳、恢复与去重；名单和任务只记录独立状态",
+            "implementation": "unknown",
+            "verification": "unknown",
+            "acceptance": "unknown",
+            "adoption": "unknown",
+            "details": "unknown"
+          }
+        }
+      ],
+      "steps": [
+        {
+          "id": "T04.S01",
+          "facts": [
+            "T04.01"
+          ],
+          "actions": [
+            {
+              "action": "create",
+              "id": "T04/outbox",
+              "kind": "artifact",
+              "fields": {
+                "title": "Lead 日志支撑的 Team 消息 outbox",
+                "status": "reported_current_at_rc2",
+                "domain": "development",
+                "parts": {
+                  "send_intent_log": {
+                    "status": "reported_implemented",
+                    "description": "发送意图先写入并刷盘 Lead 日志"
+                  },
+                  "target_delivery_confirm": {
+                    "status": "reported_implemented",
+                    "description": "向目标投递并确认"
+                  },
+                  "recovery_retry": {
+                    "status": "reported_implemented",
+                    "description": "恢复时重试未确认项"
+                  },
+                  "target_dedup": {
+                    "status": "reported_implemented",
+                    "description": "目标侧去重"
+                  },
+                  "unaccepted_intent_persistence": {
+                    "status": "reported_implemented",
+                    "description": "未确认意图保持待发"
+                  }
+                },
+                "implementation": "reported_documented_state",
+                "verification": "unknown",
+                "acceptance": "unknown"
+              }
+            },
+            {
+              "action": "create",
+              "id": "T04/roster",
+              "kind": "artifact",
+              "fields": {
+                "title": "Team 成员名单持久状态",
+                "status": "reported_independent_durable",
+                "domain": "development",
+                "durable_state": "independent",
+                "replacement_scope": "excluded_from_message_mechanism",
+                "implementation": "reported_durable",
+                "verification": "unknown",
+                "acceptance": "unknown"
+              }
+            },
+            {
+              "action": "create",
+              "id": "T04/tasks",
+              "kind": "artifact",
+              "fields": {
+                "title": "Team 共享任务持久状态",
+                "status": "reported_independent_durable",
+                "domain": "development",
+                "durable_state": "independent",
+                "replacement_scope": "excluded_from_message_mechanism",
+                "implementation": "reported_durable",
+                "verification": "unknown",
+                "acceptance": "unknown"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T04/team-messaging",
+              "delta": {
+                "status": "reported_lead_outbox",
+                "scope": "Team 消息发送、恢复与去重；名单和任务仅记录独立状态",
+                "parts": {
+                  "lead_outbox_transport": {
+                    "status": "reported_current",
+                    "description": "Lead 日志 outbox 加目标投递确认"
+                  },
+                  "member_roster_ref": {
+                    "status": "reported_independent",
+                    "object": "T04/roster"
+                  },
+                  "shared_tasks_ref": {
+                    "status": "reported_independent",
+                    "object": "T04/tasks"
+                  }
+                },
+                "recovery": "retry_unconfirmed_on_recovery",
+                "dedup": "target_side",
+                "implementation": "reported_documented_state",
+                "verification": "unknown",
+                "acceptance": "unknown"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T04/work",
+              "delta": {
+                "status": "reported_lead_outbox; transition_not_yet_recorded",
+                "current_mechanism": "T04/outbox",
+                "independent_state": [
+                  "T04/roster",
+                  "T04/tasks"
+                ],
+                "implementation": "reported_documented_state",
+                "verification": "unknown",
+                "acceptance": "unknown"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T04/goal",
+              "delta": {
+                "status": "open",
+                "completion": "not_established"
+              }
+            },
+            {
+              "action": "reuse",
+              "owner": "T04/work",
+              "provider": "T04/team-messaging",
+              "relation": "uses_contract",
+              "range": "Lead 日志 outbox、恢复重试与目标去重"
+            }
+          ]
+        },
+        {
+          "id": "T04.S02",
+          "facts": [
+            "T04.02"
+          ],
+          "actions": [
+            {
+              "action": "create",
+              "id": "T04/direct-inbox",
+              "kind": "artifact",
+              "fields": {
+                "title": "目标 Agent inbox 直接接纳（决定）",
+                "status": "recorded_decision; landing_unknown",
+                "domain": "development",
+                "decision": "use_target_agent_inbox_acceptance",
+                "rationale": "outbox_identity_ack_retry_cleanup_duplicate_management",
+                "scope": "message transport only; roster and shared tasks excluded",
+                "implementation": "landing_unknown_in_this_fact",
+                "verification": "unknown",
+                "acceptance": "unknown"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T04/outbox",
+              "delta": {
+                "status": "reported_current; replacement_decided_not_landed",
+                "replacement_decision": "T04/direct-inbox",
+                "parts": {
+                  "send_intent_log": {
+                    "status": "reported_implemented",
+                    "description": "发送意图先写入并刷盘 Lead 日志"
+                  },
+                  "target_delivery_confirm": {
+                    "status": "reported_implemented",
+                    "description": "向目标投递并确认"
+                  },
+                  "recovery_retry": {
+                    "status": "reported_implemented",
+                    "description": "恢复时重试未确认项"
+                  },
+                  "target_dedup": {
+                    "status": "reported_implemented",
+                    "description": "目标侧去重"
+                  },
+                  "unaccepted_intent_persistence": {
+                    "status": "reported_implemented",
+                    "description": "未确认意图保持待发"
+                  },
+                  "outbox_identity": {
+                    "status": "reported_by_decision",
+                    "description": "独立 outbox 身份"
+                  },
+                  "cleanup": {
+                    "status": "reported_by_decision",
+                    "description": "独立 outbox 清理"
+                  }
+                }
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T04/team-messaging",
+              "delta": {
+                "status": "recorded_decision; lead_outbox_still_current",
+                "selected_approach": "direct_target_inbox",
+                "decision_scope": "message_transport_only",
+                "implementation": "decision_recorded; landing_unknown"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T04/work",
+              "delta": {
+                "status": "decision_recorded; landing_unknown",
+                "decision_ref": "T04/direct-inbox",
+                "current_mechanism": "T04/outbox",
+                "implementation": "unchanged; decision_only",
+                "verification": "unknown",
+                "acceptance": "unknown"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T04/goal",
+              "delta": {
+                "status": "open",
+                "completion": "not_established"
+              }
+            }
+          ]
+        },
+        {
+          "id": "T04.S03",
+          "facts": [
+            "T04.03"
+          ],
+          "actions": [
+            {
+              "action": "revise",
+              "id": "T04/direct-inbox",
+              "delta": {
+                "status": "reported_merged_mainline",
+                "commit": "ea0980dab432263a9d1cd2b8e4998a1d6e6e6ae7",
+                "mainline_date": "2026-10-08",
+                "release": "0.2.1-alpha.2",
+                "note_date": "topic note filename 2026-09-26; not merge date",
+                "implementation": "reported_merged",
+                "verification": "unknown",
+                "acceptance": "unknown"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T04/team-messaging",
+              "delta": {
+                "status": "reported_merged_direct_inbox",
+                "landing_commit": "ea0980dab432263a9d1cd2b8e4998a1d6e6e6ae7",
+                "release": "0.2.1-alpha.2",
+                "implementation": "reported_merged"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T04/outbox",
+              "delta": {
+                "status": "reported_replacement_merged; runtime_result_unknown"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T04/work",
+              "delta": {
+                "status": "reported_merged",
+                "implementation": "reported_merged",
+                "verification": "unknown",
+                "acceptance": "unknown"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T04/goal",
+              "delta": {
+                "status": "open",
+                "completion": "not_established"
+              }
+            }
+          ]
+        },
+        {
+          "id": "T04.S04",
+          "facts": [
+            "T04.04"
+          ],
+          "actions": [
+            {
+              "action": "revise",
+              "id": "T04/direct-inbox",
+              "delta": {
+                "status": "reported_behavior_current",
+                "send_result": "accepted_message_id_or_failure",
+                "success_semantics": "inbox_queue_acceptance",
+                "shared_inbox": "agent_inbox",
+                "inbox_scope": "target Agent inbox acceptance only; Team transport does not report model completion",
+                "team_recovery_retry": "none_after_acceptance",
+                "team_pending_intent_persistence": "none",
+                "model_processing": "unknown",
+                "retired_team_mechanisms": [
+                  "unaccepted_intent_persistence",
+                  "restart_retry",
+                  "explicit_resend_dedup"
+                ],
+                "implementation": "reported_current",
+                "verification": "unknown",
+                "acceptance": "unknown"
+              }
+            },
+            {
+              "action": "replace_parts",
+              "id": "T04/team-messaging",
+              "remove": [
+                "lead_outbox_transport"
+              ],
+              "retain": [
+                "member_roster_ref",
+                "shared_tasks_ref"
+              ],
+              "add": {
+                "direct_inbox_transport": {
+                  "status": "reported_current",
+                  "description": "发送返回目标 inbox 接纳身份或失败；成功仅表示队列接纳"
+                }
+              },
+              "reason": "消息传输由 Lead outbox 改为目标 inbox；名单与共享任务保留"
+            },
+            {
+              "action": "revise",
+              "id": "T04/outbox",
+              "delta": {
+                "status": "reported_mechanisms_exited",
+                "mechanisms_exited": [
+                  "send_intent_log",
+                  "target_delivery_confirm",
+                  "recovery_retry",
+                  "target_dedup",
+                  "unaccepted_intent_persistence",
+                  "outbox_identity",
+                  "cleanup"
+                ],
+                "parts": {
+                  "send_intent_log": {
+                    "status": "reported_exited",
+                    "description": "发送意图先写入并刷盘 Lead 日志"
+                  },
+                  "target_delivery_confirm": {
+                    "status": "reported_exited",
+                    "description": "向目标投递并确认"
+                  },
+                  "recovery_retry": {
+                    "status": "reported_exited",
+                    "description": "恢复时重试未确认项"
+                  },
+                  "target_dedup": {
+                    "status": "reported_exited",
+                    "description": "目标侧去重"
+                  },
+                  "unaccepted_intent_persistence": {
+                    "status": "reported_exited",
+                    "description": "未确认意图保持待发"
+                  },
+                  "outbox_identity": {
+                    "status": "reported_exited",
+                    "description": "独立 outbox 身份"
+                  },
+                  "cleanup": {
+                    "status": "reported_exited",
+                    "description": "独立 outbox 清理"
+                  }
+                },
+                "pending_delivery": "unknown_at_this_fact",
+                "scope": "Team 消息传输机制；历史记录不改写"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T04/work",
+              "delta": {
+                "status": "reported_merged; acceptance_semantics_recorded",
+                "send_semantics": "queue_acceptance_only",
+                "model_completion": "unknown",
+                "implementation": "reported_merged",
+                "verification": "unknown",
+                "acceptance": "unknown"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T04/goal",
+              "delta": {
+                "status": "open",
+                "completion": "not_established",
+                "note": "消息成功仅表示队列接纳"
+              }
+            },
+            {
+              "action": "reuse",
+              "owner": "T04/direct-inbox",
+              "provider": "T04/team-messaging",
+              "relation": "implements",
+              "range": "目标 inbox 传输；名单和任务不在实现范围"
+            }
+          ]
+        },
+        {
+          "id": "T04.S05",
+          "facts": [
+            "T04.05"
+          ],
+          "actions": [
+            {
+              "action": "revise",
+              "id": "T04/outbox",
+              "delta": {
+                "status": "legacy_records_readable; pending_not_delivered",
+                "legacy_records": "decodable_and_displayable",
+                "pending_delivery": "none",
+                "scope": "old records only; no new delivery"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T04/team-messaging",
+              "delta": {
+                "status": "reported_direct_inbox; legacy_records_readable",
+                "replacement_scope": "message_mechanism_only",
+                "legacy_records": "readable; pending not delivered",
+                "roster_status": "retained",
+                "tasks_status": "retained"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T04/roster",
+              "delta": {
+                "status": "reported_retained; outside_message_replacement",
+                "implementation": "reported_durable"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T04/tasks",
+              "delta": {
+                "status": "reported_retained; outside_message_replacement",
+                "implementation": "reported_durable"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T04/work",
+              "delta": {
+                "status": "reported_merged; message_scope_replaced; roster_tasks_retained",
+                "replacement_scope": "message_mechanism_only",
+                "roster": "retained",
+                "tasks": "retained",
+                "implementation": "reported_merged",
+                "verification": "unknown",
+                "acceptance": "unknown"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T04/goal",
+              "delta": {
+                "status": "open",
+                "completion": "not_established",
+                "retained": [
+                  "roster",
+                  "tasks"
+                ]
+              }
+            },
+            {
+              "action": "reuse",
+              "owner": "T04/team-messaging",
+              "provider": "T04/roster",
+              "relation": "contains",
+              "range": "成员名单独立持久状态；不在消息替换范围"
+            },
+            {
+              "action": "reuse",
+              "owner": "T04/team-messaging",
+              "provider": "T04/tasks",
+              "relation": "contains",
+              "range": "共享任务独立持久状态；不在消息替换范围"
+            }
+          ]
+        },
+        {
+          "id": "T04.S06",
+          "facts": [
+            "T04.06"
+          ],
+          "actions": [
+            {
+              "action": "revise",
+              "id": "T04/direct-inbox",
+              "delta": {
+                "stability_basis": "experimental_feature_stability_convention",
+                "accepted_consequence": "old_pending_messages_lose_recovery_delivery",
+                "consequence_scope": "old pending only; delivered messages and roster/tasks unaffected",
+                "decision_actor": "unknown",
+                "implementation": "reported_merged"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T04/work",
+              "delta": {
+                "status": "reported_merged; tradeoff_accepted",
+                "accepted_tradeoff": "old_pending_messages_lose_recovery_delivery",
+                "remaining_unknown": [
+                  "actual_user_pending_loss",
+                  "model_processing_status"
+                ],
+                "implementation": "reported_merged",
+                "verification": "unknown",
+                "acceptance": "unknown"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T04/goal",
+              "delta": {
+                "status": "open",
+                "completion": "not_established",
+                "accepted_tradeoff": "old_pending_messages_lose_recovery_delivery"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "T06",
+      "title": "定时任务：从会话日志转为 Host 存储，再限制历史保留",
+      "objects": [
+        {
+          "id": "T06/goal",
+          "kind": "goal",
+          "fields": {
+            "title": "定时提醒的持久化与交付",
+            "status": "unknown",
+            "domain": "development",
+            "research_scope": "研究者建立的调度目标；不声称上游有同名目标",
+            "initial_unknown": "实际合入、重复投递发生情况与验收"
+          }
+        },
+        {
+          "id": "T06/work",
+          "kind": "work",
+          "fields": {
+            "title": "Schedule 存储迁移与历史保留",
+            "status": "unknown",
+            "domain": "development",
+            "research_scope": "T06 的研究工作身份；初始不预设迁移方案",
+            "implementation": "unknown",
+            "verification": "unknown",
+            "acceptance": "unknown",
+            "initial_unknown": "迁移落地、历史边界与重复风险"
+          }
+        },
+        {
+          "id": "T06/delivery",
+          "kind": "contract",
+          "fields": {
+            "title": "Schedule 恢复与投递保证",
+            "status": "unknown",
+            "domain": "product_design",
+            "scope": "计时恢复、会话投递、回执与重复风险",
+            "implementation": "unknown",
+            "verification": "unknown",
+            "acceptance": "unknown",
+            "adoption": "unknown",
+            "details": "unknown"
+          }
+        }
+      ],
+      "steps": [
+        {
+          "id": "T06.S01",
+          "facts": [
+            "T06.01"
+          ],
+          "actions": [
+            {
+              "action": "create",
+              "id": "T06/session-reminder",
+              "kind": "contract",
+              "fields": {
+                "title": "会话日志驱动的提醒（旧规则）",
+                "status": "reported_current_at_rc1",
+                "domain": "product_design",
+                "persistence": "original_session_log_only",
+                "activation": "session_active_only",
+                "cold_session": "no_trigger",
+                "reload": "process_expired_after_reload",
+                "fork": "does_not_inherit_parent_active_execution",
+                "implementation": "reported_documented_state",
+                "verification": "unknown",
+                "acceptance": "unknown",
+                "adoption": "documented_state"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T06/delivery",
+              "delta": {
+                "status": "reported_session_log_recovery",
+                "due_recovery": "reload_session_then_process_expired",
+                "cold_session": "no_trigger",
+                "fork": "does_not_inherit_parent_active_execution",
+                "scope": "旧会话日志规则",
+                "receipt": "unknown",
+                "duplicate_risk": "unknown",
+                "model_completion": "unknown",
+                "implementation": "reported_documented_state",
+                "verification": "unknown",
+                "acceptance": "unknown"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T06/work",
+              "delta": {
+                "status": "reported_session_log_baseline",
+                "current_mechanism": "T06/session-reminder",
+                "delivery": "T06/delivery",
+                "implementation": "reported_documented_state",
+                "verification": "unknown",
+                "acceptance": "unknown"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T06/goal",
+              "delta": {
+                "status": "open",
+                "completion": "not_established"
+              }
+            },
+            {
+              "action": "reuse",
+              "owner": "T06/work",
+              "provider": "T06/session-reminder",
+              "relation": "uses_contract",
+              "range": "会话日志为唯一持久依据；仅在活跃会话内运行"
+            }
+          ]
+        },
+        {
+          "id": "T06.S02",
+          "facts": [
+            "T06.02"
+          ],
+          "actions": [
+            {
+              "action": "create",
+              "id": "T06/host-store",
+              "kind": "contract",
+              "fields": {
+                "title": "Host 独立任务存储",
+                "status": "recorded_transition; landing_unknown",
+                "domain": "product_design",
+                "persistence": "host_task_store",
+                "timer_recovery": "without_loading_all_sessions",
+                "due_action": "restore_original_session_then_deliver",
+                "recorded_goal": "independent_pending_and_delivered_view",
+                "implementation": "reported_in_release_record; exact_landing_unknown",
+                "verification": "unknown",
+                "acceptance": "unknown",
+                "adoption": "documented_design"
+              }
+            },
+            {
+              "action": "create",
+              "id": "T06/design-record",
+              "kind": "artifact",
+              "fields": {
+                "title": "Host 调度存储的设计采用记录",
+                "status": "recorded_transition",
+                "domain": "development",
+                "release": "0.1.7-rc.2",
+                "scope": "记录独立 Host 任务存储的采用；不代替运行验收"
+              }
+            },
+            {
+              "action": "adopt",
+              "id": "T06/design-selection",
+              "scope": "T06/documented_design",
+              "selected": [
+                "T06/host-store"
+              ],
+              "reason": "记录明确改用 Host 任务存储；仅设计采用范围，落地与运行结果未知"
+            },
+            {
+              "action": "revise",
+              "id": "T06/delivery",
+              "delta": {
+                "status": "recorded_host_store_recovery",
+                "due_recovery": "host_timer_then_restore_session",
+                "timer_load_scope": "does_not_require_all_sessions",
+                "cold_session": "due_restore_then_deliver",
+                "implementation": "recorded_transition; runtime_unknown"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T06/session-reminder",
+              "delta": {
+                "status": "reported_prior; replaced_for_timer_recovery",
+                "replacement_scope": "timer_recovery_only; some_time_calculation_and_acceptance_semantics_may_continue"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T06/work",
+              "delta": {
+                "status": "transition_recorded; landing_unknown",
+                "current_mechanism": "T06/host-store",
+                "implementation": "reported_in_release_record; exact_landing_unknown",
+                "verification": "unknown",
+                "acceptance": "unknown"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T06/goal",
+              "delta": {
+                "status": "open",
+                "completion": "not_established"
+              }
+            },
+            {
+              "action": "reuse",
+              "owner": "T06/work",
+              "provider": "T06/host-store",
+              "relation": "uses_contract",
+              "range": "Host 任务存储的计时恢复与到期投递；不声称已运行"
+            }
+          ]
+        },
+        {
+          "id": "T06.S03",
+          "facts": [
+            "T06.03"
+          ],
+          "actions": [
+            {
+              "action": "revise",
+              "id": "T06/session-reminder",
+              "delta": {
+                "status": "historical_events_readable; partial_semantics_retained",
+                "legacy_events": "readable",
+                "auto_import": "none",
+                "old_active_session": "prompt_rebuild",
+                "retained_rules": [
+                  "some_time_calculation",
+                  "acceptance_semantics"
+                ]
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T06/host-store",
+              "delta": {
+                "status": "recorded_transition; legacy_import_none",
+                "legacy_import": "none",
+                "old_active_session": "prompt_rebuild"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T06/delivery",
+              "delta": {
+                "status": "recorded_migration_rule",
+                "legacy_events": "readable_but_not_imported",
+                "old_active_session": "rebuild_prompt",
+                "retained_semantics": [
+                  "some_time_calculation",
+                  "acceptance_semantics"
+                ],
+                "implementation": "recorded_transition; runtime_unknown"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T06/work",
+              "delta": {
+                "status": "transition_recorded; legacy_import_rule_recorded",
+                "remaining_unknown": [
+                  "implementation_landing",
+                  "actual_delivery_behavior"
+                ]
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T06/goal",
+              "delta": {
+                "status": "open",
+                "completion": "not_established"
+              }
+            }
+          ]
+        },
+        {
+          "id": "T06.S04",
+          "facts": [
+            "T06.04"
+          ],
+          "actions": [
+            {
+              "action": "create",
+              "id": "T06/history",
+              "kind": "artifact",
+              "fields": {
+                "title": "交付历史保留策略",
+                "status": "recorded_decision; landing_unknown",
+                "domain": "development",
+                "growth_problem": "full_json_rewrite_growth",
+                "delete_rule": "delete_task_row_and_receipts",
+                "history_bound": "time_and_count",
+                "implementation": "decision_recorded; landing_unknown",
+                "verification": "unknown",
+                "acceptance": "unknown"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T06/host-store",
+              "delta": {
+                "status": "recorded_transition; receipts_and_bounded_history",
+                "stores": [
+                  "tasks",
+                  "receipts"
+                ],
+                "retention": "bounded_by_time_and_count",
+                "delete": "task_row_and_receipts",
+                "implementation": "recorded_transition; landing_unknown"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T06/delivery",
+              "delta": {
+                "receipt_store": "same_host_store",
+                "retention_ref": "T06/history",
+                "deletion": "task_row_and_receipts",
+                "implementation": "recorded_transition; runtime_unknown"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T06/work",
+              "delta": {
+                "status": "retention_decision_recorded; landing_unknown",
+                "retention": "T06/history",
+                "implementation": "recorded_decision; landing_unknown",
+                "verification": "unknown",
+                "acceptance": "unknown"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T06/goal",
+              "delta": {
+                "status": "open",
+                "completion": "not_established"
+              }
+            }
+          ]
+        },
+        {
+          "id": "T06.S05",
+          "facts": [
+            "T06.05"
+          ],
+          "actions": [
+            {
+              "action": "revise",
+              "id": "T06/history",
+              "delta": {
+                "status": "reported_bounded_history",
+                "delivery_history_markers": {
+                  "actual_trim": "marked",
+                  "legacy_unavailable": "marked"
+                },
+                "session_message_after_delete": "retained",
+                "implementation": "reported_result",
+                "verification": "unknown",
+                "acceptance": "unknown"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T06/delivery",
+              "delta": {
+                "status": "reported_bounded_history_and_delete",
+                "trim_marker": "actual_trim",
+                "legacy_marker": "old_history_unavailable",
+                "delete_effect": "session_messages_retained",
+                "implementation": "reported_result"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T06/work",
+              "delta": {
+                "status": "bounded_history_recorded; acceptance_unknown",
+                "deletion_effect": "session_messages_retained",
+                "implementation": "reported_result",
+                "verification": "unknown",
+                "acceptance": "unknown"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T06/goal",
+              "delta": {
+                "status": "open",
+                "completion": "not_established"
+              }
+            }
+          ]
+        },
+        {
+          "id": "T06.S06",
+          "facts": [
+            "T06.06"
+          ],
+          "actions": [
+            {
+              "action": "revise",
+              "id": "T06/delivery",
+              "delta": {
+                "status": "reported_current_limit",
+                "receipt": "message_persisted_into_inbox",
+                "shared_inbox": "agent_inbox",
+                "inbox_scope": "schedule message persists into inbox; task store and message store commit separately",
+                "model_completion": "unknown",
+                "commit_boundary": "task_store_and_message_store_separate",
+                "crash_effect": "duplicate_delivery_possible",
+                "duplicate_risk_scope": "crash_between_commits; no_actual_incident_observed",
+                "implementation": "reported_current_behavior",
+                "verification": "unknown",
+                "acceptance": "unknown"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T06/host-store",
+              "delta": {
+                "receipt_semantics": "message_persisted_into_inbox; model_completion_unknown",
+                "commit_boundary": "task_store_and_message_store_separate",
+                "crash_duplicate_risk": "possible"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T06/work",
+              "delta": {
+                "status": "documented_delivery_limits; acceptance_unknown",
+                "limits": [
+                  "duplicate_delivery_across_stores",
+                  "acceptance_not_model_completion"
+                ],
+                "implementation": "reported_current_behavior",
+                "verification": "unknown",
+                "acceptance": "unknown"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T06/goal",
+              "delta": {
+                "status": "open",
+                "completion": "not_established",
+                "documented_limits": [
+                  "跨存储可能重复投递",
+                  "接纳不等于模型完成"
+                ],
+                "unknowns": [
+                  "source does not independently confirm model completion"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "T08",
+      "title": "子代理：先分开持续会话与一次执行，再统一 activation 入口",
+      "objects": [
+        {
+          "id": "T08/goal",
+          "kind": "goal",
+          "fields": {
+            "title": "子代理会话与激活的持续模型",
+            "status": "unknown",
+            "domain": "development",
+            "research_scope": "研究者建立的过程目标；不声称上游有同名目标",
+            "initial_unknown": "独立验收、通知去重与各消费者责任"
+          }
+        },
+        {
+          "id": "T08/work",
+          "kind": "work",
+          "fields": {
+            "title": "子代理激活统一",
+            "status": "unknown",
+            "domain": "development",
+            "research_scope": "T08 的研究工作身份；初始不预设统一入口方案",
+            "implementation": "unknown",
+            "verification": "unknown",
+            "acceptance": "unknown",
+            "initial_unknown": "统一范围、各提供者能力与验收"
+          }
+        },
+        {
+          "id": "T08/activation",
+          "kind": "contract",
+          "fields": {
+            "title": "统一子代理 activation 入口",
+            "status": "unknown",
+            "domain": "product_design",
+            "scope": "激活入口、容量与生命周期；不预设提供者能力",
+            "implementation": "unknown",
+            "verification": "unknown",
+            "acceptance": "unknown",
+            "adoption": "unknown",
+            "details": "unknown"
+          }
+        }
+      ],
+      "steps": [
+        {
+          "id": "T08.S01",
+          "facts": [
+            "T08.01"
+          ],
+          "actions": [
+            {
+              "action": "create",
+              "id": "T08/legacy-model",
+              "kind": "artifact",
+              "fields": {
+                "title": "Task 结束即销毁 Agent 的历史办法",
+                "status": "retrospective_report; historical",
+                "domain": "development",
+                "coupling": "session_lifecycle_bound_to_single_result",
+                "current": "not_current_at_alpha1_snapshot",
+                "observed": "retrospective only; no actual instance observed",
+                "implementation": "historical; exact dates unknown",
+                "verification": "unknown",
+                "acceptance": "unknown"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T08/work",
+              "delta": {
+                "status": "retrospective_recorded; current_model_unknown",
+                "legacy_model": "T08/legacy-model",
+                "implementation": "unknown",
+                "verification": "unknown",
+                "acceptance": "unknown"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T08/goal",
+              "delta": {
+                "status": "open",
+                "completion": "not_established"
+              }
+            }
+          ]
+        },
+        {
+          "id": "T08.S02",
+          "facts": [
+            "T08.02"
+          ],
+          "actions": [
+            {
+              "action": "create",
+              "id": "T08/session-contract",
+              "kind": "contract",
+              "fields": {
+                "title": "持久 Session 与进程内 Activation 分离",
+                "status": "reported_documented_state",
+                "domain": "product_design",
+                "parts": {
+                  "persistent_session": {
+                    "status": "reported_implemented",
+                    "description": "同一会话可多轮续接与冷恢复"
+                  },
+                  "in_process_activation": {
+                    "status": "reported_implemented",
+                    "description": "进程内激活，独立于会话生命周期"
+                  },
+                  "agent_inbox_order": {
+                    "status": "reported_implemented",
+                    "description": "Agent inbox 负责消息顺序"
+                  },
+                  "one_shot_provider_path": {
+                    "status": "reported_separate",
+                    "description": "一次性提供者执行路径仍独立存在"
+                  }
+                },
+                "scope": "持续子代理会话；一次性路径保留",
+                "implementation": "reported_documented_state",
+                "verification": "unknown",
+                "acceptance": "unknown"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T08/legacy-model",
+              "delta": {
+                "status": "historical_retrospective; separation_recorded",
+                "superseded_scope": "session_lifecycle_no_longer_tied_to_single_result",
+                "exact_landing": "unknown"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T08/work",
+              "delta": {
+                "status": "separation_documented; unified_entry_unknown",
+                "current_contract": "T08/session-contract",
+                "implementation": "reported_documented_state",
+                "verification": "unknown",
+                "acceptance": "unknown"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T08/goal",
+              "delta": {
+                "status": "open",
+                "completion": "not_established"
+              }
+            },
+            {
+              "action": "reuse",
+              "owner": "T08/work",
+              "provider": "T08/session-contract",
+              "relation": "uses_contract",
+              "range": "持续会话与激活分离；一次性提供者路径保留"
+            }
+          ]
+        },
+        {
+          "id": "T08.S03",
+          "facts": [
+            "T08.03"
+          ],
+          "actions": [
+            {
+              "action": "revise",
+              "id": "T08/activation",
+              "delta": {
+                "status": "reported_merged",
+                "commit": "bf1c4e01ba7088b3cb0aeb36caa702965eb5f6ec",
+                "mainline_date": "2026-10-06",
+                "release": "0.2.1-alpha.2",
+                "all_providers": "connect_to_unified_activation",
+                "local_spawn_fork": "creation_data_only",
+                "implementation": "reported_merged",
+                "verification": "unknown",
+                "acceptance": "unknown"
+              }
+            },
+            {
+              "action": "create",
+              "id": "T08/consumers",
+              "kind": "artifact",
+              "fields": {
+                "title": "子代理消费者范围",
+                "status": "reported_scope",
+                "domain": "development",
+                "parts": {
+                  "local_spawn_fork": {
+                    "status": "creation_data_only",
+                    "description": "只提供创建数据，不直接激活"
+                  }
+                },
+                "implementation": "reported_scope",
+                "verification": "unknown",
+                "acceptance": "unknown"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T08/session-contract",
+              "delta": {
+                "status": "reported_unified_activation",
+                "activation_ref": "T08/activation",
+                "all_providers": "unified",
+                "local_spawn_fork": "creation_data_only",
+                "parts": {
+                  "persistent_session": {
+                    "status": "reported_retained",
+                    "description": "持续Session能力与一次Activation分开"
+                  },
+                  "in_process_activation": {
+                    "status": "reported_unified",
+                    "description": "所有提供者接统一入口"
+                  },
+                  "agent_inbox_order": {
+                    "status": "reported_retained",
+                    "description": "持续会话inbox负责消息顺序"
+                  },
+                  "one_shot_provider_path": {
+                    "status": "unified_entry; one_shot_capability_separate",
+                    "description": "一次性提供者也接统一入口；后端细节稍后登记"
+                  }
+                }
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T08/work",
+              "delta": {
+                "status": "reported_merged_unified_activation",
+                "current_contract": "T08/activation",
+                "implementation": "reported_merged",
+                "verification": "unknown",
+                "acceptance": "unknown"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T08/goal",
+              "delta": {
+                "status": "open",
+                "completion": "not_established"
+              }
+            },
+            {
+              "action": "reuse",
+              "owner": "T08/consumers",
+              "provider": "T08/activation",
+              "relation": "uses_contract",
+              "range": "本地 spawn/fork 仅提供创建数据；各消费者范围分别保存"
+            }
+          ]
+        },
+        {
+          "id": "T08.S04",
+          "facts": [
+            "T08.04"
+          ],
+          "actions": [
+            {
+              "action": "revise",
+              "id": "T08/activation",
+              "delta": {
+                "status": "reported_merged; delegation_flow_recorded",
+                "delegation_result": "background_subtask_identity",
+                "workflow_wait": "same_activation",
+                "workflow_cleanup": "same_activation",
+                "parent_completion_notification": "none_extra"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T08/consumers",
+              "delta": {
+                "parts": {
+                  "local_spawn_fork": {
+                    "status": "creation_data_only",
+                    "description": "只提供创建数据，不直接激活"
+                  },
+                  "model_delegation": {
+                    "status": "returns_background_subtask_id"
+                  },
+                  "workflow": {
+                    "status": "waits_and_cleans_via_activation; no_extra_parent_completion_notification"
+                  }
+                }
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T08/work",
+              "delta": {
+                "status": "reported_merged; delegation_scope_recorded",
+                "delegation_flow": "background_subtask_identity; same_activation_wait_cleanup; no_extra_parent_notification"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T08/goal",
+              "delta": {
+                "status": "open",
+                "completion": "not_established"
+              }
+            }
+          ]
+        },
+        {
+          "id": "T08.S05",
+          "facts": [
+            "T08.05"
+          ],
+          "actions": [
+            {
+              "action": "revise",
+              "id": "T08/activation",
+              "delta": {
+                "status": "reported_merged; external_adapter_scope",
+                "external_backend": "one_shot_adapter_via_same_entry",
+                "external_capacity": "managed_by_same_entry",
+                "external_session": "none_local",
+                "external_continuation": "none",
+                "cleanup_failure_result": "execution_result_retained",
+                "cleanup_error": "reported_separately"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T08/consumers",
+              "delta": {
+                "parts": {
+                  "local_spawn_fork": {
+                    "status": "creation_data_only",
+                    "description": "只提供创建数据，不直接激活"
+                  },
+                  "model_delegation": {
+                    "status": "returns_background_subtask_id"
+                  },
+                  "workflow": {
+                    "status": "waits_and_cleans_via_activation; no_extra_parent_completion_notification"
+                  },
+                  "external_backend": {
+                    "status": "one_shot_adapter; no_local_session; no_multi_turn; result_retained_on_cleanup_failure; cleanup_error_separate"
+                  }
+                }
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T08/work",
+              "delta": {
+                "status": "reported_merged; external_scope_recorded",
+                "external_scope": "one_shot_adapter; no_local_session; no_multi_turn"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T08/goal",
+              "delta": {
+                "status": "open",
+                "completion": "not_established"
+              }
+            }
+          ]
+        },
+        {
+          "id": "T08.S06",
+          "facts": [
+            "T08.06"
+          ],
+          "actions": [
+            {
+              "action": "revise",
+              "id": "T08/legacy-model",
+              "delta": {
+                "status": "historical_readable",
+                "historical_one_shot_descriptions": "readable"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T08/activation",
+              "delta": {
+                "status": "reported_merged; accepted_notification_duplication",
+                "completion_notification_duplication": "may_duplicate_subagent_report",
+                "accepted_cost": true,
+                "completion_scope": "completion notification path; workflow wait adds no extra notification",
+                "implementation": "reported_merged",
+                "verification": "unknown",
+                "acceptance": "unknown"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T08/consumers",
+              "delta": {
+                "parts": {
+                  "local_spawn_fork": {
+                    "status": "creation_data_only",
+                    "description": "只提供创建数据，不直接激活"
+                  },
+                  "model_delegation": {
+                    "status": "returns_background_subtask_id"
+                  },
+                  "workflow": {
+                    "status": "waits_and_cleans_via_activation; no_extra_parent_completion_notification"
+                  },
+                  "external_backend": {
+                    "status": "one_shot_adapter; no_local_session; no_multi_turn; result_retained_on_cleanup_failure; cleanup_error_separate"
+                  },
+                  "completion_notification": {
+                    "status": "may_duplicate_subagent_report; accepted"
+                  }
+                }
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T08/work",
+              "delta": {
+                "status": "reported_merged; limit_accepted; acceptance_unknown",
+                "limits": [
+                  "duplicate_completion_notification",
+                  "cleanup_failure_retains_result"
+                ],
+                "implementation": "reported_merged",
+                "verification": "unknown",
+                "acceptance": "unknown"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T08/goal",
+              "delta": {
+                "status": "open",
+                "completion": "not_established",
+                "accepted_limits": [
+                  "完成通知允许重复",
+                  "清理失败保留执行结果"
+                ],
+                "unknowns": [
+                  "actual_acceptance_state"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "difficulties": [
+    {
+      "case": "T02",
+      "facts": [
+        "T02.01",
+        "T02.02"
+      ],
+      "problem": "T02.01 是 rc.7 记录回顾的文档状态，T02.02 的四项问题又是作者报告；来源没有给出具体修复人、修复状态或实际激活结果。若把发现直接写成已修复，或把问题分配给某个后续工作，会越过来源。",
+      "handling": "T02/preset-contract 只保存按会话装载的文档状态；T02/integration-findings 逐项保存四个 author_reported_open/risk/gap，T02/work 保持 author_reported_implementation_with_open_findings，verification 与 acceptance 均为 unknown；没有建立修复工作或提前分配责任。"
+    },
+    {
+      "case": "T02",
+      "facts": [
+        "T02.03",
+        "T02.04",
+        "T02.05"
+      ],
+      "problem": "声明式定义与旧进程修订必须共存，但来源只说明修订生命周期和持有者类别，没有观察任何实际 Agent 实例；重启按当前定义解析、缺失定义恢复失败也是产品规则，不是发生过的重启事故。若用一个 work 状态或“某 Agent 正在使用”来写，会混淆新旧 scope 并虚构实例。",
+      "handling": "用 T02/preset-contract（旧定义）与 T02/preset-declarative（当前定义）两个 design 契约对象并存；T02/legacy-revision 只记录 holder_classes（agent/subagent/temporary_reader）和 holder_instances=unknown，scope 限定为已持有者的进程内引用；T02/restart-rule 作为 documented_product_rule 保存重启解析与缺失定义失败；adopt 只在 documented_design 范围采用声明式定义。Host 共享设施、注册器运行修订与 Agent/子代理/临时读取者的引用范围分开记录，不合并为同一执行者；T02.04 的旧修订关联到旧定义是研究编码的范围选择，不声称观察到具体实例。"
+    },
+    {
+      "case": "T04",
+      "facts": [
+        "T04.01",
+        "T04.02",
+        "T04.03"
+      ],
+      "problem": "T04.02 只是记录下来的决定，T04.03 才有 10 月 8 日合入和 0.2.1-alpha.2 记录；主题笔记文件名 9 月 26 日不是合入日期。若在决定步骤关闭 outbox、写 merged，或把文件名日期当合入日，会把决定冒充落地。",
+      "handling": "T04.02 的 T04/direct-inbox 保持 recorded_decision; landing_unknown，T04/outbox 和 team-messaging 仍标 lead outbox 为当前；T04.03 才把 direct-inbox 标 reported_merged_mainline，并分别保存 commit、mainline_date、release 与 note_date。outbox 直到 T04.04/05 才记录机制退出和旧待发不投递。"
+    },
+    {
+      "case": "T04",
+      "facts": [
+        "T04.04",
+        "T04.05",
+        "T04.06"
+      ],
+      "problem": "成功返回只是目标 inbox 接纳，来源明确说模型处理状态待确认；替代范围只覆盖消息机制，名单和共享任务仍有各自持久状态；旧待发消息失去恢复投递是接受的后果，实际用户损失未知。发送方、Lead 日志、目标 inbox 与模型处理是不同调用者/阶段，来源没有给出它们的具体责任人。",
+      "handling": "T04/direct-inbox 把 success_semantics=inbox_queue_acceptance 与 model_processing=unknown 分开；T04/team-messaging 用 replace_parts 只移除 lead outbox transport，retain 名单/任务 refs，并在 T04.05 明确 replacement_scope=message_mechanism_only；T04/roster 与 T04/tasks 作为独立对象保留。T04.06 只记录 experimental stability convention 与 accepted_consequence，不声称观察到实际待发损失；发送方→Lead 日志→目标 inbox→模型处理按阶段分开，具体责任人未知，不虚构负责人。"
+    },
+    {
+      "case": "T06",
+      "facts": [
+        "T06.01",
+        "T06.02",
+        "T06.03"
+      ],
+      "problem": "旧规则以原会话日志为唯一持久依据，新记录改为独立 Host 任务存储；来源只说已记录改用和作者目标，没有给出合入、实现完成或运行验收。历史 schedule 事件可读但不自动导入，旧活跃会话提示重建，部分旧时间计算与接纳语义继续适用，不能把旧规则整体判死。",
+      "handling": "T06/session-reminder 保留旧规则字段并在 T06.02 只标 replaced_for_timer_recovery；T06/host-store 保持 recorded_transition; landing_unknown；T06/delivery 分别保存旧恢复、Host 计时恢复与不自动导入规则；T06.03 保留 readable/auto_import=none/rebuild_prompt/retained_rules，不把“未知落地”写成“尚未开始”。"
+    },
+    {
+      "case": "T06",
+      "facts": [
+        "T06.04",
+        "T06.05",
+        "T06.06"
+      ],
+      "problem": "T06.04 是后续记录下来的保留策略决定，来源没有说明它已经落地；T06.05 才给出交付历史的实际裁剪标记与旧历史不可用标记；T06.06 的回执只表示消息持久进入 inbox，模型完成未知，跨存储崩溃重复投递是风险规则而非已发生事故。计时器、Host 存储、inbox 与模型处理分属不同阶段，责任人未知。",
+      "handling": "T06/history 在 T06.04 保持 recorded_decision; landing_unknown；T06.05 才标 reported_bounded_history，并把 actual_trim 与 legacy_unavailable 分开，删除任务后会话消息保留另记；T06/delivery 在 T06.06 分开 receipt=message_persisted_into_inbox、model_completion=unknown、commit_boundary=separate、crash_effect=duplicate_delivery_possible，且 duplicate_risk_scope 明确无实际事故观察。计时器→Host 存储→inbox→模型处理按阶段分开，具体责任人未知。"
+    },
+    {
+      "case": "T08",
+      "facts": [
+        "T08.01",
+        "T08.02",
+        "T08.03"
+      ],
+      "problem": "T08.01 是对先前办法的回顾，不是当前实现；T08.02 的 Session/Activation 分离是 Alpha.1 文档状态；T08.03 有 10 月 6 日合入提交，但本地 spawn/fork 只提供创建数据。若把回顾办法写成当前 work，或把统一入口扩大到所有能力，会混淆历史、落地和提供者范围。",
+      "handling": "T08/legacy-model 只保存 retrospective_report; historical 与 session_lifecycle_bound_to_single_result；T08/session-contract 保存持久 Session、进程内 Activation、inbox 顺序和独立的一次性路径；T08/activation 在 T08.03 才按提交标 reported_merged，并明确 local_spawn_fork=creation_data_only。"
+    },
+    {
+      "case": "T08",
+      "facts": [
+        "T08.04",
+        "T08.05",
+        "T08.06"
+      ],
+      "problem": "模型委派、工作流、本地 spawn/fork 与外部后端是不同消费者：外部后端无本地 Session、无多轮续接，容量和生命周期走同一入口；清理失败保留执行结果并另报清理错误；工作流通过同一 activation 等待清理且不额外通知，但完成通知仍可能与子代理主动汇报重复。来源没有给出调用者身份或实际运行实例，若不按消费者分 scope 会造出统一能力。",
+      "handling": "T08/consumers 的 parts 按事实逐步加入 model_delegation、workflow、external_backend 与 completion_notification，各自保存能力范围；T08/activation 分别记录 delegation_flow、external_*、cleanup_failure_result 和 completion_notification 的重复代价，并把 scope 限定到通知路径；T08/work 保留 acceptance=unknown 和未决的 notification_dedupe_decision，不把任一消费者写成已验收实例。"
+    },
+    {
+      "case": "T02/T06/T08",
+      "facts": [
+        "T02.03",
+        "T06.06",
+        "T08.03",
+        "T08.06"
+      ],
+      "problem": "旧架构、产品运行修订与记录修订混淆；共享scope未限定；旧字段和接受的限制被当成当前待办",
+      "handling": "Sol校准：范围含工作域，采用与说明分身份；旧运行修订准确内容未知；修改旧parts适用范围；已接受重复通知不新增去重任务，历史发现不自动持续为当前缺陷"
+    }
+  ]
+}

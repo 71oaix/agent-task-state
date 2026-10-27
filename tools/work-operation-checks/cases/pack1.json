@@ -292,7 +292,9 @@
                 "revert_commit": "e07f41d5fd8ca172287fda0f923b4d1f69c592f3",
                 "consumer_adaptation_commit": "2abb542a222032b1ad3c5abd7bb65ffffe15b8de",
                 "boot_policy_patch": "f4a7dd607709025bc3ad19dab8ffbb038cd13962",
-                "verification": "unknown"
+                "verification": "unknown",
+                "note": "已登记撤回与消费者适配提交；旧事务保证属于历史实现描述",
+                "guarantee_scope": "historical_transactional_design; new_guarantee_in_following_record"
               }
             },
             {
@@ -302,7 +304,10 @@
                 "status": "reverted; followup_patch_open",
                 "revert_date": "2026-09-09",
                 "consumer_adaptation_date": "2026-09-09",
-                "boot_patch_date": "2026-09-11"
+                "boot_patch_date": "2026-09-11",
+                "current_approach": "nontransactional Loader with consumer activation checks",
+                "historical_attempt": "T01/attempt",
+                "current_attempt": "T01/boot"
               }
             },
             {
@@ -351,7 +356,10 @@
                 "implementation": "reported_revert_landed",
                 "verification": "documented_result; 独立运行核验未做",
                 "acceptance": "unknown",
-                "adoption": "unknown"
+                "adoption": "unknown",
+                "historical_guarantee": "事务式重载曾报告配置失败保留旧插件代际",
+                "guarantee": "Loader不自动恢复旧配置，消费者审查实际激活",
+                "guarantee_scope": "documented_current_nontransactional_policy"
               }
             },
             {
@@ -360,13 +368,15 @@
               "delta": {
                 "status": "open",
                 "remaining": [
-                  "consumer_review_actual_activation",
                   "startup_failure_policy_continues"
                 ],
                 "completion": "not_reached",
                 "implementation": "reverted_nontransactional",
                 "verification": "documented_result",
-                "acceptance": "unknown"
+                "acceptance": "unknown",
+                "ongoing_obligations": [
+                  "consumer_review_actual_activation"
+                ]
               }
             },
             {
@@ -386,8 +396,10 @@
                 "status": "open",
                 "completion": "not_established",
                 "remaining": [
-                  "consumer_review_actual_activation",
                   "startup_failure_policy_continues"
+                ],
+                "ongoing_obligations": [
+                  "consumer_review_actual_activation"
                 ]
               }
             },
@@ -701,7 +713,14 @@
                 "implementation": "stage 3 implementation and remote CI recorded; overall proposal remains draft",
                 "verification": "stage 3 remote CI is reported; independent verification unknown",
                 "acceptance": "unknown",
-                "responsibility_note": "stage labels are research labels, not upstream task ids"
+                "responsibility_note": "stage labels are research labels, not upstream task ids",
+                "responsibilities": [
+                  "stage1",
+                  "stage2",
+                  "stage3",
+                  "stage4",
+                  "stage5"
+                ]
               }
             },
             {
@@ -728,6 +747,64 @@
                   "staged migration implementation/acceptance",
                   "LogicalSession rebuild stages 4-5"
                 ]
+              }
+            },
+            {
+              "action": "split",
+              "id": "T03/rebuild",
+              "children": [
+                {
+                  "id": "T03/stage1",
+                  "title": "LogicalSession重建阶段1",
+                  "responsibilities": [
+                    "stage1"
+                  ],
+                  "status": "draft_work_complete"
+                },
+                {
+                  "id": "T03/stage2",
+                  "title": "LogicalSession重建阶段2",
+                  "responsibilities": [
+                    "stage2"
+                  ],
+                  "status": "draft_work_complete"
+                },
+                {
+                  "id": "T03/stage3",
+                  "title": "LogicalSession重建阶段3",
+                  "responsibilities": [
+                    "stage3"
+                  ],
+                  "status": "implementation_and_remote_CI_recorded_still_draft"
+                },
+                {
+                  "id": "T03/stage4",
+                  "title": "LogicalSession重建阶段4",
+                  "responsibilities": [
+                    "stage4"
+                  ],
+                  "status": "incomplete"
+                },
+                {
+                  "id": "T03/stage5",
+                  "title": "LogicalSession重建阶段5",
+                  "responsibilities": [
+                    "stage5"
+                  ],
+                  "status": "incomplete"
+                }
+              ],
+              "residual": [],
+              "overlaps": []
+            },
+            {
+              "action": "revise",
+              "id": "T03/stage3",
+              "delta": {
+                "implementation": "reported_implemented",
+                "verification": "remote_CI_reported",
+                "acceptance": "unknown",
+                "proposal_status": "draft"
               }
             }
           ]
@@ -835,7 +912,8 @@
               "delta": {
                 "status": "reported_batch_reverted",
                 "disposition": "整批撤回；保留为原方案参考",
-                "performance_finding": "整批功能合并八分钟后因性能回退"
+                "performance_finding": "整批功能合并八分钟后因性能回退",
+                "implementation": "reported_merge_then_revert"
               }
             },
             {
@@ -891,7 +969,9 @@
                 "original_pr_reference": "#4565 仅作参考",
                 "reference_scope": "未声明代码复用范围",
                 "residual_owner": "父记录保留六项细分责任，待来源足以逐项分配",
-                "allocation_basis": "本步只知已完成/未完成分开；细项归属未知，不能用 T12.04/05 提前分配"
+                "allocation_basis": "本步只知已完成/未完成分开；细项归属未知，不能用 T12.04/05 提前分配",
+                "residual_semantics": "细项归属尚未分配，不等于六项均未完成；已提交独立功能另有记录",
+                "responsibility_completion": "逐项未知，不能由残余分配推断完成状态"
               }
             },
             {
@@ -1362,6 +1442,14 @@
       ],
       "problem": "新 UI 的 MessageId 补入、逐项版本串行变更和冲突响应更新是已报告实现；持久恢复 E2E 也是作者报告。若把 E2E 当作独立验收，会把作者测试提升为整体完成。",
       "handling": "T14/ui 的 verification 分成 persistent_recovery_e2e=author_reported 与 independent=unknown；T14/work 和 T14/goal 保留 acceptance_pending。rework 只说明旧分支作为历史参考，不承诺代码复用。"
+    },
+    {
+      "case": "T03",
+      "facts": [
+        "T03.06"
+      ],
+      "problem": "仅在stages字段列进度无法独立查询子阶段及父子关系",
+      "handling": "用同一split组合建立五个研究子身份，父项仍proposed；阶段3实现/CI与draft/验收分别保存"
     }
   ]
 }

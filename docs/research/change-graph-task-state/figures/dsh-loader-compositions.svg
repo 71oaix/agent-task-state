@@ -3,7 +3,7 @@
 <rect width="760" height="890" fill="#fff"/>
 <style>text{font-family:'Microsoft YaHei',system-ui,sans-serif;fill:#19364e} .title{font-size:24px;font-weight:700}.head{font-size:18px;font-weight:700}.body{font-size:16px}.small{font-size:14px;fill:#47647b}.box{fill:#edf5fc;stroke:#527f9e;stroke-width:2}.line{stroke:#315c7c;stroke-width:2.5;fill:none;marker-end:url(#arrow)}</style>
 <text class="title" x="32" y="43">一次撤回，怎样保住继续工作的依据</text>
-<text class="small" x="32" y="72">DSH Loader · 节点按来源可见顺序排列 · 箭头表示记录更新</text>
+<text class="small" x="32" y="72">DSH Loader · 节点按底稿局部顺序排列 · 箭头表示记录更新</text>
 <text class="head" x="38" y="113">真实开发变化</text><text class="head" x="407" y="113">操作怎样保存它</text>
 <rect class="box" x="30" y="132" width="310" height="108" rx="8"/>
 <text class="head" x="48" y="161">加入事务式重载</text>

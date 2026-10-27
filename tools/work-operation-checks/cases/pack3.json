@@ -1,0 +1,900 @@
+{
+  "schema": 1,
+  "author": "Sol 6.1; CodeBuddy source review 94ccb24c completed, four findings adjudicated",
+  "cases": [
+    {
+      "id": "T05",
+      "title": "Creator：临时能力转为持久插件",
+      "objects": [
+        {
+          "id": "T05/goal",
+          "kind": "goal",
+          "fields": {
+            "title": "Creator：临时能力转为持久插件",
+            "status": "unknown",
+            "domain": "development",
+            "identity_origin": "research_scaffold"
+          }
+        },
+        {
+          "id": "T05/work",
+          "kind": "work",
+          "fields": {
+            "title": "Creator：临时能力转为持久插件",
+            "status": "unknown",
+            "domain": "development",
+            "identity_origin": "research_scaffold"
+          }
+        },
+        {
+          "id": "T05/creator",
+          "kind": "contract",
+          "fields": {
+            "title": "Creator：临时能力转为持久插件 的产品契约",
+            "status": "unknown",
+            "domain": "product_design"
+          }
+        }
+      ],
+      "steps": [
+        {
+          "id": "T05.S01",
+          "facts": [
+            "T05.01"
+          ],
+          "actions": [
+            {
+              "action": "revise",
+              "id": "T05/creator",
+              "delta": {
+                "status": "reported_old_toolset",
+                "operations": [
+                  "inspect",
+                  "temporary_load",
+                  "unload"
+                ],
+                "persistence": {
+                  "files": false,
+                  "configuration": false,
+                  "after_restart": "not_restored"
+                },
+                "parts": {
+                  "model_runtime_mutation": {
+                    "status": "reported_available",
+                    "description": "模型检查与临时装卸进程内插件"
+                  }
+                }
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T05/work",
+              "delta": {
+                "phase": "old_behavior_recorded"
+              }
+            }
+          ]
+        },
+        {
+          "id": "T05.S02",
+          "facts": [
+            "T05.02"
+          ],
+          "actions": [
+            {
+              "action": "revise",
+              "id": "T05/creator",
+              "delta": {
+                "promotion_path": "保留实验成果需另行实现普通项目插件或可安装bundle",
+                "automatic_promotion": "none"
+              }
+            }
+          ]
+        },
+        {
+          "id": "T05.S03",
+          "facts": [
+            "T05.03"
+          ],
+          "actions": [
+            {
+              "action": "create",
+              "id": "T05/plugin-manager",
+              "kind": "contract",
+              "fields": {
+                "title": "已有普通插件管理器",
+                "domain": "product_design",
+                "status": "reported_existing",
+                "scope": "普通插件/bundle安装"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T05/creator",
+              "delta": {
+                "implementation": "reported_merged #4324 2026-09-16",
+                "entry": "先写包和配置文件，再安装bundle",
+                "merge_commit": "f756097108d1fc69f71bae1ee3c6114e5ae40b12",
+                "status": "reported_persistent_install_entry"
+              }
+            },
+            {
+              "action": "reuse",
+              "owner": "T05/creator",
+              "provider": "T05/plugin-manager",
+              "relation": "uses_contract",
+              "range": "复用普通管理器完成持久插件安装；没有自动激活承诺"
+            },
+            {
+              "action": "adopt",
+              "id": "T05/selection",
+              "scope": "T05/documented_creator_entry",
+              "selected": [
+                "T05/creator"
+              ],
+              "reason": "设计记录采用持久插件管理入口"
+            }
+          ]
+        },
+        {
+          "id": "T05.S04",
+          "facts": [
+            "T05.04"
+          ],
+          "actions": [
+            {
+              "action": "revise",
+              "id": "T05/creator",
+              "delta": {
+                "parts": {
+                  "model_runtime_mutation": {
+                    "status": "reported_old_entry",
+                    "description": "模型侧生成代码修改入口"
+                  },
+                  "runtime_services": {
+                    "status": "reported_retained",
+                    "description": "已有运行时与Client消费者所用服务"
+                  },
+                  "history_cards": {
+                    "status": "reported_retained",
+                    "description": "历史工具卡片可读取"
+                  }
+                }
+              }
+            },
+            {
+              "action": "replace_parts",
+              "id": "T05/creator",
+              "remove": [
+                "model_runtime_mutation"
+              ],
+              "retain": [
+                "runtime_services",
+                "history_cards"
+              ],
+              "add": {
+                "persistent_install": {
+                  "status": "reported_implemented",
+                  "description": "T05.03已记录的写文件并安装bundle模型入口",
+                  "source_facts": [
+                    "T05.03"
+                  ]
+                }
+              },
+              "reason": "模型侧修改入口退出；已有消费者服务与历史工具卡片继续保留"
+            }
+          ]
+        },
+        {
+          "id": "T05.S05",
+          "facts": [
+            "T05.05"
+          ],
+          "actions": [
+            {
+              "action": "revise",
+              "id": "T05/creator",
+              "delta": {
+                "profile_scope": "新配置跨重启保留，影响同一profile会话",
+                "authorization": "完整访问或单次批准",
+                "configuration_save": "separate_report",
+                "activation": "separate_report; actual_result_unknown",
+                "installed_package_replacement": "当时需要重启"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T05/work",
+              "delta": {
+                "implementation": "reported_transition_landed",
+                "verification": "unknown",
+                "acceptance": "unknown",
+                "remaining": [
+                  "保存与激活分别报告",
+                  "替换已安装包需重启"
+                ]
+              }
+            },
+            {
+              "action": "adopt",
+              "id": "T05/selection",
+              "scope": "T05/documented_creator_entry",
+              "selected": [
+                "T05/creator"
+              ],
+              "reason": "截止记录含保存/激活与重启限制的产品契约"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "T07",
+      "title": "E2B退出，公共接口保留供SSH使用",
+      "objects": [
+        {
+          "id": "T07/goal",
+          "kind": "goal",
+          "fields": {
+            "title": "E2B退出，公共接口保留供SSH使用",
+            "status": "unknown",
+            "domain": "development",
+            "identity_origin": "research_scaffold"
+          }
+        },
+        {
+          "id": "T07/work",
+          "kind": "work",
+          "fields": {
+            "title": "E2B退出，公共接口保留供SSH使用",
+            "status": "unknown",
+            "domain": "development",
+            "identity_origin": "research_scaffold"
+          }
+        },
+        {
+          "id": "T07/remote-contract",
+          "kind": "contract",
+          "fields": {
+            "title": "E2B退出，公共接口保留供SSH使用 的产品契约",
+            "status": "unknown",
+            "domain": "product_design"
+          }
+        }
+      ],
+      "steps": [
+        {
+          "id": "T07.S01",
+          "facts": [
+            "T07.01"
+          ],
+          "actions": [
+            {
+              "action": "create",
+              "id": "T07/e2b",
+              "kind": "artifact",
+              "fields": {
+                "title": "E2B概念验证与供应实现",
+                "domain": "development",
+                "status": "reported_merged",
+                "date": "2026-08-08",
+                "commit": "33312c6a89e2c4c7efd7b067d88506df2a9d982f",
+                "world": "为文件、进程、终端提供统一远程执行世界",
+                "parts": {
+                  "e2b_provider": {
+                    "status": "reported_implemented",
+                    "description": "E2B提供者"
+                  }
+                }
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T07/work",
+              "delta": {
+                "phase": "e2b_implementation_recorded"
+              }
+            }
+          ]
+        },
+        {
+          "id": "T07.S02",
+          "facts": [
+            "T07.02"
+          ],
+          "actions": [
+            {
+              "action": "revise",
+              "id": "T07/e2b",
+              "delta": {
+                "exit_reason": "新PTC需要独立于程序标准流的双向控制流；固定E2B SDK通道和输出保留带来额外传输工程",
+                "reason_scope": "当时固定SDK集成成本",
+                "general_feasibility_judgment": "unknown"
+              }
+            }
+          ]
+        },
+        {
+          "id": "T07.S03",
+          "facts": [
+            "T07.03"
+          ],
+          "actions": [
+            {
+              "action": "revise",
+              "id": "T07/e2b",
+              "delta": {
+                "parts": {
+                  "e2b_provider": {
+                    "status": "reported_implemented",
+                    "description": "E2B提供者"
+                  },
+                  "sdk_dependency": {
+                    "status": "reported_present",
+                    "description": "SDK依赖"
+                  },
+                  "integration_fixtures": {
+                    "status": "reported_present",
+                    "description": "集成夹具"
+                  },
+                  "optional_workflow": {
+                    "status": "reported_present",
+                    "description": "可选工作流"
+                  }
+                }
+              }
+            },
+            {
+              "action": "partial_revert",
+              "id": "T07/e2b",
+              "withdraw": [
+                "e2b_provider",
+                "sdk_dependency",
+                "integration_fixtures",
+                "optional_workflow"
+              ],
+              "retain": [],
+              "reason": "9月11日主线移除E2B提供者及列明依赖；其余范围留待下一条资料"
+            },
+            {
+              "action": "revise",
+              "id": "T07/work",
+              "delta": {
+                "phase": "provider_removal_reported",
+                "removal_commit": "09a6fbc388bc6de135dea7d86b85f6e96b3bf32a"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T07/e2b",
+              "delta": {
+                "status": "reported_provider_removed",
+                "historical_merge": "preserved_in_prior_version"
+              }
+            }
+          ]
+        },
+        {
+          "id": "T07.S04",
+          "facts": [
+            "T07.04"
+          ],
+          "actions": [
+            {
+              "action": "revise",
+              "id": "T07/remote-contract",
+              "delta": {
+                "status": "reported_retained",
+                "interfaces": [
+                  "filesystem",
+                  "process",
+                  "terminal"
+                ],
+                "asynchronous_semantics": "retained",
+                "remote_need": "continues",
+                "reason_scope": "固定SDK成本，非整个远程路线的证伪"
+              }
+            }
+          ]
+        },
+        {
+          "id": "T07.S05",
+          "facts": [
+            "T07.05"
+          ],
+          "actions": [
+            {
+              "action": "create",
+              "id": "T07/ssh",
+              "kind": "artifact",
+              "fields": {
+                "title": "POSIX SSH helper后端",
+                "domain": "product_design",
+                "status": "documented_at_cutoff",
+                "remote": "helper提供执行能力",
+                "local": [
+                  "Harness",
+                  "credentials",
+                  "model_transport",
+                  "session_persistence"
+                ],
+                "disconnect_mutations": "not_automatically_replayed",
+                "chronology_vs_e2b_removal": "unknown"
+              }
+            },
+            {
+              "action": "reuse",
+              "owner": "T07/ssh",
+              "provider": "T07/remote-contract",
+              "relation": "uses_contract",
+              "range": "沿用文件、进程、终端接口及异步约定；不声明E2B代码复用"
+            },
+            {
+              "action": "revise",
+              "id": "T07/work",
+              "delta": {
+                "status": "recorded_continuing_remote_route",
+                "acceptance": "unknown",
+                "remaining": [
+                  "SSH与E2B删除准确先后未知"
+                ]
+              }
+            },
+            {
+              "action": "adopt",
+              "id": "T07/selection",
+              "scope": "T07/documented_remote_design",
+              "selected": [
+                "T07/ssh",
+                "T07/remote-contract"
+              ],
+              "reason": "截止SSH设计及继续保留的公共接口"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "T09",
+      "title": "通用侧栏与内容寿命分别演化",
+      "objects": [
+        {
+          "id": "T09/goal",
+          "kind": "goal",
+          "fields": {
+            "title": "通用侧栏与内容寿命分别演化",
+            "status": "unknown",
+            "domain": "development",
+            "identity_origin": "research_scaffold"
+          }
+        },
+        {
+          "id": "T09/work",
+          "kind": "work",
+          "fields": {
+            "title": "通用侧栏与内容寿命分别演化",
+            "status": "unknown",
+            "domain": "development",
+            "identity_origin": "research_scaffold"
+          }
+        },
+        {
+          "id": "T09/sidebar",
+          "kind": "contract",
+          "fields": {
+            "title": "通用侧栏与内容寿命分别演化 的产品契约",
+            "status": "unknown",
+            "domain": "product_design"
+          }
+        }
+      ],
+      "steps": [
+        {
+          "id": "T09.S01",
+          "facts": [
+            "T09.01"
+          ],
+          "actions": [
+            {
+              "action": "revise",
+              "id": "T09/sidebar",
+              "delta": {
+                "status": "reported_old_details_panel",
+                "scope": "旧右栏只能显示工具详情",
+                "file_links": "交给Host操作系统；远程浏览器无法直接看文件"
+              }
+            }
+          ]
+        },
+        {
+          "id": "T09.S02",
+          "facts": [
+            "T09.02"
+          ],
+          "actions": [
+            {
+              "action": "create",
+              "id": "T09/layout-trial",
+              "kind": "report",
+              "fields": {
+                "title": "第三方库与自建原型的评估报告",
+                "domain": "development",
+                "status": "author_reported",
+                "alternative": "FlexLayout作备选",
+                "chosen": "继续自建",
+                "check": "自建原型相关浏览器检查为作者报告",
+                "review_full_record": "unknown"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T09/work",
+              "delta": {
+                "phase": "prototype_trial_reported",
+                "verification": "author_reported_browser_checks"
+              }
+            }
+          ]
+        },
+        {
+          "id": "T09.S03",
+          "facts": [
+            "T09.03"
+          ],
+          "actions": [
+            {
+              "action": "revise",
+              "id": "T09/sidebar",
+              "delta": {
+                "status": "reported_right_sidebar",
+                "prototype": "首个原型drawer",
+                "product_shape": "实际挤占聊天宽度的右侧栏",
+                "parts": {
+                  "layout_engine": {
+                    "status": "reported_implemented",
+                    "description": "分栏、标签、浮窗及撤销"
+                  },
+                  "content_plugin_interface": {
+                    "status": "reported_implemented",
+                    "description": "内容类型由独立插件接口提供"
+                  }
+                }
+              }
+            },
+            {
+              "action": "adopt",
+              "id": "T09/selection",
+              "scope": "T09/documented_sidebar_design",
+              "selected": [
+                "T09/sidebar"
+              ],
+              "reason": "设计记录中的产品右侧栏及布局能力"
+            }
+          ]
+        },
+        {
+          "id": "T09.S04",
+          "facts": [
+            "T09.04"
+          ],
+          "actions": [
+            {
+              "action": "revise",
+              "id": "T09/sidebar",
+              "delta": {
+                "retention_reason": "卸载内容或改变DOM祖先会断开浏览器页面",
+                "content_retention": {
+                  "keepMounted_types": "retained",
+                  "Desktop_Browser": "enabled",
+                  "other_types": "visibility_based_mount"
+                },
+                "retained_dom": "停靠、浮动、会话切换不移动已保留页面DOM祖先"
+              }
+            }
+          ]
+        },
+        {
+          "id": "T09.S05",
+          "facts": [
+            "T09.05"
+          ],
+          "actions": [
+            {
+              "action": "revise",
+              "id": "T09/sidebar",
+              "delta": {
+                "responsibility_boundaries": [
+                  "layout_state",
+                  "content_instance_lifetime",
+                  "data_reading"
+                ],
+                "preserved": "保留内容树的决定没有整体废弃侧栏布局引擎"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T09/work",
+              "delta": {
+                "status": "documented_evolution",
+                "remaining": [
+                  "原型和评审完整记录未知",
+                  "按声明类型保活"
+                ],
+                "acceptance": "unknown"
+              }
+            },
+            {
+              "action": "adopt",
+              "id": "T09/selection",
+              "scope": "T09/documented_sidebar_design",
+              "selected": [
+                "T09/sidebar"
+              ],
+              "reason": "包含内容保留及职责边界的截止设计"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "T15",
+      "title": "Office共享转换、独立引擎与桌面运行时",
+      "objects": [
+        {
+          "id": "T15/goal",
+          "kind": "goal",
+          "fields": {
+            "title": "Office共享转换、独立引擎与桌面运行时",
+            "status": "unknown",
+            "domain": "development",
+            "identity_origin": "research_scaffold"
+          }
+        },
+        {
+          "id": "T15/work",
+          "kind": "work",
+          "fields": {
+            "title": "Office共享转换、独立引擎与桌面运行时",
+            "status": "unknown",
+            "domain": "development",
+            "identity_origin": "research_scaffold"
+          }
+        },
+        {
+          "id": "T15/conversion",
+          "kind": "contract",
+          "fields": {
+            "title": "Office共享转换、独立引擎与桌面运行时 的产品契约",
+            "status": "unknown",
+            "domain": "product_design"
+          }
+        }
+      ],
+      "steps": [
+        {
+          "id": "T15.S01",
+          "facts": [
+            "T15.01"
+          ],
+          "actions": [
+            {
+              "action": "revise",
+              "id": "T15/conversion",
+              "delta": {
+                "problem": "预览与显式文档检查请求同一次转换；只缓存完成结果不能限制源读取、排队数据和并发读者",
+                "consumers": [
+                  "preview",
+                  "explicit_document_inspection"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "id": "T15.S02",
+          "facts": [
+            "T15.02"
+          ],
+          "actions": [
+            {
+              "action": "revise",
+              "id": "T15/conversion",
+              "delta": {
+                "status": "recorded_shared_queue_design",
+                "admission_order": "先授权与接纳，再读文件",
+                "priority": "foreground_first",
+                "cancellation": "读者独立取消；最后读者离开才取消共享工作",
+                "result_sharing": "multiple_readers"
+              }
+            },
+            {
+              "action": "adopt",
+              "id": "T15/selection",
+              "scope": "T15/documented_conversion_design",
+              "selected": [
+                "T15/conversion"
+              ],
+              "reason": "记录中的共享转换队列策略；没有创建实际转换任务实例"
+            }
+          ]
+        },
+        {
+          "id": "T15.S03",
+          "facts": [
+            "T15.03"
+          ],
+          "actions": [
+            {
+              "action": "create",
+              "id": "T15/engine",
+              "kind": "contract",
+              "fields": {
+                "title": "独立LibreOffice kit",
+                "domain": "product_design",
+                "status": "documented_external_package",
+                "owns": [
+                  "API",
+                  "engine",
+                  "tests",
+                  "release"
+                ],
+                "version_policy": "Harness锁定准确npm版本；本条未给版本值"
+              }
+            },
+            {
+              "action": "create",
+              "id": "T15/adapter",
+              "kind": "contract",
+              "fields": {
+                "title": "Harness适配与转换职责",
+                "domain": "product_design",
+                "owns": [
+                  "adapter",
+                  "authorization",
+                  "conversion_lifecycle",
+                  "UI"
+                ]
+              }
+            },
+            {
+              "action": "reuse",
+              "owner": "T15/adapter",
+              "provider": "T15/engine",
+              "relation": "uses_contract",
+              "range": "锁定准确npm版本的外部引擎API；引擎独立发布不等于Harness运行验收"
+            }
+          ]
+        },
+        {
+          "id": "T15.S04",
+          "facts": [
+            "T15.04"
+          ],
+          "actions": [
+            {
+              "action": "create",
+              "id": "T15/runtime",
+              "kind": "contract",
+              "fields": {
+                "title": "桌面release-bound运行时payload",
+                "domain": "product_design",
+                "status": "documented_release_bound_payload",
+                "contains": [
+                  "interpreter",
+                  "libraries"
+                ],
+                "inputs": "版本与锁定输入摘要",
+                "installation": "先暂存完成再替换安装",
+                "system_interpreter_choice": "user_controlled"
+              }
+            }
+          ]
+        },
+        {
+          "id": "T15.S05",
+          "facts": [
+            "T15.05"
+          ],
+          "actions": [
+            {
+              "action": "revise",
+              "id": "T15/conversion",
+              "delta": {
+                "memory_exclusions": [
+                  "engine_RSS",
+                  "caller_retained_output",
+                  "other_unbounded_memory"
+                ],
+                "memory_guarantee": "转换限制有范围"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T15/runtime",
+              "delta": {
+                "verification": {
+                  "signature": "separate_check; outcome_unknown",
+                  "final_run": "separate_check; author_reported_run_success"
+                },
+                "acceptance": "unknown"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T15/work",
+              "delta": {
+                "status": "documented_shared_conversion_and_delivery",
+                "remaining": [
+                  "内存限制范围",
+                  "签名与最终运行分别检查",
+                  "引擎发布单独验收"
+                ]
+              }
+            },
+            {
+              "action": "adopt",
+              "id": "T15/selection",
+              "scope": "T15/documented_conversion_design",
+              "selected": [
+                "T15/conversion"
+              ],
+              "reason": "明确内存限制范围的共享转换契约"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "difficulties": [
+    {
+      "case": "T05",
+      "facts": [
+        "T05.03",
+        "T05.05"
+      ],
+      "problem": "配置安装、能力激活与包替换重启是不同结果",
+      "handling": "分别保存产品契约字段，不从安装成功推导激活或用户验收"
+    },
+    {
+      "case": "T07",
+      "facts": [
+        "T07.03",
+        "T07.04",
+        "T07.05"
+      ],
+      "problem": "提供者退出不等于接口退出，SSH准确先后未知",
+      "handling": "供应实现部分范围退出，公共接口单独保存，SSH只引用契约且保留局部顺序未知"
+    },
+    {
+      "case": "T09",
+      "facts": [
+        "T09.04",
+        "T09.05"
+      ],
+      "problem": "保留内容树容易被误写为替换布局引擎",
+      "handling": "同一侧栏契约增补按类型保留规则，parts保留布局引擎和内容接口"
+    },
+    {
+      "case": "T15",
+      "facts": [
+        "T15.02",
+        "T15.03",
+        "T15.04",
+        "T15.05"
+      ],
+      "problem": "运行时取消/权限规则容易被写成开发事件；引擎与桌面交付各自验收",
+      "handling": "产品规则以独立contract保存，未生成实际任务或许可事件；内存范围、外部版本与验证归属分别保存"
+    },
+    {
+      "case": "T05/T07/T09",
+      "facts": [
+        "T05.03",
+        "T05.04",
+        "T07.03",
+        "T09.05"
+      ],
+      "problem": "CodeBuddy核对发现顶层旧status残留、未整体废弃被加强、跨步骤成果来源不够明确",
+      "handling": "更新Creator/E2B当前status；侧栏沿用源措辞；持久入口标明T05.03来源并保留精确引用链"
+    }
+  ]
+}

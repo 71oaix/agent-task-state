@@ -1,0 +1,958 @@
+{
+  "schema": 1,
+  "author": "CodeBuddy; pack4 source encoding",
+  "cases": [
+    {
+      "id": "T10",
+      "title": "目标控制：保存目标，再修复人工暂停被执行绕过的问题",
+      "objects": [
+        {
+          "id": "T10/goal",
+          "kind": "goal",
+          "fields": {
+            "title": "目标控制：保存目标并约束运行授权",
+            "status": "unknown",
+            "domain": "development",
+            "identity_origin": "research_scaffold"
+          }
+        },
+        {
+          "id": "T10/work",
+          "kind": "work",
+          "fields": {
+            "title": "目标控制规则与暂停修复",
+            "status": "unknown",
+            "domain": "development",
+            "identity_origin": "research_scaffold"
+          }
+        },
+        {
+          "id": "T10/goal-control",
+          "kind": "contract",
+          "fields": {
+            "title": "目标持久化、暂停与恢复授权规则",
+            "status": "unknown",
+            "domain": "product_design"
+          }
+        }
+      ],
+      "steps": [
+        {
+          "id": "T10.S01",
+          "facts": [
+            "T10.01"
+          ],
+          "actions": [
+            {
+              "action": "revise",
+              "id": "T10/goal-control",
+              "delta": {
+                "status": "documented_early_goal_record",
+                "goal_change": "独立goal/change事件",
+                "next_turn_prompt": "由驱动组件入队",
+                "goal_existence": "不以模型是否接纳消息为条件",
+                "source_nature": "documented_state"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T10/goal",
+              "delta": {
+                "change_event": "independent_goal_change",
+                "prompt_enqueue": "driver_component",
+                "existence_independent_of_message_acceptance": true
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T10/work",
+              "delta": {
+                "phase": "early_goal_record_documented"
+              }
+            }
+          ]
+        },
+        {
+          "id": "T10.S02",
+          "facts": [
+            "T10.02"
+          ],
+          "actions": [
+            {
+              "action": "revise",
+              "id": "T10/goal-control",
+              "delta": {
+                "status": "documented_authorization_separation",
+                "persistent_goal": "恢复或分叉可保留active目标",
+                "run_authorization": "默认disarmed",
+                "session_open_effect": "不会自动继续",
+                "source_nature": "documented_state"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T10/goal",
+              "delta": {
+                "restore_or_fork": "可保留active目标",
+                "default_run_authorization": "disarmed",
+                "session_open_auto_continue": false
+              }
+            }
+          ]
+        },
+        {
+          "id": "T10.S03",
+          "facts": [
+            "T10.03"
+          ],
+          "actions": [
+            {
+              "action": "create",
+              "id": "T10/pause-fix",
+              "kind": "artifact",
+              "fields": {
+                "title": "人工暂停取消当前轮的修复",
+                "domain": "development",
+                "status": "author_reported_fix",
+                "problem": "Web已标记paused并禁止后续自动轮次，但当前模型轮仍在执行，还可能自行调用resume",
+                "change": "人工暂停时取消当前轮",
+                "retained": "输入队列"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T10/goal-control",
+              "delta": {
+                "status": "author_reported_pause_fix",
+                "pause_state_before_fix": "Web标记paused并禁止后续自动轮次",
+                "pre_fix_gap": "当前模型轮仍在执行，还可能自行调用resume",
+                "fix": "人工暂停时取消当前轮",
+                "input_queue_on_pause": "retained"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T10/work",
+              "delta": {
+                "implementation": "author_reported_fix",
+                "verification": "unknown",
+                "acceptance": "unknown"
+              }
+            }
+          ]
+        },
+        {
+          "id": "T10.S04",
+          "facts": [
+            "T10.04"
+          ],
+          "actions": [
+            {
+              "action": "revise",
+              "id": "T10/pause-fix",
+              "delta": {
+                "residual_issue": "前一个修复后，稍后的人类轮次仍可能被模型用来恢复持久paused目标",
+                "current_disposition": "reported_incomplete",
+                "verification": "author_reported_remaining_issue"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T10/goal-control",
+              "delta": {
+                "status": "author_reported_remaining_issue",
+                "historical_gap_after_first_fix": "稍后的人类轮次仍可能被模型用来恢复持久paused目标",
+                "historical_ui_confusion": "active-but-disarmed与armed未区分"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T10/work",
+              "delta": {
+                "remaining": [
+                  "后续人类轮次恢复持久paused目标",
+                  "UI未区分active-but-disarmed与armed"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "id": "T10.S05",
+          "facts": [
+            "T10.05"
+          ],
+          "actions": [
+            {
+              "action": "revise",
+              "id": "T10/goal-control",
+              "delta": {
+                "status": "documented_goal_authorization_rule",
+                "model_tool_resume_persistent_paused": "prohibited",
+                "model_tool_resume_active_but_disarmed_or_blocked": "allowed_with_appropriate_human_input",
+                "ui_run_authorization": "displayed_separately",
+                "human_explicit_resume_entry": "retained",
+                "source_nature": "documented_result"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T10/work",
+              "delta": {
+                "status": "documented_rule_evolution",
+                "verification": "unknown",
+                "acceptance": "unknown",
+                "remaining": [
+                  "运行故障原始日志未知",
+                  "精确合入时间未知"
+                ]
+              }
+            },
+            {
+              "action": "adopt",
+              "id": "T10/selection",
+              "scope": "T10/documented_goal_control",
+              "selected": [
+                "T10/goal-control"
+              ],
+              "reason": "截止记录中的目标持久化与运行授权规则；仅表示产品规则范围，不据此记录开发工作暂停或恢复事件"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "T11",
+      "title": "Shell：从超时交接改为从启动就登记任务",
+      "objects": [
+        {
+          "id": "T11/goal",
+          "kind": "goal",
+          "fields": {
+            "title": "Shell：从超时交接改为从启动就登记任务",
+            "status": "unknown",
+            "domain": "development",
+            "identity_origin": "research_scaffold"
+          }
+        },
+        {
+          "id": "T11/work",
+          "kind": "work",
+          "fields": {
+            "title": "Shell 执行与后台任务交接",
+            "status": "unknown",
+            "domain": "development",
+            "identity_origin": "research_scaffold"
+          }
+        },
+        {
+          "id": "T11/shell-contract",
+          "kind": "contract",
+          "fields": {
+            "title": "Shell execute 期限与 job 登记契约",
+            "status": "unknown",
+            "domain": "product_design"
+          }
+        }
+      ],
+      "steps": [
+        {
+          "id": "T11.S01",
+          "facts": [
+            "T11.01"
+          ],
+          "actions": [
+            {
+              "action": "revise",
+              "id": "T11/shell-contract",
+              "delta": {
+                "status": "documented_old_run_behavior",
+                "old_run": "期限与执行捆绑",
+                "start_behavior": "返回句柄但没有同样的期限行为",
+                "long_build": "超时会被杀掉",
+                "source_nature": "retrospective_report"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T11/work",
+              "delta": {
+                "phase": "old_run_behavior_recorded"
+              }
+            }
+          ]
+        },
+        {
+          "id": "T11.S02",
+          "facts": [
+            "T11.02"
+          ],
+          "actions": [
+            {
+              "action": "create",
+              "id": "T11/timeout-promotion",
+              "kind": "artifact",
+              "fields": {
+                "title": "execute 超时提升为后台任务的交接版本",
+                "domain": "development",
+                "status": "documented_delivered",
+                "timeout_behavior": "promotion_offer",
+                "promotion_acceptance": "tool_synchronously_accepts",
+                "registration": "background_job"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T11/shell-contract",
+              "delta": {
+                "status": "documented_timeout_handoff",
+                "timeout_handoff": "超时提供promotion offer并由工具同步接纳登记后台任务",
+                "delivered_version": "早先的execute版本"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T11/work",
+              "delta": {
+                "phase": "timeout_promotion_delivered"
+              }
+            }
+          ]
+        },
+        {
+          "id": "T11.S03",
+          "facts": [
+            "T11.03"
+          ],
+          "actions": [
+            {
+              "action": "revise",
+              "id": "T11/timeout-promotion",
+              "delta": {
+                "review_outcome": "rejected",
+                "review_target": "handoff_protocol",
+                "review_reason": "延迟到超时才登记，使执行器和消费者都承担额外时序责任",
+                "current_disposition": "handoff_protocol_rejected"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T11/shell-contract",
+              "delta": {
+                "status": "recorded_review_rejected_timeout_handoff",
+                "timeout_handoff_review": "rejected",
+                "review_reason": "延迟登记造成执行器和消费者的额外时序责任"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T11/work",
+              "delta": {
+                "phase": "timeout_handoff_reviewed_and_rejected"
+              }
+            }
+          ]
+        },
+        {
+          "id": "T11.S04",
+          "facts": [
+            "T11.04"
+          ],
+          "actions": [
+            {
+              "action": "revise",
+              "id": "T11/shell-contract",
+              "delta": {
+                "status": "recorded_job_at_start_design",
+                "registration": "开始即登记同一个job",
+                "wait": "再限时等待结果",
+                "foreground_wait_end": "前台等待结束后进程仍可运行",
+                "user_control": "从开始就能查看和停止",
+                "source_nature": "recorded_decision"
+              }
+            },
+            {
+              "action": "adopt",
+              "id": "T11/selection",
+              "scope": "T11/documented_shell_design",
+              "selected": [
+                "T11/shell-contract"
+              ],
+              "reason": "记录采用开始即登记job、再限时等待的设计；未创建实际运行任务"
+            }
+          ]
+        },
+        {
+          "id": "T11.S05",
+          "facts": [
+            "T11.05"
+          ],
+          "actions": [
+            {
+              "action": "revise",
+              "id": "T11/shell-contract",
+              "delta": {
+                "status": "recorded_job_at_start_design_with_limits",
+                "jobs": "仍为可选组成",
+                "deadline_termination_when": [
+                  "没有registry",
+                  "禁止转后台",
+                  "登记被拒"
+                ],
+                "foreground_task_grouping": "后续工作",
+                "source_nature": "documented_limit"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T11/work",
+              "delta": {
+                "status": "documented_shell_design_with_limits",
+                "verification": "unknown",
+                "acceptance": "unknown",
+                "remaining": [
+                  "前台任务分组为后续工作"
+                ],
+                "constraints": [
+                  "无registry、禁止后台或登记被拒时仍期限终止"
+                ]
+              }
+            },
+            {
+              "action": "adopt",
+              "id": "T11/selection",
+              "scope": "T11/documented_shell_design",
+              "selected": [
+                "T11/shell-contract"
+              ],
+              "reason": "包含jobs可选与期限终止回退的截止设计"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "T13",
+      "title": "Windows 终端：等待假设被测量修正",
+      "objects": [
+        {
+          "id": "T13/goal",
+          "kind": "goal",
+          "fields": {
+            "title": "Windows 终端：等待假设被测量修正",
+            "status": "unknown",
+            "domain": "development",
+            "identity_origin": "research_scaffold"
+          }
+        },
+        {
+          "id": "T13/work",
+          "kind": "work",
+          "fields": {
+            "title": "Windows PTY 就绪等待与故障修正",
+            "status": "unknown",
+            "domain": "development",
+            "identity_origin": "research_scaffold"
+          }
+        },
+        {
+          "id": "T13/terminal",
+          "kind": "contract",
+          "fields": {
+            "title": "Windows PTY 就绪判断与终端分配契约",
+            "status": "unknown",
+            "domain": "product_design"
+          }
+        }
+      ],
+      "steps": [
+        {
+          "id": "T13.S01",
+          "facts": [
+            "T13.01"
+          ],
+          "actions": [
+            {
+              "action": "create",
+              "id": "T13/wait-grace",
+              "kind": "artifact",
+              "fields": {
+                "title": "等待宽限修补",
+                "domain": "development",
+                "status": "author_reported_delivered",
+                "cited_for": "提示符尾部延迟解释"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T13/terminal",
+              "delta": {
+                "status": "author_reported_early_diagnosis",
+                "early_explanation": "自托管Windows就绪故障属于提示符尾部延迟",
+                "cited_patch": "已交付的等待宽限修补",
+                "attribution": "author_reported_diagnosis"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T13/work",
+              "delta": {
+                "phase": "early_wait_grace_diagnosis_reported"
+              }
+            }
+          ]
+        },
+        {
+          "id": "T13.S02",
+          "facts": [
+            "T13.02"
+          ],
+          "actions": [
+            {
+              "action": "revise",
+              "id": "T13/wait-grace",
+              "delta": {
+                "comparison": "修补前后该用例都耗时20.8秒",
+                "effect_on_this_failure": "未解决",
+                "current_disposition": "did_not_resolve_this_failure",
+                "attribution": "author_reported_measurement"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T13/terminal",
+              "delta": {
+                "status": "author_reported_measurement_contradicts_early_explanation",
+                "measured_duration": "20.8秒（修补前后相同）",
+                "wait_grace_effect": "没有解决这次故障",
+                "measurement_attribution": "author_report"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T13/work",
+              "delta": {
+                "measurement": "author_reported_20_8_seconds_before_and_after"
+              }
+            }
+          ]
+        },
+        {
+          "id": "T13.S03",
+          "facts": [
+            "T13.03"
+          ],
+          "actions": [
+            {
+              "action": "revise",
+              "id": "T13/terminal",
+              "delta": {
+                "status": "author_reported_probe_result",
+                "probe_finding": "宿主控制台在滚屏后改写尾部格式",
+                "wait_condition_failure": "已经到达的非前缀字符串无法满足等待条件",
+                "scope": "本次自托管Windows就绪故障",
+                "early_explanation_scope": "historical_explanation; corrected_for_this_failure",
+                "current_explanation": "本次故障：宿主控制台滚屏改写尾部格式，非前缀字符串使等待条件无法满足；作者探查报告"
+              }
+            },
+            {
+              "action": "correct",
+              "id": "T13/judgment",
+              "prior": "fact/T13.01",
+              "conclusion": "作者报告修补前后该用例均为20.8秒，等待宽限未解决本次自托管Windows就绪故障；直接探查显示宿主控制台滚屏后改写尾部格式，已经到达的非前缀字符串无法满足等待条件。",
+              "scope": "T13/this_windows_self_hosted_readiness_failure",
+              "evidence": [
+                "T13.02",
+                "T13.03"
+              ]
+            },
+            {
+              "action": "revise",
+              "id": "T13/work",
+              "delta": {
+                "phase": "measurement_corrected_early_explanation",
+                "verification": "author_reported_probe"
+              }
+            }
+          ]
+        },
+        {
+          "id": "T13.S04",
+          "facts": [
+            "T13.04"
+          ],
+          "actions": [
+            {
+              "action": "create",
+              "id": "T13/openconsole",
+              "kind": "artifact",
+              "fields": {
+                "title": "node-pty 随包 OpenConsole 的 Windows PTY",
+                "domain": "development",
+                "status": "recorded_decision",
+                "pty_implementation": "node-pty随包OpenConsole",
+                "author_reported_observation": "同一序列的七个提示符均正常",
+                "observation_attribution": "author_report"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T13/terminal",
+              "delta": {
+                "status": "recorded_bundled_openconsole_decision",
+                "windows_pty": "改用node-pty随包OpenConsole",
+                "author_reported_result": "同一序列的七个提示符均正常",
+                "result_attribution": "author_report"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T13/judgment",
+              "delta": {
+                "follow_up_decision": "Windows PTY 改用 node-pty 随包 OpenConsole",
+                "author_reported_result": "同一序列的七个提示符均正常",
+                "result_attribution": "author_report",
+                "result_scope": "仅本次自托管Windows就绪故障的修复观察"
+              }
+            },
+            {
+              "action": "adopt",
+              "id": "T13/selection",
+              "scope": "T13/documented_terminal_fix",
+              "selected": [
+                "T13/openconsole",
+                "T13/terminal"
+              ],
+              "reason": "记录采用随包OpenConsole修复；七个提示符正常为作者报告"
+            },
+            {
+              "action": "revise",
+              "id": "T13/work",
+              "delta": {
+                "phase": "bundled_openconsole_decision_recorded",
+                "verification": "author_reported_seven_prompts",
+                "acceptance": "unknown"
+              }
+            }
+          ]
+        },
+        {
+          "id": "T13.S05",
+          "facts": [
+            "T13.05"
+          ],
+          "actions": [
+            {
+              "action": "revise",
+              "id": "T13/terminal",
+              "delta": {
+                "status": "documented_dependency",
+                "packaging_dependency": "桌面包保留原有的OpenConsole与conpty.dll",
+                "allocation_requirement": "终端分配的必要条件",
+                "other_windows_hosts": "范围另行说明",
+                "posix": "范围另行说明"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T13/openconsole",
+              "delta": {
+                "packaging_requirement": "桌面包保留OpenConsole与conpty.dll",
+                "scope": "Windows终端分配；其他宿主与POSIX分别说明"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T13/work",
+              "delta": {
+                "status": "documented_terminal_dependency",
+                "ongoing_obligations": [
+                  "桌面保留随包OpenConsole与conpty.dll"
+                ],
+                "reporting_basis": "七个提示符正常为作者报告",
+                "scope_limits": [
+                  "其他Windows宿主与POSIX分别说明"
+                ],
+                "acceptance_unknown_meaning": "来源没有确认验收是否完成；不等于验收未完成，不据此新建待办"
+              }
+            },
+            {
+              "action": "adopt",
+              "id": "T13/selection",
+              "scope": "T13/documented_terminal_fix",
+              "selected": [
+                "T13/terminal",
+                "T13/openconsole"
+              ],
+              "reason": "包含随包OpenConsole与conpty.dll保留条件的截止终端契约"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "T16",
+      "title": "模型协议与会话：工具角色变化要求迁移历史表示",
+      "objects": [
+        {
+          "id": "T16/goal",
+          "kind": "goal",
+          "fields": {
+            "title": "模型协议与会话：工具角色变化要求迁移历史表示",
+            "status": "unknown",
+            "domain": "development",
+            "identity_origin": "research_scaffold"
+          }
+        },
+        {
+          "id": "T16/work",
+          "kind": "work",
+          "fields": {
+            "title": "模型工具角色与历史会话迁移",
+            "status": "unknown",
+            "domain": "development",
+            "identity_origin": "research_scaffold"
+          }
+        },
+        {
+          "id": "T16/session-format",
+          "kind": "contract",
+          "fields": {
+            "title": "会话消息表示与provider投影契约",
+            "status": "unknown",
+            "domain": "product_design"
+          }
+        }
+      ],
+      "steps": [
+        {
+          "id": "T16.S01",
+          "facts": [
+            "T16.01"
+          ],
+          "actions": [
+            {
+              "action": "revise",
+              "id": "T16/session-format",
+              "delta": {
+                "status": "documented_old_user_role_wrapper",
+                "old_representation": "工具结果放入user-role包装",
+                "model_and_provider_view": "独立角色",
+                "inconsistency": "验证和回放不一致",
+                "source_nature": "documented_problem"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T16/work",
+              "delta": {
+                "phase": "old_session_representation_documented"
+              }
+            }
+          ]
+        },
+        {
+          "id": "T16.S02",
+          "facts": [
+            "T16.02"
+          ],
+          "actions": [
+            {
+              "action": "create",
+              "id": "T16/tool-role-v4",
+              "kind": "artifact",
+              "fields": {
+                "title": "V4 独立 tool 消息格式",
+                "domain": "product_design",
+                "status": "recorded_decision",
+                "format_generation": "V4",
+                "representation": "独立tool消息",
+                "migration": "V3→V4相邻迁移提升一层包装",
+                "nested_wrapper": "rejected",
+                "source_generation": "V3",
+                "source_generation_preserved": true
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T16/session-format",
+              "delta": {
+                "status": "recorded_v4_tool_role",
+                "format_generation": "V4",
+                "v4_representation": "独立tool消息",
+                "migration_v3_to_v4": "相邻迁移提升一层包装",
+                "nested_wrapper": "rejected",
+                "source_generation": "V3",
+                "source_generation_preserved": true
+              }
+            },
+            {
+              "action": "adopt",
+              "id": "T16/selection",
+              "scope": "T16/documented_session_format",
+              "selected": [
+                "T16/tool-role-v4"
+              ],
+              "reason": "记录采用V4独立tool消息与V3→V4相邻迁移"
+            },
+            {
+              "action": "revise",
+              "id": "T16/work",
+              "delta": {
+                "phase": "v4_tool_role_decision_recorded"
+              }
+            }
+          ]
+        },
+        {
+          "id": "T16.S03",
+          "facts": [
+            "T16.03"
+          ],
+          "actions": [
+            {
+              "action": "revise",
+              "id": "T16/tool-role-v4",
+              "delta": {
+                "preserved_identities": [
+                  "message_identity",
+                  "tool_call_identity",
+                  "result_content"
+                ],
+                "extension_fields": "按原归属加前缀保存",
+                "old_outer_same_name_fields": "保持不透明"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T16/session-format",
+              "delta": {
+                "status": "documented_v4_tool_role_with_preservation",
+                "migration_preservation": "保留消息身份、工具调用身份和结果内容",
+                "extension_field_policy": "按原归属加前缀保存",
+                "old_outer_same_name_fields": "opaque"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T16/work",
+              "delta": {
+                "phase": "migration_preservation_documented"
+              }
+            }
+          ]
+        },
+        {
+          "id": "T16.S04",
+          "facts": [
+            "T16.04"
+          ],
+          "actions": [
+            {
+              "action": "revise",
+              "id": "T16/session-format",
+              "delta": {
+                "status": "documented_v4_readonly_projection_constraint",
+                "v4_reads": "只读原生表示",
+                "provider_projection": "适配器负责",
+                "new_visible_role_requirement": [
+                  "持久事件",
+                  "适配投影"
+                ],
+                "source_nature": "documented_constraint"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T16/tool-role-v4",
+              "delta": {
+                "current_v4_read_path": "native_representation_only",
+                "provider_projection_owner": "adapter",
+                "new_visible_role_requirement": "persistent_event_and_adapter_projection"
+              }
+            },
+            {
+              "action": "revise",
+              "id": "T16/work",
+              "delta": {
+                "status": "documented_format_migration_constraint",
+                "verification": "unknown",
+                "acceptance": "unknown",
+                "constraints": [
+                  "嵌套包装拒绝并保留源代际",
+                  "新角色需持久事件与适配投影"
+                ],
+                "unknowns": [
+                  "实际迁移运行验证"
+                ]
+              }
+            },
+            {
+              "action": "adopt",
+              "id": "T16/selection",
+              "scope": "T16/documented_session_format",
+              "selected": [
+                "T16/tool-role-v4"
+              ],
+              "reason": "包含V4只读原生表示与适配投影约束的截止格式"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "difficulties": [
+    {
+      "case": "T10",
+      "facts": [
+        "T10.03",
+        "T10.04",
+        "T10.05"
+      ],
+      "problem": "人工暂停与恢复是产品运行授权规则，容易被写成开发工作暂停或恢复事件",
+      "handling": "在product_design契约保存暂停、恢复权限与UI状态；开发工作只记录作者报告的修复和残余问题，不设置工作暂停状态"
+    },
+    {
+      "case": "T11",
+      "facts": [
+        "T11.02",
+        "T11.03",
+        "T11.04"
+      ],
+      "problem": "超时交接曾交付又被评审否定，随后改为开始登记；三者是不同阶段，不能合并成一次实现",
+      "handling": "分别保存已交付promotion行为、评审否定理由和开始登记的新设计；不创建实际运行任务"
+    },
+    {
+      "case": "T13",
+      "facts": [
+        "T13.01",
+        "T13.02",
+        "T13.03",
+        "T13.04"
+      ],
+      "problem": "早期解释与后续测量冲突；20.8秒和七次成功均为作者报告，且只限本次宿主故障",
+      "handling": "用correct保留旧解释并建立新判断，evidence只用已登记事实；作者报告与未知范围分别标注"
+    },
+    {
+      "case": "T16",
+      "facts": [
+        "T16.02",
+        "T16.03",
+        "T16.04"
+      ],
+      "problem": "格式迁移规则容易写成已经运行的迁移；V3/V4是会话格式代际，不是产品发布版本",
+      "handling": "以recorded_decision和documented_preservation保存，不声称迁移已执行；持久事件与适配投影分别记录"
+    },
+    {
+      "case": "T10/T11/T13/T16",
+      "facts": [
+        "T10.05",
+        "T11.05",
+        "T13.05",
+        "T16.04"
+      ],
+      "problem": "旧问题与当前状态、持续约束与未完成任务容易混在remaining字段",
+      "handling": "Sol源审：旧问题标历史范围，期限回退与格式拒绝列约束，明确前台分组为后续工作，七次成功归报告依据"
+    }
+  ]
+}

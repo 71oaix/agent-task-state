@@ -1,13 +1,16 @@
 ---
 title: 工作操作候选 v0.4：四个工作入口与组合规则
-status: active
+status: archived
 created: 2026-10-25
 updated: 2026-10-25
 tags: [research, work-operations, candidate]
 supersedes: work-operation-candidates-v0.3.md
+superseded_by: work-operation-candidates-v0.5.md
 ---
 
 # 工作操作候选 v0.4：四个工作入口与组合规则
+
+本页保存2026-10-25的筛选依据；现行可执行规则见[v0.5](work-operation-candidates-v0.5.md)。
 
 **下一原型采用 create、revise、statement、select 四个工作入口。**open/close 作为组合与便利接口，observe/judge 合并为有类型陈述；关系默认作为版本内容中的精确引用保存。当前四入口是可复验的工程基线，初始登记、对象规则和组合约定全部计入。[主结论](dsh-work-history.md)解释取舍，[实验明细](operation-selection-review.md)给出来源、实际更新与裁定。
 

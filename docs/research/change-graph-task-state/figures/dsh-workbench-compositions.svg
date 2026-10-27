@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="780" height="900" viewBox="0 0 780 900" role="img" aria-label="四个基本入口经过组合形成工作功能，用于描述DSH十六段演化">
+<defs><marker id="arr" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0 0 L9 4.5 L0 9" fill="#315c7c"/></marker></defs>
+<rect width="780" height="900" fill="white"/>
+<style>text{font-family:'Microsoft YaHei',system-ui,sans-serif;fill:#19364e}.t{font-size:24px;font-weight:bold}.h{font-size:18px;font-weight:bold}.b{font-size:16px}.s{font-size:14px;fill:#46637a}.box{fill:#edf5fc;stroke:#527f9e;stroke-width:2}.a{fill:none;stroke:#315c7c;stroke-width:2.5;marker-end:url(#arr)}</style>
+<text class="t" x="30" y="44">把基本入口组合成可用的工作功能</text>
+<text class="s" x="30" y="73">下方功能由上方机制展开；每次执行保存对象、前版、来源与结果。</text>
+<rect class="box" x="30" y="99" width="720" height="145" rx="9"/>
+<text class="h" x="50" y="130">基本记录入口</text>
+<text class="b" x="50" y="163">create：建立身份与首版</text><text class="b" x="410" y="163">revise：产生后继版本</text>
+<text class="b" x="50" y="197">statement：登记观察与判断</text><text class="b" x="410" y="197">select：改变有范围的采用</text>
+<text class="s" x="50" y="226">对象与版本可引用；尝试、目标、成果、陈述与采用分别保存。</text>
+<path class="a" d="M390 250 V287"/>
+<text class="h" x="30" y="321">工作时使用的组合</text>
+<rect class="box" x="30" y="340" width="350" height="102" rx="8"/>
+<text class="h" x="48" y="369">部分撤回 / 替换组成</text>
+<text class="b" x="48" y="397">声明退出、保留与新增范围，</text><text class="b" x="48" y="423">再修订成果；旧版可查。</text>
+<rect class="box" x="400" y="340" width="350" height="102" rx="8"/>
+<text class="h" x="418" y="369">责任拆分</text>
+<text class="b" x="418" y="397">建立子工作并分配责任，</text><text class="b" x="418" y="423">父项保留未分配与整体验收。</text>
+<rect class="box" x="30" y="460" width="350" height="102" rx="8"/>
+<text class="h" x="48" y="489">接续重做 / 收束尝试</text>
+<text class="b" x="48" y="517">关闭旧尝试，建立新尝试，</text><text class="b" x="48" y="543">目标和历史成果继续保留。</text>
+<rect class="box" x="400" y="460" width="350" height="102" rx="8"/>
+<text class="h" x="418" y="489">引用复用 / 修正判断</text>
+<text class="b" x="418" y="517">引用准确成果和取用范围；</text><text class="b" x="418" y="543">新判断指回旧解释与新证据。</text>
+<path class="a" d="M390 569 V607"/>
+<rect class="box" x="30" y="622" width="720" height="185" rx="9"/>
+<text class="h" x="50" y="653">同一套组合，描述不同的 DSH 生长过程</text>
+<text class="b" x="50" y="688">Loader 局部撤回 · 聊天分项推进 · 消息反馈重做 UI</text>
+<text class="b" x="50" y="722">预设新旧版本共存 · Team / Schedule 共享入口与不同承诺</text>
+<text class="b" x="50" y="756">E2B 退出保留接口 · Windows 解释修正 · 会话与消息迁移</text>
+<text class="s" x="50" y="787">其余过程在工作台中按八条工作线定位，逐步展开与查证。</text>
+<text class="b" x="30" y="852">读回时检查：目标、实际变化、保留成果、原因、剩余责任和工作联系。</text>
+<text class="s" x="30" y="882">工作功能可先保留便利动作；后续按实际使用中的重复规则再收敛。</text>
+</svg>

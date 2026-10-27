@@ -80,6 +80,8 @@ def version(state, oid, revision=None):
     if revision is None:
         need(oid in state["objects"], "missing object " + oid)
         return deepcopy({"id": oid, **state["objects"][oid]})
+    need(isinstance(revision, int) and not isinstance(revision, bool) and revision > 0,
+         "revision must be a positive integer")
     value = known_versions(state).get((oid, revision))
     need(value is not None, f"missing object version {oid}@{revision}")
     return deepcopy({"id": oid, **value})
@@ -255,11 +257,13 @@ def execute_step(state, step, corpus_case):
                 "sources": fact["sources"], "domain": "source_record", "event_time": "as_stated_in_source_else_unknown",
                 "visibility": "controlled_local_order; retrospective_reports_keep_attribution"}})
         need(bool(commands), "step needs source facts")
-        result = apply_transaction(current, {"commands": commands, "provenance": provenance},
-                                   {c["target"]: "absent" for c in commands})
+        source_transaction = {"commands": commands, "provenance": provenance}
+        source_expected = {c["target"]: "absent" for c in commands}
+        result = apply_transaction(current, source_transaction, source_expected)
         need(result["status"] == "applied", str(result["errors"]))
         current = result["state"]
-        trace.append({"kind": "source_registration", "transaction": commands, "changes": result["changes"]})
+        trace.append({"kind": "source_registration", "transaction": source_transaction,
+                      "expected": source_expected, "changes": result["changes"]})
         for action in step["actions"]:
             packet = expand(current, action, provenance)
             result = apply_prepared(current, packet)
@@ -301,10 +305,30 @@ def run_case(case, corpus_case):
             "state": result["state"], "events": events, "fact_coverage": seen}
 
 
-def query(result, oid=None, revision=None):
+def state_at(result, step):
+    """Replay only saved transactions through a chosen local visibility point."""
+    state = deepcopy(result["initial_state"])
+    for event in result["events"]:
+        for trace in event["trace"]:
+            if trace["kind"] == "source_registration":
+                applied = apply_transaction(state, trace["transaction"], trace["expected"])
+            else:
+                applied = apply_prepared(state, trace["prepared"])
+            need(applied["status"] == "applied", str(applied["errors"]))
+            state = applied["state"]
+        if event["step"] == step:
+            return state
+    raise ExpressionError("unknown step " + step)
+
+
+def query(result, oid=None, revision=None, scope=None):
     state = result["state"]
     if oid:
         return version(state, oid, revision)
+    if scope:
+        resolved = resolve_adoptions(state)
+        need(not resolved["errors"], str(resolved["errors"]))
+        return {"scope": scope, **resolved["scopes"].get(scope, {"status": "unrecorded", "heads": []})}
     return {"id": result["id"], "objects": [{"id": k, **v} for k, v in state["objects"].items()
              if not k.startswith("fact/")], "adoptions": resolve_adoptions(state),
             "unknowns": [v["fields"]["result"] for k, v in state["objects"].items() if k.endswith(".GAP")]}
@@ -335,6 +359,11 @@ def build_all():
         shared_state["history"].extend(deepcopy(value["state"]["history"]))
     kinds = ["uses_contract", "constrains", "enables", "shared_mechanism", "requires_adaptation",
              "uses_contract", "depends_on", "contains", "contains"]
+    bases = [["T05.03", "T05.04", "T05.05"], ["T02.04"],
+             ["T04.01", "T04.02", "T04.03", "T04.04", "T04.05", "T08.02"],
+             ["T04.04", "T06.06"], ["T16.01", "T16.02", "T16.03", "T16.04", "T03.05"],
+             ["T09.04", "T09.05", "T15.01", "T15.02", "T15.03"], ["T13.05"], ["T03.06"],
+             ["T12.02", "T12.03", "T12.04", "T12.05", "T12.06"]]
     for index, item in enumerate(corpus["cross_links"]):
         refs = []
         for cid in item["endpoints"]:
@@ -342,22 +371,39 @@ def build_all():
             oid = cid + "/work"
             need(oid in state["objects"], "each case needs a work identity")
             refs.append({"id": oid, "revision": state["objects"][oid]["revision"]})
-        cross.append({**item, "relation": kinds[index], "record_endpoints": refs, "domain": "development_record_connection",
+        pairs = []
+        if len(item["endpoints"]) == 2:
+            pairs = [(refs[0], refs[1])]
+        else:
+            cid = item["endpoints"][0]
+            parent_id = "T03/rebuild" if cid == "T03" else cid + "/work"
+            parent = shared_state["objects"][parent_id]
+            parent_ref = {"id": parent_id, "revision": parent["revision"]}
+            child_refs = [{"id": oid, "revision": shared_state["objects"][oid]["revision"]}
+                          for oid in parent["fields"].get("allocations", {})]
+            need(bool(child_refs), "contains connection needs queryable child identities")
+            refs = [parent_ref] + child_refs
+            pairs = [(parent_ref, child) for child in child_refs]
+        cross.append({**item, "relation": kinds[index], "record_endpoints": refs,
+                      "evidence_facts": bases[index], "domain": "development_record_connection",
                       "interpretation": "meaning_as_stated; no_extra_causality"})
-        if len(refs) == 2:
-            oid = "cross/" + str(index + 1)
+        for part, (source_ref, target_ref) in enumerate(pairs):
+            oid = "cross/" + str(index + 1) + "/" + str(part + 1)
             tx = {"commands": [{"op": "create", "target": oid, "kind": "relation", "fields": {
-                "relation": kinds[index], "from": refs[0], "to": refs[1], "scope": item["meaning"],
-                "basis": item["basis"], "domain": "development_record_connection"}}],
+                "relation": kinds[index], "from": source_ref, "to": target_ref, "scope": item["meaning"],
+                "basis": item["basis"], "domain": "development_record_connection"},
+                "refs": [{"id": "fact/" + fid, "revision": 1} for fid in bases[index]]}],
                 "provenance": {"source": item["basis"], "actor": "researcher", "nature": "source_backed_connection"}}
             result = apply_transaction(shared_state, tx, {oid: "absent"})
             need(result["status"] == "applied", str(result["errors"]))
             shared_state = result["state"]
     return {"corpus": corpus, "cases": results, "coverage": rows, "cross_links": cross,
+            "gap_coverage": [{"id": cid + ".GAP", "record": "fact/" + cid + ".GAP",
+                              "actor": "researcher", "registered": "2026-10-20"} for cid in results],
             "state": shared_state, "difficulties": difficulties, "rules": "EXPRESSION.md", "schema": 1}
 
 
-def readback_view(result):
+def readback_view(result, connections=None):
     """Primary records for an independent reader; source prose lives in the evidence packet."""
     state = result["state"]
     return {"id": result["id"], "title": result["title"],
@@ -367,7 +413,7 @@ def readback_view(result):
                    "effects": [{"action": t["prepared"]["action"], "changes": t["changes"]}
                                for t in e["trace"] if t["kind"] == "composition"]} for e in result["events"]],
         "research_gap": state["objects"]["fact/" + result["id"] + ".GAP"]["fields"]["result"],
-        "questions": QUESTIONS}
+        "connections": deepcopy(connections or []), "questions": QUESTIONS}
 
 
 def timeline_markdown(result):
@@ -407,9 +453,14 @@ def main():
     build.add_argument("--out", required=True)
     check = sub.add_parser("case")
     check.add_argument("id")
-    check.add_argument("--object")
+    target = check.add_mutually_exclusive_group()
+    target.add_argument("--object")
     check.add_argument("--revision", type=int)
+    target.add_argument("--scope")
+    check.add_argument("--step")
     args = parser.parse_args()
+    if args.command == "case" and args.revision is not None and not args.object:
+        parser.error("--revision requires --object")
     if args.command == "build":
         out = Path(args.out)
         need(not out.exists(), "output must be a new directory")
@@ -426,7 +477,9 @@ def main():
         corpus = load_corpus()
         cases, _ = load_cases()
         result = run_case(cases[args.id], corpus["cases"][args.id])
-        print(json.dumps(query(result, args.object, args.revision), ensure_ascii=False, indent=2))
+        if args.step:
+            result = {**result, "state": state_at(result, args.step)}
+        print(json.dumps(query(result, args.object, args.revision, args.scope), ensure_ascii=False, indent=2))
 
 
 if __name__ == "__main__":
