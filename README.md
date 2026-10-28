@@ -2,11 +2,13 @@
 title: Agent 任务状态管理论文项目
 status: active
 created: 2026-10-09
-updated: 2026-10-27
+updated: 2026-10-28
 tags: [research, task-state, entrypoint]
 ---
 
 # Agent 任务状态管理论文项目
+
+2026-10-28：当前从开发对象及连续变化重新检验工作操作。四模型独立构思与来源裁定已完成，见[综合分析](docs/research/change-graph-task-state/operation-composition-review.md#2026-10-28对象与变化的四模型构思及裁定)。下列工作台继续承担历史查证；四入口定位为记录层接口，局部保留与连续拆分缺口进入下一轮检验。
 
 2026-10-27：已有[可运行工作台](tools/work-operation-checks/README.md)与[工作操作v0.5](docs/research/change-graph-task-state/work-operation-candidates-v0.5.md)。四个基本入口组合出八类工作功能，完整表达既有16段DSH过程，并提供逐步重放、历史查询和来源入口。[先看图与实际效果](docs/research/change-graph-task-state/dsh-work-history.md)。
 

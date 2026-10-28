@@ -25,6 +25,7 @@ supersedes:
 | 机制研究对象：DeepSeek Harness 会话演化 | active | [连续工程对象](research/change-graph-task-state/engineering-study-dsh-session.md) |
 | 工作操作候选 v0.5：基本入口、组合功能与执行规则 | active | [现行候选与完整去向](research/change-graph-task-state/work-operation-candidates-v0.5.md) |
 | 工作操作候选 v0.4：四个工作入口与组合规则 | archived | [历史筛选与完整去向](research/change-graph-task-state/work-operation-candidates-v0.4.md) |
+| 工作对象与操作筛选：四模型独立研究交接 | active | [统一要求、任务与产出；已完成](research/change-graph-task-state/object-operation-handoff-2026-10-28.md) |
 | 工作元操作筛选：逐步更新与候选裁定 | active | [独立更新实验与检查器](research/change-graph-task-state/operation-selection-review.md) |
 | 工作操作候选 v0.3：共同版本底座与七个语义入口 | archived | [现行三十项去向与规则取舍](research/change-graph-task-state/work-operation-candidates-v0.3.md) |
 | 工作转换检验：对象、效果与拒绝条件 | active | [三案例转换、探针及原型规格](research/change-graph-task-state/transition-rule-review.md) |

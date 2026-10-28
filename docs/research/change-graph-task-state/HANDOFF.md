@@ -2,11 +2,21 @@
 title: Agent 接手入口与当前执行状态
 status: active
 created: 2026-10-23
-updated: 2026-10-27
+updated: 2026-10-28
 tags: [research, operation-selection]
 ---
 
 # Agent 接手入口与当前执行状态
+
+## 2026-10-28 当前状态：对象与连续变化研究
+
+用户要求四模型协助构思，本轮已完成。先读[综合裁定](operation-composition-review.md#2026-10-28对象与变化的四模型构思及裁定)，任务材料与产出约定见[统一交接](object-operation-handoff-2026-10-28.md)。DeepSeek V4.1 Flash、HY4 Preview、GLM5.3、Kimi K3.1 Pro均通过CodeBuddy独立读取固定e15f6f4提交、请求effort=max，四任务completed，无重试。原答及任务ID、来源核对和Sol判断保存在本地artifacts/agent-task-state/maintenance/object-review-2026-10-28/。
+
+当前方向由用户明确：先确定开发对象，再由真实变化推导操作，保住整体意图、计划与小步实施的联系。四入口只作为现行记录器接口，不再宣称工作元操作已可靠筛选；v0.5是旧实现依据。parts保留与split连续一致性存在已复现缺口；revise可更新adoption本身只是别名问题，它仍执行scope和引用检查，不能称采用保护失效。
+
+本轮获得三种责任权威布局（父表/独立关系/子项）及Plan、Change的实际分歧。下一项研究是用相同小步变化和保留条件比较布局，随后用T03阶段计划检查Plan身份；不立即扩大系统或另造操作清单。尚未执行三布局比较，尚未修改原型。T14.02不能补成#2217之后的后端升级，T02规则不能补成实际holder事件。用户未授权新的模型批次，后续按明确任务控制调用。
+
+## 2026-10-27 历史交付记录
 
 先读[人类主成果](dsh-work-history.md)、[现行候选v0.5](work-operation-candidates-v0.5.md)，运行方式见[工具说明](../../../tools/work-operation-checks/README.md)。本轮已完成。实现阶段提交05c1f84、a44a401；收尾修正以当前研究分支HEAD为准。
 
