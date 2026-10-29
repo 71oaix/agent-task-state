@@ -10,13 +10,24 @@ KNOWN_BASIS = {x['id'] for x in FIXTURE['facts'] + FIXTURE['supplements']}
 ACTION_KEYS = {
     'goal': {'op','id','scope'}, 'begin': {'op','id','goal','scope','plan','location'},
     'plan': {'op','id','owner','sections','links'}, 'change_plan': {'op','id','edits','remove'},
-    'produce': {'op','id','attempt','parts','dimensions','location','nature'},
-    'end': {'op','id','outcome','remaining'}, 'advance_product': {'op','id','dimensions'},
+    'produce': {'op','id','attempt','parts','dimensions','location','nature','plan_scope'},
+    'adopt_plan': {'op','id','plan','scope','basis'},
+    'end': {'op','id','outcome','remaining'}, 'reopen': {'op','id'},
+    'advance_product': {'op','id','dimensions'},
     'withdraw_parts': {'op','id','parts'}, 'report': {'op','id','subject','scope','findings','nature'},
     'accept_goal': {'op','id','actor_role','actor','criteria','decision','evidence'},
     'responsibility_init': {'op','tokens','holders','unknown','owner'},
     'assign': {'op','token','to'}, 'transfer': {'op','token','from','to'},
-    'share': {'op','token','holders'}, 'unassign': {'op','token','from'}, 'unknown': {'op','token'}
+    'share': {'op','token','holders'}, 'unassign': {'op','token','from'}, 'unknown': {'op','token'},
+    'relate': {'op','id','kind','from','to','basis','nature','meaning'},
+    'register_items': {'op','items'}
+}
+DIMENSION_VALUES = {
+    'completion': {'unknown','not_started','incomplete','in_progress',
+                   'reported_migration_complete','reported_complete','complete'},
+    'implementation': {'unknown','not_started','reported_draft_written','reported_code_written',
+                       'reported_implemented','implemented'},
+    'git': {'unknown','not_started','unstaged','staged','reported_committed','committed'}
 }
 
 
@@ -28,7 +39,8 @@ def require(ok, message):
 def fresh(layout='parent', plans='independent'):
     require(layout in {'parent', 'relation', 'child'}, 'unknown responsibility layout')
     require(plans in {'independent', 'embedded'}, 'unknown plan placement')
-    return {'head': 0, 'layout': layout, 'plans': plans, 'objects': {}, 'versions': {}, 'changes': [], 'responsibility': None}
+    return {'head': 0, 'layout': layout, 'plans': plans, 'objects': {}, 'versions': {}, 'changes': [],
+            'relations': {}, 'items': {}, 'responsibility': None}
 
 
 def snapshot(state):
@@ -66,9 +78,140 @@ def version(state, oid, revision=None):
 
 
 def ref(state, value):
+    """A public reference must name one existing revision; None/bool/0 are not revisions."""
     require(isinstance(value, dict) and set(value) == {'id', 'revision'}, 'exact reference required')
+    require(isinstance(value['id'], str) and bool(value['id']), 'exact reference identity required')
+    require(type(value['revision']) is int and value['revision'] > 0, 'exact positive revision required')
     version(state, value['id'], value['revision'])
     return deepcopy(value)
+
+
+def _known_basis(values, label):
+    require(isinstance(values, list) and values and all(
+        isinstance(x, str) and (x in KNOWN_BASIS or x.startswith('SYN:')) for x in values), label)
+
+
+def goal_of(state, obj):
+    """Resolve the goal an object belongs to; evidence carries its goal from report time."""
+    if obj['kind'] == 'goal':
+        return obj['id']
+    if obj['kind'] == 'attempt':
+        return obj.get('goal')
+    if obj['kind'] == 'product':
+        attempt = state['objects'].get(obj.get('attempt'))
+        require(attempt is not None and attempt['kind'] == 'attempt', 'product attempt missing')
+        return attempt.get('goal')
+    if obj['kind'] == 'evidence':
+        return obj.get('goal')
+    return None
+
+
+def active_attempt(state, aid, label='attempt'):
+    obj = state['objects'].get(aid)
+    require(obj is not None and obj['kind'] == 'attempt', label + ' must reference an attempt')
+    require(obj['status'] == 'active', label + ' must be active')
+    return obj
+
+
+def plan_sections(state, attempt_id):
+    """Return the effective plan reference per section; later explicit adoption wins."""
+    attempt = state['objects'].get(attempt_id)
+    require(attempt is not None and attempt['kind'] == 'attempt', 'attempt required')
+    result = {}
+    for record in attempt.get('plan_adoptions', []):
+        for name in record['scope']:
+            result[name] = {'plan': deepcopy(record['plan']), 'change': record['change']}
+    return result
+
+
+def _plan_usage(state, attempt, requested):
+    """Resolve which plan revision each produced section used.
+
+    ``plan_usage`` is the only authority for actually used plan revisions.
+    Without ``plan_scope`` the legacy convention is the begin-time plan revision
+    for exactly its own sections, but only while the attempt has never explicitly
+    adopted another version.  Once an explicit adoption exists, omitting the
+    field would silently hide the choice and is rejected.
+    """
+    if requested is None:
+        explicit = [r for r in attempt.get('plan_adoptions', []) if r.get('origin') != 'begin']
+        require(not explicit, 'explicit plan scope required after explicit adoption')
+        begin = next((r for r in attempt.get('plan_adoptions', []) if r.get('origin') == 'begin'), None)
+        if begin is None:
+            return {'mode': 'legacy_initial_plan', 'scope': [], 'sections': {}}
+        sections = {name: {'plan': deepcopy(begin['plan']), 'change': begin['change']} for name in begin['scope']}
+        return {'mode': 'legacy_initial_plan', 'scope': list(begin['scope']), 'sections': sections}
+    require(isinstance(requested, list) and requested
+            and all(isinstance(x, str) and bool(x) for x in requested)
+            and len(set(requested)) == len(requested), 'explicit unique plan scope required')
+    effective = plan_sections(state, attempt['id'])
+    missing = [x for x in requested if x not in effective]
+    require(not missing, 'plan scope was not adopted: ' + ','.join(missing))
+    return {'mode': 'explicit_scope', 'scope': list(requested),
+            'sections': {name: deepcopy(effective[name]) for name in requested}}
+
+
+def _relation_endpoint(state, value, label):
+    """A relation endpoint is an existing object plus a precise scope inside it."""
+    require(isinstance(value, dict) and set(value) == {'object', 'scope'},
+            label + ' must be an object+scope endpoint')
+    require(isinstance(value['object'], str) and value['object'] in state['objects'],
+            label + ' object must exist')
+    require(isinstance(value['scope'], str) and value['scope'].strip(),
+            label + ' scope is required')
+    obj = state['objects'][value['object']]
+    if obj['kind'] == 'product':
+        require(value['scope'] in obj['parts'], label + ' scope must name a product part')
+    elif obj['kind'] == 'attempt':
+        require(value['scope'] in obj.get('scope', []), label + ' scope must be in the attempt scope')
+    else:
+        require(False, label + ' must be a product or attempt')
+    return deepcopy(value)
+
+
+def relations_for(state, oid, scope=None):
+    """Return typed relations touching one object(+scope), from either end."""
+    require(oid in state['objects'], 'unknown relation endpoint object')
+    require(scope is None or isinstance(scope, str) and bool(scope), 'relation scope filter')
+    rows = []
+    for rid, relation in sorted(state['relations'].items()):
+        for direction, near, far in (('outgoing', relation['from'], relation['to']),
+                                     ('incoming', relation['to'], relation['from'])):
+            if near['object'] == oid and (scope is None or near['scope'] == scope):
+                rows.append({'relation': rid, 'direction': direction, 'kind': relation['kind'],
+                             'from': deepcopy(relation['from']), 'to': deepcopy(relation['to']),
+                             'basis': deepcopy(relation['basis']), 'nature': relation['nature'],
+                             'other': deepcopy(far)})
+    return rows
+
+
+def relations_for_item(state, item_id):
+    """Resolve an S029 item to its product part and query both relation ends."""
+    require(item_id in state['items'], 'unknown item: ' + str(item_id))
+    item = state['items'][item_id]
+    endpoint = {'object': item['product'], 'scope': item['part']}
+    return {'item': item_id, 'endpoint': deepcopy(endpoint),
+            'relations': relations_for(state, endpoint['object'], endpoint['scope'])}
+
+
+def s029_items(state):
+    """Read the S029 item records together with their current product projection."""
+    rows = {}
+    for item_id, item in sorted(state['items'].items()):
+        product = state['objects'].get(item['product'])
+        require(product is not None and product['kind'] == 'product', 'item product missing: ' + item_id)
+        require(item['part'] in product['parts'], 'item part missing: ' + item_id)
+        row = deepcopy(item)
+        row['current'] = {
+            'product_revision': product['revision'],
+            'part_state': product['parts'][item['part']],
+            'dimensions': deepcopy(product['dimensions']),
+            'matches_source_status': all(product['dimensions'][name] == item['status'][name]
+                                         for name in ('completion', 'implementation', 'git', 'acceptance'))
+        }
+        rows[item_id] = row
+    return {'items': rows,
+            'note': 'item statuses are S029 records copied into this controlled study; current is the state projection, not independent verification'}
 
 
 def new_object(state, oid, kind, **fields):
@@ -104,7 +247,7 @@ def save_plan(state, plan, owner):
         host.setdefault('plan_records', {})[plan['id']] = deepcopy(plan)
 
 
-def _execute(state, action):
+def _execute(state, action, basis):
     """All public updates use this dispatcher; no generic patch is accepted."""
     op = action['op']
     require(op in ACTION_KEYS and set(action) <= ACTION_KEYS[op], 'unsupported operation or unexpected update fields')
@@ -114,12 +257,16 @@ def _execute(state, action):
         goal = state['objects'].get(action['goal'])
         require(goal is not None and goal['kind'] == 'goal', 'goal required')
         plan = None if action.get('plan') is None else ref(state, action['plan'])
+        adoptions = []
         if plan:
             plan_obj = version(state, plan['id'], plan['revision'])
             require(plan_obj['kind'] == 'plan', 'attempt requires plan')
             require(state['objects'][plan_obj['owner']]['goal'] == action['goal'], 'plan belongs to a different goal; explicit adaptation required')
+            adoptions = [{'plan': deepcopy(plan), 'scope': sorted(plan_obj['sections']),
+                          'basis': deepcopy(basis), 'change': state['head'] + 1, 'origin': 'begin'}]
         new_object(state, action['id'], 'attempt', goal=action['goal'], scope=action['scope'], plan=plan,
-                   status='active', outcome='unknown', location=action.get('location', 'unknown'))
+                   plan_adoptions=adoptions, status='active', outcome='unknown',
+                   location=action.get('location', 'unknown'))
     elif op == 'plan':
         require(action['id'] not in state['objects'], 'plan identity exists')
         try:
@@ -151,18 +298,46 @@ def _execute(state, action):
             plan['sections'][key] = deepcopy(value)
         plan['revision'] += 1
         save_plan(state, plan, plan['owner'])
+    elif op == 'adopt_plan':
+        attempt = active_attempt(state, action['id'])
+        plan = ref(state, action['plan'])
+        plan_obj = version(state, plan['id'], plan['revision'])
+        require(plan_obj['kind'] == 'plan', 'plan required')
+        require(state['objects'][plan_obj['owner']]['goal'] == attempt['goal'],
+                'plan belongs to a different goal; explicit adaptation required')
+        scope = action['scope']
+        require(isinstance(scope, list) and scope and all(isinstance(x, str) and bool(x) for x in scope)
+                and len(set(scope)) == len(scope), 'explicit unique adoption scope required')
+        require(set(scope) <= set(plan_obj['sections']), 'adoption scope must name sections of that plan revision')
+        _known_basis(action['basis'], 'known adoption basis required')
+        record = {'plan': plan, 'scope': sorted(scope), 'basis': deepcopy(action['basis']),
+                  'change': state['head'] + 1, 'origin': 'adopt_plan'}
+        obj = touch(state, action['id'], 'attempt')
+        obj.setdefault('plan_adoptions', []).append(record)
     elif op == 'produce':
-        attempt = state['objects'].get(action['attempt'])
-        require(attempt is not None and attempt['kind'] == 'attempt' and attempt['status'] == 'active', 'active attempt required')
+        attempt = active_attempt(state, action['attempt'])
         dimensions = action['dimensions']
-        require(set(dimensions) == {'completion', 'implementation', 'git', 'acceptance'}, 'four separate product dimensions required')
+        require(isinstance(dimensions, dict) and set(dimensions) == {'completion', 'implementation', 'git', 'acceptance'},
+                'four separate product dimensions required')
         require(dimensions['acceptance'] in {'pending', 'unknown'}, 'implementation cannot accept product')
-        new_object(state, action['id'], 'product', attempt=action['attempt'], plan=deepcopy(attempt['plan']),
-                   parts={p: 'present' for p in action['parts']}, dimensions=dimensions,
-                   location=action['location'], nature=action['nature'])
+        for name in ('completion', 'implementation', 'git'):
+            require(isinstance(dimensions[name], str) and dimensions[name] in DIMENSION_VALUES[name],
+                    'controlled dimension value required: ' + name)
+        usage = _plan_usage(state, attempt, action.get('plan_scope'))
+        initial_plan = deepcopy(attempt['plan'])
+        fields = {'attempt': action['attempt'], 'initial_plan': initial_plan, 'plan_usage': usage,
+                  'parts': {p: 'present' for p in action['parts']}, 'dimensions': dimensions,
+                  'location': action['location'], 'nature': action['nature']}
+        if action.get('plan_scope') is None:
+            # Compatibility projection for old callers that never name a scope.
+            # It is only written when it is equal to the actual (legacy) usage and
+            # is never an authority for an explicit partial adoption.
+            fields['plan'] = deepcopy(initial_plan)
+        new_object(state, action['id'], 'product', **fields)
     elif op == 'end':
         old = state['objects'].get(action['id'])
         require(old is not None and old['kind'] == 'attempt' and old['status'] == 'active', 'active attempt required')
+        require(action.get('remaining') in {None, 'retained_unresolved'}, 'remaining must be retained_unresolved when disclosed')
         if state['responsibility'] is not None:
             import t12_responsibility as responsibility
             outstanding = [t for t,v in responsibility.project(state['responsibility']).items() if action['id'] in v['holders']]
@@ -173,9 +348,20 @@ def _execute(state, action):
         obj['status'], obj['outcome'] = 'ended', action['outcome']
         if action.get('remaining'):
             obj['remaining_responsibility'] = action['remaining']
+    elif op == 'reopen':
+        old = state['objects'].get(action['id'])
+        require(old is not None and old['kind'] == 'attempt' and old['status'] == 'ended', 'ended attempt required')
+        obj = touch(state, action['id'], 'attempt')
+        obj.setdefault('reopen_history', []).append(
+            {'change': state['head'] + 1, 'prior_outcome': obj['outcome'],
+             'remaining': obj.get('remaining_responsibility')})
+        obj['status'], obj['outcome'] = 'active', 'unknown'
     elif op == 'advance_product':
         dimensions = action['dimensions']
-        require(isinstance(dimensions, dict) and dimensions and set(dimensions) <= {'completion','implementation','git'}, 'only explicit migration/implementation/git progress can advance product')
+        require(isinstance(dimensions, dict) and dimensions and set(dimensions) <= set(DIMENSION_VALUES), 'only explicit migration/implementation/git progress can advance product')
+        for name, value in dimensions.items():
+            require(isinstance(value, str) and value in DIMENSION_VALUES[name],
+                    'controlled dimension value required: ' + name)
         old = state['objects'].get(action['id'])
         require(old is not None and old['kind']=='product', 'product required')
         obj = touch(state, action['id'], 'product')
@@ -189,27 +375,103 @@ def _execute(state, action):
             obj['parts'][part] = 'withdrawn'
     elif op == 'report':
         subject = ref(state, action['subject'])
+        subject_obj = version(state, subject['id'], subject['revision'])
+        goal_id = goal_of(state, subject_obj)
+        require(goal_id in state['objects'] and state['objects'][goal_id]['kind'] == 'goal',
+                'report subject is not traceable to a goal')
+        require(isinstance(action['scope'], str) and action['scope'].strip(), 'report scope required')
         require(action['nature'] in {'author_report', 'documented', 'synthetic'}, 'report nature required')
-        new_object(state, action['id'], 'evidence', subject=subject, scope=action['scope'],
+        new_object(state, action['id'], 'evidence', subject=subject, goal=goal_id, scope=action['scope'],
                    findings=action['findings'], nature=action['nature'])
     elif op == 'accept_goal':
         require(action.get('actor_role') == 'acceptor' and action.get('criteria') and action.get('decision') == 'accept', 'explicit acceptance authority and criteria required')
         require(action.get('evidence'), 'acceptance evidence required')
+        require(state['objects'].get(action['id'], {}).get('kind') == 'goal', 'goal required')
         for item in action['evidence']:
-            ref(state, item)
+            item = ref(state, item)
+            evidence = version(state, item['id'], item['revision'])
+            require(evidence['kind'] == 'evidence', 'acceptance evidence must be an evidence object')
+            require(evidence.get('goal') == action['id'], 'acceptance evidence belongs to a different goal')
+            require(isinstance(evidence.get('scope'), str) and evidence['scope'].strip(),
+                    'acceptance evidence scope required')
+            subject = evidence['subject']
+            subject_obj = version(state, subject['id'], subject['revision'])
+            require(subject_obj['kind'] in {'attempt', 'product'}, 'acceptance subject must be an attempt or product')
+            require(goal_of(state, subject_obj) == action['id'],
+                    'acceptance subject is not traceable to this goal')
         obj = touch(state, action['id'], 'goal')
         obj['acceptance'] = 'accepted'
         obj['decision'] = {'actor': action['actor'], 'criteria': action['criteria'], 'evidence': deepcopy(action['evidence'])}
+    elif op == 'relate':
+        require(action['id'] not in state['relations'], 'relation identity exists')
+        require(action['kind'] == 'product_requirement', 'only a documented product requirement is supported')
+        source = _relation_endpoint(state, action['from'], 'from')
+        target = _relation_endpoint(state, action['to'], 'to')
+        require(source != target, 'relation endpoints must differ')
+        _known_basis(action['basis'], 'known relation basis required')
+        require(action['nature'] == 'documented_requirement', 'relation nature must retain documented_requirement')
+        require('meaning' not in action or isinstance(action['meaning'], str) and action['meaning'].strip(),
+                'relation meaning must be text when supplied')
+        record = {'id': action['id'], 'kind': action['kind'], 'from': source, 'to': target,
+                  'basis': deepcopy(action['basis']), 'nature': action['nature']}
+        if 'meaning' in action:
+            record['meaning'] = action['meaning']
+        state['relations'][action['id']] = record
+    elif op == 'register_items':
+        require(not state['items'], 'item records already registered')
+        require(isinstance(action['items'], list) and action['items'], 'nonempty item records required')
+        registered = {}
+        for item in action['items']:
+            require(isinstance(item, dict), 'item structure')
+            required = {'id', 'label', 'source', 'nature', 'product', 'part', 'scope', 'source_status', 'status'}
+            require(required <= set(item) and set(item) <= required | {'reuse'}, 'item fields')
+            item_id = item['id']
+            require(isinstance(item_id, str) and bool(item_id) and item_id not in registered,
+                    'unique item identity required')
+            require(item['source'] in FIXTURE['sources'], 'known item source required')
+            require(isinstance(item['label'], str) and item['label'].strip(), 'item label required')
+            require(isinstance(item['scope'], str) and item['scope'].strip(), 'item scope required')
+            require(isinstance(item['nature'], str) and item['nature'].strip(), 'item nature required')
+            require(isinstance(item['source_status'], str) and item['source_status'].strip(),
+                    'source status text required')
+            product = state['objects'].get(item['product'])
+            require(product is not None and product['kind'] == 'product', 'item product required')
+            require(item['part'] in product['parts'], 'item part must exist on its product')
+            status = item['status']
+            require(isinstance(status, dict) and set(status) == {'completion', 'implementation', 'git', 'acceptance'},
+                    'item status must keep four separate dimensions')
+            for name in ('completion', 'implementation', 'git', 'acceptance'):
+                require(status[name] == product['dimensions'][name],
+                        'item status must agree with the current product dimension: ' + name)
+            if 'reuse' in item:
+                reuse = item['reuse']
+                require(isinstance(reuse, dict) and set(reuse) == {'kind', 'symbol', 'source', 'basis', 'nature'},
+                        'reuse record fields')
+                require(isinstance(reuse['symbol'], str) and reuse['symbol'].strip(), 'reuse symbol required')
+                require(isinstance(reuse['kind'], str) and reuse['kind'].strip(), 'reuse kind required')
+                require(isinstance(reuse['source'], str) and reuse['source'].strip(), 'reuse source required')
+                require(isinstance(reuse['nature'], str) and reuse['nature'].strip(), 'reuse nature required')
+                _known_basis([reuse['basis']], 'known reuse basis required')
+            registered[item_id] = deepcopy(item)
+        state['items'] = registered
     elif op in {'responsibility_init', 'assign', 'transfer', 'share', 'unassign', 'unknown'}:
         import t12_responsibility as responsibility
         if op == 'responsibility_init':
             require(state['responsibility'] is None, 'responsibility already initialized')
             require(action['owner'] in state['objects'] and state['objects'][action['owner']]['kind']=='attempt', 'parent responsibility owner required')
-            require(all(h in state['objects'] and state['objects'][h]['kind'] == 'attempt' for h in action['holders']), 'responsibility holder must reference an attempt')
+            for holder in action['holders']:
+                active_attempt(state, holder, 'responsibility holder')
             state['responsibility'] = responsibility.new(state['layout'], action['tokens'], action['holders'], unknown=action.get('unknown', True))
             state['responsibility']['owner'] = action['owner']
         else:
             require(state['responsibility'] is not None, 'responsibility missing')
+            if op in {'assign', 'transfer'}:
+                active_attempt(state, action['to'], 'new responsibility holder')
+            elif op == 'share':
+                current = responsibility.project(state['responsibility'])[action['token']]['holders']
+                for holder in action['holders']:
+                    if holder not in current:
+                        active_attempt(state, holder, 'new responsibility holder')
             result = responsibility.apply(state['responsibility'], action, state['responsibility']['revision'])
             require(result['status'] == 'applied', result.get('error', 'responsibility rejected'))
             state['responsibility'] = result['state']
@@ -241,7 +503,7 @@ def apply(state, actions, expected, basis, nature='synthetic'):
         require(nature != 'source_record' or all(x in KNOWN_BASIS for x in basis), 'synthetic basis is not history')
         for action in actions:
             require(isinstance(action, dict), 'action structure')
-            _execute(work, action)
+            _execute(work, action, basis)
         before = snapshot(state)
         work['head'] += 1
         after = snapshot(work)
@@ -292,13 +554,21 @@ def real_path(layout='parent', plans='independent'):
             reference='original PR retained as reference; experiments not automatically transferred'),
          'links':[{'kind':'historical_reference','target':actual_ref(s,'batch')}] },
         {'op':'begin','id':'independent','goal':'goal','scope':['completed independent feature scope; exact original feature allocation unknown'],'plan':{'id':'migration-plan','revision':1},'location':'presentation channel'},
-        {'op':'begin','id':'turnstep','goal':'goal','scope':['remaining unfinished scope; exact original feature allocation unknown'],'plan':{'id':'migration-plan','revision':1},'location':'turnstep worktree'},
+        {'op':'begin','id':'turnstep','goal':'goal','scope':['remaining unfinished scope; exact original feature allocation unknown','Turn starts and Inbox claims'],'plan':{'id':'migration-plan','revision':1},'location':'turnstep worktree'},
         {'op':'responsibility_init','owner':'migration','tokens':FIXTURE['feature_families'],'holders':['independent','turnstep'],'unknown':True}])
     step('T12.04', [
-        {'op':'produce','id':'independent-code','attempt':'independent','parts':['visual','summary','filter'],
+        {'op':'produce','id':'independent-code','attempt':'independent',
+         'parts':['visual','summary','filter','1_chinese_tool_titles','2_tool_row_visuals',
+                  '3_bash_stopped_sr_text','4A_text_shimmer','4B_memoization_reference_stability',
+                  '5_streaming_reasoning_summary','9_permission_system_hiding'],
          'dimensions':{'completion':'reported_migration_complete','implementation':'reported_code_written','git':'reported_committed','acceptance':'pending'},'location':'presentation channel','nature':'documented'},
-        {'op':'produce','id':'draft-code','attempt':'turnstep','parts':['whole-Turn status','notifications','other unspecified behavior'],
-         'dimensions':{'completion':'incomplete','implementation':'reported_draft_written','git':'unstaged','acceptance':'pending'},'location':'turnstep worktree','nature':'documented'}])
+        {'op':'produce','id':'draft-code','attempt':'turnstep',
+         'parts':['whole-Turn status','notifications','other unspecified behavior',
+                  '6_keep_open_after_cancel_failure','7_whole_turn_status_duration',
+                  '8_trigger_notifications','9_context_hiding',
+                  '10_turn_action_bar_position','11_action_bar_persistent_visibility'],
+         'dimensions':{'completion':'incomplete','implementation':'reported_draft_written','git':'unstaged','acceptance':'pending'},'location':'turnstep worktree','nature':'documented'},
+        {'op':'register_items','items':FIXTURE['s029_items']}])
     step('T12.05', [
         {'op':'begin','id':'grouping','goal':'goal','scope':['grouping foundation and remaining product integration'],'location':'source documents; exact worktree unknown'},
         {'op':'produce','id':'group-foundation','attempt':'grouping','parts':['Definition-owned grouping foundation'],
@@ -307,6 +577,8 @@ def real_path(layout='parent', plans='independent'):
     step('T12.06', [
         {'op':'report','id':'channel-checks','subject':actual_ref(s,'independent'),'scope':'presentation channel; not turnstep worktree',
          'findings':['build/lint/coverage author-reported pass','real-model GUI demo and performance pending'],'nature':'author_report'}])
+    step('S029.dependency', [
+        {**relation, 'op':'relate'} for relation in FIXTURE['s029_dependencies']])
     step('S028.partial_replacement', [
         {'op':'plan','id':'architecture','owner':'migration','sections':sections(
             presentation='presentation policy and per-Turn eligibility rationale retained',
@@ -318,11 +590,23 @@ def real_path(layout='parent', plans='independent'):
 
 def readback(state):
     objects = deepcopy(state['objects'])
-    plans = {pid: current_plan(state, pid) for pid in ['migration-plan','architecture']}
+    plan_ids = sorted({oid for oid, obj in state['objects'].items() if obj['kind'] == 'plan'} |
+                      {pid for obj in state['objects'].values() for pid in obj.get('plan_records', {})})
+    plans = {pid: current_plan(state, pid) for pid in plan_ids}
     if state['plans'] == 'embedded':
         for obj in objects.values():
             obj.pop('plan_records', None)
     import t12_responsibility as responsibility
+    relation_index = {}
+    for rid, relation in sorted(state['relations'].items()):
+        for side, direction in (('from', 'outgoing'), ('to', 'incoming')):
+            endpoint = relation[side]
+            key = endpoint['object'] + '::' + endpoint['scope']
+            other = relation['to' if side == 'from' else 'from']
+            relation_index.setdefault(key, []).append(
+                {'relation': rid, 'direction': direction, 'other': deepcopy(other)})
+    item_view = s029_items(state) if state['items'] else {
+        'items': {}, 'note': 'no S029 item records registered in this state'}
     return {'objects': objects, 'plan_records': plans, 'responsibility_view': responsibility.project(state['responsibility']), 'history': [
         {'number': c['number'], 'basis': c['basis'], 'nature': c['nature'], 'actions': c['actions']}
         for c in state['changes']], 'unknowns': FIXTURE['unknowns'],
@@ -330,10 +614,23 @@ def readback(state):
         'source_index': deepcopy(FIXTURE['sources']),
         'fact_index': {f['id']:[sid for sid in FIXTURE['sources'] if sid in f['source']] for f in FIXTURE['facts'] + FIXTURE['supplements']},
         'plan_usage': {oid: deepcopy(obj['plan']) for oid,obj in objects.items() if obj['kind']=='attempt'},
+        'attempt_initial_plan': {oid: deepcopy(obj['plan']) for oid,obj in objects.items() if obj['kind']=='attempt'},
+        'plan_adoptions': {oid: deepcopy(obj.get('plan_adoptions', [])) for oid,obj in objects.items() if obj['kind']=='attempt'},
+        'adopted_plan_sections': {oid: plan_sections(state, oid) for oid,obj in state['objects'].items() if obj['kind']=='attempt'},
+        'product_plan_usage': {oid: deepcopy(obj.get('plan_usage')) for oid,obj in objects.items() if obj['kind']=='product'},
+        'product_initial_plan': {oid: deepcopy(obj.get('initial_plan')) for oid,obj in objects.items() if obj['kind']=='product'},
+        'product_legacy_plan_projection': {oid: deepcopy(obj['plan']) for oid,obj in objects.items() if obj['kind']=='product' and 'plan' in obj},
         'historical_plans': {oid+'@'+rev: deepcopy(obj) for oid,versions in state['versions'].items() for rev,obj in versions.items() if obj['kind']=='plan'},
+        'items': item_view, 'relations': deepcopy(state['relations']), 'relation_index': relation_index,
         'reading_rules': ['unknown ownership may become known after new supporting evidence; it is not permanently forbidden',
                           'real-model GUI is not synonymous with real-device GUI',
-                          'basis identifiers provide traceability, not automatic proof of semantic support']}
+                          'basis identifiers provide traceability, not automatic proof of semantic support',
+                          'product_plan_usage is the only authority for plan revisions actually used; product_initial_plan is the begin-time reference',
+                          'a legacy product plan field appears only when no explicit plan scope was used; it is a compatibility projection, not an adoption authority',
+                          'after an explicit adoption, a product must name plan_scope; continue an older revision by explicitly adopting it again',
+                          'a typed relation is a product requirement; it does not mean either endpoint is complete, handed over, or accepted',
+                          'S029 item statuses are source records; current product dimensions are a state projection, not independent verification',
+                          'same-goal evidence, nonempty scope and explicit criteria make an acceptance structurally reviewable; the checker does not judge natural-language truth or semantic sufficiency']}
 
 
 def synthetic_path(layout):

@@ -8,17 +8,39 @@ tags: [research, operation-selection]
 
 # Agent 接手入口与当前执行状态
 
-## 2026-10-29 当前状态：T12对象比较已完成
+## 2026-10-29 当前状态：2a2核心裁定与core-v1
 
-本轮批准计划已完成到完整路径、对象图、可执行比较、独立读回与推荐。先读[T12对象研究](t12-object-study.md)，细节在[组合研究](operation-composition-review.md)。阶段提交4901ed9固定路径与骨架，358d92a保存三布局与计划对照；收尾提交从当前HEAD核对。
+**本切片结论：**第2a2切片已完成：按Astra裁定修正Plan实际采用权威、显式采用后的scope要求、同Goal Evidence边界、Kimi审阅表述与模型调用口径；把S029 item状态、工作范围、部分复用和9context→8→Turn inputs依赖写入可查询状态；新增`t12_continuous.py`导出函数与`test_t12_export.py`实际调用，首次建立`artifacts/agent-task-state/maintenance/t12-continuous-validation-2026-10-29/core-v1`。四身份替代、其余15段和最终推荐未做，不能称研究全部完成。
 
-推荐逻辑对象Goal/Plan/Attempt/Product/Evidence，Change记录转换。单父范围先选parent责任权威；relation/child备选保持。Plan独立版与可寻址内嵌版均保留旧引用，不声称顶层Plan为唯一正确形式。旧四入口不等本轮工作操作结论。新增实验在Agent任务状态管理/tools/work-operation-checks/t12_study.py和t12_responsibility.py，原checker/workbench和旧案例未修改。
+**核心裁定：**见同目录`core-adjudication.md`。`product.plan_usage`是唯一实际采用权威；有显式采用后`produce`省略`plan_scope`必须拒绝，继续旧版须显式`adopt_plan(旧版本, scope)`；同Goal关联不等于Evidence语义充分，检查器不判自然语言真实性；`stage1-adjudication.md`的Kimi“只在未决争议时”表述不代表Astra裁定，批准要求是最终固定一次审阅冻结候选/对照/反例，旧稿保留；DS本身即模型调用，token/费用回执未知，按未知记录，不记为零。
 
-已执行六事实与源补充重放、三布局同序列、两计划布局、合法/非法更新及整批失败回退。完整回归77项通过。输出当前交付目录从本批manifest确认，使用新目录复现，勿覆盖comparison-v1/delivery-v1。所有记录版不是上游版本；active只表示记录生命周期；六类精确分配unknown保持。报告与状态真实性另做来源审阅，不因basisID合法认定工程判断正确。
+**S029映射：**1-5与9 permission/system完成/写码/提交；6、7、8、9context、10、11未完成草稿且在turnstep；第5项保留原PR `latestCompletedParagraphFirstLine`；4A/4B分开可查。`draft-code::9_context_hiding`依赖`draft-code::8_trigger_notifications`，后者依赖`turnstep::Turn starts and Inbox claims`；端点、basis、nature可双向查询，关系不代表完成、转交或验收。
+
+**证据与验证：**`python -m unittest discover -s Agent任务状态管理/tools/work-operation-checks -v`实际运行：首次97项中1 failure、1 error（测试查询形状与合成链readback），修正后97项全部通过；旧86项语义保持，新增11项。`core-v1`由`test_t12_export.py`实际调用`export_core`建立，含trace/checks/readback/operations/manifest；本切片未执行CLI，复现须另给新目录。首次运行已生成core-v1，后续运行只做内存重建一致性校验，不覆盖。
+
+**基线与权限：**基线`4433b09490daf7ce05b344bfd8092982f9025fc8`，分支`codex/task-state-activity-research`；本切片未运行Git、目录shell或网络，未提交、推送或合并，只改任务白名单文件。
+
+**模型与费用：**本切片由DeepSeek执行，DeepSeek本身就是模型调用；token与费用回执未知，按未知记录，不记为零；未运行付费效果实验。Astra独立核查fe00b704的原始工具事件为3次unittest、首次1失败1错误、之后86测试通过、无拒绝工具；该核查与本切片的97项运行是两份证据，不互相替代。
+
+**范围限制：**四组身份替代、其余15段逐段核查和最终对象推荐仍未执行；`core-v1`只证明本切片的结构规则、S029映射和导出链可运行，不证明五类对象边界已最终成立。
+
+### 2026-10-29 第2a1切片：公共引用/采用/生命周期/验收规则
+
+本切片只实现`t12_study.py`的公共规则与`test_t12_continuous.py`控制链，未做四身份替代、图示、其余15段或大实验输出。`ref`只接受现存的正整数revision，拒绝None/bool/0/不存在版本；`version(state,id)`查询当前仍可用。`begin(plan)`兼容为全section初始采用；新增`adopt_plan`按section显式采用确切Plan版本并记录basis与Change号；`change_plan`不自动采用；`produce`的`plan_scope`记录实际使用的scope/版本，缺省时按begin版本解释，旧Product与旧报告不变（2a2已收紧：一旦存在显式采用，缺省`plan_scope`拒绝）。`end`要求`retained_unresolved`，新增`reopen`；三布局的assign/transfer/share新接收者必须active，从ended转出合法。`advance_product`值域受控但允许合法回退；`accept_goal`要求Evidence、非空scope且subject可追踪到同一Goal，拒绝Goal/Product自证与其他目标报告。完整控制链在两种Plan存放方式下运行，批次失败整体回退。
+
+验证：`python -m unittest discover -s Agent任务状态管理/tools/work-operation-checks -v`，86项通过（原77+新9）。本切片由DS执行，DS本身即模型调用；token/费用回执未知，按未知记录，不记为零；未运行付费实验。实际变更与下一缺口见同目录`core-rules-review.md`；失败任务记录见同目录`failed-bc01f64e.json`。
+
+### 上一阶段：T12对象方案首轮比较（2026-10-29）
+
+上一轮批准计划已完成到完整路径、对象图、可执行比较、独立读回与推荐。先读[T12对象研究](t12-object-study.md)，细节在[组合研究](operation-composition-review.md)。阶段提交4901ed9固定路径与骨架，358d92a保存三布局与计划对照；收尾提交从当前HEAD核对。
+
+推荐逻辑对象Goal/Plan/Attempt/Product/Evidence，Change记录转换；这是起点，不是对四个身份选择的最终裁定。单父范围先选parent责任权威；relation/child备选保持。Plan独立版与可寻址内嵌版均保留旧引用，不声称顶层Plan为唯一正确形式；旧引用保留不等同于“原Attempt采用新版”的路径已经成立。旧四入口不等本轮工作操作结论。新增实验在Agent任务状态管理/tools/work-operation-checks/t12_study.py和t12_responsibility.py，原checker/workbench和旧案例未修改。
+
+已执行六事实与源补充重放、三布局同序列、两计划布局、合法/非法更新及整批失败回退。完整回归77项通过；该77项覆盖旧路径，不覆盖本轮列出的六组已测故障。输出当前交付目录从本批manifest确认，使用新目录复现，勿覆盖comparison-v1/delivery-v1。所有记录版不是上游版本；active只表示记录生命周期；六类初始范围到原PR逐hunk的精确分配仍为unknown，S029的item级状态和部分复用是已知事实，不能一并抹为unknown。报告与状态真实性另做来源审阅，不因basisID合法认定工程判断正确。
 
 7个CodeBuddy任务已终止，6个有实质输出，HY第一次审查只有准备阅读一句，已用一个有界补充处理。DS在独立worker中只改两白名单文件，原稿已保留；Sol核对并集成。GLM仅凭冻结输入读回，不访问工具/底稿；旧版Q3计划引用遗漏和GUI措辞差异已裁定，索引修正仅本地验证。Kimi未调用。原始材料、任务ID、预期、读回与裁定均在本工作树artifacts/agent-task-state/maintenance/t12-object-study-2026-10-29/。
 
-下一项工作：在本方案下登记新的真实小步变化，检验对象边界、剩余责任和计划关联的使用负担，再定向跨过程检查。没有授权新的模型批次、数据库迁移、DSH运行或付费效果实验。研究仍在codex/task-state-activity-research，worker工作树仅保留原始模型实现，不作接手入口。
+上一轮原定下一项工作：在本方案下登记新的真实小步变化，检验对象边界、剩余责任和计划关联的使用负担，再定向跨过程检查。该安排已由后续2a1/2a2切片接替，旧记录保留。没有授权新的模型批次、数据库迁移、DSH运行或付费效果实验。研究仍在codex/task-state-activity-research，worker工作树仅保留原始模型实现，不作接手入口。
 
 ## 2026-10-28 历史状态：对象与连续变化研究
 

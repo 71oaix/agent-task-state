@@ -6,14 +6,19 @@
 
 ```powershell
 python Agent任务状态管理/tools/work-operation-checks/t12_study.py --out artifacts/agent-task-state/maintenance/t12-new-run
+python Agent任务状态管理/tools/work-operation-checks/t12_continuous.py --out artifacts/agent-task-state/maintenance/t12-continuous-new
 python -m unittest discover -s Agent任务状态管理/tools/work-operation-checks -v
 ```
 
 输出目录必须新建。parent-real.json、relation-real.json、child-real.json保存六事实及同源补充的可重放状态；comparison.json含真实路径与明确标注的合成连续变化；readback.json为脱离聊天的接手表示，含版本来源入口。记录修订号不是上游发布版本，active仅表示研究记录生命周期。
 
-实验接口为fresh、apply(state, actions, expected, basis, nature)、at、version、readback、comparison。apply只接受类型化动作，成功给新状态/实际变化，失败给原状态副本。前版检查目前使用整个实验状态的head，不据此声称支持不同对象的并行合并。
+`t12_continuous.py`另行导出trace/checks/readback/operations/manifest：trace分开保存T12历史锚点与单独synthetic续接，逐步给出动作、basis、nature、before/after、changed paths和精确旧引用；checks保存正负输入与实际输出/错误；readback只给当前/历史/操作/来源入口，不含truth、答案或推荐；manifest声明生成来源、版本历史与合成边界。本批`core-v1`由`test_t12_export.py`在unittest中实际调用`export_core`建立，不是CLI运行结果；重复运行只做内存重建一致性校验，不覆盖已有目录。复现CLI必须另给新目录。
 
-责任模块new/project/apply分别构造、只读投影和更新三布局；声明过的token范围不等完整需求。Plan内嵌方案仍保留可寻址身份与旧版本，它不是无历史的弱基线。合成验收检查显式决定的登记规则，不验证操作者真实权限。
+实际所用计划只读`product.plan_usage`：单一scope显示该版本，混合scope逐section显示；`initial_plan`只是begin时引用。存在显式采用后，`produce`省略`plan_scope`会被拒绝；继续旧版须显式`adopt_plan(旧版本, scope)`。S029 item状态、4A/4B、第5项复用和9context↔8↔Turn inputs依赖均可查询；关系是产品要求，不代表完成或验收。
+
+实验接口为fresh、apply(state, actions, expected, basis, nature)、at、version、readback、comparison、relations_for、relations_for_item、s029_items。apply只接受类型化动作，成功给新状态/实际变化，失败给原状态副本。前版检查目前使用整个实验状态的head，不据此声称支持不同对象的并行合并。
+
+责任模块new/project/apply分别构造、只读投影和更新三布局；声明过的token范围不等完整需求。Plan内嵌方案仍保留可寻址身份与旧版本，它不是无历史的弱基线。合成验收检查显式决定的登记规则，不验证操作者真实权限，也不判断自然语言真实性。
 
 在原有版本检查器上，新增可执行组合、指定版本查询和 DSH 过程阅读器。选择一段过程，可以看见来源事实、展开的基本操作、前后版本及未完成责任。
 

@@ -8,7 +8,7 @@ tags: [research, task-state, entrypoint]
 
 # Agent 任务状态管理论文项目
 
-2026-10-29：[T12完整路径与对象比较](docs/research/change-graph-task-state/t12-object-study.md)已完成，含路径/对象图及可执行检验。当前推荐五类逻辑对象，责任先用父表，计划保留身份与版本；三种责任布局和两种计划存放方式均有实际对照。研究依据与独立读回差异见[组合研究](docs/research/change-graph-task-state/operation-composition-review.md)。
+2026-10-29：[T12首轮对象与责任比较](docs/research/change-graph-task-state/t12-object-study.md)已完成，但范围限于三种责任布局和两种Plan存放；五类对象的共同身份边界尚未比较。当前保留Goal/Plan/Attempt/Product/Evidence为起点，责任先用父表，计划保留身份与版本；旧结果继续有效，但不再作为五对象边界已成立的证据。已测故障与下一轮单变量协议见`artifacts/agent-task-state/maintenance/t12-continuous-validation-2026-10-29/protocol.md`和`stage-1-review.md`。研究依据与独立读回差异见[组合研究](docs/research/change-graph-task-state/operation-composition-review.md)。
 
 2026-10-28：当前从开发对象及连续变化重新检验工作操作。四模型独立构思与来源裁定已完成，见[综合分析](docs/research/change-graph-task-state/operation-composition-review.md#2026-10-28对象与变化的四模型构思及裁定)。下列工作台继续承担历史查证；四入口定位为记录层接口，局部保留与连续拆分缺口进入下一轮检验。
 
