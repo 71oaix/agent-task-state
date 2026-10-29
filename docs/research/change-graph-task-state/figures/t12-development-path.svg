@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="780" height="1050" viewBox="0 0 780 1050"><rect width="780" height="1050" fill="#f7faff"/>
+<text x="32" y="49" font-family="Microsoft YaHei,sans-serif" font-size="25" fill="#18344d">T12：目标继续，实施路线分开推进</text>
+<text x="32" y="82" font-family="Microsoft YaHei,sans-serif" font-size="16" fill="#18344d">连接表示来源明确的安排与保留；材料包含回顾性记录。</text>
+<rect x="110" y="110" width="560" height="96" rx="12" fill="#e8f1fc" stroke="#356b9d" stroke-width="2"/>
+<text x="124" y="141" font-family="Microsoft YaHei,sans-serif" font-size="18" fill="#18344d">原始范围：聊天展示与过程分组</text>
+<text x="124" y="168" font-family="Microsoft YaHei,sans-serif" font-size="18" fill="#18344d">六类功能进入 PR #4565；完整验收规格未披露</text>
+<text x="124" y="195" font-family="Microsoft YaHei,sans-serif" font-size="18" fill="#18344d">来源 T12.01</text>
+<polyline points="390,206 390,240" fill="none" stroke="#356b9d" stroke-width="3"/>
+<polygon points="390,240 384,230 396,230" fill="#356b9d"/>
+<rect x="110" y="240" width="560" height="96" rx="12" fill="#ffffff" stroke="#356b9d" stroke-width="2"/>
+<text x="124" y="271" font-family="Microsoft YaHei,sans-serif" font-size="18" fill="#18344d">整批尝试：作者报告合并后因性能回退</text>
+<text x="124" y="298" font-family="Microsoft YaHei,sans-serif" font-size="18" fill="#18344d">既有基准未覆盖流式分组和重渲染热路径</text>
+<text x="124" y="325" font-family="Microsoft YaHei,sans-serif" font-size="18" fill="#18344d">原需求与原 PR 参考仍保留｜T12.02</text>
+<polyline points="390,336 390,370" fill="none" stroke="#356b9d" stroke-width="3"/>
+<polygon points="390,370 384,360 396,360" fill="#356b9d"/>
+<rect x="110" y="370" width="560" height="96" rx="12" fill="#e8f1fc" stroke="#356b9d" stroke-width="2"/>
+<text x="124" y="401" font-family="Microsoft YaHei,sans-serif" font-size="18" fill="#18344d">调整安排：独立功能与后续分组分别推进</text>
+<text x="124" y="428" font-family="Microsoft YaHei,sans-serif" font-size="18" fill="#18344d">迁移进度笔记与架构提案各自保存</text>
+<text x="124" y="455" font-family="Microsoft YaHei,sans-serif" font-size="18" fill="#18344d">来源 T12.03；S029 / S028</text>
+<polyline points="390,466 390,495 145,495 145,530" fill="none" stroke="#356b9d" stroke-width="3"/>
+<polygon points="145,530 139,520 151,520" fill="#356b9d"/>
+<polyline points="390,495 390,530" fill="none" stroke="#356b9d" stroke-width="3"/>
+<polygon points="390,530 384,520 396,520" fill="#356b9d"/>
+<polyline points="390,495 635,495 635,530" fill="none" stroke="#356b9d" stroke-width="3"/>
+<polygon points="635,530 629,520 641,520" fill="#356b9d"/>
+<rect x="35" y="530" width="220" height="150" rx="12" fill="#ffffff" stroke="#356b9d" stroke-width="2"/>
+<text x="49" y="561" font-family="Microsoft YaHei,sans-serif" font-size="18" fill="#18344d">独立功能</text>
+<text x="49" y="588" font-family="Microsoft YaHei,sans-serif" font-size="18" fill="#18344d">视觉、摘要、过滤</text>
+<text x="49" y="615" font-family="Microsoft YaHei,sans-serif" font-size="18" fill="#18344d">有提交记录</text>
+<text x="49" y="642" font-family="Microsoft YaHei,sans-serif" font-size="18" fill="#18344d">留 presentation</text>
+<text x="49" y="669" font-family="Microsoft YaHei,sans-serif" font-size="18" fill="#18344d">T12.04</text>
+<rect x="280" y="530" width="220" height="150" rx="12" fill="#ffffff" stroke="#356b9d" stroke-width="2"/>
+<text x="294" y="561" font-family="Microsoft YaHei,sans-serif" font-size="18" fill="#18344d">未完成部分</text>
+<text x="294" y="588" font-family="Microsoft YaHei,sans-serif" font-size="18" fill="#18344d">整轮状态、通知等</text>
+<text x="294" y="615" font-family="Microsoft YaHei,sans-serif" font-size="18" fill="#18344d">含未暂存草稿</text>
+<text x="294" y="642" font-family="Microsoft YaHei,sans-serif" font-size="18" fill="#18344d">留 turnstep</text>
+<text x="294" y="669" font-family="Microsoft YaHei,sans-serif" font-size="18" fill="#18344d">T12.04</text>
+<rect x="525" y="530" width="220" height="150" rx="12" fill="#ffffff" stroke="#356b9d" stroke-width="2"/>
+<text x="539" y="561" font-family="Microsoft YaHei,sans-serif" font-size="18" fill="#18344d">分组基础</text>
+<text x="539" y="588" font-family="Microsoft YaHei,sans-serif" font-size="18" fill="#18344d">已有实现记录</text>
+<text x="539" y="615" font-family="Microsoft YaHei,sans-serif" font-size="18" fill="#18344d">产品分组与性能</text>
+<text x="539" y="642" font-family="Microsoft YaHei,sans-serif" font-size="18" fill="#18344d">仍未完成</text>
+<text x="539" y="669" font-family="Microsoft YaHei,sans-serif" font-size="18" fill="#18344d">T12.05</text>
+<polyline points="145,680 145,720 390,720 390,755" fill="none" stroke="#356b9d" stroke-width="3"/>
+<polygon points="390,755 384,745 396,745" fill="#356b9d"/>
+<polyline points="390,680 390,720" fill="none" stroke="#356b9d" stroke-width="3"/>
+<polygon points="390,720 384,710 396,710" fill="#356b9d"/>
+<polyline points="635,680 635,720 390,720" fill="none" stroke="#356b9d" stroke-width="3"/>
+<polygon points="390,720 400,714 400,726" fill="#356b9d"/>
+<rect x="110" y="755" width="560" height="96" rx="12" fill="#ffffff" stroke="#356b9d" stroke-width="2"/>
+<text x="124" y="786" font-family="Microsoft YaHei,sans-serif" font-size="18" fill="#18344d">继续验收：分清报告范围与验收缺口</text>
+<text x="124" y="813" font-family="Microsoft YaHei,sans-serif" font-size="18" fill="#18344d">channel 构建等通过为作者报告</text>
+<text x="124" y="840" font-family="Microsoft YaHei,sans-serif" font-size="18" fill="#18344d">真实模型 GUI 与性能仍待完成｜T12.06</text>
+<rect x="110" y="890" width="560" height="96" rx="12" fill="#e8f1fc" stroke="#356b9d" stroke-width="2"/>
+<text x="124" y="921" font-family="Microsoft YaHei,sans-serif" font-size="18" fill="#18344d">计划局部替换（同版本来源补充）</text>
+<text x="124" y="948" font-family="Microsoft YaHei,sans-serif" font-size="18" fill="#18344d">旧分组路线退出；展示策略与折叠理由保留</text>
+<text x="124" y="975" font-family="Microsoft YaHei,sans-serif" font-size="18" fill="#18344d">新的基础方案已有实现，不等于产品全部完成</text>
+</svg>

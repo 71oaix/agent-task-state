@@ -7,6 +7,17 @@ import json
 HERE = Path(__file__).resolve().parent
 FIXTURE = json.loads((HERE / 't12_experiment_fixture.json').read_text(encoding='utf-8'))
 KNOWN_BASIS = {x['id'] for x in FIXTURE['facts'] + FIXTURE['supplements']}
+ACTION_KEYS = {
+    'goal': {'op','id','scope'}, 'begin': {'op','id','goal','scope','plan','location'},
+    'plan': {'op','id','owner','sections','links'}, 'change_plan': {'op','id','edits','remove'},
+    'produce': {'op','id','attempt','parts','dimensions','location','nature'},
+    'end': {'op','id','outcome','remaining'}, 'advance_product': {'op','id','dimensions'},
+    'withdraw_parts': {'op','id','parts'}, 'report': {'op','id','subject','scope','findings','nature'},
+    'accept_goal': {'op','id','actor_role','actor','criteria','decision','evidence'},
+    'responsibility_init': {'op','tokens','holders','unknown','owner'},
+    'assign': {'op','token','to'}, 'transfer': {'op','token','from','to'},
+    'share': {'op','token','holders'}, 'unassign': {'op','token','from'}, 'unknown': {'op','token'}
+}
 
 
 def require(ok, message):
@@ -93,9 +104,10 @@ def save_plan(state, plan, owner):
         host.setdefault('plan_records', {})[plan['id']] = deepcopy(plan)
 
 
-def execute(state, action):
+def _execute(state, action):
     """All public updates use this dispatcher; no generic patch is accepted."""
     op = action['op']
+    require(op in ACTION_KEYS and set(action) <= ACTION_KEYS[op], 'unsupported operation or unexpected update fields')
     if op == 'goal':
         new_object(state, action['id'], 'goal', scope=action['scope'], acceptance='pending', origin='researcher_created')
     elif op == 'begin':
@@ -103,7 +115,9 @@ def execute(state, action):
         require(goal is not None and goal['kind'] == 'goal', 'goal required')
         plan = None if action.get('plan') is None else ref(state, action['plan'])
         if plan:
-            require(version(state, plan['id'], plan['revision'])['kind'] == 'plan', 'attempt requires plan')
+            plan_obj = version(state, plan['id'], plan['revision'])
+            require(plan_obj['kind'] == 'plan', 'attempt requires plan')
+            require(state['objects'][plan_obj['owner']]['goal'] == action['goal'], 'plan belongs to a different goal; explicit adaptation required')
         new_object(state, action['id'], 'attempt', goal=action['goal'], scope=action['scope'], plan=plan,
                    status='active', outcome='unknown', location=action.get('location', 'unknown'))
     elif op == 'plan':
@@ -149,8 +163,23 @@ def execute(state, action):
     elif op == 'end':
         old = state['objects'].get(action['id'])
         require(old is not None and old['kind'] == 'attempt' and old['status'] == 'active', 'active attempt required')
+        if state['responsibility'] is not None:
+            import t12_responsibility as responsibility
+            outstanding = [t for t,v in responsibility.project(state['responsibility']).items() if action['id'] in v['holders']]
+            if state['responsibility'].get('owner') == action['id']:
+                outstanding += [t for t,v in responsibility.project(state['responsibility']).items() if v['state'] in {'unknown','unassigned'}]
+            require(not outstanding or action.get('remaining') == 'retained_unresolved', 'ending holder must disclose remaining assigned responsibility')
         obj = touch(state, action['id'], 'attempt')
         obj['status'], obj['outcome'] = 'ended', action['outcome']
+        if action.get('remaining'):
+            obj['remaining_responsibility'] = action['remaining']
+    elif op == 'advance_product':
+        dimensions = action['dimensions']
+        require(isinstance(dimensions, dict) and dimensions and set(dimensions) <= {'implementation','git'}, 'only implementation/git progress can advance product')
+        old = state['objects'].get(action['id'])
+        require(old is not None and old['kind']=='product', 'product required')
+        obj = touch(state, action['id'], 'product')
+        obj['dimensions'].update(deepcopy(dimensions))
     elif op == 'withdraw_parts':
         old = state['objects'].get(action['id'])
         require(old is not None and old['kind'] == 'product', 'product required')
@@ -175,7 +204,10 @@ def execute(state, action):
         import t12_responsibility as responsibility
         if op == 'responsibility_init':
             require(state['responsibility'] is None, 'responsibility already initialized')
+            require(action['owner'] in state['objects'] and state['objects'][action['owner']]['kind']=='attempt', 'parent responsibility owner required')
+            require(all(h in state['objects'] and state['objects'][h]['kind'] == 'attempt' for h in action['holders']), 'responsibility holder must reference an attempt')
             state['responsibility'] = responsibility.new(state['layout'], action['tokens'], action['holders'], unknown=action.get('unknown', True))
+            state['responsibility']['owner'] = action['owner']
         else:
             require(state['responsibility'] is not None, 'responsibility missing')
             result = responsibility.apply(state['responsibility'], action, state['responsibility']['revision'])
@@ -204,17 +236,18 @@ def apply(state, actions, expected, basis, nature='synthetic'):
     try:
         require(type(expected) is int and expected == state['head'], 'stale predecessor')
         require(isinstance(actions, list) and actions, 'nonempty actions required')
-        require(isinstance(basis, list) and basis and all(x in KNOWN_BASIS or x.startswith('SYN:') for x in basis), 'known evidence or synthetic label required')
+        require(isinstance(basis, list) and basis and all(isinstance(x, str) and (x in KNOWN_BASIS or x.startswith('SYN:')) for x in basis), 'known evidence or synthetic label required')
         require(nature in {'source_record', 'synthetic'}, 'change nature')
         require(nature != 'source_record' or all(x in KNOWN_BASIS for x in basis), 'synthetic basis is not history')
         for action in actions:
             require(isinstance(action, dict), 'action structure')
-            execute(work, action)
+            _execute(work, action)
         before = snapshot(state)
         work['head'] += 1
         after = snapshot(work)
         paths = differences(before, after)
         change = {'number': work['head'], 'basis': deepcopy(basis), 'nature': nature,
+                  'actor': 'source_author_unspecified' if nature == 'source_record' else 'synthetic_operator',
                   'actions': deepcopy(actions), 'before': before, 'after': after, 'changed_paths': paths}
         work['changes'].append(change)
         return {'status': 'applied', 'state': work, 'changed_paths': paths, 'error': None}
@@ -257,13 +290,13 @@ def real_path(layout='parent', plans='independent'):
             channel='completed independent features stay in presentation channel',
             turnstep='unfinished code continues in turnstep worktree',
             reference='original PR retained as reference; experiments not automatically transferred'),
-         'links':[{'kind':'historical_reference','target':actual_ref(s,'batch')}] }])
-    planref = actual_ref(s, 'migration-plan')
+         'links':[{'kind':'historical_reference','target':actual_ref(s,'batch')}] },
+        {'op':'begin','id':'independent','goal':'goal','scope':['completed independent feature scope; exact original feature allocation unknown'],'plan':{'id':'migration-plan','revision':1},'location':'presentation channel'},
+        {'op':'begin','id':'turnstep','goal':'goal','scope':['remaining unfinished scope; exact original feature allocation unknown'],'plan':{'id':'migration-plan','revision':1},'location':'turnstep worktree'},
+        {'op':'responsibility_init','owner':'migration','tokens':FIXTURE['feature_families'],'holders':['independent','turnstep'],'unknown':True}])
     step('T12.04', [
-        {'op':'begin','id':'independent','goal':'goal','scope':['independent visuals','summary','filter'],'plan':planref,'location':'presentation channel'},
         {'op':'produce','id':'independent-code','attempt':'independent','parts':['visual','summary','filter'],
          'dimensions':{'implementation':'reported_code_written','git':'reported_committed','acceptance':'pending'},'location':'presentation channel','nature':'documented'},
-        {'op':'begin','id':'turnstep','goal':'goal','scope':['whole-Turn status','notifications','other behaviors not fully enumerated'],'plan':planref,'location':'turnstep worktree'},
         {'op':'produce','id':'draft-code','attempt':'turnstep','parts':['whole-Turn status','notifications','other unspecified behavior'],
          'dimensions':{'implementation':'reported_draft_written','git':'unstaged','acceptance':'pending'},'location':'turnstep worktree','nature':'documented'}])
     step('T12.05', [
@@ -289,10 +322,71 @@ def readback(state):
     if state['plans'] == 'embedded':
         for obj in objects.values():
             obj.pop('plan_records', None)
-    return {'objects': objects, 'plan_records': plans, 'history': [
+    import t12_responsibility as responsibility
+    return {'objects': objects, 'plan_records': plans, 'responsibility_view': responsibility.project(state['responsibility']), 'history': [
         {'number': c['number'], 'basis': c['basis'], 'nature': c['nature'], 'actions': c['actions']}
         for c in state['changes']], 'unknowns': FIXTURE['unknowns'],
-        'identity_origin': 'researcher-created identities; recorded content attributed by basis'}
+        'identity_origin': 'researcher-created identities; record revisions are not upstream releases',
+        'source_index': deepcopy(FIXTURE['sources']),
+        'fact_index': {f['id']:[sid for sid in FIXTURE['sources'] if sid in f['source']] for f in FIXTURE['facts'] + FIXTURE['supplements']}}
+
+
+def synthetic_path(layout):
+    """A fixed legal sequence and rejected alternatives, explicitly not DSH events."""
+    import t12_responsibility as responsibility
+    state = fresh(layout)
+    initial = [{'op':'goal','id':'goal','scope':['X','Y']},
+               {'op':'begin','id':'parent','goal':'goal','scope':['X','Y']},
+               {'op':'begin','id':'a','goal':'goal','scope':['synthetic child a']},
+               {'op':'begin','id':'b','goal':'goal','scope':['synthetic child b']},
+               {'op':'responsibility_init','owner':'parent','tokens':['X','Y'],'holders':['a','b']}]
+    state = apply(state, initial, 0, ['SYN:initial'])['state']
+    steps = [({'op':'assign','token':'X','to':'a'}, 'X to a'),
+             ({'op':'assign','token':'Y','to':'b'}, 'only Y to b; X remains a'),
+             ({'op':'transfer','token':'X','from':'a','to':'b'}, 'explicit transfer X'),
+             ({'op':'share','token':'X','holders':['a','b']}, 'explicit shared responsibility'),
+             ({'op':'unassign','token':'X','from':['a','b']}, 'explicit unassignment'),
+             ({'op':'unknown','token':'X'}, 'unknown is not unassigned')]
+    rows = []
+    for action, intent in steps:
+        before = responsibility.project(state['responsibility'])
+        result = apply(state, [action], state['head'], ['SYN:sequence'])
+        require(result['status'] == 'applied', result['error'])
+        state = result['state']
+        rows.append({'intent':intent,'action':action,'before':before,'after':responsibility.project(state['responsibility']),
+                     'native_changed_paths':[p for p in result['changed_paths'] if p.startswith('/responsibility/') and p!='/responsibility/revision']})
+    bad = [{'op':'transfer','token':'Y','from':'a','to':'b'},
+           {'op':'assign','token':'Y','to':'a'},
+           {'op':'revise','id':'goal','delta':{'acceptance':'accepted'}},
+           {'op':'end','id':'b','outcome':'silently done'}]
+    rejected = []
+    for action in bad:
+        result = apply(state,[action],state['head'],['SYN:negative'])
+        require(result['status']=='rejected' and result['state']==state, 'negative probe unexpectedly changed state')
+        rejected.append({'action':action,'error':result['error']})
+    return {'state':state,'steps':rows,'rejected':rejected}
+
+
+def comparison():
+    profiles = {}
+    for layout in ['parent','relation','child']:
+        real,synthetic=real_path(layout),synthetic_path(layout)
+        profiles[layout]={'real':readback(real),'synthetic':synthetic,
+                          'responsibility_snapshot':deepcopy(real['responsibility'])}
+    expected = [r['after'] for r in profiles['parent']['synthetic']['steps']]
+    for profile in profiles.values():
+        require([r['after'] for r in profile['synthetic']['steps']]==expected,'semantic difference across layouts')
+    plans={}
+    for placement in ['independent','embedded']:
+        initial=real_path(plans=placement)
+        result=apply(initial,[{'op':'change_plan','id':'migration-plan','edits':{'later':{'status':'planned','description':'synthetic later phase'}}}],initial['head'],['SYN:plan-change'])
+        require(result['status']=='applied',result['error'])
+        plans[placement]={'old_product':version(initial,'independent-code'),'product_after_plan_change':version(result['state'],'independent-code'),
+                          'old_plan':version(result['state'],'migration-plan',1),'new_plan':current_plan(result['state'],'migration-plan'),
+                          'changed_paths':result['changed_paths']}
+        require(plans[placement]['old_product']==plans[placement]['product_after_plan_change'],'plan changed old implementation')
+    return {'profiles':profiles,'plan_placement':plans,
+            'interpretation':'same explicit semantics; changed paths describe this implementation, not human time or model cost'}
 
 
 if __name__ == '__main__':
@@ -305,4 +399,5 @@ if __name__ == '__main__':
         state = real_path(layout)
         (out / (layout + '-real.json')).write_text(json.dumps(state, ensure_ascii=False, indent=2), encoding='utf-8')
     (out / 'readback.json').write_text(json.dumps(readback(real_path()), ensure_ascii=False, indent=2), encoding='utf-8')
+    (out / 'comparison.json').write_text(json.dumps(comparison(), ensure_ascii=False, indent=2), encoding='utf-8')
     print(str(out.resolve()))

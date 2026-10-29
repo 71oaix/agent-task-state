@@ -20,5 +20,10 @@
   ],
   "unknowns":["complete original user acceptance specification","exact event times of retrospective facts","exact mapping of all six initial feature families to later work scopes","implementation transfer or code reuse for every individual feature","full decision authority identity"],
   "questions":["Q1 original scope and revised arrangement","Q2 withdrawn and retained work/products","Q3 plan versions and actual outputs","Q4 implementation, drafts and acceptance","Q5 changed and preserved objects","Q6 source and history navigation"],
-  "feature_families":["detail_modes","process_grouping","whole_turn_status","trigger_notifications","tool_visuals","row_hiding"]
+  "feature_families":["detail_modes","process_grouping","whole_turn_status","trigger_notifications","tool_visuals","row_hiding"],
+  "sources": {
+    "S029":{"revision":"8b43d44cc6b12a9f494693f6e089ebae193b8487","url":"https://github.com/deepseek-ai/deepseek-harness/blob/8b43d44cc6b12a9f494693f6e089ebae193b8487/.agents/notes/proposed/feature/2026-09-20-chat-work-details-migration.md"},
+    "S028":{"revision":"8b43d44cc6b12a9f494693f6e089ebae193b8487","url":"https://github.com/deepseek-ai/deepseek-harness/blob/8b43d44cc6b12a9f494693f6e089ebae193b8487/.agents/notes/proposed/architecture/2026-09-20-chat-presentation-policy-and-step-groups.md"},
+    "S022":{"revision":"86a402200d95fecef4529d969836f1fe13c6cb0d","url":"https://github.com/deepseek-ai/deepseek-harness/blob/86a402200d95fecef4529d969836f1fe13c6cb0d/.agents/notes/implemented/architecture/2026-09-21-conversation-build-groups.md"}
+  }
 }
