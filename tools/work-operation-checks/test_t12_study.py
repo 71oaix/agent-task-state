@@ -15,6 +15,8 @@ class ObjectStudyTests(unittest.TestCase):
             self.assertEqual([x['id'] for x in s.FIXTURE['facts']], [c['basis'][0] for c in state['changes'][:6]])
             self.assertEqual('author_reported_reverted', s.version(state, 'batch')['outcome'])
             self.assertEqual('reported_committed', s.version(state,'independent-code')['dimensions']['git'])
+            self.assertEqual('reported_migration_complete', s.version(state,'independent-code')['dimensions']['completion'])
+            self.assertEqual('incomplete', s.version(state,'draft-code')['dimensions']['completion'])
             self.assertEqual('unstaged', s.version(state,'draft-code')['dimensions']['git'])
             self.assertEqual('pending', s.version(state,'goal')['acceptance'])
             self.assertEqual('unknown', s.version(state,'group-foundation')['dimensions']['acceptance'])
@@ -60,6 +62,9 @@ class ObjectStudyTests(unittest.TestCase):
         state=self.update(state,{'op':'advance_product','id':'draft-code','dimensions':{'git':'reported_committed'}})
         new=s.version(state,'draft-code')
         self.assertEqual(2,new['revision']);self.assertEqual('pending',new['dimensions']['acceptance'])
+        self.assertEqual('incomplete',new['dimensions']['completion'])
+        state=self.update(state,{'op':'advance_product','id':'draft-code','dimensions':{'completion':'reported_migration_complete'}})
+        self.assertEqual('pending',s.version(state,'draft-code')['dimensions']['acceptance'])
         self.assertEqual(old['parts'],new['parts']);self.assertEqual(old,s.version(state,'draft-code',1))
         result=s.apply(state,[{'op':'advance_product','id':'draft-code','dimensions':{'acceptance':'accepted'}}],state['head'],['SYN:test'])
         self.assertEqual('rejected',result['status'])
@@ -92,7 +97,7 @@ class ObjectStudyTests(unittest.TestCase):
         for action in [{'op':'revise','id':'goal','delta':{'acceptance':'accepted'}},
                        {'op':'accept_goal','id':'goal','decision':'accept'},
                        {'op':'produce','id':'bad-product','attempt':'independent','parts':['x'],
-                        'dimensions':{'implementation':'written','git':'committed','acceptance':'accepted'},'location':'test','nature':'synthetic'}]:
+                        'dimensions':{'completion':'complete','implementation':'written','git':'committed','acceptance':'accepted'},'location':'test','nature':'synthetic'}]:
             result=s.apply(state,[action],state['head'],['SYN:test'])
             self.assertEqual('rejected',result['status']);self.assertEqual(state,result['state'])
 
@@ -120,6 +125,9 @@ class ObjectStudyTests(unittest.TestCase):
 
     def test_each_history_basis_has_exact_source_navigation(self):
         view=s.readback(s.real_path())
+        self.assertEqual({'id':'migration-plan','revision':1},view['plan_usage']['turnstep'])
+        self.assertIsNone(view['plan_usage']['grouping'])
+        self.assertEqual('recorded_arrangement',view['historical_plans']['architecture@1']['sections']['grouping']['status'])
         for change in view['history']:
             for basis in change['basis']:
                 self.assertTrue(view['fact_index'][basis])

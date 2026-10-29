@@ -2,7 +2,7 @@
 title: Agent任务状态管理项目资产索引
 status: active
 created: 2026-10-09
-updated: 2026-10-28
+updated: 2026-10-29
 tags: [asset-register, task-state, preservation]
 supersedes:
 ---
@@ -15,6 +15,7 @@ supersedes:
 
 | 资产 | 来源与版本 | 责任与边界 | 下一步 |
 |---|---|---|---|
+| [T12对象研究](../research/change-graph-task-state/t12-object-study.md)、[离线检验](../../tools/work-operation-checks/README.md) | 2026-10-29；T12六事实及同源补充；三责任布局/两计划位置；原底稿未改 | 实际程序比较、独立读回与源裁定分开；GLM旧导出遗漏及修正记录保留；当前总回归77项 | 使用推荐对象登记新变化；跨父责任/动态成员及真实目标修改后续验证 |
 | [四模型对象研究交接](../research/change-graph-task-state/object-operation-handoff-2026-10-28.md)、[综合裁定](../research/change-graph-task-state/operation-composition-review.md#2026-10-28对象与变化的四模型构思及裁定) | 2026-10-28；四模型固定e15f6f4、effort=max；均completed | 独立构思与主Agent裁定分开，三布局尚未运行比较；原答位于本工作树artifacts/agent-task-state/maintenance/object-review-2026-10-28/ | 比较父表/关系/子项权威；检查Plan与Change身份；历史行的下一步以HANDOFF为准 |
 | [工作操作工作台](../../tools/work-operation-checks/README.md) | 2026-10-27；原检查器与新增组合执行/历史查询/阅读器 | 16段、83来源事实与16研究缺口；模型原稿和Sol裁定分开；独立读回有明确输入范围 | 定向读回、固定提交审查与Sol修复已完成；下一轮工作视图接续 |
 | [工作操作v0.5](../research/change-graph-task-state/work-operation-candidates-v0.5.md) | 2026-10-27；唯一现行候选；四入口与八类可执行组合 | 初版可用机制；记录版本、产品版本、范围与知识状态分别保存 | 以使用中的具体失败迭代，下一轮压缩后接续 |

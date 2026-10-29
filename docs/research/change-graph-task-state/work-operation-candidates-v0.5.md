@@ -2,12 +2,14 @@
 title: 工作操作候选 v0.5：基本入口、组合功能与执行规则
 status: active
 created: 2026-10-27
-updated: 2026-10-28
+updated: 2026-10-29
 tags: [research, work-operations, executable]
 supersedes: work-operation-candidates-v0.4.md
 ---
 
 # 工作操作候选 v0.5：基本入口、组合功能与执行规则
+
+2026-10-29：本文件继续说明旧记录器；当前对象与工作动作推荐见[T12对象研究](t12-object-study.md)，没有把新实验改名为四入口筛选成功。新旧实现各自保留检验结果。
 
 2026-10-28定位更新：本文保留现有实现契约与历史候选去向。四入口作为记录层接口；工作元操作的可靠性转入对象与连续变化检验。已发现parts保留与split父子一致性缺口；采用记录的通用更新仍受类型约束。[当前裁定与四模型意见](operation-composition-review.md#2026-10-28对象与变化的四模型构思及裁定)
 

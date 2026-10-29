@@ -155,7 +155,7 @@ def _execute(state, action):
         attempt = state['objects'].get(action['attempt'])
         require(attempt is not None and attempt['kind'] == 'attempt' and attempt['status'] == 'active', 'active attempt required')
         dimensions = action['dimensions']
-        require(set(dimensions) == {'implementation', 'git', 'acceptance'}, 'three separate product dimensions required')
+        require(set(dimensions) == {'completion', 'implementation', 'git', 'acceptance'}, 'four separate product dimensions required')
         require(dimensions['acceptance'] in {'pending', 'unknown'}, 'implementation cannot accept product')
         new_object(state, action['id'], 'product', attempt=action['attempt'], plan=deepcopy(attempt['plan']),
                    parts={p: 'present' for p in action['parts']}, dimensions=dimensions,
@@ -175,7 +175,7 @@ def _execute(state, action):
             obj['remaining_responsibility'] = action['remaining']
     elif op == 'advance_product':
         dimensions = action['dimensions']
-        require(isinstance(dimensions, dict) and dimensions and set(dimensions) <= {'implementation','git'}, 'only implementation/git progress can advance product')
+        require(isinstance(dimensions, dict) and dimensions and set(dimensions) <= {'completion','implementation','git'}, 'only explicit migration/implementation/git progress can advance product')
         old = state['objects'].get(action['id'])
         require(old is not None and old['kind']=='product', 'product required')
         obj = touch(state, action['id'], 'product')
@@ -296,13 +296,13 @@ def real_path(layout='parent', plans='independent'):
         {'op':'responsibility_init','owner':'migration','tokens':FIXTURE['feature_families'],'holders':['independent','turnstep'],'unknown':True}])
     step('T12.04', [
         {'op':'produce','id':'independent-code','attempt':'independent','parts':['visual','summary','filter'],
-         'dimensions':{'implementation':'reported_code_written','git':'reported_committed','acceptance':'pending'},'location':'presentation channel','nature':'documented'},
+         'dimensions':{'completion':'reported_migration_complete','implementation':'reported_code_written','git':'reported_committed','acceptance':'pending'},'location':'presentation channel','nature':'documented'},
         {'op':'produce','id':'draft-code','attempt':'turnstep','parts':['whole-Turn status','notifications','other unspecified behavior'],
-         'dimensions':{'implementation':'reported_draft_written','git':'unstaged','acceptance':'pending'},'location':'turnstep worktree','nature':'documented'}])
+         'dimensions':{'completion':'incomplete','implementation':'reported_draft_written','git':'unstaged','acceptance':'pending'},'location':'turnstep worktree','nature':'documented'}])
     step('T12.05', [
         {'op':'begin','id':'grouping','goal':'goal','scope':['grouping foundation and remaining product integration'],'location':'source documents; exact worktree unknown'},
         {'op':'produce','id':'group-foundation','attempt':'grouping','parts':['Definition-owned grouping foundation'],
-         'dimensions':{'implementation':'reported_implemented','git':'unknown','acceptance':'unknown'},'location':'S022 implemented note','nature':'documented'},
+         'dimensions':{'completion':'unknown','implementation':'reported_implemented','git':'unknown','acceptance':'unknown'},'location':'S022 implemented note','nature':'documented'},
         {'op':'report','id':'grouping-pending','subject':{'id':'grouping','revision':1},'scope':'product grouping behavior and performance','findings':['still incomplete'],'nature':'documented'}])
     step('T12.06', [
         {'op':'report','id':'channel-checks','subject':actual_ref(s,'independent'),'scope':'presentation channel; not turnstep worktree',
@@ -328,7 +328,12 @@ def readback(state):
         for c in state['changes']], 'unknowns': FIXTURE['unknowns'],
         'identity_origin': 'researcher-created identities; record revisions are not upstream releases',
         'source_index': deepcopy(FIXTURE['sources']),
-        'fact_index': {f['id']:[sid for sid in FIXTURE['sources'] if sid in f['source']] for f in FIXTURE['facts'] + FIXTURE['supplements']}}
+        'fact_index': {f['id']:[sid for sid in FIXTURE['sources'] if sid in f['source']] for f in FIXTURE['facts'] + FIXTURE['supplements']},
+        'plan_usage': {oid: deepcopy(obj['plan']) for oid,obj in objects.items() if obj['kind']=='attempt'},
+        'historical_plans': {oid+'@'+rev: deepcopy(obj) for oid,versions in state['versions'].items() for rev,obj in versions.items() if obj['kind']=='plan'},
+        'reading_rules': ['unknown ownership may become known after new supporting evidence; it is not permanently forbidden',
+                          'real-model GUI is not synonymous with real-device GUI',
+                          'basis identifiers provide traceability, not automatic proof of semantic support']}
 
 
 def synthetic_path(layout):

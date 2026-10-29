@@ -2,13 +2,25 @@
 title: Agent 接手入口与当前执行状态
 status: active
 created: 2026-10-23
-updated: 2026-10-28
+updated: 2026-10-29
 tags: [research, operation-selection]
 ---
 
 # Agent 接手入口与当前执行状态
 
-## 2026-10-28 当前状态：对象与连续变化研究
+## 2026-10-29 当前状态：T12对象比较已完成
+
+本轮批准计划已完成到完整路径、对象图、可执行比较、独立读回与推荐。先读[T12对象研究](t12-object-study.md)，细节在[组合研究](operation-composition-review.md)。阶段提交4901ed9固定路径与骨架，358d92a保存三布局与计划对照；收尾提交从当前HEAD核对。
+
+推荐逻辑对象Goal/Plan/Attempt/Product/Evidence，Change记录转换。单父范围先选parent责任权威；relation/child备选保持。Plan独立版与可寻址内嵌版均保留旧引用，不声称顶层Plan为唯一正确形式。旧四入口不等本轮工作操作结论。新增实验在Agent任务状态管理/tools/work-operation-checks/t12_study.py和t12_responsibility.py，原checker/workbench和旧案例未修改。
+
+已执行六事实与源补充重放、三布局同序列、两计划布局、合法/非法更新及整批失败回退。完整回归77项通过。输出当前交付目录从本批manifest确认，使用新目录复现，勿覆盖comparison-v1/delivery-v1。所有记录版不是上游版本；active只表示记录生命周期；六类精确分配unknown保持。报告与状态真实性另做来源审阅，不因basisID合法认定工程判断正确。
+
+7个CodeBuddy任务已终止，6个有实质输出，HY第一次审查只有准备阅读一句，已用一个有界补充处理。DS在独立worker中只改两白名单文件，原稿已保留；Sol核对并集成。GLM仅凭冻结输入读回，不访问工具/底稿；旧版Q3计划引用遗漏和GUI措辞差异已裁定，索引修正仅本地验证。Kimi未调用。原始材料、任务ID、预期、读回与裁定均在本工作树artifacts/agent-task-state/maintenance/t12-object-study-2026-10-29/。
+
+下一项工作：在本方案下登记新的真实小步变化，检验对象边界、剩余责任和计划关联的使用负担，再定向跨过程检查。没有授权新的模型批次、数据库迁移、DSH运行或付费效果实验。研究仍在codex/task-state-activity-research，worker工作树仅保留原始模型实现，不作接手入口。
+
+## 2026-10-28 历史状态：对象与连续变化研究
 
 用户要求四模型协助构思，本轮已完成。先读[综合裁定](operation-composition-review.md#2026-10-28对象与变化的四模型构思及裁定)，任务材料与产出约定见[统一交接](object-operation-handoff-2026-10-28.md)。DeepSeek V4.1 Flash、HY4 Preview、GLM5.3、Kimi K3.1 Pro均通过CodeBuddy独立读取固定e15f6f4提交、请求effort=max，四任务completed，无重试。原答及任务ID、来源核对和Sol判断保存在本地artifacts/agent-task-state/maintenance/object-review-2026-10-28/。
 
