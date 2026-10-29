@@ -1,0 +1,24 @@
+{
+  "schema": 1,
+  "case": "T12",
+  "source_cutoff": "2026-10-15",
+  "identity_origin": "researcher_created",
+  "ordering": "controlled evidence presentation; same-source retrospective facts are not live event times",
+  "facts": [
+    {"id":"T12.01","source":"S029","meaning":"PR #4565 covers three detail modes, process grouping, whole-Turn status, trigger notifications, tool visuals and infrastructure-row hiding","nature":"documented_scope"},
+    {"id":"T12.02","source":"S028","meaning":"Author reports batch merge reverted after eight minutes for performance; six earlier benchmarks missed streaming grouping and rerender hot paths","nature":"author_reported_history"},
+    {"id":"T12.03","source":"S029","meaning":"Keep completed independent features in presentation channel; continue unfinished drafts in turnstep worktree; original PR remains reference","nature":"recorded_plan"},
+    {"id":"T12.04","source":"S029","meaning":"Independent visuals, summaries and filters have commits; whole-Turn status, notifications and other behaviors include unstaged drafts; acceptance remains pending","nature":"documented_partial_result"},
+    {"id":"T12.05","source":"S029/S022","meaning":"Definition-owned grouping foundation implemented; product grouping behaviors and performance requirements still incomplete","nature":"documented_result"},
+    {"id":"T12.06","source":"S029","meaning":"Channel build/lint/coverage passing is author report; real-model GUI demo and performance measurements remain pending","nature":"documented_limit"}
+  ],
+  "supplements": [
+    {"id":"S029.dimensions","source":"S029 Status definitions","meaning":"Migration completion, implementation, staging/commit and acceptance are separate dimensions"},
+    {"id":"S029.plan","source":"S029 Proposal / Subsequent review batches","meaning":"Feature progress record and architecture/alternatives note coexist; review batches do not imply implementation or staging completion"},
+    {"id":"S029.dependency","source":"S029 items 8/9-context and review batch","meaning":"Ordinary Context hiding accompanies trigger notification work so waking reasons remain visible; product dependency, not a new historical handover event"},
+    {"id":"S028.partial_replacement","source":"S028 Goals and constraints + S022 Decision","meaning":"Implemented grouping foundation supersedes event-fold/builder-materialized/Step-range/changedLocationData parts of the old proposal; presentation-policy and per-Turn eligibility rationale remain; superseded implementation proposal is not the current plan"}
+  ],
+  "unknowns":["complete original user acceptance specification","exact event times of retrospective facts","exact mapping of all six initial feature families to later work scopes","implementation transfer or code reuse for every individual feature","full decision authority identity"],
+  "questions":["Q1 original scope and revised arrangement","Q2 withdrawn and retained work/products","Q3 plan versions and actual outputs","Q4 implementation, drafts and acceptance","Q5 changed and preserved objects","Q6 source and history navigation"],
+  "feature_families":["detail_modes","process_grouping","whole_turn_status","trigger_notifications","tool_visuals","row_hiding"]
+}
