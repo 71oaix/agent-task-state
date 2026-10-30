@@ -2,13 +2,15 @@
 title: Agent 任务状态管理论文项目
 status: active
 created: 2026-10-09
-updated: 2026-10-29
+updated: 2026-10-30
 tags: [research, task-state, entrypoint]
 ---
 
 # Agent 任务状态管理论文项目
 
-2026-10-29：[T12首轮对象与责任比较](docs/research/change-graph-task-state/t12-object-study.md)已完成，但范围限于三种责任布局和两种Plan存放；五类对象的共同身份边界尚未比较。当前保留Goal/Plan/Attempt/Product/Evidence为起点，责任先用父表，计划保留身份与版本；旧结果继续有效，但不再作为五对象边界已成立的证据。已测故障与下一轮单变量协议见`artifacts/agent-task-state/maintenance/t12-continuous-validation-2026-10-29/protocol.md`和`stage-1-review.md`。研究依据与独立读回差异见[组合研究](docs/research/change-graph-task-state/operation-composition-review.md)。
+2026-10-30：当前推荐 Goal/Plan/Attempt/Product/Evidence 五类逻辑角色，Change 记录变更；不声称五个顶层表最小或最优。四身份对照修正了“内嵌不能复用”的旧判断；独立 Plan/Product 存放的当前理由是减少宿主版本耦合、维护位置直接。T12 两图说明“调整安排”后的三路状态与对象联系；T03/T13/T15 补足计划阶段、判断修正与准确依赖；15 段的逐条覆盖为静态语义回查，其中这三点另有可执行片段。操作按当前代码入口组织到对象，底层 apply 只做事务。详见[T12对象研究](docs/research/change-graph-task-state/t12-object-study.md)与[组合研究本轮节](docs/research/change-graph-task-state/operation-composition-review.md#2026-10-30五类对象推荐与操作组合)。旧 v0.5 四入口保留为历史记录器，当前对象设计以 T12 研究页为准。
+
+2026-10-29（上一轮）：[T12首轮对象与责任比较](docs/research/change-graph-task-state/operation-composition-review.md#2026-10-29t12对象方案与可执行比较)已完成，但范围限于三种责任布局和两种Plan存放；五类对象的共同身份边界当时尚未比较。当时保留Goal/Plan/Attempt/Product/Evidence为起点，责任先用父表，计划保留身份与版本；旧结果继续有效，但不再作为五对象边界已成立的证据。已测故障与下一轮单变量协议见`artifacts/agent-task-state/maintenance/t12-continuous-validation-2026-10-29/protocol.md`和`stage-1-review.md`。研究依据与独立读回差异见[组合研究](docs/research/change-graph-task-state/operation-composition-review.md)。
 
 2026-10-28：当前从开发对象及连续变化重新检验工作操作。四模型独立构思与来源裁定已完成，见[综合分析](docs/research/change-graph-task-state/operation-composition-review.md#2026-10-28对象与变化的四模型构思及裁定)。下列工作台继续承担历史查证；四入口定位为记录层接口，局部保留与连续拆分缺口进入下一轮检验。
 

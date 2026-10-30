@@ -34,9 +34,8 @@
     "S018":{"revision":"86a402200d95fecef4529d969836f1fe13c6cb0d","url":"https://github.com/deepseek-ai/deepseek-harness/blob/86a402200d95fecef4529d969836f1fe13c6cb0d/.agents/notes/implemented/architecture/2026-09-15-bounded-office-conversion.md"}
   },
   "t13_scope_ids": {
-    "prior": ["T13:windows-hosted-ready-failure", "T13:windows-ready-timeout-class"],
+    "prior": ["T13:windows-hosted-ready-failure"],
     "correction": ["T13:windows-hosted-ready-failure"],
-    "outside_correction": ["T13:windows-ready-timeout-class"],
-    "broader_not_supported": ["T13:all-delayed-failures"]
+    "never_asserted": ["UNKNOWN:all-delayed-failures"]
   }
 }

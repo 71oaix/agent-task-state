@@ -2,7 +2,7 @@
 title: Agent任务状态管理项目资产索引
 status: active
 created: 2026-10-09
-updated: 2026-10-29
+updated: 2026-10-30
 tags: [asset-register, task-state, preservation]
 supersedes:
 ---
@@ -15,10 +15,10 @@ supersedes:
 
 | 资产 | 来源与版本 | 责任与边界 | 下一步 |
 |---|---|---|---|
-| [T12对象研究](../research/change-graph-task-state/t12-object-study.md)、[离线检验](../../tools/work-operation-checks/README.md) | 2026-10-29；T12六事实及同源补充；三责任布局/两计划位置；原底稿未改 | 实际程序比较、独立读回与源裁定分开；GLM旧导出遗漏及修正记录保留；当前总回归77项 | 使用推荐对象登记新变化；跨父责任/动态成员及真实目标修改后续验证 |
+| [T12五类对象推荐](../research/change-graph-task-state/t12-object-study.md)、[离线检验](../../tools/work-operation-checks/README.md) | 2026-10-30（currentrecommendation）；identity-v2四身份对照、coverage-v2 15段静态回查、boundary-v2 T03/T13/T15边界；T12六事实及同源补充；原底稿未改 | 五类逻辑角色与Change；独立存放是维护选择；四身份对照、15段回查与T03/T13/T15边界分开记录；详情在[组合研究本轮节](../research/change-graph-task-state/operation-composition-review.md#2026-10-30五类对象推荐与操作组合) | 待最终审阅；审阅后用真实Agent接续检验；不把固定材料结论外推 |
 | [四模型对象研究交接](../research/change-graph-task-state/object-operation-handoff-2026-10-28.md)、[综合裁定](../research/change-graph-task-state/operation-composition-review.md#2026-10-28对象与变化的四模型构思及裁定) | 2026-10-28；四模型固定e15f6f4、effort=max；均completed | 独立构思与主Agent裁定分开，三布局尚未运行比较；原答位于本工作树artifacts/agent-task-state/maintenance/object-review-2026-10-28/ | 比较父表/关系/子项权威；检查Plan与Change身份；历史行的下一步以HANDOFF为准 |
 | [工作操作工作台](../../tools/work-operation-checks/README.md) | 2026-10-27；原检查器与新增组合执行/历史查询/阅读器 | 16段、83来源事实与16研究缺口；模型原稿和Sol裁定分开；独立读回有明确输入范围 | 定向读回、固定提交审查与Sol修复已完成；下一轮工作视图接续 |
-| [工作操作v0.5](../research/change-graph-task-state/work-operation-candidates-v0.5.md) | 2026-10-27；唯一现行候选；四入口与八类可执行组合 | 初版可用机制；记录版本、产品版本、范围与知识状态分别保存 | 以使用中的具体失败迭代，下一轮压缩后接续 |
+| [工作操作v0.5](../research/change-graph-task-state/work-operation-candidates-v0.5.md) | 2026-10-27；历史记录器接口；四入口与八类可执行组合 | 不再作为当前对象设计；旧实现与组合规则保留 | 查历史实现；当前对象设计见T12研究页 |
 | [工作操作v0.4](../research/change-graph-task-state/work-operation-candidates-v0.4.md) | 2026-10-25；历史筛选，由v0.5接替 | 四入口及两入口强对照的依据保留 | 查历史取舍 |
 | [元操作筛选](../research/change-graph-task-state/operation-selection-review.md) | 2026-10-25；逐步更新比较；新批次 dsh-operation-selection-2026-10-25 | 记录检查器与四组校准完成；跨过程独立/主 Agent 范围分开 | 本轮已裁定，后续按必要争议控制审阅成本 |
 | [工作操作 v0.3](../research/change-graph-task-state/work-operation-candidates-v0.3.md) | 2026-10-25；前轮工作接口清单；由 v0.4 接替 | 7 语义入口 / 11 组合 / 12 待补证；统一底座为原型建议 | 独立构造/读回后裁定便利接口并决定原型实现 |
@@ -31,7 +31,7 @@ supersedes:
 | [活动来源筛选](../research/change-graph-task-state/activity-source-review.md)、[执行账本](../research/change-graph-task-state/research-execution-ledger.md) | 2026-10-15，交接基线31b6938；七份实证全文、四项目过程、一个官方Agent示例 | G1首批探索准入；非检索饱和、行业频率或长程效果证据；本地获取/分析批次保持忽略 | 按缺口扩展来源，保留候选项目还需确认可用性 |
 | [活动地图](../research/change-graph-task-state/software-development-activity-map.md)、[记录映射](../research/change-graph-task-state/activity-record-agent-mapping.md) | G2提交f92101c，G3提交aaef635；27证据解释单元、12活动类、6工作点 | G2探索版、G3同一作者表示走查通过；强文档同样可支持问题；没有计时或独立模型试验 | 不用当前分类作为最终最小模型，继续组合检验 |
 | [元操作首轮检查](../research/change-graph-task-state/operation-composition-review.md) | 同一六工作点，复核固定v1近邻方法；2026-10-15 | G4返工：事实/实际产物/采用及许可、验证、义务尚需统一协议；未实现或验证优越性 | 比较两种完整编码并重验反例；G5规则未冻结 |
-| [Agent 接手入口](../research/change-graph-task-state/HANDOFF.md) | 2026-10-15；研究文档从 404a4ab 固定版本接入主工作区交接分支 | 当前阶段、下一动作与验收入口；历史阶段记录转入执行账本 | 按当前 HANDOFF 复核协议缺口；不恢复引用清理队列 |
+| [Agent 接手入口](../research/change-graph-task-state/HANDOFF.md) | 2026-10-30；五类对象推荐待最终审阅；历史阶段折叠保留 | 当前结论、唯一现行状态、待办与权限边界；独立审阅待执行 | 按HANDOFF完成最终审阅；未通过前不写研究完成 |
 | [研究计划 v1.1](../research/change-graph-task-state/research-plan-v1.1.md)、[执行说明](../research/change-graph-task-state/research-plan-v1.1-agent-notes.md) | 2026-10-15 用户纠正活动来源及整体流程 | 当前计划：活动归纳、记录投影、Agent 工作、元操作检验；未完成新调研或批准原型和付费实验 | 按2026-10-20纠偏基线，以已有过程比较记录机制 |
 | [本地资料分类](artifact-organization.md) | 2026-10-15 实际盘点及 41 文件迁移哈希校验 | 主工作区 artifacts/agent-task-state 为当前资料根；其他项目与历史工作树原位分类；两个旧审计目录权限受限 | 新资料按项目、性质、批次保存；保持来源和分析分离 |
 | [元操作候选 v0.2](../research/change-graph-task-state/primitive-candidates-v0.2.md)、[协议与证据](../research/change-graph-task-state/primitive-candidates-v0.2-agent-notes.md) | 2026-10-14 用户审阅；继承 P 系列来源，复核 MAGE/StateMem/ESAA 方法及固定投影规范 | 当前候选：明确身份、关系生命周期、整合及并发边界；十项近邻映射为原文分析，非真实轨迹重放或运行验证 | 取得真实开发修订与决策记录，检查组合规则；尚未证明最小性或优越性 |

@@ -21,7 +21,7 @@ import t12_study as s
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[2]
 BATCH = 't12-continuous-validation-2026-10-29'
-SLICE = 'boundary-v1'
+SLICE = 'boundary-v2'
 BOUNDARY_DIR = ROOT / 'artifacts/agent-task-state/maintenance' / BATCH / SLICE
 FIXTURE = json.loads((HERE / 'dsh_object_boundary_fixture.json').read_text(encoding='utf-8'))
 DRAFT = {'completion': 'in_progress', 'implementation': 'reported_draft_written',
@@ -29,6 +29,9 @@ DRAFT = {'completion': 'in_progress', 'implementation': 'reported_draft_written'
 UNKNOWN = {'completion': 'unknown', 'implementation': 'unknown',
            'git': 'unknown', 'acceptance': 'unknown'}
 T13_SCOPES = FIXTURE['t13_scope_ids']
+SYN_A = 'SYN:two-scope-a'
+SYN_B = 'SYN:two-scope-b'
+SYN_C = 'SYN:two-scope-c'
 
 
 def _need(value, message):
@@ -465,11 +468,67 @@ def _t13_state():
                    {**rec4, 'label': 't13-decision-and-dependency'}]
 
 
+def _t13_two_scope_probe():
+    """Synthetic A/B/C probe; it never stands in for any T13 source scope."""
+    state = s.fresh()
+    state, rec0 = _ok(state, [
+        {'op': 'goal', 'id': 'syn-two-scope-goal', 'scope': ['synthetic two-scope probe']},
+        {'op': 'begin', 'id': 'syn-two-scope-work', 'goal': 'syn-two-scope-goal',
+         'scope': ['synthetic two-scope probe']}],
+        ['SYN:two-scope'])
+    state, rec1 = _ok(state, [
+        {'op': 'report', 'id': 'syn-two-scope-old',
+         'subject': s.actual_ref(state, 'syn-two-scope-work'),
+         'scope': 'synthetic old interpretation explicitly covering A and B',
+         'findings': ['synthetic old interpretation covering A and B'],
+         'nature': 'synthetic', 'content_kind': 'interpretation',
+         'scope_ids': [SYN_A, SYN_B]}],
+        ['SYN:two-scope'])
+    old_ref = s.actual_ref(state, 'syn-two-scope-old')
+    state, rec2 = _ok(state, [
+        {'op': 'correct_interpretation', 'id': 'syn-two-scope-fix-a', 'prior': old_ref,
+         'scope': 'synthetic scope A only', 'scope_ids': [SYN_A],
+         'findings': ['synthetic corrected interpretation A'],
+         'basis': ['SYN:two-scope'], 'nature': 'synthetic'}],
+        ['SYN:two-scope'])
+    after_a = {'A': s.interpretations(state, SYN_A),
+               'B': s.interpretations(state, SYN_B),
+               'C': s.interpretations(state, SYN_C)}
+    conflict = _reject(state, [
+        {'op': 'correct_interpretation', 'id': 'syn-two-scope-conflict', 'prior': old_ref,
+         'scope': 'synthetic conflicting scope A', 'scope_ids': [SYN_A],
+         'findings': ['synthetic conflicting interpretation A'],
+         'basis': ['SYN:two-scope'], 'nature': 'synthetic'}],
+        ['SYN:two-scope'])
+    state, rec3 = _ok(state, [
+        {'op': 'correct_interpretation', 'id': 'syn-two-scope-fix-b', 'prior': old_ref,
+         'scope': 'synthetic scope B only', 'scope_ids': [SYN_B],
+         'findings': ['synthetic corrected interpretation B'],
+         'basis': ['SYN:two-scope'], 'nature': 'synthetic'}],
+        ['SYN:two-scope'])
+    after_b = s.interpretations(state, SYN_B)
+    fix_a_ref = s.actual_ref(state, 'syn-two-scope-fix-a')
+    state, rec4 = _ok(state, [
+        {'op': 'correct_interpretation', 'id': 'syn-two-scope-fix-a2', 'prior': fix_a_ref,
+         'scope': 'synthetic further correction of A', 'scope_ids': [SYN_A],
+         'findings': ['synthetic further corrected interpretation A'],
+         'basis': ['SYN:two-scope'], 'nature': 'synthetic'}],
+        ['SYN:two-scope'])
+    after_chain = s.interpretations(state, SYN_A)
+    records = [{**rec0, 'label': 'synthetic-two-scope-setup'},
+               {**rec1, 'label': 'synthetic-two-scope-old'},
+               {**rec2, 'label': 'synthetic-two-scope-correct-a'},
+               {**conflict, 'label': 'synthetic-two-scope-conflict-rejected'},
+               {**rec3, 'label': 'synthetic-two-scope-correct-b'},
+               {**rec4, 'label': 'synthetic-two-scope-correct-a-again'}]
+    return state, records, {'after_a': after_a, 'after_b': after_b,
+                            'after_chain': after_chain, 'conflict': conflict}
+
+
 def _t13_case():
     state, records = _t13_state()
     covered = s.interpretations(state, T13_SCOPES['correction'][0])
-    outside = s.interpretations(state, T13_SCOPES['outside_correction'][0])
-    broader = s.interpretations(state, T13_SCOPES['broader_not_supported'][0])
+    broader = s.interpretations(state, T13_SCOPES['never_asserted'][0])
     old = s.version(state, 't13-tail-delay', 1)
     before_old = deepcopy(old)
     bad = [
@@ -483,7 +542,7 @@ def _t13_case():
                                'findings': ['x'], 'basis': ['T13.02'], 'nature': 'synthetic'}),
         ('scope-expansion', {'op': 'correct_interpretation', 'id': 't13-bad-expand',
                              'prior': s.actual_ref(state, 't13-tail-delay'),
-                             'scope': 'all delayed failures', 'scope_ids': T13_SCOPES['broader_not_supported'],
+                             'scope': 'all delayed failures', 'scope_ids': T13_SCOPES['never_asserted'],
                              'findings': ['x'], 'basis': ['T13.02'], 'nature': 'synthetic'}),
         ('erase-occurrence', {'op': 'report', 'id': 't13-tail-delay',
                               'subject': s.actual_ref(state, 't13-work'),
@@ -516,10 +575,17 @@ def _t13_case():
                {'history': covered['history'], 'old_revision': old},
                covered['history'][0]['evidence'] == {'id': 't13-tail-delay', 'revision': 1}
                and old == before_old),
-        _check('t13-outside-scope-undetermined',
-               'A scope that the old claim covered but the correction does not stays undetermined.',
-               outside, outside['status'] == 'undetermined' and outside['current'] is None
-               and outside['history'] and outside['history'][0]['evidence']['id'] == 't13-tail-delay'),
+        _check('t13-real-scope-only',
+               'The real T13.01 proposition covers only the measured self-hosted failure; any broader class stays unknown, not source-attributed.',
+               {'old_scope_ids': old['scope_ids'], 'fixture_prior': T13_SCOPES['prior'],
+                'never_asserted': T13_SCOPES['never_asserted'],
+                'fixture_timeout_claims': [fact['id'] for fact in FIXTURE['facts']
+                                           if 'windows-ready-timeout-class' in fact['meaning']]},
+               old['scope_ids'] == ['T13:windows-hosted-ready-failure']
+               and T13_SCOPES['prior'] == ['T13:windows-hosted-ready-failure']
+               and T13_SCOPES['never_asserted'] == ['UNKNOWN:all-delayed-failures']
+               and not any('windows-ready-timeout-class' in fact['meaning']
+                           for fact in FIXTURE['facts'])),
         _check('t13-never-asserted-scope-undetermined',
                'A broader failure class never asserted by the source has no current interpretation and no history.',
                broader, broader['status'] == 'undetermined' and not broader['history']),
@@ -556,12 +622,62 @@ def _t13_case():
     queries = [
         _query('interpretation-covered', "t12_study.interpretations(state, %r)" % T13_SCOPES['correction'][0],
                covered, 'What is the current interpretation and its correction basis?'),
-        _query('interpretation-outside', "t12_study.interpretations(state, %r)" % T13_SCOPES['outside_correction'][0],
-               outside, 'Does the correction also settle the broader old scope?'),
-        _query('interpretation-unasserted', "t12_study.interpretations(state, %r)" % T13_SCOPES['broader_not_supported'][0],
+        _query('interpretation-unasserted', "t12_study.interpretations(state, %r)" % T13_SCOPES['never_asserted'][0],
                broader, 'What is recorded for a failure class the source never asserted?'),
         _query('old-evidence', "t12_study.version(state, 't13-tail-delay', 1)", old,
                'Is the old report occurrence still readable unchanged?'),
+    ]
+    _, syn_records, syn = _t13_two_scope_probe()
+    records += syn_records
+    checks += [
+        _check('syn-two-scope-a-corrected',
+               'Correcting A puts only A on the new interpretation.',
+               syn['after_a']['A'],
+               syn['after_a']['A']['status'] == 'corrected'
+               and syn['after_a']['A']['current']['evidence'] == {'id': 'syn-two-scope-fix-a', 'revision': 1}),
+        _check('syn-two-scope-b-preserved',
+               'The already-recorded B keeps the old interpretation while only A is corrected.',
+               syn['after_a']['B'],
+               syn['after_a']['B']['status'] == 'recorded'
+               and syn['after_a']['B']['current']['evidence'] == {'id': 'syn-two-scope-old', 'revision': 1}
+               and [row['evidence']['id'] for row in syn['after_a']['B']['history']] == ['syn-two-scope-old']
+               and syn['after_a']['B']['corrections'] == []),
+        _check('syn-two-scope-c-undetermined',
+               'A scope that was never recorded stays undetermined with no history.',
+               syn['after_a']['C'],
+               syn['after_a']['C']['status'] == 'undetermined'
+               and syn['after_a']['C']['current'] is None
+               and syn['after_a']['C']['history'] == []),
+        _check('syn-two-scope-independent-b',
+               'The second correction on the disjoint B scope is legal and keeps both recorded steps.',
+               syn['after_b'],
+               syn['after_b']['status'] == 'corrected'
+               and syn['after_b']['current']['evidence'] == {'id': 'syn-two-scope-fix-b', 'revision': 1}
+               and [row['evidence']['id'] for row in syn['after_b']['history']]
+               == ['syn-two-scope-old', 'syn-two-scope-fix-b']),
+        _check('syn-two-scope-conflict-rejected',
+               'A sibling correction reusing the old prior on already-corrected A is rejected; no last write wins.',
+               syn['conflict']['response'],
+               syn['conflict']['response']['status'] == 'rejected'
+               and syn['conflict']['response'].get('state_unchanged') is True
+               and 'current interpretation' in syn['conflict']['response']['error']),
+        _check('syn-two-scope-chain-allowed',
+               'Correcting the new A interpretation is a legal further step.',
+               syn['after_chain'],
+               syn['after_chain']['status'] == 'corrected'
+               and syn['after_chain']['current']['evidence'] == {'id': 'syn-two-scope-fix-a2', 'revision': 1}
+               and [row['evidence']['id'] for row in syn['after_chain']['history']]
+               == ['syn-two-scope-old', 'syn-two-scope-fix-a', 'syn-two-scope-fix-a2']),
+    ]
+    queries += [
+        _query('syn-two-scope-a', "t12_study.interpretations(state, %r)" % SYN_A,
+               syn['after_a']['A'], 'Which interpretation is current in the corrected A scope?'),
+        _query('syn-two-scope-b', "t12_study.interpretations(state, %r)" % SYN_B,
+               syn['after_a']['B'], 'What remains recorded for B while only A is corrected?'),
+        _query('syn-two-scope-c', "t12_study.interpretations(state, %r)" % SYN_C,
+               syn['after_a']['C'], 'What is recorded for a scope never asserted?'),
+        _query('syn-two-scope-chain', "t12_study.interpretations(state, %r)" % SYN_A,
+               syn['after_chain'], 'Can the new interpretation in A be corrected again?'),
     ]
     return {'id': 'T13-scoped-interpretation', 'requirement': 'Citable evidence types and scoped correction',
             'source_facts': ['T13.01', 'T13.02', 'T13.03', 'T13.04', 'T13.05'],
@@ -763,17 +879,20 @@ def build_results():
 def _readback_records(cases):
     rows = []
     for case in cases:
-        if case['raw_failure']:
-            rows.append({'case': case['id'], 'kind': 'raw_failure',
-                         'record': deepcopy(case['raw_failure'])})
         for record in case['records']:
+            if record['response']['status'] != 'applied':
+                continue
+            observation = deepcopy(record.get('observation'))
+            if isinstance(observation, dict) and 'frozen_projection' in observation:
+                # The pre-fix formula reproduction is study evidence, not saved state.
+                observation = None
             rows.append({'case': case['id'], 'kind': 'saved_operation',
                          'label': record['label'], 'input': deepcopy(record['input']),
                          'response': deepcopy(record['response']),
-                         'observation': deepcopy(record.get('observation'))})
+                         'observation': observation})
         for query in case['queries']:
-            rows.append({'case': case['id'], 'kind': 'query', 'name': query['name'],
-                         'call': query['call'], 'output': deepcopy(query['output'])})
+            rows.append({'case': case['id'], 'kind': 'question', 'name': query['name'],
+                         'call': query['call'], 'question': query.get('question')})
     return rows
 
 
@@ -787,7 +906,9 @@ def build_readback():
         'generated_by': 't12_boundary_checks.build_readback',
         'operations': _operation_index(),
         'records': _readback_records(cases),
-        'evidence': {'facts': deepcopy(facts), 'sources': sources},
+        'evidence': {'sources': sources,
+                     'fact_sources': {fact['id']: [sid for sid in sources if sid in fact['source']]
+                                      for fact in facts}},
         'scope_ids': deepcopy(T13_SCOPES),
         'synthetic_boundary': {'basis_prefix': 'SYN:', 'nature': 'synthetic',
                                'not_dsh_events': True, 'no_event_times': True,
@@ -798,13 +919,14 @@ def build_readback():
             'T12: which exact product revision still shows the pre-subdivision shared dimensions?',
             'T03: can a Goal directly own a plan, and what evidence shows that no attempt was fabricated for the earlier merge/revert?',
             'T03: can a plan-subject report accept the Goal, and how are stage 1/2/3/4/5 statuses recorded separately?',
-            'T13: for the corrected scope id, what is the current interpretation, its exact prior evidence and its basis?',
-            'T13: what does a query return for an old-scope id or for a broader failure class outside the correction?',
+            'T13: for the corrected real scope, what is the current interpretation, its exact prior evidence and its basis?',
+            'T13: in the synthetic two-scope probe, what remains recorded for B when only A is corrected, and what is recorded for the never-asserted C?',
+            'T13: after the synthetic A correction, can the new interpretation be corrected again, and what happens to a conflicting sibling correction?',
             'T13: is the old report occurrence still readable at its exact version after correction?',
             'T15: which object revisions and scopes does the delivery dependency fix, and what external version/digest is recorded?',
             'T15: after a synthetic result update, what is the relation status and is any incompatibility asserted?',
             'T15: how do old scope-only product_requirement relations differ from new exact delivery dependencies?'],
-        'representation_note': 'This is an operation, saved-record and evidence entry only; it contains no expected answers, scoring conclusions, pass labels or truth excerpts.'}
+        'representation_note': 'This is an operation-rule, applied saved-record, source-id and question entry only; it contains no expected answers, scoring, rejection probes, raw-failure reproduction or fact meanings.'}
 
 
 def _operation_index():
@@ -817,7 +939,7 @@ def _operation_index():
          'constraint': 'on a subdivided product, the whole explicit active part range is required or the batch is rejected'},
         {'name': 'part_progress', 'call': "t12_study.part_progress(state, product_id)",
          'effect': 'returns per-part dimensions and a derived overall view',
-         'constraint': 'the overall view is derived from present parts; it is not a separately writable authority'},
+         'constraint': 'the overall view is derived from present parts; acceptance is copied from the product dimension, not propagated from part progress'},
         {'name': 's029_items', 'call': 't12_study.s029_items(state)',
          'effect': 'item current.dimensions is the item part state after subdivision and the shared product dimensions before it',
          'constraint': 'source record text is unchanged; current is a projection, not verification'},
@@ -829,10 +951,10 @@ def _operation_index():
          'constraint': 'the evidence is an attributed claim, not system-certified truth'},
         {'name': 'correct_interpretation', 'call': 't12_study.apply(state, [{"op":"correct_interpretation", ...}], head, basis)',
          'effect': 'adds a new interpretation evidence that names an exact prior evidence revision and a narrower scope id set',
-         'constraint': 'only an interpretation proposition can be corrected; scope cannot expand; the old evidence is not edited'},
+         'constraint': 'only an interpretation proposition can be corrected; scope cannot expand; the prior must be the current interpretation of every named scope; disjoint scopes and chains are allowed, sibling conflicts are rejected; the old evidence is not edited'},
         {'name': 'interpretations', 'call': 't12_study.interpretations(state, scope_id)',
-         'effect': 'returns current interpretation, history, correction basis and an undetermined status outside scope',
-         'constraint': 'does not judge natural-language truth or certify a cause'},
+         'effect': 'returns current interpretation, history and correction basis; untouched scopes keep the old recorded interpretation',
+         'constraint': 'a never-asserted scope stays undetermined; the query does not judge natural-language truth or certify a cause'},
         {'name': 'relate_exact', 'call': 't12_study.apply(state, [{"op":"relate_exact", ...}], head, basis)',
          'effect': 'stores a delivery dependency with object+revision+scope at both ends and external name/version/digest',
          'constraint': 'only delivery_dependency; missing external version/digest is recorded as unknown'},
@@ -845,20 +967,22 @@ def _operation_index():
 
 
 def build_rules():
-    return """# T12 boundary-v1 读取规则
+    return """# T12 boundary-v2 读取规则
 
-本目录只记录 T03/T12/T13/T15 四个已裁定难点的可控实现与探针，不运行 DSH，不裁定五逻辑类，也不写主文。
+本目录只记录 T03/T12/T13/T15 四个已裁定难点的可控实现与探针，不运行 DSH，不裁定五逻辑类，也不写主文。boundary-v1 保留为旧输出，本包不覆盖它。
 
 ## 合成边界
 
-- 真实来源事实只来自 `dsh_object_boundary_fixture.json` 与既有 T12 fixture；来源 URL 与 revision 可在 `readback.json` 的 `evidence.sources` 查。
+- 真实来源事实只来自 `dsh_object_boundary_fixture.json` 与既有 T12 fixture；来源 URL 与 revision 可在 `readback.json` 的 `evidence.sources` 查，事实只给 ID 到来源的索引，不附含义答案。
 - 所有探针使用 `SYN:` basis 与 `synthetic` nature，不是 DSH 事件，没有事件时间。
 - 研究者创建的对象 ID 与 Change 编号不是上游身份；Goal 的 `identity_origin` 明确标为 `researcher_created`。
+- T13 的真实旧命题只覆盖 `T13:windows-hosted-ready-failure`；更广的失败类别保持未断言。双 scope 行为由 `SYN:two-scope-*` 探针单独验证，不补造历史。
 
 ## T12 局部进展
 
 - `advance_parts` 首次使用时，把当时 Product 的共享维度复制到每个 part，然后只更新列明的 part。
 - 细分后 item 的 `current.dimensions` 是该 part 的状态，唯一权威是 `part_states`；Product 的 `dimensions` 不再可独立写，整体只可由 `part_progress` 派生或保持 unknown。
+- `part_progress` 的 acceptance 取自 Product 的 `dimensions.acceptance`，不是由 part progress 自动传播，也不自动等于 Goal 验收。
 - `advance_product` 在细分后必须列明全部活动 part；省略或只给部分范围会被拒绝。回退是合法更新，旧 Product revision 按精确 revision 保留。
 - S029 源记录不变；`current` 是状态投影，不是独立验收。
 
@@ -871,9 +995,11 @@ def build_rules():
 ## T13 证据内容与纠正
 
 - Evidence 记录 `content_kind` 为 observation、interpretation 或 decision；它仍是有归属陈述，不是系统认证真理。
-- `correct_interpretation` 创建新的 Evidence，精确引用旧 Evidence revision，并在更窄的 stable scope id 集合内生效。
+- `correct_interpretation` 创建新的 Evidence，精确引用旧 Evidence revision，并只在其 stable scope id 集合内生效。
+- 纠正只替换它自己 scope 集合内的当前解释；旧命题覆盖但本次未纠正的 scope 继续显示旧的 `recorded` 解释，不因其他 scope 的纠正变为 undetermined。
+- 从未断言的 scope 保持 `undetermined`，没有 history。
+- 每个被纠正的 scope 必须仍以该 prior 为当前解释；同 scope 的兄弟纠正若没有冲突选择机制会被明确拒绝，不能由写入顺序决定胜者；对新解释继续纠正形成合法链。
 - 旧 report 发生记录不修改；纠正不存在命题、纠正 report 发生记录、扩大 scope 或通用字段 patch 都会被拒绝。
-- 查询某 scope 时，`current` 只在纠正覆盖该 scope 时出现；旧 scope 的其他部分与从未断言的更广类别保持 `undetermined`。
 
 ## T15 精确交付依赖
 
@@ -881,6 +1007,11 @@ def build_rules():
 - 后续成果更新不会移动旧关系；`relation_status` 只把未变端点读为 `current`，移动的端点读为 `needs_recheck`，并明确没有自动兼容结论。
 - 旧 `product_requirement` 关系保留为 scope-only 历史，状态为 `needs_explicit_recheck`；不能由它自动宣布工程不兼容。
 - 本切片不实现转换 job、读者引用计数、签名或运行检查流程。
+
+## 读回包
+
+- `readback.json` 只给操作规则、已应用并保存的操作/状态、来源 ID/URL/revision 与固定问题。
+- 不附底稿 fact 的 meaning 列表、评分/期待答案、raw_failure 再现输入或拒绝探针的错误文本；来源原文按来源 ID 定位 URL 后另行查证。
 """
 
 
@@ -897,7 +1028,7 @@ def build_documents():
 
 
 def export_boundary(directory):
-    """Create boundary-v1 once; an existing directory is never overwritten."""
+    """Create one boundary slice once; an existing directory is never overwritten."""
     out = Path(directory)
     documents = build_documents()
     out.mkdir(parents=True, exist_ok=False)

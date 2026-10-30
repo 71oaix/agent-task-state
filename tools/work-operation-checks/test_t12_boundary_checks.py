@@ -21,15 +21,57 @@ def _walk_keys(value):
             yield from _walk_keys(child)
 
 
+SYN_A = 'SYN:two-scope-a'
+SYN_B = 'SYN:two-scope-b'
+SYN_C = 'SYN:two-scope-c'
+
+
+def _synthetic_two_scope_state():
+    """One synthetic old interpretation explicitly covering A and B only."""
+    state = s.fresh()
+    result = s.apply(state, [
+        {'op': 'goal', 'id': 'syn-goal', 'scope': ['synthetic two-scope probe']},
+        {'op': 'begin', 'id': 'syn-work', 'goal': 'syn-goal',
+         'scope': ['synthetic two-scope probe']}],
+        state['head'], ['SYN:two-scope'])
+    assert result['status'] == 'applied', result['error']
+    state = result['state']
+    result = s.apply(state, [
+        {'op': 'report', 'id': 'syn-old', 'subject': s.actual_ref(state, 'syn-work'),
+         'scope': 'synthetic old claim covering A and B',
+         'findings': ['synthetic old interpretation covering A and B'],
+         'nature': 'synthetic', 'content_kind': 'interpretation',
+         'scope_ids': [SYN_A, SYN_B]}],
+        state['head'], ['SYN:two-scope'])
+    assert result['status'] == 'applied', result['error']
+    return result['state']
+
+
+def _correct(state, new_id, prior_id, scope_ids, findings):
+    return s.apply(state, [
+        {'op': 'correct_interpretation', 'id': new_id,
+         'prior': s.actual_ref(state, prior_id),
+         'scope': 'synthetic correction for ' + ','.join(scope_ids),
+         'scope_ids': list(scope_ids), 'findings': [findings],
+         'basis': ['SYN:two-scope'], 'nature': 'synthetic'}],
+        state['head'], ['SYN:two-scope'])
+
+
 class EvidenceTests(unittest.TestCase):
-    def test_boundary_v1_was_written_by_the_export_and_is_not_overwritten(self):
+    def test_boundary_v2_was_written_by_the_export_and_is_not_overwritten(self):
         for name in ('results.json', 'readback.json', 'rules.md'):
             self.assertTrue((b.BOUNDARY_DIR / name).is_file(), name)
         self.assertTrue(b.verify_boundary(b.BOUNDARY_DIR))
         before = sorted(path.name for path in b.BOUNDARY_DIR.iterdir())
+        legacy = b.BOUNDARY_DIR.parent / 'boundary-v1'
+        legacy_before = ({path.name: path.read_bytes() for path in legacy.iterdir() if path.is_file()}
+                         if legacy.exists() else None)
         with self.assertRaises(FileExistsError):
             b.export_boundary(b.BOUNDARY_DIR)
         self.assertEqual(before, sorted(path.name for path in b.BOUNDARY_DIR.iterdir()))
+        if legacy_before is not None:
+            self.assertEqual(legacy_before,
+                             {path.name: path.read_bytes() for path in legacy.iterdir() if path.is_file()})
 
     def test_results_record_every_check_without_unexpected_failures(self):
         results = b.build_results()
@@ -43,7 +85,7 @@ class EvidenceTests(unittest.TestCase):
             for check in case['checks']:
                 self.assertTrue(check['ok'], (case['id'], check['id'], check['observed']))
 
-    def test_readback_contains_no_answers_scores_or_pass_labels(self):
+    def test_readback_contains_no_answers_scores_or_fact_meanings(self):
         saved = json.loads((b.BOUNDARY_DIR / 'readback.json').read_text(encoding='utf-8'))
         forbidden = {'answer', 'answers', 'expected_answer', 'truth', 'verdict',
                      'pass', 'passed', 'fail', 'failed', 'score', 'expected'}
@@ -52,9 +94,25 @@ class EvidenceTests(unittest.TestCase):
         for key in ('operations', 'records', 'evidence', 'questions', 'synthetic_boundary'):
             self.assertIn(key, saved)
         self.assertIn('no expected answers', saved['representation_note'])
-        self.assertTrue(any(row['kind'] == 'raw_failure' for row in saved['records']))
+        self.assertNotIn('facts', saved['evidence'])
+        self.assertIn('fact_sources', saved['evidence'])
+        text = json.dumps(saved, ensure_ascii=False)
+        self.assertNotIn('raw_failure', text)
+        self.assertNotIn('frozen_projection', text)
+        self.assertNotIn('frozen_formula', text)
+        self.assertNotIn('legacy_projection', text)
+        self.assertFalse(any(row['kind'] == 'raw_failure' for row in saved['records']))
         self.assertTrue(any(row.get('label') == 'notification-part-progress'
                             for row in saved['records']))
+        for row in saved['records']:
+            if row['kind'] == 'saved_operation':
+                self.assertEqual('applied', row['response']['status'])
+                self.assertIsNone(row['response']['error'])
+            else:
+                self.assertEqual('question', row['kind'])
+                self.assertNotIn('output', row)
+        for fact in b._fact_index()[0]:
+            self.assertNotIn(fact['meaning'], text, fact['id'])
 
     def test_source_fixture_keeps_only_real_facts_and_urls(self):
         ids = [fact['id'] for fact in b.FIXTURE['facts']]
@@ -68,6 +126,10 @@ class EvidenceTests(unittest.TestCase):
         for sid, source in b.FIXTURE['sources'].items():
             self.assertIn(source['revision'], source['url'])
         self.assertNotIn('synthetic', json.dumps(b.FIXTURE['facts']).lower())
+        self.assertEqual(['T13:windows-hosted-ready-failure'], b.T13_SCOPES['prior'])
+        self.assertNotIn('outside_correction', b.T13_SCOPES)
+        self.assertNotIn('windows-ready-timeout-class',
+                         json.dumps(b.FIXTURE['facts'], ensure_ascii=False))
 
     def test_real_and_synthetic_changes_are_labelled_separately(self):
         results = b.build_results()
@@ -165,6 +227,18 @@ class PartProgressTests(unittest.TestCase):
         self.assertEqual('reported_committed',
                          s.part_progress(result['state'], 'draft-code')['overall']['git'])
 
+    def test_acceptance_is_copied_from_product_not_goal(self):
+        state = s.real_path()
+        state = s.apply(state, [{'op': 'advance_parts', 'id': 'draft-code',
+                                 'parts': ['8_trigger_notifications'],
+                                 'dimensions': {'git': 'reported_committed'}}],
+                        state['head'], ['SYN:test'])['state']
+        progress = s.part_progress(state, 'draft-code')
+        self.assertEqual(s.version(state, 'draft-code')['dimensions']['acceptance'],
+                         progress['overall']['acceptance'])
+        self.assertIn('copied from the product dimension', progress['overall_authority'])
+        self.assertNotIn('follows goal acceptance', progress['overall_authority'])
+
 
 class PlanOwnerTests(unittest.TestCase):
     def test_goal_owned_plan_report_subject_does_not_accept(self):
@@ -215,17 +289,17 @@ class PlanOwnerTests(unittest.TestCase):
 
 
 class InterpretationTests(unittest.TestCase):
-    def test_scope_correction_and_undetermined_outside(self):
+    def test_real_scope_correction_and_unasserted_class(self):
         state, _ = b._t13_state()
         covered = s.interpretations(state, b.T13_SCOPES['correction'][0])
-        outside = s.interpretations(state, b.T13_SCOPES['outside_correction'][0])
-        broader = s.interpretations(state, b.T13_SCOPES['broader_not_supported'][0])
+        broader = s.interpretations(state, b.T13_SCOPES['never_asserted'][0])
+        self.assertEqual(['T13:windows-hosted-ready-failure'], b.T13_SCOPES['prior'])
+        self.assertEqual(['T13:windows-hosted-ready-failure'],
+                         s.version(state, 't13-tail-delay')['scope_ids'])
         self.assertEqual('corrected', covered['status'])
         self.assertEqual('t13-console-rewrite', covered['current']['evidence']['id'])
         self.assertEqual('t13-tail-delay', covered['history'][0]['evidence']['id'])
         self.assertEqual(['T13.02', 'T13.03'], covered['corrections'][0]['basis'])
-        self.assertEqual('undetermined', outside['status'])
-        self.assertIsNone(outside['current'])
         self.assertEqual('undetermined', broader['status'])
         self.assertEqual([], broader['history'])
         self.assertEqual(1, s.version(state, 't13-tail-delay')['revision'])
@@ -235,7 +309,7 @@ class InterpretationTests(unittest.TestCase):
         for action in (
                 {'op': 'correct_interpretation', 'id': 'bad1',
                  'prior': s.actual_ref(state, 't13-tail-delay'), 'scope': 'all',
-                 'scope_ids': b.T13_SCOPES['broader_not_supported'], 'findings': ['x'],
+                 'scope_ids': b.T13_SCOPES['never_asserted'], 'findings': ['x'],
                  'basis': ['T13.02'], 'nature': 'synthetic'},
                 {'op': 'correct_interpretation', 'id': 'bad2',
                  'prior': s.actual_ref(state, 't13-measurement'), 'scope': 'x',
@@ -251,13 +325,59 @@ class InterpretationTests(unittest.TestCase):
         result = s.apply(before, [{'op': 'correct_interpretation', 'id': 'bad-expand',
                                    'prior': s.actual_ref(before, 't13-tail-delay'),
                                    'scope': 'all delayed failures',
-                                   'scope_ids': b.T13_SCOPES['broader_not_supported'],
+                                   'scope_ids': b.T13_SCOPES['never_asserted'],
                                    'findings': ['x'], 'basis': ['T13.02'],
                                    'nature': 'synthetic'}],
                          before['head'], ['SYN:test'])
         self.assertEqual('rejected', result['status'])
         self.assertIn('correction scope must stay inside', result['error'])
         self.assertEqual(before, result['state'])
+
+    def test_disjoint_scope_corrections_do_not_erase_each_other(self):
+        state = _synthetic_two_scope_state()
+        result = _correct(state, 'syn-fix-a', 'syn-old', [SYN_A],
+                          'synthetic corrected interpretation A')
+        self.assertEqual('applied', result['status'], result['error'])
+        state = result['state']
+        a = s.interpretations(state, SYN_A)
+        b = s.interpretations(state, SYN_B)
+        self.assertEqual('corrected', a['status'])
+        self.assertEqual('syn-fix-a', a['current']['evidence']['id'])
+        self.assertEqual('recorded', b['status'])
+        self.assertEqual('syn-old', b['current']['evidence']['id'])
+        self.assertEqual([], b['corrections'])
+        result = _correct(state, 'syn-fix-b', 'syn-old', [SYN_B],
+                          'synthetic corrected interpretation B')
+        self.assertEqual('applied', result['status'], result['error'])
+        state = result['state']
+        b = s.interpretations(state, SYN_B)
+        self.assertEqual('corrected', b['status'])
+        self.assertEqual('syn-fix-b', b['current']['evidence']['id'])
+        self.assertEqual(['syn-old', 'syn-fix-b'],
+                         [row['evidence']['id'] for row in b['history']])
+        c = s.interpretations(state, SYN_C)
+        self.assertEqual('undetermined', c['status'])
+        self.assertIsNone(c['current'])
+        self.assertEqual([], c['history'])
+
+    def test_same_scope_conflict_is_rejected_and_chain_is_allowed(self):
+        state = _synthetic_two_scope_state()
+        result = _correct(state, 'syn-fix-a', 'syn-old', [SYN_A],
+                          'synthetic corrected interpretation A')
+        self.assertEqual('applied', result['status'], result['error'])
+        state = result['state']
+        conflict = _correct(state, 'syn-conflict', 'syn-old', [SYN_A],
+                            'synthetic conflicting interpretation A')
+        self.assertEqual('rejected', conflict['status'])
+        self.assertEqual(state, conflict['state'])
+        chain = _correct(state, 'syn-fix-a2', 'syn-fix-a', [SYN_A],
+                         'synthetic further correction of A')
+        self.assertEqual('applied', chain['status'], chain['error'])
+        a = s.interpretations(chain['state'], SYN_A)
+        self.assertEqual('corrected', a['status'])
+        self.assertEqual('syn-fix-a2', a['current']['evidence']['id'])
+        self.assertEqual(['syn-old', 'syn-fix-a', 'syn-fix-a2'],
+                         [row['evidence']['id'] for row in a['history']])
 
 
 class DeliveryDependencyTests(unittest.TestCase):

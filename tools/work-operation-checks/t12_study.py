@@ -253,17 +253,39 @@ def _creation_change(state, oid):
     return None
 
 
+def _interpretation_evidence(state):
+    return {oid: obj for oid, obj in state['objects'].items()
+            if obj['kind'] == 'evidence' and obj.get('content_kind') == 'interpretation'}
+
+
+def _scope_roots(evidence, scope_id):
+    """Return the unsuperseded interpretations for exactly one scope id.
+
+    A correction supersedes its exact prior revision only where its own scope id
+    set applies.  No sibling branch is selected by insertion order.
+    """
+    covering = {oid for oid, obj in evidence.items() if scope_id in obj.get('scope_ids', [])}
+    superseded = set()
+    for oid in covering:
+        prior = evidence[oid].get('corrects')
+        if (prior and prior['id'] in covering
+                and evidence[prior['id']]['revision'] == prior['revision']):
+            superseded.add(prior['id'])
+    return sorted(covering - superseded)
+
+
 def interpretations(state, scope_id):
     """History and the current interpretation for one stable scope id.
 
-    A correction only applies inside its own narrower scope id set.  When a
-    correction exists for a proposition but does not cover the queried scope,
-    the result is undetermined rather than silently keeping or deleting the old
-    claim.
+    A correction applies only inside its own scope id set.  Scopes of the prior
+    proposition outside that set keep the old recorded interpretation instead of
+    becoming undetermined.  A scope that was never asserted stays undetermined.
+    A second correction must name the current interpretation of every scope it
+    covers; sibling corrections with no conflict-selection rule are rejected at
+    write time rather than resolved by insertion order.
     """
     require(isinstance(scope_id, str) and scope_id.strip(), 'stable scope id required')
-    evidence = {oid: obj for oid, obj in state['objects'].items()
-                if obj['kind'] == 'evidence' and obj.get('content_kind') == 'interpretation'}
+    evidence = _interpretation_evidence(state)
 
     def order(oid):
         change = _creation_change(state, oid)
@@ -272,19 +294,11 @@ def interpretations(state, scope_id):
     covering = sorted([oid for oid, obj in evidence.items() if scope_id in obj.get('scope_ids', [])],
                       key=order)
     keys = {(oid, evidence[oid]['revision']) for oid in covering}
-    applying = {}
-    for oid in covering:
-        prior = evidence[oid].get('corrects')
-        if prior and (prior['id'], prior['revision']) in keys:
-            applying.setdefault((prior['id'], prior['revision']), []).append(oid)
-    roots = [oid for oid in covering if (oid, evidence[oid]['revision']) not in applying]
-    challenged = any(obj.get('corrects') and
-                     (obj['corrects']['id'], obj['corrects']['revision']) in keys
-                     for obj in evidence.values())
+    roots = _scope_roots(evidence, scope_id)
     current = None
-    if len(roots) == 1 and roots[0] in evidence and evidence[roots[0]].get('corrects'):
+    if len(roots) == 1 and evidence[roots[0]].get('corrects'):
         status, current = 'corrected', roots[0]
-    elif len(roots) == 1 and not challenged:
+    elif len(roots) == 1:
         status, current = 'recorded', roots[0]
     elif len(roots) > 1:
         status = 'multiple_unresolved'
@@ -301,7 +315,8 @@ def interpretations(state, scope_id):
                         'recorded_basis': deepcopy(change['basis']) if change else [],
                         'corrects': deepcopy(obj.get('corrects'))})
     corrections = []
-    for oid, obj in sorted(evidence.items(), key=lambda row: order(row[0])):
+    for oid in covering:
+        obj = evidence[oid]
         prior = obj.get('corrects')
         if prior and (prior['id'], prior['revision']) in keys:
             corrections.append({'evidence': {'id': oid, 'revision': obj['revision']},
@@ -314,7 +329,7 @@ def interpretations(state, scope_id):
                          'scope_ids': deepcopy(evidence[current].get('scope_ids', []))}
                         if current else None),
             'history': history, 'corrections': corrections,
-            'note': 'Evidence here is an attributed claim, not system-certified truth; outside the correction scope stays undetermined'}
+            'note': 'Evidence here is an attributed claim, not system-certified truth; an unasserted scope stays undetermined'}
 
 
 def relation_status(state, rid):
@@ -397,7 +412,7 @@ def part_progress(state, pid):
             'parts': {p: {'presence': product['parts'][p], 'dimensions': deepcopy(value)}
                       for p, value in sorted(product['part_states'].items())},
             'overall': overall,
-            'overall_authority': 'derived_from_present_parts; acceptance follows goal acceptance, not part progress'}
+            'overall_authority': 'derived_from_present_parts; acceptance is copied from the product dimension, not derived from part progress'}
 
 
 def new_object(state, oid, kind, **fields):
@@ -616,15 +631,17 @@ def _execute(state, action, basis):
         prior_obj = version(state, prior['id'], prior['revision'])
         require(prior_obj['kind'] == 'evidence' and prior_obj.get('content_kind') == 'interpretation',
                 'only a recorded interpretation proposition can be corrected')
-        require(not any(obj['kind'] == 'evidence' and obj.get('corrects') == prior
-                        for obj in state['objects'].values()),
-                'this exact interpretation revision was already corrected')
         scope_ids = action['scope_ids']
         require(isinstance(scope_ids, list) and scope_ids
                 and all(isinstance(x, str) and x.strip() for x in scope_ids)
                 and len(set(scope_ids)) == len(scope_ids), 'stable unique scope id set required')
         require(set(scope_ids) <= set(prior_obj.get('scope_ids', [])),
                 'correction scope must stay inside the prior proposition scope')
+        evidence = _interpretation_evidence(state)
+        for scope_id in scope_ids:
+            require(_scope_roots(evidence, scope_id) == [prior['id']]
+                    and evidence[prior['id']]['revision'] == prior['revision'],
+                    'correction must name the current interpretation for scope: ' + scope_id)
         require(isinstance(action['scope'], str) and action['scope'].strip(),
                 'correction scope text required')
         require(isinstance(action['findings'], list) and action['findings'],

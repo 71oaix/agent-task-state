@@ -2,7 +2,7 @@
 title: Agent任务状态管理文档索引
 status: active
 created: 2026-10-09
-updated: 2026-10-29
+updated: 2026-10-30
 tags: [workspace, directory]
 supersedes:
 ---
@@ -13,7 +13,8 @@ supersedes:
 
 | 文档 | 状态 | 路径 |
 |------|:----:|------|
-| T12 开发对象与连续变化比较 | active | [完整路径、对象、可执行比较与推荐](research/change-graph-task-state/t12-object-study.md) |
+| T12 五类对象推荐（currentrecommendation 2026-10-30） | active | [五类逻辑角色、身份对照与操作组合](research/change-graph-task-state/t12-object-study.md) |
+| T12 开发对象与连续变化比较 | active | [历史路径、对象与上一轮依据；当前推荐见上行](research/change-graph-task-state/t12-object-study.md) |
 | DSH 工程全景：主要方向、演化与接续 | active | [当前全量研究入口](research/change-graph-task-state/dsh-work-history.md) |
 | DSH 工作关系图与全量检索 | active | [关系图、历史主题及主线变更](research/change-graph-task-state/dsh-work-history.html) |
 | DSH 连续开发过程底稿 v1 | active | [16 过程、83 条事实与来源](research/change-graph-task-state/dsh-process-truth-v1.md) |
@@ -24,7 +25,7 @@ supersedes:
 | DSH全项目演化研究 | active | [人类全景报告](research/change-graph-task-state/dsh-project-history.md) |
 | DSH全版本目录、来源与覆盖检查 | active | [40版本及工程证据](research/change-graph-task-state/dsh-project-history-evidence.md) |
 | 机制研究对象：DeepSeek Harness 会话演化 | active | [连续工程对象](research/change-graph-task-state/engineering-study-dsh-session.md) |
-| 工作操作候选 v0.5：基本入口、组合功能与执行规则 | active | [现行候选与完整去向](research/change-graph-task-state/work-operation-candidates-v0.5.md) |
+| 工作操作候选 v0.5：基本入口、组合功能与执行规则 | active（历史记录器） | [历史记录器接口与完整去向；当前对象设计见T12研究页](research/change-graph-task-state/work-operation-candidates-v0.5.md) |
 | 工作操作候选 v0.4：四个工作入口与组合规则 | archived | [历史筛选与完整去向](research/change-graph-task-state/work-operation-candidates-v0.4.md) |
 | 工作对象与操作筛选：四模型独立研究交接 | active | [统一要求、任务与产出；已完成](research/change-graph-task-state/object-operation-handoff-2026-10-28.md) |
 | 工作元操作筛选：逐步更新与候选裁定 | active | [独立更新实验与检查器](research/change-graph-task-state/operation-selection-review.md) |
