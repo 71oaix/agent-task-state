@@ -280,9 +280,12 @@ def interpretations(state, scope_id):
     A correction applies only inside its own scope id set.  Scopes of the prior
     proposition outside that set keep the old recorded interpretation instead of
     becoming undetermined.  A scope that was never asserted stays undetermined.
-    A second correction must name the current interpretation of every scope it
-    covers; sibling corrections with no conflict-selection rule are rejected at
-    write time rather than resolved by insertion order.
+    Every correction must name a still-current interpretation of each scope it
+    covers, at that exact revision.  Several independent interpretations may
+    coexist for one scope: any of them can be corrected on its own, the others
+    stay recorded and the scope reads multiple_unresolved.  A correction naming
+    an already superseded sibling is rejected at write time rather than resolved
+    by insertion order.
     """
     require(isinstance(scope_id, str) and scope_id.strip(), 'stable scope id required')
     evidence = _interpretation_evidence(state)
@@ -639,7 +642,7 @@ def _execute(state, action, basis):
                 'correction scope must stay inside the prior proposition scope')
         evidence = _interpretation_evidence(state)
         for scope_id in scope_ids:
-            require(_scope_roots(evidence, scope_id) == [prior['id']]
+            require(prior['id'] in _scope_roots(evidence, scope_id)
                     and evidence[prior['id']]['revision'] == prior['revision'],
                     'correction must name the current interpretation for scope: ' + scope_id)
         require(isinstance(action['scope'], str) and action['scope'].strip(),

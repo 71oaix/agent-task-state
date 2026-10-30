@@ -10,51 +10,53 @@ tags: [research, primitives, composition-check]
 
 ## 2026-10-30：五类对象推荐与操作组合
 
-**本轮把四身份对照、15段静态回查与T03/T13/T15边界检查收束为待最终审阅的推荐。**人类主文在[T12对象研究](t12-object-study.md)，本书记录执行细节、代码核对与回执差异。
+**本轮把四组存放方式对照、15段静态回查与T03/T13/T15边界检查收束为当前推荐，并按主调度审阅意见修正正文。**人类主文在[T12对象研究](t12-object-study.md)，本书记录执行细节、代码核对与回执差异。
 
-### 推荐与四身份对照
+### 推荐与存放方式对照
 
-推荐五类逻辑角色 Goal/Plan/Attempt/Product/Evidence，Change 记录变更。不声称五张表最小或最优；稳定引用与独立变化比顶层存放更重要。
+推荐目标、计划、尝试、成果、依据五类逻辑角色（Goal/Plan/Attempt/Product/Evidence），Change 记录变更。这是当前实现选择；五类是否最小、顶层是否分成五张表仍开放。稳定引用与独立变化比顶层存放更重要。本轮对象新增 0、合并 0；变化集中在计划归属、成果局部状态、依据纠正与精确依赖。
 
 | 组 | 只改的存放 | 可执行观察 | 本轮结论 |
 |---|---|---|---|
-| C1 Plan | 独立 Plan 记录 vs 宿主 Attempt 完整 revision 历史内嵌 | 强内嵌 B 中，第二个尝试直接引用 A 的精确旧版 section，不复制；计划修改与无关生命周期都推进宿主 revision | 内嵌可复用；独立存放减少宿主版本耦合 |
-| C2 Product | 独立 Product 记录 vs 宿主 Attempt 内的结果 slot | A2 推进 A 的原 slot，A 保持 ended；逻辑定位 `(attempt, slot)` 不变，历史 revision 与 producer 保留 | 内嵌可续写；独立存放减少宿主生命周期耦合 |
+| C1 Plan | 独立 Plan 记录 vs 宿主 Attempt 完整 revision 历史内嵌 | 强内嵌 B 中，第二个尝试直接引用 A 的精确旧版 section，不复制；计划修改与无关生命周期都推进宿主 revision | 内嵌可复用；独立存放让计划引用更窄、计划版本不与宿主版本绑定 |
+| C2 Product | 独立 Product 记录 vs 宿主 Attempt 内的结果 slot | A2 推进 A 的原 slot，A 保持 ended；逻辑定位 `(attempt, slot)` 不变，slot revision 与 producer 保留 | 内嵌可续写且保留历史；独立存放让引用不依赖宿主、生命周期分开 |
 | C3 Evidence | 独立 Evidence 对象 vs Change 内稳定 statement locator | 共同链、合法/非法探针与删除探针未发现行为差异 | 保留 Change 内定位；独立身份条件性 |
 | C4 Goal/Attempt | 分开 vs 合并为一个 Work 记录 | 未发现行为差异；合并记录仍需 attempt key/status | 不据此证明必须分开 |
 
-`identity-v2` 修正了 v1 的比较设置：v1 把计划放进 attempt content revision、要求 A2 复制 slot，造成结构性假差异。v2 的 B 走同一合法链；C1 的 A2 直接引用 A 的 `(attempt, revision, section)` 旧版，C2 的 A2 推进 A 的原 slot 且宿主保持 ended。C3/C4 复用 v1 未改的 builder 与 compare，本轮只重跑以保持四组完整。此前“B 不能复用”撤销，不能作为独立 Plan/Product 必要性依据。独立存放的当前理由只有减少宿主版本耦合、维护位置直接；整份删除宿主数据只证明存放依赖，不是合法工作反例。
+`identity-v2` 修正了 v1 的比较设置：v1 把计划放进 attempt content revision、要求 A2 复制 slot，造成结构性假差异。v2 的 B 走同一合法链；C1 的 A2 直接引用 A 的 `(attempt, revision, section)` 旧版，C2 的 A2 推进 A 的原 slot 且宿主保持 ended。C3/C4 复用 v1 未改的 builder 与 compare，本轮只重跑以保持四组完整。此前“B 不能复用”撤销，不能作为独立 Plan/Product 必要性依据。独立存放的当前理由是让引用与生命周期少依赖宿主、维护位置直接；整份删除宿主数据只证明存放依赖，不是正常工作反例。
 
-成本只计数可执行结构：C1 B 保留 6 个宿主 revision、0 个 plan identity；C2 B 保留 2 个 slot、6 个 slot revision、0 个 product identity；单次变化最多触及 5 个记录。它们说明内嵌不是免费，也没有证明独立对象在功能表达上更强。
+成本只计数可执行结构：C1 B 保留 6 个宿主 revision、0 个独立顶层 plan 记录，逻辑定位仍是 `(attempt, revision, section)`；C2 B 保留 2 个 slot、6 个 slot revision、0 个独立顶层 product 记录，逻辑身份仍是 `(attempt, slot)`；单次变化最多触及 5 个记录。内嵌需要额外版本保留约定，独立对象需要 ID、版本与第二条更新路径；两者都不是免费。
 
 ### 对象规则与15段回查
 
-Plan 的 owner 现在可为 Goal 或 Attempt（`t12_study.py:479-488`），T03 的 phase1—5 因此可以先于 Attempt 存在，各有状态。Product 的 `advance_parts` 首次细分时复制当时共享维度到各 part，之后只更新列明 part；整体由 present parts 派生，acceptance 仍取 Product 的 acceptance，不自动等于 Goal 验收（`t12_study.py:583-600`、`:394-415`）。Evidence 的 `correct_interpretation` 只接受 interpretation，scope_ids 必须落在旧命题范围内，且每个 scope 必须指向当前解释；旧报告不修改（`t12_study.py:629-656`）。`relate_exact` 固定两端 object/revision/scope 与 external name/version/digest；后续更新只使关系读为 `needs_recheck`（`t12_study.py:691-715`、`:335-364`）。
+Plan 的 owner 现在可为 Goal 或 Attempt（`t12_study.py:482-484`），T03 的 phase1—5 因此可以先于 Attempt 存在，各有状态。Product 的 `advance_parts` 首次细分时复制当时共享维度到各 part，之后只更新列明 part；整体由 present parts 派生，acceptance 仍取 Product 的 acceptance，不自动等于 Goal 验收（`t12_study.py:586-603`、`:397-418`、`:213-220`）。细分后 `advance_product` 需要整组当前 part，不能只列一个；`advance_parts` 可只列子集，但两者都不记录跨尝试的 producer（`:564-585`、`:586-603`）。Evidence 的 `correct_interpretation` 只接受 interpretation，scope_ids 必须落在旧命题范围内，且每个 scope 必须指向当前解释；旧报告不修改（`:632-659`）。`relate_exact` 固定两端 object/revision/scope 与 external name，version/digest 记为值或 unknown；后续更新只使关系读为 `needs_recheck`（`:694-718`、`:338-367`）。
 
-15段、77条事实是静态语义回查，不是新检查器重放；T12 的6条事实不在77条内，另有对象比较。T03/T13/T15 有上述可执行边界；其余段落只做图式核对，没有证据迫使我们新增第六个顶层类型。当前 API 仍缺 uses/supersedes 等关系词汇，T13/T15 的 Statement/ExternalArtifactVersion 仍是条件性提升，不进入本轮对象清单。产品运行中的 holder/message/timer/activation/DOM/job/reader-count 作为 Product 规则内容记录，不实现 job、queue 或 Goal 授权。旧 16 段工作台只证明旧记录器，不冒充这条新链。
+15段、77条事实是静态语义回查，不是新检查器重放；T12 的6条事实不在77条内，另有对象比较。T03/T13/T15 有上述可执行边界；其余段落只做图式核对，没有证据迫使我们新增第六个顶层类型。当前 API 仍缺 uses/supersedes 等关系词汇；T13 的旧解释与纠正证据已能用 `content_kind='interpretation'`、`scope_ids` 与 `corrects` 查询，独立 Statement 与 T15 的 ExternalArtifactVersion 仍是条件性提升，不进入本轮对象清单。产品运行中的 holder/message/timer/activation/DOM/job/reader-count 作为 Product 规则内容记录，不实现 job、queue 或 Goal 授权。旧 16 段工作台只证明旧记录器，不冒充这条新链。
 
-### T12 连续链与边界执行
+### T12 连续链、边界执行与接续包
 
-`identity-v2` 的 C1/C2 各走 L0—L7：计划局部改版 → 原尝试显式采用 → 新成果引用新版 → 旧报告仍指旧版 → 结束并交代责任。C1 第二轮尝试引用 A 的精确旧版 section，不复制；C2 由 A2 推进 A 的原 slot，A 保持 ended。两组都保留旧报告、旧成果与未改 part。链的 basis 均为 `SYN:`、nature 为 `synthetic`，没有事件时间，不是 DSH 后续。
+`real_path` 的 8 个 source_record 变更覆盖 T12.01—06、S029.dependency 与 S028.partial_replacement；T12 六条事实都在历史锚点内，不是只到 T12.03/T12.04。`identity-v2` 的 C1/C2 各走 L0—L7：计划局部改版 → 原尝试显式采用 → 新成果引用新版 → 旧报告仍指旧版 → 结束并交代责任。C1 第二轮尝试引用 A 的精确旧版 section，不复制；C2 的强内嵌表示由 A2 推进 A 的原 slot，A 保持 ended。两组都保留旧报告、旧成果与未改 part。链的 basis 均为 `SYN:`、nature 为 `synthetic`，没有事件时间，不是 DSH 后续。这些跨尝试能力属于比较表示；核心的 `advance_product`/`advance_parts` 不记录 producer，不能写成核心已实现。
 
 `boundary-v2` 还验证 T12 的 part 局部推进：细分时复制当时共享维度，只更新列明 part，整体由 present parts 派生，acceptance 不自动传播；部分撤回保留其他 part。该包先以合成双 scope 测试打出失败：142 项中 1 failure，旧实现只纠正 A 后把 B 读成 `undetermined`。按 scope 修正后，最终 143 项通过；boundary-v2 由测试新建一次，boundary-v1 未覆盖。两张 T12 图沿用现有文件，主调度已视觉核对；本轮不写图。
 
+首次 GLM 隔离读回暴露了接续材料的三处缺口：不同探针分支的 head 被混成一条时间线、没有完整当前快照、把 Plan owner 当成成果实际使用的计划版本。`handoff-v1` 据此把接续包改为单一分支 `t12-handoff-mainline`（历史锚点 head 8，合成续接从 change 9 开始，当前 head 12），顶层给出 `branch`、`head` 与完整 `state`，并把 `product.plan_usage` 设为计划实际使用版本的唯一权威；`plan_authority` 并列 owner、begin 引用、采用记录与 plan_usage，避免三者混淆。导出检查覆盖下一步、只改一个 part、旧成果与旧报告保留、过期 head 原子拒绝和计划权威，记录为通过；新的独立读回尚未执行，不能写 GLM 复核通过。
+
 ### 代码与回执核对
 
-本任务只读当前工作树代码，未运行 Git、shell、测试或网络；任务合同给出 expected HEAD `5ba5d1e`，代码研究 checkpoint 保留待审实现。`t12_study.py` 的公开入口与主文操作表一致；`apply` 只检查 expected head、整批执行并回退，语义判定在各对象入口内。
+本任务只读当前工作树代码，未运行 Git、shell、测试或网络；代码研究 checkpoint `5ba5d1e` 保留待审实现，HEAD 以任务合同为准。`t12_study.py` 的公开入口与主文操作表一致；`apply` 只检查 expected head、整批执行并回退，语义判定在各对象入口内。`advance_product`/`advance_parts` 只改维度，不接收尝试或 producer；跨尝试推进只在 `identity-v2` 的 C2 比较表示中执行并记录 producer，不能写成核心功能。
 
 回执差异按主调度给定事实记录：
 
 - fd501936 有被拒目录与越界读取；其实际完成 6 个文件归属核对，测试证据存在。首轮“0 测试”不准；主调度原日志为 109 项、1 error，后 122 项通过。
 - 0b1190ec 末报告称旧产物不存在，不准；主调度文件时间与之前读取证明已存在。
 - HY 补充 0ecff39a 是基于主调度给定事实的无工具设计意见，不是源码验证。其“内嵌只能是视图”“ended 不可写全部内容”“同一 commit 所有 T12 成果”等前提不成立，主调度拒绝；采用其“局部状态单一权威、有范围纠正”的建议。HY 首任务 a0c6a83c 只有开场白，未完成审查。
-- 独立 GLM 与一次 Kimi 审阅仍待执行；本记录不写它们已通过。
+- GLM 首次隔离读回已完成（549d454e），暴露的是接续材料缺口；新的独立读回尚未执行。Kimi 审阅仍待执行；本记录不写复核通过。
 
 ### 文档与索引
 
-主文重写为五类推荐与组合；本页新增本轮节；`dsh-work-history` 只替换 T12 结果入口段；HANDOFF 顶部收敛为唯一现行状态，旧记录折叠；README、INDEX、资产登记同步。INDEX 新增 `currentrecommendation` 2026-10-30；v0.5 四入口标为历史记录器，旧设计不删，当前对象设计以 T12 页为准。
+主文重写为五类推荐与组合；本页新增本轮节；`dsh-work-history` 只替换 T12 结果入口段；HANDOFF 顶部收敛为唯一现行状态，旧记录折叠；README、INDEX、资产登记的入口沿用上一轮。INDEX 新增 `currentrecommendation` 2026-10-30；v0.5 四入口标为历史记录器，旧设计不删，当前对象设计以 T12 页为准。本轮修正只改四份白名单文档，未改代码、图、底稿或批次原始输出。
 
-本轮未改代码、图、底稿或批次原始输出。逐组读回、拒绝探针与成本明细见[`identity-v2/review.md`](../../../../artifacts/agent-task-state/maintenance/t12-continuous-validation-2026-10-29/identity-v2/review.md)，15段逐条裁定见[`coverage-v2/adjudication.md`](../../../../artifacts/agent-task-state/maintenance/t12-continuous-validation-2026-10-29/coverage-v2/adjudication.md)，边界规则见[`boundary-v2/rules.md`](../../../../artifacts/agent-task-state/maintenance/t12-continuous-validation-2026-10-29/boundary-v2/rules.md)。
+逐组读回、拒绝探针与成本明细见[`identity-v2/review.md`](../../../../artifacts/agent-task-state/maintenance/t12-continuous-validation-2026-10-29/identity-v2/review.md)，15段逐条裁定见[`coverage-v2/adjudication.md`](../../../../artifacts/agent-task-state/maintenance/t12-continuous-validation-2026-10-29/coverage-v2/adjudication.md)，边界规则见[`boundary-v2/rules.md`](../../../../artifacts/agent-task-state/maintenance/t12-continuous-validation-2026-10-29/boundary-v2/rules.md)，接续包见[`handoff-v1/adjudication.md`](../../../../artifacts/agent-task-state/maintenance/t12-continuous-validation-2026-10-29/handoff-v1/adjudication.md)。
 
 ## 2026-10-29：T12对象方案与可执行比较
 
