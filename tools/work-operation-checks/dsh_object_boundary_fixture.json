@@ -1,0 +1,42 @@
+{
+  "schema": 1,
+  "case": "T03/T13/T15 object-boundary sources",
+  "source_cutoff": "2026-10-15",
+  "identity_origin": "All object identities and change numbers below are researcher-created; they are not upstream identities or releases.",
+  "ordering": "Controlled evidence presentation; retrospective facts are not live event times.",
+  "facts": [
+    {"id":"T03.01","source":"S041","meaning":"On 8/25 main merged #2698, whose commit body calls it a streaming-format migration pipeline","nature":"commit_record"},
+    {"id":"T03.02","source":"S043","meaning":"The same day main merged #3054, whose body reverts that migration pipeline; the reason is unknown","nature":"commit_record"},
+    {"id":"T03.03","source":"S042","meaning":"On 9/6 main merged #3585, a later streaming-migration implementation; correspondence and reuse with the earlier attempt are unknown","nature":"commit_record"},
+    {"id":"T03.04","source":"S015","meaning":"The design note author reports that one 116 MB session exhausted a 16 GB Node process during whole-file conversion","nature":"author_reported_failure"},
+    {"id":"T03.05","source":"S015","meaning":"The recorded arrangement uses per-session stateful conversion stages, keeps committed format files and publishes only the final current generation","nature":"documented_result"},
+    {"id":"T03.06","source":"S027","meaning":"LogicalSession storage rebuild remains proposed: stages 1 and 2 are draft work complete, stage 3 records implementation and remote CI but is still draft, stages 4 and 5 are incomplete","nature":"documented_status"},
+    {"id":"T13.01","source":"S002","meaning":"The early explanation attributed the self-hosted Windows readiness failure to prompt-tail delay and cited the delivered waiting-grace fix","nature":"author_reported_diagnosis"},
+    {"id":"T13.02","source":"S010","meaning":"A later comparison reports 20.8 seconds both before and after the fix; waiting grace did not solve this failure","nature":"author_reported_measurement"},
+    {"id":"T13.03","source":"S009","meaning":"Direct probing found the host console rewrites the tail format after scrolling, so an already-arrived non-prefix string cannot satisfy the wait condition","nature":"author_reported_measurement"},
+    {"id":"T13.04","source":"S009","meaning":"Windows PTY switched to node-pty with bundled OpenConsole; seven prompts in the same sequence were normal only as an author report","nature":"recorded_decision"},
+    {"id":"T13.05","source":"S009","meaning":"Retaining the desktop package's bundled OpenConsole and conpty.dll became a terminal-allocation prerequisite; other Windows hosts and POSIX have separate scope","nature":"documented_dependency"},
+    {"id":"T15.03","source":"S017","meaning":"LibreOffice kit independently owns API, engine, tests and release; Harness owns adaptation, authorization, conversion lifecycle and UI, and locks the exact npm version","nature":"documented_dependency"},
+    {"id":"T15.04","source":"S024","meaning":"Desktop ships interpreter and libraries as a release-bound payload, records version and locked input digest, stages completion before replacing; system interpreter choice remains with the user","nature":"documented_state"},
+    {"id":"T15.05","source":"S018/S024","meaning":"Conversion limits do not cover engine RSS or outputs retained by callers; desktop signature checking and final run checking are separate; run success follows the author test record","nature":"documented_limit"}
+  ],
+  "sources": {
+    "S041":{"revision":"3fefcdbe3f83a309f05075b9e9f05450509318ed","url":"https://github.com/deepseek-ai/deepseek-harness/commit/3fefcdbe3f83a309f05075b9e9f05450509318ed"},
+    "S043":{"revision":"a1781cc4a81bf14551ed0d6e0ee618d14fd9b823","url":"https://github.com/deepseek-ai/deepseek-harness/commit/a1781cc4a81bf14551ed0d6e0ee618d14fd9b823"},
+    "S042":{"revision":"80306f51a6f36e26c71bcf0be5621af6b8ad8e65","url":"https://github.com/deepseek-ai/deepseek-harness/commit/80306f51a6f36e26c71bcf0be5621af6b8ad8e65"},
+    "S015":{"revision":"86a402200d95fecef4529d969836f1fe13c6cb0d","url":"https://github.com/deepseek-ai/deepseek-harness/blob/86a402200d95fecef4529d969836f1fe13c6cb0d/.agents/notes/implemented/architecture/2026-08-31-released-session-format-migrations.md"},
+    "S027":{"revision":"86a402200d95fecef4529d969836f1fe13c6cb0d","url":"https://github.com/deepseek-ai/deepseek-harness/blob/86a402200d95fecef4529d969836f1fe13c6cb0d/.agents/notes/proposed/architecture/2026-09-06-logical-session-storage-rebuild.md"},
+    "S002":{"revision":"21507982e62aee5c86e13d9ffcd95ac6e817f747","url":"https://github.com/deepseek-ai/deepseek-harness/blob/21507982e62aee5c86e13d9ffcd95ac6e817f747/.agents/notes/implemented/testing/2026-09-27-observation-waits-on-observed-state.md"},
+    "S010":{"revision":"6514255930926026af9bf87fedc9a23e743d93ac","url":"https://github.com/deepseek-ai/deepseek-harness/blob/6514255930926026af9bf87fedc9a23e743d93ac/.agents/notes/implemented/testing/2026-09-27-observation-waits-on-observed-state.md"},
+    "S009":{"revision":"6514255930926026af9bf87fedc9a23e743d93ac","url":"https://github.com/deepseek-ai/deepseek-harness/blob/6514255930926026af9bf87fedc9a23e743d93ac/.agents/notes/implemented/bug-fix/2026-09-28-pty-bundled-console-host.md"},
+    "S017":{"revision":"86a402200d95fecef4529d969836f1fe13c6cb0d","url":"https://github.com/deepseek-ai/deepseek-harness/blob/86a402200d95fecef4529d969836f1fe13c6cb0d/.agents/notes/implemented/architecture/2026-09-14-independent-libreoffice-kit.md"},
+    "S024":{"revision":"86a402200d95fecef4529d969836f1fe13c6cb0d","url":"https://github.com/deepseek-ai/deepseek-harness/blob/86a402200d95fecef4529d969836f1fe13c6cb0d/.agents/notes/implemented/feature/2026-09-14-desktop-primary-runtime.md"},
+    "S018":{"revision":"86a402200d95fecef4529d969836f1fe13c6cb0d","url":"https://github.com/deepseek-ai/deepseek-harness/blob/86a402200d95fecef4529d969836f1fe13c6cb0d/.agents/notes/implemented/architecture/2026-09-15-bounded-office-conversion.md"}
+  },
+  "t13_scope_ids": {
+    "prior": ["T13:windows-hosted-ready-failure", "T13:windows-ready-timeout-class"],
+    "correction": ["T13:windows-hosted-ready-failure"],
+    "outside_correction": ["T13:windows-ready-timeout-class"],
+    "broader_not_supported": ["T13:all-delayed-failures"]
+  }
+}

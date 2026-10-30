@@ -6,20 +6,28 @@ import json
 
 HERE = Path(__file__).resolve().parent
 FIXTURE = json.loads((HERE / 't12_experiment_fixture.json').read_text(encoding='utf-8'))
+BOUNDARY_FIXTURE_PATH = HERE / 'dsh_object_boundary_fixture.json'
+BOUNDARY_FIXTURE = (json.loads(BOUNDARY_FIXTURE_PATH.read_text(encoding='utf-8'))
+                    if BOUNDARY_FIXTURE_PATH.exists() else {'facts': [], 'sources': {}})
 KNOWN_BASIS = {x['id'] for x in FIXTURE['facts'] + FIXTURE['supplements']}
+KNOWN_BASIS |= {x['id'] for x in BOUNDARY_FIXTURE['facts']}
 ACTION_KEYS = {
     'goal': {'op','id','scope'}, 'begin': {'op','id','goal','scope','plan','location'},
     'plan': {'op','id','owner','sections','links'}, 'change_plan': {'op','id','edits','remove'},
     'produce': {'op','id','attempt','parts','dimensions','location','nature','plan_scope'},
     'adopt_plan': {'op','id','plan','scope','basis'},
     'end': {'op','id','outcome','remaining'}, 'reopen': {'op','id'},
-    'advance_product': {'op','id','dimensions'},
-    'withdraw_parts': {'op','id','parts'}, 'report': {'op','id','subject','scope','findings','nature'},
+    'advance_product': {'op','id','dimensions','parts'},
+    'advance_parts': {'op','id','parts','dimensions'},
+    'withdraw_parts': {'op','id','parts'},
+    'report': {'op','id','subject','scope','findings','nature','content_kind','scope_ids'},
+    'correct_interpretation': {'op','id','prior','scope','scope_ids','findings','basis','nature'},
     'accept_goal': {'op','id','actor_role','actor','criteria','decision','evidence'},
     'responsibility_init': {'op','tokens','holders','unknown','owner'},
     'assign': {'op','token','to'}, 'transfer': {'op','token','from','to'},
     'share': {'op','token','holders'}, 'unassign': {'op','token','from'}, 'unknown': {'op','token'},
     'relate': {'op','id','kind','from','to','basis','nature','meaning'},
+    'relate_exact': {'op','id','kind','from','to','scope','basis','nature','external'},
     'register_items': {'op','items'}
 }
 DIMENSION_VALUES = {
@@ -97,6 +105,10 @@ def goal_of(state, obj):
         return obj['id']
     if obj['kind'] == 'attempt':
         return obj.get('goal')
+    if obj['kind'] == 'plan':
+        owner = state['objects'].get(obj.get('owner'))
+        require(owner is not None, 'plan owner missing')
+        return goal_of(state, owner)
     if obj['kind'] == 'product':
         attempt = state['objects'].get(obj.get('attempt'))
         require(attempt is not None and attempt['kind'] == 'attempt', 'product attempt missing')
@@ -169,6 +181,45 @@ def _relation_endpoint(state, value, label):
     return deepcopy(value)
 
 
+def _exact_endpoint(state, value, label):
+    """A delivery endpoint fixes object, exact revision and scope together."""
+    require(isinstance(value, dict) and set(value) == {'object', 'revision', 'scope'},
+            label + ' must be an object+revision+scope endpoint')
+    require(isinstance(value['object'], str) and value['object'] in state['objects'],
+            label + ' object must exist')
+    require(type(value['revision']) is int and value['revision'] > 0,
+            label + ' exact positive revision required')
+    require(isinstance(value['scope'], str) and value['scope'].strip(),
+            label + ' scope is required')
+    obj = version(state, value['object'], value['revision'])
+    if obj['kind'] == 'product':
+        require(value['scope'] in obj['parts'], label + ' scope must name a product part')
+    elif obj['kind'] == 'attempt':
+        require(value['scope'] in obj.get('scope', []), label + ' scope must be in the attempt scope')
+    else:
+        require(False, label + ' must be a product or attempt')
+    return deepcopy(value)
+
+
+def _advance_dimensions(dimensions, label='controlled product dimension value required'):
+    require(isinstance(dimensions, dict) and dimensions
+            and set(dimensions) <= {'completion', 'implementation', 'git'},
+            label + ': only completion/implementation/git progress can advance a product')
+    for name, value in dimensions.items():
+        require(isinstance(value, str) and value in DIMENSION_VALUES[name],
+                'controlled dimension value required: ' + name)
+
+
+def _initialize_part_states(obj, source_revision):
+    """First subdivision copies the then-current shared state into every part."""
+    obj['part_states'] = {part: deepcopy(obj['dimensions']) for part in obj['parts']}
+    obj['part_state_source'] = {'revision': source_revision,
+                                'dimensions': deepcopy(obj['dimensions'])}
+    obj['dimensions'] = {'completion': 'unknown', 'implementation': 'unknown',
+                         'git': 'unknown', 'acceptance': obj['dimensions']['acceptance']}
+    obj['overall_state'] = 'derived_from_parts_or_unknown'
+
+
 def relations_for(state, oid, scope=None):
     """Return typed relations touching one object(+scope), from either end."""
     require(oid in state['objects'], 'unknown relation endpoint object')
@@ -194,6 +245,110 @@ def relations_for_item(state, item_id):
             'relations': relations_for(state, endpoint['object'], endpoint['scope'])}
 
 
+def _creation_change(state, oid):
+    for change in state['changes']:
+        for action in change['actions']:
+            if action.get('id') == oid and action.get('op') in {'report', 'correct_interpretation'}:
+                return change
+    return None
+
+
+def interpretations(state, scope_id):
+    """History and the current interpretation for one stable scope id.
+
+    A correction only applies inside its own narrower scope id set.  When a
+    correction exists for a proposition but does not cover the queried scope,
+    the result is undetermined rather than silently keeping or deleting the old
+    claim.
+    """
+    require(isinstance(scope_id, str) and scope_id.strip(), 'stable scope id required')
+    evidence = {oid: obj for oid, obj in state['objects'].items()
+                if obj['kind'] == 'evidence' and obj.get('content_kind') == 'interpretation'}
+
+    def order(oid):
+        change = _creation_change(state, oid)
+        return (change['number'] if change else 0, oid)
+
+    covering = sorted([oid for oid, obj in evidence.items() if scope_id in obj.get('scope_ids', [])],
+                      key=order)
+    keys = {(oid, evidence[oid]['revision']) for oid in covering}
+    applying = {}
+    for oid in covering:
+        prior = evidence[oid].get('corrects')
+        if prior and (prior['id'], prior['revision']) in keys:
+            applying.setdefault((prior['id'], prior['revision']), []).append(oid)
+    roots = [oid for oid in covering if (oid, evidence[oid]['revision']) not in applying]
+    challenged = any(obj.get('corrects') and
+                     (obj['corrects']['id'], obj['corrects']['revision']) in keys
+                     for obj in evidence.values())
+    current = None
+    if len(roots) == 1 and roots[0] in evidence and evidence[roots[0]].get('corrects'):
+        status, current = 'corrected', roots[0]
+    elif len(roots) == 1 and not challenged:
+        status, current = 'recorded', roots[0]
+    elif len(roots) > 1:
+        status = 'multiple_unresolved'
+    else:
+        status = 'undetermined'
+    history = []
+    for oid in covering:
+        obj = evidence[oid]
+        change = _creation_change(state, oid)
+        history.append({'evidence': {'id': oid, 'revision': obj['revision']},
+                        'findings': deepcopy(obj.get('findings')),
+                        'scope_ids': deepcopy(obj.get('scope_ids', [])),
+                        'nature': obj.get('nature'),
+                        'recorded_basis': deepcopy(change['basis']) if change else [],
+                        'corrects': deepcopy(obj.get('corrects'))})
+    corrections = []
+    for oid, obj in sorted(evidence.items(), key=lambda row: order(row[0])):
+        prior = obj.get('corrects')
+        if prior and (prior['id'], prior['revision']) in keys:
+            corrections.append({'evidence': {'id': oid, 'revision': obj['revision']},
+                                'corrects': deepcopy(prior),
+                                'scope_ids': deepcopy(obj.get('scope_ids', [])),
+                                'basis': deepcopy(obj.get('basis', []))})
+    return {'scope': scope_id, 'status': status,
+            'current': ({'evidence': {'id': current, 'revision': evidence[current]['revision']},
+                         'findings': deepcopy(evidence[current].get('findings')),
+                         'scope_ids': deepcopy(evidence[current].get('scope_ids', []))}
+                        if current else None),
+            'history': history, 'corrections': corrections,
+            'note': 'Evidence here is an attributed claim, not system-certified truth; outside the correction scope stays undetermined'}
+
+
+def relation_status(state, rid):
+    """Compare a stored relation's fixed endpoints with current object revisions.
+
+    The query never declares an updated product incompatible.  A scope-only
+    legacy relation needs explicit review, an exact relation whose endpoint
+    moved needs recheck, and only unchanged exact endpoints read as current.
+    """
+    relation = state['relations'].get(rid)
+    require(relation is not None, 'unknown relation: ' + str(rid))
+    rows = []
+    for side in ('from', 'to'):
+        endpoint = relation[side]
+        if 'revision' not in endpoint:
+            rows.append({'side': side, 'stored': deepcopy(endpoint), 'fixed': False,
+                         'current_revision': None, 'drifted': None})
+        else:
+            obj = state['objects'].get(endpoint['object'])
+            require(obj is not None, 'relation endpoint object missing')
+            rows.append({'side': side, 'stored': deepcopy(endpoint), 'fixed': True,
+                         'current_revision': obj['revision'],
+                         'drifted': obj['revision'] != endpoint['revision']})
+    if any(not row['fixed'] for row in rows):
+        status = 'needs_explicit_recheck'
+    elif any(row['drifted'] for row in rows):
+        status = 'needs_recheck'
+    else:
+        status = 'current'
+    return {'relation': rid, 'kind': relation['kind'], 'status': status,
+            'endpoints': rows, 'automatic_compatibility_conclusion': None,
+            'note': 'needs_recheck is not an incompatibility finding; a new exact relation or explicit review is required'}
+
+
 def s029_items(state):
     """Read the S029 item records together with their current product projection."""
     rows = {}
@@ -202,16 +357,47 @@ def s029_items(state):
         require(product is not None and product['kind'] == 'product', 'item product missing: ' + item_id)
         require(item['part'] in product['parts'], 'item part missing: ' + item_id)
         row = deepcopy(item)
+        dimensions = product['dimensions']
+        if 'part_states' in product:
+            require(item['part'] in product['part_states'], 'item part has no part state: ' + item_id)
+            dimensions = product['part_states'][item['part']]
         row['current'] = {
             'product_revision': product['revision'],
             'part_state': product['parts'][item['part']],
-            'dimensions': deepcopy(product['dimensions']),
-            'matches_source_status': all(product['dimensions'][name] == item['status'][name]
+            'dimensions': deepcopy(dimensions),
+            'matches_source_status': all(dimensions[name] == item['status'][name]
                                          for name in ('completion', 'implementation', 'git', 'acceptance'))
         }
+        if 'part_states' in product:
+            row['current']['product_dimensions'] = deepcopy(product['dimensions'])
+            row['current']['overall_authority'] = 'derived_from_present_parts_or_unknown; item dimension is the part authority'
         rows[item_id] = row
     return {'items': rows,
             'note': 'item statuses are S029 records copied into this controlled study; current is the state projection, not independent verification'}
+
+
+def part_progress(state, pid):
+    """Return per-part product state and a derived (never separately writable) overall view."""
+    product = state['objects'].get(pid)
+    require(product is not None and product['kind'] == 'product', 'product required')
+    if 'part_states' not in product:
+        return {'product': pid, 'revision': product['revision'], 'subdivided': False,
+                'parts': {p: {'presence': presence, 'dimensions': deepcopy(product['dimensions'])}
+                          for p, presence in sorted(product['parts'].items())},
+                'overall': deepcopy(product['dimensions']), 'overall_authority': 'shared_product_dimensions'}
+    present = {p: value for p, value in product['part_states'].items()
+               if product['parts'].get(p) == 'present'}
+    overall = {}
+    for name in ('completion', 'implementation', 'git'):
+        values = {value[name] for value in present.values()}
+        overall[name] = next(iter(values)) if len(values) == 1 else 'unknown'
+    overall['acceptance'] = product['dimensions']['acceptance']
+    return {'product': pid, 'revision': product['revision'], 'subdivided': True,
+            'source_revision': product.get('part_state_source', {}).get('revision'),
+            'parts': {p: {'presence': product['parts'][p], 'dimensions': deepcopy(value)}
+                      for p, value in sorted(product['part_states'].items())},
+            'overall': overall,
+            'overall_authority': 'derived_from_present_parts; acceptance follows goal acceptance, not part progress'}
 
 
 def new_object(state, oid, kind, **fields):
@@ -243,7 +429,7 @@ def save_plan(state, plan, owner):
     if state['plans'] == 'independent':
         state['objects'][plan['id']] = deepcopy(plan)
     else:
-        host = touch(state, owner, 'attempt')
+        host = touch(state, owner, state['objects'][owner]['kind'])
         host.setdefault('plan_records', {})[plan['id']] = deepcopy(plan)
 
 
@@ -261,7 +447,7 @@ def _execute(state, action, basis):
         if plan:
             plan_obj = version(state, plan['id'], plan['revision'])
             require(plan_obj['kind'] == 'plan', 'attempt requires plan')
-            require(state['objects'][plan_obj['owner']]['goal'] == action['goal'], 'plan belongs to a different goal; explicit adaptation required')
+            require(goal_of(state, plan_obj) == action['goal'], 'plan belongs to a different goal; explicit adaptation required')
             adoptions = [{'plan': deepcopy(plan), 'scope': sorted(plan_obj['sections']),
                           'basis': deepcopy(basis), 'change': state['head'] + 1, 'origin': 'begin'}]
         new_object(state, action['id'], 'attempt', goal=action['goal'], scope=action['scope'], plan=plan,
@@ -276,7 +462,8 @@ def _execute(state, action, basis):
         else:
             raise ValueError('plan identity exists')
         owner = state['objects'].get(action['owner'])
-        require(owner is not None and owner['kind'] == 'attempt', 'plan owner required')
+        require(owner is not None and owner['kind'] in {'goal', 'attempt'},
+                'plan owner must be a goal or an attempt')
         require(isinstance(action['sections'], dict) and action['sections'], 'structured plan sections required')
         plan = {'id': action['id'], 'kind': 'plan', 'revision': 1, 'identity_origin': 'researcher_created', 'owner': action['owner'],
                 'sections': deepcopy(action['sections']), 'links': deepcopy(action.get('links', []))}
@@ -303,7 +490,7 @@ def _execute(state, action, basis):
         plan = ref(state, action['plan'])
         plan_obj = version(state, plan['id'], plan['revision'])
         require(plan_obj['kind'] == 'plan', 'plan required')
-        require(state['objects'][plan_obj['owner']]['goal'] == attempt['goal'],
+        require(goal_of(state, plan_obj) == attempt['goal'],
                 'plan belongs to a different goal; explicit adaptation required')
         scope = action['scope']
         require(isinstance(scope, list) and scope and all(isinstance(x, str) and bool(x) for x in scope)
@@ -364,8 +551,38 @@ def _execute(state, action, basis):
                     'controlled dimension value required: ' + name)
         old = state['objects'].get(action['id'])
         require(old is not None and old['kind']=='product', 'product required')
+        if 'part_states' in old:
+            parts = action.get('parts')
+            active = {part for part, presence in old['parts'].items() if presence == 'present'}
+            require(isinstance(parts, list) and parts and len(set(parts)) == len(parts),
+                    'subdivided product requires the whole explicit part range')
+            require(set(parts) == active,
+                    'subdivided product requires the whole explicit part range')
+            require(not (set(dimensions) & {'acceptance'}), 'implementation cannot accept product')
+            obj = touch(state, action['id'], 'product')
+            for part in parts:
+                obj['part_states'][part].update(deepcopy(dimensions))
+        else:
+            obj = touch(state, action['id'], 'product')
+            obj['dimensions'].update(deepcopy(dimensions))
+    elif op == 'advance_parts':
+        old = state['objects'].get(action['id'])
+        require(old is not None and old['kind'] == 'product', 'product required')
+        parts = action['parts']
+        require(isinstance(parts, list) and parts
+                and all(isinstance(x, str) and bool(x) for x in parts)
+                and len(set(parts)) == len(parts), 'explicit unique part range required')
+        require(set(parts) <= set(old['parts']), 'known part range required')
+        require(all(old['parts'][part] == 'present' for part in parts),
+                'cannot advance a withdrawn part')
+        dimensions = action['dimensions']
+        _advance_dimensions(dimensions)
+        source_revision = old['revision']
         obj = touch(state, action['id'], 'product')
-        obj['dimensions'].update(deepcopy(dimensions))
+        if 'part_states' not in obj:
+            _initialize_part_states(obj, source_revision)
+        for part in parts:
+            obj['part_states'][part].update(deepcopy(dimensions))
     elif op == 'withdraw_parts':
         old = state['objects'].get(action['id'])
         require(old is not None and old['kind'] == 'product', 'product required')
@@ -381,8 +598,45 @@ def _execute(state, action, basis):
                 'report subject is not traceable to a goal')
         require(isinstance(action['scope'], str) and action['scope'].strip(), 'report scope required')
         require(action['nature'] in {'author_report', 'documented', 'synthetic'}, 'report nature required')
+        content_kind, scope_ids = action.get('content_kind'), action.get('scope_ids')
+        require((content_kind is None) == (scope_ids is None),
+                'evidence content kind and stable scope ids must be supplied together')
+        extra = {}
+        if content_kind is not None:
+            require(content_kind in {'observation', 'interpretation', 'decision'},
+                    'citable evidence content type required')
+            require(isinstance(scope_ids, list) and scope_ids
+                    and all(isinstance(x, str) and x.strip() for x in scope_ids)
+                    and len(set(scope_ids)) == len(scope_ids), 'stable unique scope id set required')
+            extra = {'content_kind': content_kind, 'scope_ids': list(scope_ids)}
         new_object(state, action['id'], 'evidence', subject=subject, goal=goal_id, scope=action['scope'],
-                   findings=action['findings'], nature=action['nature'])
+                   findings=action['findings'], nature=action['nature'], **extra)
+    elif op == 'correct_interpretation':
+        prior = ref(state, action['prior'])
+        prior_obj = version(state, prior['id'], prior['revision'])
+        require(prior_obj['kind'] == 'evidence' and prior_obj.get('content_kind') == 'interpretation',
+                'only a recorded interpretation proposition can be corrected')
+        require(not any(obj['kind'] == 'evidence' and obj.get('corrects') == prior
+                        for obj in state['objects'].values()),
+                'this exact interpretation revision was already corrected')
+        scope_ids = action['scope_ids']
+        require(isinstance(scope_ids, list) and scope_ids
+                and all(isinstance(x, str) and x.strip() for x in scope_ids)
+                and len(set(scope_ids)) == len(scope_ids), 'stable unique scope id set required')
+        require(set(scope_ids) <= set(prior_obj.get('scope_ids', [])),
+                'correction scope must stay inside the prior proposition scope')
+        require(isinstance(action['scope'], str) and action['scope'].strip(),
+                'correction scope text required')
+        require(isinstance(action['findings'], list) and action['findings'],
+                'correction proposition required')
+        require(action['nature'] in {'author_report', 'documented', 'synthetic'},
+                'correction nature required')
+        _known_basis(action['basis'], 'known correction basis required')
+        subject = ref(state, prior_obj['subject'])
+        new_object(state, action['id'], 'evidence', subject=subject, goal=prior_obj['goal'],
+                   scope=action['scope'], findings=action['findings'], nature=action['nature'],
+                   content_kind='interpretation', scope_ids=list(scope_ids),
+                   corrects=deepcopy(prior), basis=deepcopy(action['basis']))
     elif op == 'accept_goal':
         require(action.get('actor_role') == 'acceptor' and action.get('criteria') and action.get('decision') == 'accept', 'explicit acceptance authority and criteria required')
         require(action.get('evidence'), 'acceptance evidence required')
@@ -417,6 +671,31 @@ def _execute(state, action, basis):
         if 'meaning' in action:
             record['meaning'] = action['meaning']
         state['relations'][action['id']] = record
+    elif op == 'relate_exact':
+        require(action['id'] not in state['relations'], 'relation identity exists')
+        require(action['kind'] == 'delivery_dependency',
+                'only an exact delivery dependency is supported')
+        source = _exact_endpoint(state, action['from'], 'from')
+        target = _exact_endpoint(state, action['to'], 'to')
+        require(source != target, 'relation endpoints must differ')
+        require(isinstance(action['scope'], str) and action['scope'].strip(),
+                'relation scope required')
+        _known_basis(action['basis'], 'known relation basis required')
+        require(action['nature'] == 'documented_dependency',
+                'relation nature must retain documented_dependency')
+        external = action.get('external', {})
+        require(isinstance(external, dict) and set(external) <= {'name', 'version', 'digest'},
+                'external binding fields')
+        require(isinstance(external.get('name'), str) and external['name'].strip(),
+                'external binding name required')
+        for key in ('version', 'digest'):
+            require(key not in external or (isinstance(external[key], str) and external[key].strip()),
+                    'external ' + key + ' must be text when fixed')
+            external.setdefault(key, 'unknown')
+        state['relations'][action['id']] = {
+            'id': action['id'], 'kind': action['kind'], 'from': source, 'to': target,
+            'scope': action['scope'], 'basis': deepcopy(action['basis']),
+            'nature': action['nature'], 'external': deepcopy(external)}
     elif op == 'register_items':
         require(not state['items'], 'item records already registered')
         require(isinstance(action['items'], list) and action['items'], 'nonempty item records required')
@@ -440,9 +719,14 @@ def _execute(state, action, basis):
             status = item['status']
             require(isinstance(status, dict) and set(status) == {'completion', 'implementation', 'git', 'acceptance'},
                     'item status must keep four separate dimensions')
+            if 'part_states' in product:
+                require(item['part'] in product['part_states'], 'item part has no part state')
+                expected = product['part_states'][item['part']]
+            else:
+                expected = product['dimensions']
             for name in ('completion', 'implementation', 'git', 'acceptance'):
-                require(status[name] == product['dimensions'][name],
-                        'item status must agree with the current product dimension: ' + name)
+                require(status[name] == expected[name],
+                        'item status must agree with the current product or part dimension: ' + name)
             if 'reuse' in item:
                 reuse = item['reuse']
                 require(isinstance(reuse, dict) and set(reuse) == {'kind', 'symbol', 'source', 'basis', 'nature'},
