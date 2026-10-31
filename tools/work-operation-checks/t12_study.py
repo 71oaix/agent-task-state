@@ -67,6 +67,12 @@ def current_plan(state, pid):
 
 
 def version(state, oid, revision=None):
+    """Current or archived revision; a view without ``changes`` stays queryable.
+
+    Live objects and archived ``versions`` are authoritative.  Per-change
+    snapshots remain the fallback for a complete state whose old revision was
+    recorded before that archive existed.
+    """
     require(revision is None or type(revision) is int and revision > 0, 'invalid version')
     def find(view):
         if oid in view['objects']:
@@ -74,7 +80,18 @@ def version(state, oid, revision=None):
         for obj in view['objects'].values():
             if oid in obj.get('plan_records', {}):
                 return obj['plan_records'][oid]
-    for view in [state] + [c['after'] for c in reversed(state['changes'])]:
+    current = find(state)
+    if revision is None:
+        if current is not None:
+            return deepcopy(current)
+    else:
+        if current is not None and current['revision'] == revision:
+            return deepcopy(current)
+        archived = state.get('versions', {}).get(oid, {}).get(str(revision))
+        if archived is not None:
+            return deepcopy(archived)
+    for change in reversed(state.get('changes', [])):
+        view = change['after']
         obj = find(view)
         if obj and (revision is None or obj['revision'] == revision):
             return deepcopy(obj)
@@ -399,10 +416,14 @@ def part_progress(state, pid):
     product = state['objects'].get(pid)
     require(product is not None and product['kind'] == 'product', 'product required')
     if 'part_states' not in product:
+        overall = deepcopy(product['dimensions'])
+        if not any(presence == 'present' for presence in product['parts'].values()):
+            for name in ('completion', 'implementation', 'git'):
+                overall[name] = 'unknown'
         return {'product': pid, 'revision': product['revision'], 'subdivided': False,
                 'parts': {p: {'presence': presence, 'dimensions': deepcopy(product['dimensions'])}
                           for p, presence in sorted(product['parts'].items())},
-                'overall': deepcopy(product['dimensions']), 'overall_authority': 'shared_product_dimensions'}
+                'overall': overall, 'overall_authority': 'shared_product_dimensions'}
     present = {p: value for p, value in product['part_states'].items()
                if product['parts'].get(p) == 'present'}
     overall = {}
@@ -581,6 +602,8 @@ def _execute(state, action, basis):
             for part in parts:
                 obj['part_states'][part].update(deepcopy(dimensions))
         else:
+            require(any(presence == 'present' for presence in old['parts'].values()),
+                    'product has no present part to advance')
             obj = touch(state, action['id'], 'product')
             obj['dimensions'].update(deepcopy(dimensions))
     elif op == 'advance_parts':

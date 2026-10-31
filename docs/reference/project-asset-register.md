@@ -2,7 +2,7 @@
 title: Agent任务状态管理项目资产索引
 status: active
 created: 2026-10-09
-updated: 2026-10-30
+updated: 2026-10-31
 tags: [asset-register, task-state, preservation]
 supersedes:
 ---
@@ -15,7 +15,8 @@ supersedes:
 
 | 资产 | 来源与版本 | 责任与边界 | 下一步 |
 |---|---|---|---|
-| [T12五类对象推荐](../research/change-graph-task-state/t12-object-study.md)、[离线检验](../../tools/work-operation-checks/README.md) | 2026-10-30（currentrecommendation）；identity-v2四身份对照、coverage-v2 15段静态回查、boundary-v2 T03/T13/T15边界；T12六事实及同源补充；原底稿未改 | 五类逻辑角色与Change；独立存放是维护选择；四身份对照、15段回查与T03/T13/T15边界分开记录；详情在[组合研究本轮节](../research/change-graph-task-state/operation-composition-review.md#2026-10-30五类对象推荐与操作组合) | 待最终审阅；审阅后用真实Agent接续检验；不把固定材料结论外推 |
+| [T12五类对象推荐](../research/change-graph-task-state/t12-object-study.md)、[离线检验](../../tools/work-operation-checks/README.md) | 2026-10-31（currentrecommendation）；identity-v2四身份对照、coverage-v2 15段静态回查、boundary-v2 T03/T13/T15边界、handoff-v2接续包、final-review-v1最终审查；T12六事实及同源补充；原底稿未改 | 五类逻辑角色与Change；独立存放是维护选择；最终审查修复两项Kimi缺陷，GLM第二次读回依据由主调度补正；详情在[组合研究最终审查节](../research/change-graph-task-state/operation-composition-review.md#最终审查与第二次接手读回2026-10-31) | 真实Agent小任务接续；主调度提交本轮修改 |
+| [final-review-v1 回执与验证](../../../artifacts/agent-task-state/maintenance/t12-continuous-validation-2026-10-29/final-review-v1/adjudication.md) | 2026-10-31；Kimi `9d11c98e` 冻结3369静态审查、GLM固定包与主调度纠正依据；[results.json](../../../artifacts/agent-task-state/maintenance/t12-continuous-validation-2026-10-29/final-review-v1/results.json)、[verification.md](../../../artifacts/agent-task-state/maintenance/t12-continuous-validation-2026-10-29/final-review-v1/verification.md) | 两项缺陷修正前后回执、180项新上下文回归、GLM语义裁定；验证不冒充Kimi修后复审，读回不写成GLM自主完全通过 | 本轮审查修复已完成；下一轮真实Agent小任务 |
 | [四模型对象研究交接](../research/change-graph-task-state/object-operation-handoff-2026-10-28.md)、[综合裁定](../research/change-graph-task-state/operation-composition-review.md#2026-10-28对象与变化的四模型构思及裁定) | 2026-10-28；四模型固定e15f6f4、effort=max；均completed | 独立构思与主Agent裁定分开，三布局尚未运行比较；原答位于本工作树artifacts/agent-task-state/maintenance/object-review-2026-10-28/ | 比较父表/关系/子项权威；检查Plan与Change身份；历史行的下一步以HANDOFF为准 |
 | [工作操作工作台](../../tools/work-operation-checks/README.md) | 2026-10-27；原检查器与新增组合执行/历史查询/阅读器 | 16段、83来源事实与16研究缺口；模型原稿和Sol裁定分开；独立读回有明确输入范围 | 定向读回、固定提交审查与Sol修复已完成；下一轮工作视图接续 |
 | [工作操作v0.5](../research/change-graph-task-state/work-operation-candidates-v0.5.md) | 2026-10-27；历史记录器接口；四入口与八类可执行组合 | 不再作为当前对象设计；旧实现与组合规则保留 | 查历史实现；当前对象设计见T12研究页 |
@@ -31,7 +32,7 @@ supersedes:
 | [活动来源筛选](../research/change-graph-task-state/activity-source-review.md)、[执行账本](../research/change-graph-task-state/research-execution-ledger.md) | 2026-10-15，交接基线31b6938；七份实证全文、四项目过程、一个官方Agent示例 | G1首批探索准入；非检索饱和、行业频率或长程效果证据；本地获取/分析批次保持忽略 | 按缺口扩展来源，保留候选项目还需确认可用性 |
 | [活动地图](../research/change-graph-task-state/software-development-activity-map.md)、[记录映射](../research/change-graph-task-state/activity-record-agent-mapping.md) | G2提交f92101c，G3提交aaef635；27证据解释单元、12活动类、6工作点 | G2探索版、G3同一作者表示走查通过；强文档同样可支持问题；没有计时或独立模型试验 | 不用当前分类作为最终最小模型，继续组合检验 |
 | [元操作首轮检查](../research/change-graph-task-state/operation-composition-review.md) | 同一六工作点，复核固定v1近邻方法；2026-10-15 | G4返工：事实/实际产物/采用及许可、验证、义务尚需统一协议；未实现或验证优越性 | 比较两种完整编码并重验反例；G5规则未冻结 |
-| [Agent 接手入口](../research/change-graph-task-state/HANDOFF.md) | 2026-10-30；五类对象推荐待最终审阅；历史阶段折叠保留 | 当前结论、唯一现行状态、待办与权限边界；独立审阅待执行 | 按HANDOFF完成最终审阅；未通过前不写研究完成 |
+| [Agent 接手入口](../research/change-graph-task-state/HANDOFF.md) | 2026-10-31；五类对象推荐保留；最终审查与第二次读回已记录；历史阶段折叠保留 | 当前结论、唯一现行状态、下一步与权限边界；本轮已完成，真实接续属下一轮 | 按HANDOFF开展下一轮真实Agent小任务 |
 | [研究计划 v1.1](../research/change-graph-task-state/research-plan-v1.1.md)、[执行说明](../research/change-graph-task-state/research-plan-v1.1-agent-notes.md) | 2026-10-15 用户纠正活动来源及整体流程 | 当前计划：活动归纳、记录投影、Agent 工作、元操作检验；未完成新调研或批准原型和付费实验 | 按2026-10-20纠偏基线，以已有过程比较记录机制 |
 | [本地资料分类](artifact-organization.md) | 2026-10-15 实际盘点及 41 文件迁移哈希校验 | 主工作区 artifacts/agent-task-state 为当前资料根；其他项目与历史工作树原位分类；两个旧审计目录权限受限 | 新资料按项目、性质、批次保存；保持来源和分析分离 |
 | [元操作候选 v0.2](../research/change-graph-task-state/primitive-candidates-v0.2.md)、[协议与证据](../research/change-graph-task-state/primitive-candidates-v0.2-agent-notes.md) | 2026-10-14 用户审阅；继承 P 系列来源，复核 MAGE/StateMem/ESAA 方法及固定投影规范 | 当前候选：明确身份、关系生命周期、整合及并发边界；十项近邻映射为原文分析，非真实轨迹重放或运行验证 | 取得真实开发修订与决策记录，检查组合规则；尚未证明最小性或优越性 |
@@ -46,7 +47,7 @@ supersedes:
 | [设计前版 v0.1](../research/change-graph-task-state/design-v0.1.md) | 2026-10-10用户要求初步设计；本地提交 b12d0f2 | 内容不覆盖，作为逐版讨论基线保留 | 对照 v0.2 修改理由 |
 | [研究项目与五份研究文档](../research/change-graph-task-state/README.md) | 原工作树固定提交 `0672238b3f96e01443997f9125d58249bcac29e5`，2026-10-09 纳入本目录；官方外部证据见[来源清单](../research/change-graph-task-state/source-inventory.md) | 助手维护，用户决定研究投入；近邻核验及手工实例，不是运行结果 | 寻找能区分简单状态表与候选视图的真实前缀 |
 | [阶段性总结与设计假设](../research/change-graph-task-state-design-hypothesis.md) | 原主工作区 `81ba115` 中已有文档，用户讨论总结，2026-10-09 | 设计假设；初始化后的判断以研究入口和问题卡为准 | 随问题分析核验 |
-| [六论文总结](../../六论文总结.md) | 分区前未跟踪的用户笔记，2026-10-09 原文迁移，内容不改；保持本地未跟踪，不随本次提交 | 用户已有比较笔记，未在本次重新核验论文事实 | 引用结论前对照来源清单 |
+| 用户六论文总结（本机未跟踪；当前检出没有） | 分区前未跟踪的用户笔记，2026-10-09 原文迁移，内容不改；保持本地未跟踪，不随本次提交 | 用户已有比较笔记，未在本次重新核验论文事实 | 引用结论前对照来源清单 |
 | [文档索引](../INDEX.md) | 本项目当前 Markdown 清单 | 只维护目录与生命周期，不批准研究或执行 | 新增或修订文档后更新 |
 | 原研究工作树 | 仓库根目录 `artifacts/worktrees/change-graph-paper/`，分支 `codex/change-graph-paper-init` | 历史开发位置，保持原路径及内容，不提交整个工作树 | 后续维护优先进入本项目目录 |
 

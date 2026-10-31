@@ -2,7 +2,7 @@
 title: Agent任务状态管理文档索引
 status: active
 created: 2026-10-09
-updated: 2026-10-30
+updated: 2026-10-31
 tags: [workspace, directory]
 supersedes:
 ---
@@ -13,8 +13,8 @@ supersedes:
 
 | 文档 | 状态 | 路径 |
 |------|:----:|------|
-| T12 五类对象推荐（currentrecommendation 2026-10-30） | active | [五类逻辑角色、身份对照与操作组合](research/change-graph-task-state/t12-object-study.md) |
-| T12 开发对象与连续变化比较 | active | [历史路径、对象与上一轮依据；当前推荐见上行](research/change-graph-task-state/t12-object-study.md) |
+| T12 五类对象推荐与最终审查（currentrecommendation 2026-10-31） | active | [五类逻辑角色、对象图、可用组合与最终审查](research/change-graph-task-state/t12-object-study.md) |
+| T12 开发对象与连续变化比较（同页技术详情） | active | [历史路径、对象与上一轮依据；当前推荐见上行](research/change-graph-task-state/t12-object-study.md) |
 | DSH 工程全景：主要方向、演化与接续 | active | [当前全量研究入口](research/change-graph-task-state/dsh-work-history.md) |
 | DSH 工作关系图与全量检索 | active | [关系图、历史主题及主线变更](research/change-graph-task-state/dsh-work-history.html) |
 | DSH 连续开发过程底稿 v1 | active | [16 过程、83 条事实与来源](research/change-graph-task-state/dsh-process-truth-v1.md) |

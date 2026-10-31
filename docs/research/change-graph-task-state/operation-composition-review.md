@@ -2,7 +2,7 @@
 title: DSH 真实过程的元操作组合与语义检查
 status: active
 created: 2026-10-15
-updated: 2026-10-30
+updated: 2026-10-31
 tags: [research, primitives, composition-check]
 ---
 
@@ -10,7 +10,7 @@ tags: [research, primitives, composition-check]
 
 ## 2026-10-30：五类对象推荐与操作组合
 
-**本轮把四组存放方式对照、15段静态回查与T03/T13/T15边界检查收束为当前推荐，并按主调度审阅意见修正正文。**人类主文在[T12对象研究](t12-object-study.md)，本书记录执行细节、代码核对与回执差异。
+**本轮把四组存放方式对照、15段静态回查与T03/T13/T15边界检查收束为当前推荐，并按主调度审阅意见修正正文。**人类主文在[T12对象研究](t12-object-study.md)，本书记录执行细节、代码核对与回执差异。2026-10-31 的最终审查与第二次接手读回补记在本节末。
 
 ### 推荐与存放方式对照
 
@@ -29,7 +29,7 @@ tags: [research, primitives, composition-check]
 
 ### 对象规则与15段回查
 
-Plan 的 owner 现在可为 Goal 或 Attempt（`t12_study.py:482-484`），T03 的 phase1—5 因此可以先于 Attempt 存在，各有状态。Product 的 `advance_parts` 首次细分时复制当时共享维度到各 part，之后只更新列明 part；整体由 present parts 派生，acceptance 仍取 Product 的 acceptance，不自动等于 Goal 验收（`t12_study.py:586-603`、`:397-418`、`:213-220`）。细分后 `advance_product` 需要整组当前 part，不能只列一个；`advance_parts` 可只列子集，但两者都不记录跨尝试的 producer（`:564-585`、`:586-603`）。Evidence 的 `correct_interpretation` 只接受 interpretation，scope_ids 必须落在旧命题范围内，且每个 scope 必须指向当前解释；旧报告不修改（`:632-659`）。`relate_exact` 固定两端 object/revision/scope 与 external name，version/digest 记为值或 unknown；后续更新只使关系读为 `needs_recheck`（`:694-718`、`:338-367`）。
+Plan 的 owner 现在可为 Goal 或 Attempt（`plan` 入口），T03 的 phase1—5 因此可以先于 Attempt 存在，各有状态。Product 的 `advance_parts` 首次细分时复制当时共享维度到各 part，之后只更新列明 part；整体由 present parts 派生，acceptance 仍取 Product 的 acceptance，不自动等于 Goal 验收（`part_progress`、`advance_parts`）。细分后 `advance_product` 需要整组当前 part，不能只列一个；`advance_parts` 可只列子集，但两者都不记录跨尝试的 producer（`advance_product`、`advance_parts`）。Evidence 的 `correct_interpretation` 只接受 interpretation，scope_ids 必须落在旧命题范围内，且每个 scope 必须指向当前解释；旧报告不修改，多个假说可按范围分别纠正（`correct_interpretation`）。`relate_exact` 固定两端 object/revision/scope 与 external name，version/digest 记为值或 unknown；后续更新只使关系读为 `needs_recheck`（`relate_exact`、`relation_status`）。
 
 15段、77条事实是静态语义回查，不是新检查器重放；T12 的6条事实不在77条内，另有对象比较。T03/T13/T15 有上述可执行边界；其余段落只做图式核对，没有证据迫使我们新增第六个顶层类型。当前 API 仍缺 uses/supersedes 等关系词汇；T13 的旧解释与纠正证据已能用 `content_kind='interpretation'`、`scope_ids` 与 `corrects` 查询，独立 Statement 与 T15 的 ExternalArtifactVersion 仍是条件性提升，不进入本轮对象清单。产品运行中的 holder/message/timer/activation/DOM/job/reader-count 作为 Product 规则内容记录，不实现 job、queue 或 Goal 授权。旧 16 段工作台只证明旧记录器，不冒充这条新链。
 
@@ -39,24 +39,32 @@ Plan 的 owner 现在可为 Goal 或 Attempt（`t12_study.py:482-484`），T03 �
 
 `boundary-v2` 还验证 T12 的 part 局部推进：细分时复制当时共享维度，只更新列明 part，整体由 present parts 派生，acceptance 不自动传播；部分撤回保留其他 part。该包先以合成双 scope 测试打出失败：142 项中 1 failure，旧实现只纠正 A 后把 B 读成 `undetermined`。按 scope 修正后，最终 143 项通过；boundary-v2 由测试新建一次，boundary-v1 未覆盖。两张 T12 图沿用现有文件，主调度已视觉核对；本轮不写图。
 
-首次 GLM 隔离读回暴露了接续材料的三处缺口：不同探针分支的 head 被混成一条时间线、没有完整当前快照、把 Plan owner 当成成果实际使用的计划版本。`handoff-v1` 据此把接续包改为单一分支 `t12-handoff-mainline`（历史锚点 head 8，合成续接从 change 9 开始，当前 head 12），顶层给出 `branch`、`head` 与完整 `state`，并把 `product.plan_usage` 设为计划实际使用版本的唯一权威；`plan_authority` 并列 owner、begin 引用、采用记录与 plan_usage，避免三者混淆。导出检查覆盖下一步、只改一个 part、旧成果与旧报告保留、过期 head 原子拒绝和计划权威，记录为通过；新的独立读回尚未执行，不能写 GLM 复核通过。
+首次 GLM 的 `boundary-v2` 隔离读回暴露了接续材料的三处缺口：不同探针分支的 head 被混成一条时间线、没有完整当前快照、把 Plan owner 当成成果实际使用的计划版本。`handoff-v1` 据此把接续包改为单一分支 `t12-handoff-mainline`（历史锚点 head 8，合成续接从 change 9 开始，当前 head 12），顶层给出 `branch`、`head` 与完整 `state`，并把 `product.plan_usage` 设为计划实际使用版本的唯一权威；`plan_authority` 并列 owner、begin 引用、采用记录与 plan_usage，避免三者混淆。导出检查覆盖下一步、只改一个 part、旧成果与旧报告保留、过期 head 原子拒绝和计划权威，记录为通过。
+
+`handoff-v2` 随后重建单一分支、完整快照与 `plan_authority`，把读回包拆成 `view`/`records`/`plan_authority` 三层，完整状态独立存放并给出 SHA256。第二次读回正确恢复旧成果 `draft-code`/`independent-code` 的 rev1、`draft-continuation-v2` 的 turnstep rev2、`channel-checks` 指向 `independent` rev1，以及只推进 `synthetic continuation behavior` 一个 part；错误在 basis：`SYN:handoff-produce-v2` 和 `SYN:handoff-report-v2` 分别指向 change 11/12 的旧产出与报告，只能证明当时发生过 produce/report，不能证明本次新增实现。原答把状态装载写成 `json.loads('文件路径')`，实际意思是读取 `resume-state.json` 的 `state` 字段；运行时按路径加载。主调度给出 `SYN:handoff-next-step-request` 后实际运行，结果与原始 payload 的状态效果、changed_paths 完全一致。这里记录的是主调度补正后的运行，不是 GLM 自主接续完全通过。
+
+### 最终审查与第二次接手读回（2026-10-31）
+
+Kimi 的静态审查任务 `9d11c98e` 固定在提交 3369，只读不执行，提出两项缺陷。主调度核对源码后确认：`t12_study.version` 无条件读取 `state['changes']`，而 `t12_handoff._view` 按设计不带 `changes`，导致视图上的当前、历史和内嵌计划查询抛 `KeyError`；未细分成果在全部 part 撤回后，`part_progress` 仍复制旧的完成维度，`advance_product` 也允许推进空成果。上一任务在修正前先复现了 2 项断言失败与 3 项视图 `KeyError`；修正后 `version` 先查当前对象与 `versions`，完整 state 才用 changes 快照作 fallback，无 present part 时三项进展回 `unknown`，空整组推进在写入前拒绝。本次独立上下文在修正后运行 180 项全部通过，详见 [`verification.md`](../../../../artifacts/agent-task-state/maintenance/t12-continuous-validation-2026-10-29/final-review-v1/verification.md)；这是新上下文回归，不是 Kimi 修后复审。
+
+工具在执行期间报告 `needs_attention`，原因是主调度在本地提交 7 个文件，HEAD 由 69f 变为 3369；读回的输入 SHA256 前后相同，仅观察到读取，属于外部 HEAD 变化，不是模型越界。原始回执、语义裁定与过程偏差见 [`final-review-v1/results.json`](../../../../artifacts/agent-task-state/maintenance/t12-continuous-validation-2026-10-29/final-review-v1/results.json)、[`adjudication.md`](../../../../artifacts/agent-task-state/maintenance/t12-continuous-validation-2026-10-29/final-review-v1/adjudication.md)，接续包与第二次读回见 [`handoff-v2/adjudication.md`](../../../../artifacts/agent-task-state/maintenance/t12-continuous-validation-2026-10-29/handoff-v2/adjudication.md)。
 
 ### 代码与回执核对
 
-本任务只读当前工作树代码，未运行 Git、shell、测试或网络；代码研究 checkpoint `5ba5d1e` 保留待审实现，HEAD 以任务合同为准。`t12_study.py` 的公开入口与主文操作表一致；`apply` 只检查 expected head、整批执行并回退，语义判定在各对象入口内。`advance_product`/`advance_parts` 只改维度，不接收尝试或 producer；跨尝试推进只在 `identity-v2` 的 C2 比较表示中执行并记录 producer，不能写成核心功能。
+2026-10-30 的记录当时只读当前工作树代码，未运行 Git、shell、测试或网络；代码研究 checkpoint `5ba5d1e` 保留待审实现，HEAD 以任务合同为准。`t12_study.py` 的公开入口与主文操作表一致；`apply` 只检查 expected head、整批执行并回退，语义判定在各对象入口内。`advance_product`/`advance_parts` 只改维度，不接收尝试或 producer；跨尝试推进只在 `identity-v2` 的 C2 比较表示中执行并记录 producer，不能写成核心功能。
 
 回执差异按主调度给定事实记录：
 
 - fd501936 有被拒目录与越界读取；其实际完成 6 个文件归属核对，测试证据存在。首轮“0 测试”不准；主调度原日志为 109 项、1 error，后 122 项通过。
 - 0b1190ec 末报告称旧产物不存在，不准；主调度文件时间与之前读取证明已存在。
 - HY 补充 0ecff39a 是基于主调度给定事实的无工具设计意见，不是源码验证。其“内嵌只能是视图”“ended 不可写全部内容”“同一 commit 所有 T12 成果”等前提不成立，主调度拒绝；采用其“局部状态单一权威、有范围纠正”的建议。HY 首任务 a0c6a83c 只有开场白，未完成审查。
-- GLM 首次隔离读回已完成（549d454e），暴露的是接续材料缺口；新的独立读回尚未执行。Kimi 审阅仍待执行；本记录不写复核通过。
+- GLM 首次隔离读回（549d454e）暴露的是接续材料缺口；`handoff-v2` 第二次读回恢复计划版本、报告指向与局部动作，但依据选择错误，由主调度补正并实际运行。Kimi 对冻结 3369 的静态审查（`9d11c98e`）提出两项缺陷，主调度核对后修复；本次新上下文 180 项通过见 `final-review-v1/verification.md`，不冒充 Kimi 修后复审。
 
 ### 文档与索引
 
-主文重写为五类推荐与组合；本页新增本轮节；`dsh-work-history` 只替换 T12 结果入口段；HANDOFF 顶部收敛为唯一现行状态，旧记录折叠；README、INDEX、资产登记的入口沿用上一轮。INDEX 新增 `currentrecommendation` 2026-10-30；v0.5 四入口标为历史记录器，旧设计不删，当前对象设计以 T12 页为准。本轮修正只改四份白名单文档，未改代码、图、底稿或批次原始输出。
+主文重写为五类推荐与组合；本页新增本轮节与 2026-10-31 最终审查小节；`dsh-work-history` 只替换 T12 结果入口段；HANDOFF 顶部收敛为唯一现行状态，旧记录折叠；README、INDEX、资产登记同步到 2026-10-31。INDEX 的 `currentrecommendation` 更新为 2026-10-31；v0.5 四入口标为历史记录器，旧设计不删，当前对象设计以 T12 页为准。本轮收尾修改七份白名单文档并新增验证回执，未改代码、图、底稿或批次原始输出。
 
-逐组读回、拒绝探针与成本明细见[`identity-v2/review.md`](../../../../artifacts/agent-task-state/maintenance/t12-continuous-validation-2026-10-29/identity-v2/review.md)，15段逐条裁定见[`coverage-v2/adjudication.md`](../../../../artifacts/agent-task-state/maintenance/t12-continuous-validation-2026-10-29/coverage-v2/adjudication.md)，边界规则见[`boundary-v2/rules.md`](../../../../artifacts/agent-task-state/maintenance/t12-continuous-validation-2026-10-29/boundary-v2/rules.md)，接续包见[`handoff-v1/adjudication.md`](../../../../artifacts/agent-task-state/maintenance/t12-continuous-validation-2026-10-29/handoff-v1/adjudication.md)。
+逐组读回、拒绝探针与成本明细见[`identity-v2/review.md`](../../../../artifacts/agent-task-state/maintenance/t12-continuous-validation-2026-10-29/identity-v2/review.md)，15段逐条裁定见[`coverage-v2/adjudication.md`](../../../../artifacts/agent-task-state/maintenance/t12-continuous-validation-2026-10-29/coverage-v2/adjudication.md)，边界规则见[`boundary-v2/rules.md`](../../../../artifacts/agent-task-state/maintenance/t12-continuous-validation-2026-10-29/boundary-v2/rules.md)，接续包见[`handoff-v1/adjudication.md`](../../../../artifacts/agent-task-state/maintenance/t12-continuous-validation-2026-10-29/handoff-v1/adjudication.md)，第二次读回见[`handoff-v2/adjudication.md`](../../../../artifacts/agent-task-state/maintenance/t12-continuous-validation-2026-10-29/handoff-v2/adjudication.md)，最终审查与本次验证见[`final-review-v1/adjudication.md`](../../../../artifacts/agent-task-state/maintenance/t12-continuous-validation-2026-10-29/final-review-v1/adjudication.md)、[`verification.md`](../../../../artifacts/agent-task-state/maintenance/t12-continuous-validation-2026-10-29/final-review-v1/verification.md)。
 
 ## 2026-10-29：T12对象方案与可执行比较
 
