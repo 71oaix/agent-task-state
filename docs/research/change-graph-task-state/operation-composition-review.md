@@ -2,7 +2,7 @@
 title: DSH 真实过程的元操作组合与语义检查
 status: active
 created: 2026-10-15
-updated: 2026-10-31
+updated: 2026-11-01
 tags: [research, primitives, composition-check]
 ---
 
@@ -63,6 +63,8 @@ Kimi 的静态审查任务 `9d11c98e` 固定在提交 3369，只读不执行，�
 ### 文档与索引
 
 主文重写为五类推荐与组合；本页新增本轮节与 2026-10-31 最终审查小节；`dsh-work-history` 只替换 T12 结果入口段；HANDOFF 顶部收敛为唯一现行状态，旧记录折叠；README、INDEX、资产登记同步到 2026-10-31。INDEX 的 `currentrecommendation` 更新为 2026-10-31；v0.5 四入口标为历史记录器，旧设计不删，当前对象设计以 T12 页为准。本轮收尾修改七份白名单文档并新增验证回执，未改代码、图、底稿或批次原始输出。
+
+2026-11-01：T12 研究完成，成果保存到 `853d073`；九份现行文档同步为研究已完成，HANDOFF 的旧“待提交”状态改为成果已保存，本次存档同步的最终提交以 Git 记录为准。全部材料本地存档入口为 [t12-object-stage-2026-11-01](../../../../artifacts/agent-task-state/archives/t12-object-stage-2026-11-01/)，归档由主调度审核 `archive.py` 后执行，打包范围、逐文件字节与 SHA256、ZIP 校验以该目录 `manifest.json`、`verification.json` 为准；范围外历史资料只保留原引用。真实 Agent 小任务属于下一轮。
 
 逐组读回、拒绝探针与成本明细见[`identity-v2/review.md`](../../../../artifacts/agent-task-state/maintenance/t12-continuous-validation-2026-10-29/identity-v2/review.md)，15段逐条裁定见[`coverage-v2/adjudication.md`](../../../../artifacts/agent-task-state/maintenance/t12-continuous-validation-2026-10-29/coverage-v2/adjudication.md)，边界规则见[`boundary-v2/rules.md`](../../../../artifacts/agent-task-state/maintenance/t12-continuous-validation-2026-10-29/boundary-v2/rules.md)，接续包见[`handoff-v1/adjudication.md`](../../../../artifacts/agent-task-state/maintenance/t12-continuous-validation-2026-10-29/handoff-v1/adjudication.md)，第二次读回见[`handoff-v2/adjudication.md`](../../../../artifacts/agent-task-state/maintenance/t12-continuous-validation-2026-10-29/handoff-v2/adjudication.md)，最终审查与本次验证见[`final-review-v1/adjudication.md`](../../../../artifacts/agent-task-state/maintenance/t12-continuous-validation-2026-10-29/final-review-v1/adjudication.md)、[`verification.md`](../../../../artifacts/agent-task-state/maintenance/t12-continuous-validation-2026-10-29/final-review-v1/verification.md)。
 

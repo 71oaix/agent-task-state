@@ -2,13 +2,15 @@
 title: Agent 任务状态管理论文项目
 status: active
 created: 2026-10-09
-updated: 2026-10-31
+updated: 2026-11-01
 tags: [research, task-state, entrypoint]
 ---
 
 # Agent 任务状态管理论文项目
 
-2026-10-31：五类逻辑角色 Goal/Plan/Attempt/Product/Evidence 保留，本轮对象新增 0、合并 0。独立存放便于维护，强内嵌也能保留身份。近期变化集中在计划归属与显式采用、成果 part 与整体分离、依据范围纠正与多假说分别纠正、精确依赖，以及无 changes 视图的版本查询和空成果状态；这些是记录与查询规则，不构成第六类对象。Kimi 冻结 3369 的两项缺陷已修复，本次独立上下文完整测试通过；GLM 第二次读回能恢复计划版本、报告指向与局部动作，依据选择由主调度补正。下一步用真实 Agent 小任务接续，不继续完善固定 T12。详见[T12对象研究](docs/research/change-graph-task-state/t12-object-study.md)与[当前接手入口](docs/research/change-graph-task-state/HANDOFF.md)。
+2026-11-01：T12 研究已完成，成果保存到 `853d073`。五类逻辑角色 Goal/Plan/Attempt/Product/Evidence 与十五段静态回查保持原结论；Kimi 在冻结 3369 提出的两项缺陷已由主调度修复，新上下文完整回归 180 项通过；GLM 第二次读回的依据选择由主调度纠正，不记作自主全通过。全部材料本地存档入口为 `artifacts/agent-task-state/archives/t12-object-stage-2026-11-01/`，由主调度审核脚本后执行归档；打包范围、逐文件哈希与校验结果以该目录 `manifest.json`、`verification.json` 为准。范围外历史资料保留原位，不在本次包内。真实 Agent 小任务属于下一轮。
+
+2026-10-31：五类逻辑角色 Goal/Plan/Attempt/Product/Evidence 保留，本轮对象新增 0、合并 0。独立存放便于维护，强内嵌也能保留身份。近期变化集中在计划归属与显式采用、成果 part 与整体分离、依据范围纠正与多假说分别纠正、精确依赖，以及无 changes 视图的版本查询和空成果状态；这些是记录与查询规则，不构成第六类对象。Kimi 冻结 3369 的两项缺陷已修复，本次独立上下文完整测试通过；GLM 第二次读回能恢复计划版本、报告指向与局部动作，依据选择由主调度补正。下一步用真实 Agent 小任务接续，不继续完善固定 T12；该步现属下一轮。详见[T12对象研究](docs/research/change-graph-task-state/t12-object-study.md)与[当前接手入口](docs/research/change-graph-task-state/HANDOFF.md)。
 
 2026-10-30（上一轮）：当前推荐 Goal/Plan/Attempt/Product/Evidence 五类逻辑角色，Change 记录变更；不声称五个顶层表最小或最优。四身份对照修正了“内嵌不能复用”的旧判断；独立 Plan/Product 存放的当前理由是减少宿主版本耦合、维护位置直接。T12 两图说明“调整安排”后的三路状态与对象联系；T03/T13/T15 补足计划阶段、判断修正与准确依赖；15 段的逐条覆盖为静态语义回查，其中这三点另有可执行片段。操作按当前代码入口组织到对象，底层 apply 只做事务。详见[T12对象研究](docs/research/change-graph-task-state/t12-object-study.md)与[组合研究本轮节](docs/research/change-graph-task-state/operation-composition-review.md#2026-10-30五类对象推荐与操作组合)。旧 v0.5 四入口保留为历史记录器，当前对象设计以 T12 研究页为准。
 

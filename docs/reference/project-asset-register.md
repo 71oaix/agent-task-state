@@ -2,7 +2,7 @@
 title: Agent任务状态管理项目资产索引
 status: active
 created: 2026-10-09
-updated: 2026-10-31
+updated: 2026-11-01
 tags: [asset-register, task-state, preservation]
 supersedes:
 ---
@@ -15,7 +15,8 @@ supersedes:
 
 | 资产 | 来源与版本 | 责任与边界 | 下一步 |
 |---|---|---|---|
-| [T12五类对象推荐](../research/change-graph-task-state/t12-object-study.md)、[离线检验](../../tools/work-operation-checks/README.md) | 2026-10-31（currentrecommendation）；identity-v2四身份对照、coverage-v2 15段静态回查、boundary-v2 T03/T13/T15边界、handoff-v2接续包、final-review-v1最终审查；T12六事实及同源补充；原底稿未改 | 五类逻辑角色与Change；独立存放是维护选择；最终审查修复两项Kimi缺陷，GLM第二次读回依据由主调度补正；详情在[组合研究最终审查节](../research/change-graph-task-state/operation-composition-review.md#最终审查与第二次接手读回2026-10-31) | 真实Agent小任务接续；主调度提交本轮修改 |
+| [T12五类对象推荐](../research/change-graph-task-state/t12-object-study.md)、[离线检验](../../tools/work-operation-checks/README.md) | 2026-10-31（currentrecommendation），2026-11-01 研究完成；identity-v2四身份对照、coverage-v2 15段静态回查、boundary-v2 T03/T13/T15边界、handoff-v2接续包、final-review-v1最终审查；T12六事实及同源补充；原底稿未改 | 五类逻辑角色与Change；独立存放是维护选择；最终审查修复两项Kimi缺陷，GLM第二次读回依据由主调度补正；详情在[组合研究最终审查节](../research/change-graph-task-state/operation-composition-review.md#最终审查与第二次接手读回2026-10-31) | 研究已完成，成果保存 `853d073`；真实Agent小任务接续属下一轮；最终提交以Git记录为准 |
+| [T12阶段成果本地存档入口](../../../artifacts/agent-task-state/archives/t12-object-stage-2026-11-01/) | 2026-11-01；基线 `853d073`；`archive.py` 以本工作树根为输入，打包本项目自有文档/代码/图片与两批T12证据 | 只读打包，不删除、不覆盖、不读其他项目；排除 `__pycache__`、`.git`、第三方副本、PDF与重解析点；主调度已实际执行归档，该目录 `manifest.json` 与 `verification.json` 记录 200 文件 / 21782407 原始字节、ZIP 3712600 字节，SHA 与 CRC 全过；8 处缺失为 S022/S028/S029 第三方原文自身相对链接，不改冻结原文 | 已执行并逐文件校验通过；8 处历史原文链接问题见 verification，不据此声称全部链接无缺口 |
 | [final-review-v1 回执与验证](../../../artifacts/agent-task-state/maintenance/t12-continuous-validation-2026-10-29/final-review-v1/adjudication.md) | 2026-10-31；Kimi `9d11c98e` 冻结3369静态审查、GLM固定包与主调度纠正依据；[results.json](../../../artifacts/agent-task-state/maintenance/t12-continuous-validation-2026-10-29/final-review-v1/results.json)、[verification.md](../../../artifacts/agent-task-state/maintenance/t12-continuous-validation-2026-10-29/final-review-v1/verification.md) | 两项缺陷修正前后回执、180项新上下文回归、GLM语义裁定；验证不冒充Kimi修后复审，读回不写成GLM自主完全通过 | 本轮审查修复已完成；下一轮真实Agent小任务 |
 | [四模型对象研究交接](../research/change-graph-task-state/object-operation-handoff-2026-10-28.md)、[综合裁定](../research/change-graph-task-state/operation-composition-review.md#2026-10-28对象与变化的四模型构思及裁定) | 2026-10-28；四模型固定e15f6f4、effort=max；均completed | 独立构思与主Agent裁定分开，三布局尚未运行比较；原答位于本工作树artifacts/agent-task-state/maintenance/object-review-2026-10-28/ | 比较父表/关系/子项权威；检查Plan与Change身份；历史行的下一步以HANDOFF为准 |
 | [工作操作工作台](../../tools/work-operation-checks/README.md) | 2026-10-27；原检查器与新增组合执行/历史查询/阅读器 | 16段、83来源事实与16研究缺口；模型原稿和Sol裁定分开；独立读回有明确输入范围 | 定向读回、固定提交审查与Sol修复已完成；下一轮工作视图接续 |
@@ -32,7 +33,7 @@ supersedes:
 | [活动来源筛选](../research/change-graph-task-state/activity-source-review.md)、[执行账本](../research/change-graph-task-state/research-execution-ledger.md) | 2026-10-15，交接基线31b6938；七份实证全文、四项目过程、一个官方Agent示例 | G1首批探索准入；非检索饱和、行业频率或长程效果证据；本地获取/分析批次保持忽略 | 按缺口扩展来源，保留候选项目还需确认可用性 |
 | [活动地图](../research/change-graph-task-state/software-development-activity-map.md)、[记录映射](../research/change-graph-task-state/activity-record-agent-mapping.md) | G2提交f92101c，G3提交aaef635；27证据解释单元、12活动类、6工作点 | G2探索版、G3同一作者表示走查通过；强文档同样可支持问题；没有计时或独立模型试验 | 不用当前分类作为最终最小模型，继续组合检验 |
 | [元操作首轮检查](../research/change-graph-task-state/operation-composition-review.md) | 同一六工作点，复核固定v1近邻方法；2026-10-15 | G4返工：事实/实际产物/采用及许可、验证、义务尚需统一协议；未实现或验证优越性 | 比较两种完整编码并重验反例；G5规则未冻结 |
-| [Agent 接手入口](../research/change-graph-task-state/HANDOFF.md) | 2026-10-31；五类对象推荐保留；最终审查与第二次读回已记录；历史阶段折叠保留 | 当前结论、唯一现行状态、下一步与权限边界；本轮已完成，真实接续属下一轮 | 按HANDOFF开展下一轮真实Agent小任务 |
+| [Agent 接手入口](../research/change-graph-task-state/HANDOFF.md) | 2026-11-01；T12 研究完成，成果保存 `853d073`；五类对象推荐保留；最终审查、第二次读回与存档入口已记录；历史阶段折叠保留 | 当前结论、唯一现行状态、下一步与权限边界；本轮已完成，真实接续属下一轮；存档完整性以归档目录 manifest/verification 为准 | 按HANDOFF开展下一轮真实Agent小任务 |
 | [研究计划 v1.1](../research/change-graph-task-state/research-plan-v1.1.md)、[执行说明](../research/change-graph-task-state/research-plan-v1.1-agent-notes.md) | 2026-10-15 用户纠正活动来源及整体流程 | 当前计划：活动归纳、记录投影、Agent 工作、元操作检验；未完成新调研或批准原型和付费实验 | 按2026-10-20纠偏基线，以已有过程比较记录机制 |
 | [本地资料分类](artifact-organization.md) | 2026-10-15 实际盘点及 41 文件迁移哈希校验 | 主工作区 artifacts/agent-task-state 为当前资料根；其他项目与历史工作树原位分类；两个旧审计目录权限受限 | 新资料按项目、性质、批次保存；保持来源和分析分离 |
 | [元操作候选 v0.2](../research/change-graph-task-state/primitive-candidates-v0.2.md)、[协议与证据](../research/change-graph-task-state/primitive-candidates-v0.2-agent-notes.md) | 2026-10-14 用户审阅；继承 P 系列来源，复核 MAGE/StateMem/ESAA 方法及固定投影规范 | 当前候选：明确身份、关系生命周期、整合及并发边界；十项近邻映射为原文分析，非真实轨迹重放或运行验证 | 取得真实开发修订与决策记录，检查组合规则；尚未证明最小性或优越性 |
@@ -96,3 +97,8 @@ supersedes:
 
 
 2026-10-23 分轮收敛：[人类判断](../research/change-graph-task-state/work-operation-rounds-v0.1.md)、[唯一现行工作候选v0.2](../research/change-graph-task-state/work-operation-candidates-v0.2.md)、[裁定明细](../research/change-graph-task-state/work-operation-rounds-v0.1-evidence.md)。主Agent负责来源核验与评分；18项Qoder输出、冻结输入和裁定保留在主仓库 artifacts/agent-task-state/maintenance/dsh-primitives-2026-10-23/，原始资料不提交。新增组合图SVG/PNG解释T14/T12/T13。下一gate为T14完整转换规约，原型暂缓到可执行映射明确；前轮底稿和比较保持。
+
+
+## 2026-11-01 T12 阶段成果本地存档
+
+本轮 T12 研究完成，现行九份相关文档同步为研究已完成；HANDOFF 旧的“待主调度本地提交”状态改为成果已保存 `853d073`，本次存档同步的最终提交仍以 Git 记录为准。本地存档入口为 `artifacts/agent-task-state/archives/t12-object-stage-2026-11-01/`，主调度已实际执行归档并逐文件校验：200 文件 / 21782407 原始字节，ZIP 3712600 字节，SHA 与 CRC 全过；8 处缺失为 S022/S028/S029 第三方原文自身相对链接，不改冻结原文，详见该目录 `verification.json`。打包范围限于本项目自有文档、代码、图片，以及 `artifacts/agent-task-state/maintenance/t12-object-study-2026-10-29` 与 `t12-continuous-validation-2026-10-29` 两批证据；范围外历史资料保持原位，只保留原引用，不计入本包。打包清单、逐文件字节与 SHA256、ZIP 读回校验、文档本地链接核对结果，均以该目录 `manifest.json` 与 `verification.json` 为准。该 snapshot 保存执行归档时的源文件；本次最终状态同步由随后的本地 Git 提交及 `research.bundle` 保存，两者互补，快照不包含之后的修改。bundle 实际路径为归档目录内 `artifacts/agent-task-state/archives/t12-object-stage-2026-11-01/research.bundle`，存在情况以文件核验。

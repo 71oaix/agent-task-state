@@ -2,7 +2,7 @@
 title: Change Graph 任务状态论文研究项目
 status: active
 created: 2026-10-09
-updated: 2026-10-23
+updated: 2026-11-01
 tags: [research, paper-project, change-graph, task-state, working-view]
 supersedes:
 research_stage: problem-discovery
@@ -11,6 +11,8 @@ experiment_authorized: offline-only
 ---
 
 # Change Graph 任务状态论文研究项目
+
+2026-11-01：T12 对象研究完成，目标、计划、尝试、成果、依据五类逻辑角色推荐与十五段静态回查保持原结论；Kimi 在冻结 3369 提出的两项缺陷已修复，新上下文完整回归 180 项通过；GLM 第二次读回的依据选择由主调度纠正，不记作自主全通过。全部材料本地存档入口为 `artifacts/agent-task-state/archives/t12-object-stage-2026-11-01/`，由主调度审核脚本后执行归档，打包范围与逐文件哈希以该目录 `manifest.json`、`verification.json` 为准；真实 Agent 小任务属于下一轮。
 
 2026-10-23：完成[全部16段的修订规则检验](revision-composition-experiment-v0.1.md)。修订保留为成果变化步骤，尝试身份、责任和上下文须分别表达；[逐段证据与读回](full-process-revision-check-v0.1-evidence.md)保存失败及修正。
 
