@@ -10,7 +10,7 @@ from checker import apply_transaction, known_versions, resolve_adoptions
 
 
 HERE = Path(__file__).resolve().parent
-RESEARCH = HERE.parents[1] / "docs/research/change-graph-task-state"
+RESEARCH = HERE.parents[1] / "docs/specification/change-graph-task-state"
 PACKS = HERE / "cases"
 RELATIONS = {"implements", "uses_contract", "reuses_result", "historical_reference",
              "depends_on", "shared_mechanism", "contains"}

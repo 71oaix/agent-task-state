@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="zh-CN">
+<meta charset="utf-8">
+<title>任务状态文档归属</title>
+<link rel="stylesheet" href="htmlplan.css">
+<script src="htmlplan.js" defer></script>
+<body>
+<header>
+  <h1>任务状态文档归属</h1>
+  <doc-changes new="1" changed="48"></doc-changes>
+  <details class="thread"><summary>缘由 · 你的决定和三条意见</summary>
+    <doc-quote via="prompt" from="用户">移入。文件夹本身表示状态。单独放入成果文件夹。EXPRESSION.md 留在检查器旁边。删掉下一步这一列，保留位置行。</doc-quote>
+    <doc-quote via="prompt" from="用户">handoff 该传递的东西传递保存好就该结束他的周期，要么 archived 要么删掉。不希望 handoff 一直是权威。</doc-quote>
+    <doc-quote via="prompt" from="用户">成果文件夹是对的。为什么要放在 docs 下面？一次完整的探索和实验难道都放在 docs 下面吗？docs 里面是不是应该只有权威现状？</doc-quote>
+    <doc-quote via="prompt" from="用户">工具的步骤和使用是不是应该是 tools 下的 AGENTS.md 该负责的？</doc-quote>
+  </details>
+</header>
+<main>
+<doc-plan>
+  <doc-claim>
+    <p>读者在一个入口看到现行设计。</p>
+    <doc-mock frame="none" w="440" caption="入口写出设计。它不把交接文件当成长期权威。">
+      <template>
+        <div style="font:15px/1.45 system-ui,sans-serif;padding:12px 14px;color:#1a1a1a">
+          <div style="font-weight:650;margin-bottom:8px">Agent 任务状态管理</div>
+          <div data-ref="goal">用一套操作描述软件开发过程，并生成人类视图和 Agent 视图。</div>
+          <div style="margin-top:10px;color:#333">权威正文在 docs。实现看 tools。探究记录在成果。</div>
+        </div>
+      </template>
+      <doc-pin ref="goal" title="一句设计">下一步不写在入口里。</doc-pin>
+    </doc-mock>
+    <doc-claim>
+      <p>README 保留设计句，并指向三处位置。</p>
+      <doc-code src="Agent任务状态管理/README.md" lines="11-13"></doc-code>
+    </doc-claim>
+    <doc-claim>
+      <p>交接完成后，HANDOFF 不再是权威。</p>
+      <doc-code src="Agent任务状态管理/docs/research/change-graph-task-state/HANDOFF.md" lines="11-14" caption="仍有效的限制先写入 README 与 AGENTS，然后这份交接结束。"></doc-code>
+      <doc-ask id="handoff-end">
+        <p>交接文件结束后如何处置？</p>
+        <label><input type="radio" name="handoff-end" value="archive" checked> 移入历史，保留原文。</label>
+        <label><input type="radio" name="handoff-end" value="delete"> 写入现行文档后删除。<small>日志里的当时判定会消失。</small></label>
+      </doc-ask>
+      <doc-note tone="info">交接的生命周期以后写入 project-docs。这次只改本项目，不改技能。</doc-note>
+    </doc-claim>
+  </doc-claim>
+
+  <doc-claim>
+    <p>docs 只放仍在生效的权威正文。</p>
+    <doc-tree caption="打开 docs，只看到现在还指导工作的文件。">
+      <script type="text/plain">
+Agent任务状态管理/docs/
+  INDEX.md
+  reference/artifact-organization.md
+  reference/project-asset-register.md
+  research/change-graph-task-state/design-v0.4.md
+  research/change-graph-task-state/source-inventory.md
+      </script>
+    </doc-tree>
+    <doc-claim>
+      <p>INDEX 只列权威正文，并去掉状态列。</p>
+      <doc-code src="Agent任务状态管理/docs/INDEX.md" lines="12-15"></doc-code>
+    </doc-claim>
+    <doc-claim>
+      <p>资产登记删掉下一步列，保留位置行。</p>
+      <doc-code src="Agent任务状态管理/docs/reference/project-asset-register.md" lines="14-16"></doc-code>
+    </doc-claim>
+  </doc-claim>
+
+  <doc-claim>
+    <p>旧计划、旧设计和结束的交接放进历史。</p>
+    <doc-tree caption="历史在项目根，不放在 docs 里面。">
+      <script type="text/plain">
+Agent任务状态管理/历史/
+  + research-plan-v0.1.md … v1.1.md
+  + design-v0.1.md … v0.3.md
+  + primitive-candidates-v0.1.md … v0.3.md
+  + work-operation-candidates-v0.2.md … v0.4.md
+  + 交接日志
+      </script>
+    </doc-tree>
+    <doc-claim>
+      <p>后一份文件接过命令时，旧文件移入历史。</p>
+      <doc-calls title="移动" caption="同一次修改更新指向旧路径的链接。">
+        <script type="text/plain">
+~ README 链接                          @ Agent任务状态管理/README.md:13
++ 历史/research-plan-v1.1.md           @ Agent任务状态管理/docs/research/change-graph-task-state/research-plan-v1.1.md:10
++ 历史/design-v0.3.md                  @ Agent任务状态管理/docs/research/change-graph-task-state/design-v0.3.md:8
+        </script>
+      </doc-calls>
+    </doc-claim>
+  </doc-claim>
+
+  <doc-claim>
+    <p>一次探究的记录放在项目根的成果目录。</p>
+    <doc-tree caption="成果与 docs 平级。实现进度不从成果文档里找。">
+      <script type="text/plain">
+Agent任务状态管理/成果/
+  + 活动调查/
+  + 操作组合/
+  + t12-对象/
+  + dsh-过程/
+Agent任务状态管理/tools/work-operation-checks/
+  checker.py
+  workbench.py
+  t12_*.py
+      </script>
+    </doc-tree>
+    <doc-claim>
+      <p>实现进度以 tools 里的程序为准。</p>
+      <doc-tree caption="docs 只写检查器的位置和覆盖范围。">
+        <script type="text/plain">
+docs/README 一句
+  离线检查器：tools/work-operation-checks
+tools/work-operation-checks/
+  checker.py
+  workbench.py
+  t12_*.py
+  测试
+        </script>
+      </doc-tree>
+    </doc-claim>
+  </doc-claim>
+
+  <doc-claim>
+    <p>工具的使用规则写在 tools/AGENTS.md。</p>
+    <doc-code title="tools/AGENTS.md · 草案" lang="text">
+      <script type="text/plain">
+运行检查器时，输出必须写入新目录。
+不得覆盖已有结果。
+不得把研究结论写进 tools。
+具体命令见 work-operation-checks/README.md。
+本目录的运行不构成付费实验授权。
+      </script>
+    </doc-code>
+    <doc-claim>
+      <p>命令留在工具 README，结论移出 tools。</p>
+      <doc-code src="Agent任务状态管理/tools/work-operation-checks/README.md" lines="23-23" caption="这一句移到 T12 研究文。EXPRESSION.md 留在检查器旁边。"></doc-code>
+      <doc-claim at="Agent任务状态管理/tools/work-operation-checks/README.md:23">
+        <p><b>README.md:23</b> · 结论句</p>
+        <doc-code src="Agent任务状态管理/tools/work-operation-checks/README.md" lines="23-23"></doc-code>
+      </doc-claim>
+    </doc-claim>
+  </doc-claim>
+
+  <doc-claim aux="shared">
+    <p>同一次修改更新所有指向被移动文件的链接。</p>
+    <doc-code title="链接规则 · 草案" lang="text">
+      <script type="text/plain">
+用 git mv 移动。
+在同一次修改里更新链接。
+这次不改写的文件，保留原有 YAML。
+仍有 YAML 的文件，不加状态行。
+      </script>
+    </doc-code>
+  </doc-claim>
+
+  <doc-claim aux="scope">
+    <p>检查器行为、原始材料和另一项目保持不动。</p>
+    <ul>
+      <li>不改检查器规则和测试代码。</li>
+      <li>EXPRESSION.md 留在检查器旁边。</li>
+      <li><code>artifacts/agent-task-state/</code> 仍是原始资料，仍不进入 git。</li>
+      <li>旧工作树留在磁盘上，不再作为现行入口。</li>
+      <li>不改 <code>工具反馈管理/</code>，也不改 project-docs 技能。</li>
+      <li><code>六论文总结.md</code> 仍是未跟踪笔记。</li>
+    </ul>
+  </doc-claim>
+</doc-plan>
+</main>
+</body>
+</html>

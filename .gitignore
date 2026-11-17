@@ -1,0 +1,18 @@
+# Local research inputs and generated evidence are not repository content.
+/evidence/
+**/third-party/
+**/papers/
+**/__pycache__/
+**/.pytest_cache/
+**/*.pyc
+**/*.egg-info/
+**/.venv/
+**/dist/
+**/build/
+.env
+.env.*
+*.pem
+*.key
+*.pdf
+/runs/
+/local-state/

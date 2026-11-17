@@ -2,7 +2,7 @@
 
 ## T12 对象与连续变化实验
 
-本轮对象方案、取舍与图见[T12研究](../../docs/research/change-graph-task-state/t12-object-study.md)。新增独立实验，不替换下方旧记录器。
+本轮对象方案、取舍与图见[T12研究](../../experiments/t12-objects/t12-object-study.md)。新增独立实验，不替换下方旧记录器。
 
 ```powershell
 python Agent任务状态管理/tools/work-operation-checks/t12_study.py --out artifacts/agent-task-state/maintenance/t12-new-run
@@ -20,7 +20,7 @@ python -m unittest discover -s Agent任务状态管理/tools/work-operation-chec
 
 责任模块new/project/apply分别构造、只读投影和更新三布局；声明过的token范围不等完整需求。Plan内嵌方案仍保留可寻址身份与旧版本，它不是无历史的弱基线。合成验收检查显式决定的登记规则，不验证操作者真实权限，也不判断自然语言真实性。
 
-本轮最终审查与接续新增四个可执行模块，证据分别在 `identity-v2`、`boundary-v2`、`handoff-v2`、`final-review-v1`：`t12_identity_trials_v2.py`做C1—C4存放对照，撤销v1“B不能复用”的结构性假差异；`t12_boundary_checks.py`检查T03/T13/T15边界与part局部推进，先复现142项中1 failure，按scope修正后143项通过；`t12_handoff.py`导出单一分支、完整快照与`plan_authority`三层读回，第二次读回依据由主调度纠正后实际运行；`test_t12_final_review.py`固定两项Kimi缺陷的旧谓词与修正后检查，共18项。修正后新上下文完整套件180项通过，该结果是新上下文回归，不是Kimi修后复审。跨尝试producer只在identity-v2比较表示中记录，核心`advance_product`/`advance_parts`不记录producer。T12研究已完成，成果保存于`853d073`；真实Agent小任务属下一轮。
+本轮最终审查与接续新增四个可执行模块，证据分别在 `identity-v2`、`boundary-v2`、`handoff-v2`、`final-review-v1`：`t12_identity_trials_v2.py`做C1—C4存放对照，撤销v1“B不能复用”的结构性假差异；`t12_boundary_checks.py`检查T03/T13/T15边界与part局部推进，先复现142项中1 failure，按scope修正后143项通过；`t12_handoff.py`导出单一分支、完整快照与`plan_authority`三层读回，第二次读回依据由主调度纠正后实际运行；`test_t12_final_review.py`固定两项Kimi缺陷的旧谓词与修正后检查，共18项。修正后新上下文完整套件180项通过，该结果是新上下文回归，不是Kimi修后复审。跨尝试producer只在identity-v2比较表示中记录，核心`advance_product`/`advance_parts`不记录producer。
 
 在原有版本检查器上，新增可执行组合、指定版本查询和 DSH 过程阅读器。选择一段过程，可以看见来源事实、展开的基本操作、前后版本及未完成责任。
 
