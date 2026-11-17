@@ -1,10 +1,11 @@
-﻿# 项目工作规则
+# 项目工作规则
 
-本仓库专属 Change Graph 任务状态论文研究。
+本仓库专属面向 Coding Agent 的软件项目语义状态管理研究，现行研究定位以 README 与 Intention 为准。
 
 根目录 [README.md](README.md) 是项目现状的权威说明；本文件只写协作约束与规范，不重复现状叙述。局部约束见 [tools/AGENTS.md](tools/AGENTS.md)。
 
 - `docs/` 只保存现行正文；过时、错误或无参考价值的材料不放进 `docs/`，进 `history/` 或不保留入口。
+- 现行研究中仍需评估的候选设计可以留在 `docs/`，须在正文开头说明候选身份、适用范围并链接现行意图与规格入口。候选正文中的架构断言、旧阶段要求和实验安排仅供比较，不是当前执行约束；未经重新确认，不得据此启动实现或实验。已退出候选范围的旧设计进入 `history/`。
 - `docs/survey/` 保存外部调研：每项一个子目录（主题短名），文内用 `最后更新：YYYY-MM-DD` 标明时效；新调研一律落在此处，不散落在别处。入口用 `survey.md`，不用子目录 README 冒充正文。
 - `docs/intention/`、`docs/specification/`、`docs/implementation/` 分别保存三空间现行意图、规格（含已批准架构取舍）与实现说明；三者平铺。正文文件名为 `intention.md` / `specification.md` / `implementation.md`，不用 README.md 充当空间正文。
 - `experiments/` 保存按次形成的研究记录及证据。

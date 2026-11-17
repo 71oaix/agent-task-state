@@ -14,13 +14,15 @@
 
 | 材料 | 当前作用 |
 |---|---|
-| StateHarness | 学术参考、候选基线；机制与实验需原始来源复核 |
+| StateHarness | 学术参考、候选基线；见[近期来源队列](../survey/project-semantic-state/survey.md)，机制与实验需原始来源复核 |
 | [DSH 过程材料](../../experiments/dsh-process/) | 真实工程参考与机制设计线索；需分析机制的问题、效果和可泛化性 |
 | [架构 v0.4](change-graph-task-state/design-v0.4.md) | 旧任务历史与双视图候选草案，尚未按新意图完成适配 |
 | [设计假设与对象方案](change-graph-task-state/design-hypothesis.md) | 五类对象与 Change 等积累，适用性及最小性保持开放 |
 | [架构笔记](change-graph-task-state/design-v0.4-agent-notes.md) | 旧讨论要求与查证设计，不自动成为本轮约束 |
 | [来源清单](change-graph-task-state/source-inventory.md) | 既有来源记录，需核对时效与原始出处 |
 | [已有记录分析](../intention/recorded-work-review.md) | 旧研究发现及证据边界 |
+
+候选材料的权威边界：现行定位以 README 与研究意图为准，本入口说明材料的适用范围。旧设计正文中的确定性表述和下一步安排仅代表原讨论方案；保留用于评估可复用机制，不作为本轮已批准规格、实验计划或执行授权。
 
 ## 未决设计
 
