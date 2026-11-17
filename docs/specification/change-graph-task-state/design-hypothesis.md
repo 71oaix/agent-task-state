@@ -1,5 +1,6 @@
-
 # 基于 Change Graph 的 Agent 任务状态管理：阶段性总结与设计假设
+
+本文保留旧任务历史方案供候选机制分析；本轮研究定位见[现行研究意图](../../intention/intention.md)，设计地位见[规格入口](../specification.md)。本文中的结构、优先级和阶段要求不自动成为本轮约束。
 
 现行意图与贡献边界见 [Intention Brief](../../intention/intention.md)。下文保留 2026-10-09 的设计假设，以及后续写入的 T12 对象方案；「将任务状态从 LLM Context 中独立出来」是当时的讨论起点，不是已确认的论文新意。
 

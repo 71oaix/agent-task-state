@@ -1,13 +1,15 @@
-# Agent 任务状态管理论文项目
+# Agent 项目语义状态管理研究
 
-本项目处于问题发现阶段。已有工作大多把 Agent 的状态和工作轨迹保存下来；本项目要在其上建立一个更小的抽象语义层，用少量维护对象记录会分叉、回退、改版的软件开发历史，再从同一套记录生长出 Human view 与 Agent view。贡献不落在「任务状态离开模型上下文」，而落在这层语义比轨迹或普通文档多出的可检验约束。
+本项目研究软件项目的语义状态：通过系统提供的管理与查询能力，让 LLM 在开发过程中自主积累、维护和利用项目知识，改善软件开发的正确率与效率，并探索状态管理机制的可靠性。当前由方向探索转入具体问题研究；系统形态、实验协议与论文贡献仍开放。
 
-现行意图见 [Intention Brief](docs/intention/intention.md)；已有记录的整理见 [recorded-work-review.md](docs/intention/recorded-work-review.md)；规格入口见 [Specification](docs/specification/specification.md)；实现入口见 [Implementation](docs/implementation/implementation.md)。[架构 v0.4](docs/specification/change-graph-task-state/design-v0.4.md) 仍是双视图的架构底稿，文内标明系统尚未实现。
+研究区分实际项目状态与语义状态：代码、文件、测试、配置和产物构成事实基础；目标、设计、决策、进度和约束形成持续维护的语义层。开发促进知识积累，知识积累指导后续开发；Task State 是面向当前任务的状态投影。系统提供管理能力，LLM 承担语义分析和自主维护，二者的分工及所需辅助也是研究内容。
 
-[现行对象方案](docs/specification/change-graph-task-state/design-hypothesis.md#记录方案与验证边界)区分目标、计划、尝试、成果和依据，用 Change 保存每次变化。这个划分来自 T12 对象研究，五类是否最小仍开放。工作操作 v0.5 保存的是早期记录器接口，供追溯操作组合的演进。
+有效性与可靠性共同构成当前研究重点：专用工具是否改善状态管理、产生的状态是否可信，以及开发收益能否抵消维护成本。StateHarness 是学术参考与候选实验基线，DeepSeek Harness（DSH）是真实工程参考与机制设计来源，两者同等重要。近期围绕前者学习和批判问题定义、机制与实验，结合后者分析可抽象的管理能力。
 
-[离线检查器](tools/work-operation-checks/README.md)已支持版本查询、部分更新规则检查和实验性接手数据导出。[DSH 历史地图](experiments/dsh-process/dsh-work-history.html)展示固定案例，两种视图尚未接到同一套日常使用入口。文档记载了 2026-11-01 针对 T12 记录机制的 180 项回归，本次未重跑，且对应归档目录在当前工作区尚未找到，不能当作已复核的实验数字。**真实 Agent 小任务的接续仍待验证**，重点是从快照恢复工作并登记新进展时，该语义层能否比普通文档或原始轨迹更好地沿用计划版本，并保留旧成果、报告和验收依据。详见[归档交接](history/handoffs/handoff-2026-11-01.md#2026-11-01-研究记录t12-对象比较已保存)。
+## 现行研究与已有积累
 
-## 研究证据与资料
+[研究意图](docs/intention/intention.md)说明对象、手段、目的、设计倾向与开放问题；[规格入口](docs/specification/specification.md)区分研究要求与候选方案；[实现说明](docs/implementation/implementation.md)说明已有工具能支持哪些研究。[已有记录分析](docs/intention/recorded-work-review.md)保留此前活动、操作与对象研究的证据边界。
 
-Django 和 VS Code 对照尚未核验。压缩轨迹、全量 CI 重跑和行业频率样本仍缺。付费实验未获授权，工具使用范围见[项目规则](AGENTS.md)。
+已有五类对象与 Change、T12 离线研究、[检查器](tools/work-operation-checks/README.md)及[DSH 历史地图](experiments/dsh-process/dsh-work-history.html)可作为候选机制和案例积累。它们不限定未来架构；旧方案的最小性与真实开发收益均未确立。双视图尚未接到同一日常入口；历史文档记载的 180 项回归对应归档在此前盘点中未找到，不能作为已复核实验数字。
+
+本轮定位依据 2026-11-17 的[论文讨论交接](chatgpt-conversation://6afad74d-dce4-83e9-a1a7-59c848773dfa)及用户后续补充。对话中的近邻机制、实验数字和发表状态仍需回到原始来源核验；本次文档更新没有完成文献复核或实验。可持续性与连续性暂时开放，真实接续可作验证场景，其优先级由后续问题与协议决定。
