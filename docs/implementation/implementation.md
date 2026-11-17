@@ -1,28 +1,21 @@
-# Implementation（现行实现说明）
+# 项目语义状态研究的现有实现
 
-本目录说明**现在已有什么实现入口**，以及它覆盖 Intention / 规格到哪一步。代码与检查器本体仍在 `tools/`，实验证据在 `experiments/`，不把仓库代码搬进 docs。
+已有代码主要支持旧任务历史表示与离线规则研究，尚未形成让 Agent 在真实开发中自主维护项目语义状态的系统。现行目标见[研究意图](../intention/intention.md)，方案开放点见[规格入口](../specification/specification.md)。
 
-## 与意图的对应关系
+## 可复用积累
 
-| 意图块 | 当前实现落点 | 状态 |
+| 已有入口 | 可支持的研究 | 当前证据边界 |
 |---|---|---|
-| 最小语义层 / 开发历史记录 | [`tools/work-operation-checks/`](../../tools/work-operation-checks/README.md)（含 T12 相关脚本与离线检查） | 离线可跑；面向记录自洽与合成接续 |
-| Human view | [DSH 历史地图](../../experiments/dsh-process/dsh-work-history.html) 等固定案例展示 | 有示例，未接日常入口 |
-| Agent view / 接手导出 | 检查器中的实验性接手数据导出 | 有导出能力；**真实 Agent 接续未验证** |
-| 相对轨迹或普通文档的对照证据 | 尚未建立有/无该语义层的 Agent 对照协议 | 缺口 |
+| [离线检查器](../../tools/work-operation-checks/README.md)与 T12 脚本 | 对象版本、部分更新规则、关系和历史查询 | 面向显式编码的自洽及合成接续；不证明真实语义正确 |
+| [DSH 历史地图](../../experiments/dsh-process/dsh-work-history.html)与过程编码 | 固定案例展示、工程机制分析的材料 | 尚未接通日常双视图，也未将机制抽象为本轮系统 |
+| 实验性接手数据导出 | 面向任务的状态投影候选 | 真实 Agent 接续收益待验证 |
 
-已有实验记录的分析见 [recorded-work-review.md](../intention/recorded-work-review.md)。
+已有材料的分析见[已有记录分析](../intention/recorded-work-review.md)。T12 文档记载的 180 项回归对应归档在此前盘点中未找到，不能作为已复核实验数字。此次更新未重跑检查器或实验。
 
-## 主要入口
+## 新方向的实现缺口
 
-- 工具与约束：[`tools/AGENTS.md`](../../tools/AGENTS.md)、[`tools/work-operation-checks/README.md`](../../tools/work-operation-checks/README.md)
-- 按次实验：[`experiments/`](../../experiments/)（如 `t12-objects`、`operation-composition`、`activity-survey`；`dsh-process` 是外部材料上的过程编码与展示）
-- 被替代的旧设计与交接：[`history/`](../../history/)
+原生 Agent 管理能力的测量、专用工具的增量对照、状态可靠性评估和包含维护成本的开发效果评估，尚未形成可执行协议。StateHarness 是学术参考与候选基线，DSH 是工程参考与机制来源；当前不声称已复现前者或系统化实现后者。
 
-## 实现边界（现行）
+后续实现应服务收敛后的研究问题，不自动沿用旧对象结构或优先扩大检查器。真实接续的角色由实验设计决定，具体系统形态保持开放。
 
-- 检查器用于**离线研究**，不自动等于线上 Agent 运行时。
-- T12 的离线规则与合成接续，证明的是记录/查询能否自洽，不证明真实接续收益。文内记载的 180 项回归，对应归档目录在当前工作区尚未找到，不能当作已复核数字。
-- 付费实验未授权；扩展验证须单独批准。
-
-下一步实现工作应优先服务 Intention 中的真实接续对照，而不是继续扩大离线对象修订面。
+代码与操作约束见 [tools/AGENTS.md](../../tools/AGENTS.md)；研究记录在 [experiments/](../../experiments/)，历史设计与交接在 [history/](../../history/)。付费实验未授权，本次文档更新不构成实验授权。

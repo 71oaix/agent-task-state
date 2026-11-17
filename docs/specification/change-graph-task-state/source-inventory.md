@@ -1,5 +1,9 @@
+# 项目语义状态管理研究来源清单
 
-# Change Graph 任务状态研究来源清单
+## 近期来源登记
+
+2026-11-17：StateHarness、MemTrace、ProjectGuard / SLUMP、OpenWiki 已登记到[近期来源队列](../../survey/project-semantic-state/survey.md)。候选入口来自论文讨论交接，均待原始来源核验；本次不沿用聊天中的机制、发表身份或实验数字作为事实。下文保留既有调查及其核验日期。
+
 
 ## 证据口径
 
@@ -141,7 +145,7 @@ R6正式身份另见[ETH SRI官方发表页](https://www.sri.inf.ethz.ch/publica
 
 ## 2026-10-15：本地分类迁移，不改变来源判断
 
-当前两批共 41 个文件移至主工作区 `artifacts/agent-task-state/`，按原样文件、正文提取、参考提取、仓库快照、发表元数据和获取记录分类。迁移前后保存文件 SHA256 一致，获取清单内容不变；旧位置、现位置与逐文件 hash 查[分类说明](../../reference/artifact-organization.md)。旧条目中的研究工作树路径保留为采集历史，不再是现存文件地址。2026-10-09 的六个 InterruptBench 快照仍在主工作区 `artifacts/worktrees/change-graph-paper/artifacts/research-evidence/change-graph-neighbors-2026-10-09/`。本轮没有重新核验论文发表状态或新增活动研究结论。
+当前两批共 41 个文件移至主工作区 `artifacts/agent-task-state/`，按原样文件、正文提取、参考提取、仓库快照、发表元数据和获取记录分类。迁移前后保存文件 SHA256 一致，获取清单内容不变；旧位置、现位置与逐文件 hash 查[分类说明](../../../history/reference-retired-2026-11-09/artifact-organization.md)。旧条目中的研究工作树路径保留为采集历史，不再是现存文件地址。2026-10-09 的六个 InterruptBench 快照仍在主工作区 `artifacts/worktrees/change-graph-paper/artifacts/research-evidence/change-graph-neighbors-2026-10-09/`。本轮没有重新核验论文发表状态或新增活动研究结论。
 
 ## 2026-10-15：开发活动调查来源
 
