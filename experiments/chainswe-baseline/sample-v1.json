@@ -1,0 +1,641 @@
+{
+  "selection_id": "chainswe-pi-baseline-v1",
+  "selection_status": "roster_frozen_runtime_preflight_pending",
+  "frozen_on": "2026-11-23",
+  "dataset": {
+    "id": "C-lister/ChainSWE",
+    "revision": "dcaa484eca5b38caca71420712b1b194c1235d6e",
+    "split": "unique",
+    "parquet_sha256": "f7de0d66b64a9d5c28921fba2bbd51b5131dae8d5c789e03e61c09e67fc355fe"
+  },
+  "seed": "chainswe-pilot-v1",
+  "selection": {
+    "excluded_repos": [
+      "meltano/sdk"
+    ],
+    "repository_count_by_length": {
+      "3": 30,
+      "4": 24,
+      "5": 46
+    },
+    "layer_order": [
+      4,
+      3,
+      5
+    ],
+    "ranking": "Sort repos in a length layer by SHA256(seed + ':repo:' + length + ':' + repo); for each repo pick the chain with the lowest SHA256(seed + ':chain:' + chain_id). Break ties by original ID. Take 4 primary chains per layer, then 4 reserves per layer, skipping repositories already assigned in any layer.",
+    "replacement": "Only for a documented unresolved runtime or scoring issue before model runs. Use the next same-length reserve and record the substitution as a new manifest revision."
+  },
+  "protocol": {
+    "agent": "Pi 1.5.2",
+    "provider": "DeepSeek official",
+    "model": "deepseek-flash",
+    "thinking": "disabled",
+    "disclosure": "one issue at a time in one continuing session",
+    "grader_feedback": "hidden"
+  },
+  "main": [
+    {
+      "chain_id": "jackdewinter_pymarkdown_20241023_44d4df8a46b481e5",
+      "repo": "jackdewinter/pymarkdown",
+      "base_commit": "911e871a488de37a5b90ebaf9e2f489e278848a3",
+      "docker_image": "swerebench/sweb.eval.x86_64.jackdewinter_1776_pymarkdown-1246",
+      "issues": [
+        {
+          "id": "jackdewinter__pymarkdown-1246",
+          "fix_commit": "911e871a488de37a5b90ebaf9e2f489e278848a3"
+        },
+        {
+          "id": "jackdewinter__pymarkdown-1248",
+          "fix_commit": "cee1f3f5575f73b671deb4374c6e7a263fa40df9"
+        },
+        {
+          "id": "jackdewinter__pymarkdown-1251",
+          "fix_commit": "50a1e9487d32589015ec920edc987d5d3ba911f8"
+        }
+      ],
+      "runtime_preflight": "pending"
+    },
+    {
+      "chain_id": "pandas-dev_pandas_20250414_195f33259e58a726",
+      "repo": "pandas-dev/pandas",
+      "base_commit": "d739c92dd476196bd750c2ac1680aa2d2235f410",
+      "docker_image": "docker.io/swerebenchv2/pandas-dev-pandas:60985-d739c92",
+      "issues": [
+        {
+          "id": "pandas-dev__pandas-60985",
+          "fix_commit": "d739c92dd476196bd750c2ac1680aa2d2235f410"
+        },
+        {
+          "id": "pandas-dev__pandas-61308",
+          "fix_commit": "e5898b8d33ac943a60250e1466006c073a506e8c"
+        },
+        {
+          "id": "pandas-dev__pandas-61340",
+          "fix_commit": "09de147f67452cfe97d3a90d224ae3b7c198bebe"
+        }
+      ],
+      "runtime_preflight": "pending"
+    },
+    {
+      "chain_id": "jelmer_dulwich_20250528_f6783819103714d8",
+      "repo": "jelmer/dulwich",
+      "base_commit": "bc22bab223fe80c967dc9b39ca590b8fb66e9ebb",
+      "docker_image": "docker.io/swerebenchv2/jelmer-dulwich:1555-bc22bab",
+      "issues": [
+        {
+          "id": "jelmer__dulwich-1555",
+          "fix_commit": "bc22bab223fe80c967dc9b39ca590b8fb66e9ebb"
+        },
+        {
+          "id": "jelmer__dulwich-1558",
+          "fix_commit": "a53fa333781943b3c635f043001c2a3c8067100a"
+        },
+        {
+          "id": "jelmer__dulwich-1568",
+          "fix_commit": "fecab7470cf470b02a0a4ef765974dc4c27957fc"
+        }
+      ],
+      "runtime_preflight": "pending"
+    },
+    {
+      "chain_id": "alteryx_woodwork_20210621_a8ce97b0d02b1d62",
+      "repo": "alteryx/woodwork",
+      "base_commit": "950562de50fb3b5b15fcb77024d17895b8c620dc",
+      "docker_image": "docker.io/swerebenchv2/alteryx-woodwork:1001-950562d",
+      "issues": [
+        {
+          "id": "alteryx__woodwork-1001",
+          "fix_commit": "950562de50fb3b5b15fcb77024d17895b8c620dc"
+        },
+        {
+          "id": "alteryx__woodwork-1015",
+          "fix_commit": "278aa96fbe78f0e8ed406dcf2d290bb0c015b4b3"
+        },
+        {
+          "id": "alteryx__woodwork-1026",
+          "fix_commit": "7501a6e9117edb2ef2b6de6f773dc7b828bba361"
+        }
+      ],
+      "runtime_preflight": "pending"
+    },
+    {
+      "chain_id": "getmoto_moto_20220930_811fc19c6806fde1",
+      "repo": "getmoto/moto",
+      "base_commit": "3118090fdc38de64e0a7aef969b3b1992c1703f5",
+      "docker_image": "xingyaoww/sweb.eval.x86_64.getmoto_s_moto-5509:latest",
+      "issues": [
+        {
+          "id": "getmoto__moto-5509",
+          "fix_commit": "3118090fdc38de64e0a7aef969b3b1992c1703f5"
+        },
+        {
+          "id": "getmoto__moto-5511",
+          "fix_commit": "3679521d76c54f0ca5fe635956bea2d8fc3192a9"
+        },
+        {
+          "id": "getmoto__moto-5513",
+          "fix_commit": "59910c812e3008506a5b8d7841d88e8bf4e4e153"
+        },
+        {
+          "id": "getmoto__moto-5515",
+          "fix_commit": "37c5be725aef7b554a12cd53f249b2ed8a8b679f"
+        }
+      ],
+      "runtime_preflight": "pending"
+    },
+    {
+      "chain_id": "mpmath_mpmath_20250301_26ac66000759325e",
+      "repo": "mpmath/mpmath",
+      "base_commit": "f816f92923c623d070438dd566a4bb86594ac629",
+      "docker_image": "docker.io/swerebenchv2/mpmath-mpmath:922-f816f92",
+      "issues": [
+        {
+          "id": "mpmath__mpmath-922",
+          "fix_commit": "f816f92923c623d070438dd566a4bb86594ac629"
+        },
+        {
+          "id": "mpmath__mpmath-925",
+          "fix_commit": "6f698709e140b413dd8f604ea33535fab78189de"
+        },
+        {
+          "id": "mpmath__mpmath-926",
+          "fix_commit": "18b83d144d9e0b26c7b1d62c83adf5d5991a9b69"
+        },
+        {
+          "id": "mpmath__mpmath-933",
+          "fix_commit": "8c6f6603ad0f99074bd0743a9a5e1454da57bc88"
+        }
+      ],
+      "runtime_preflight": "pending"
+    },
+    {
+      "chain_id": "Kinto_kinto_20190812_94eec05a4c083b02",
+      "repo": "Kinto/kinto",
+      "base_commit": "68eedf2bc276f695ac30de169a93f128a4791e89",
+      "docker_image": "docker.io/swerebenchv2/kinto-kinto:2227-68eedf2",
+      "issues": [
+        {
+          "id": "kinto__kinto-2227",
+          "fix_commit": "68eedf2bc276f695ac30de169a93f128a4791e89"
+        },
+        {
+          "id": "kinto__kinto-2229",
+          "fix_commit": "e06712182f08b181eefb74fdffc12d82cdfdd52d"
+        },
+        {
+          "id": "kinto__kinto-2307",
+          "fix_commit": "2247cb781396c1a5f936681951e8e71e9fd244e4"
+        },
+        {
+          "id": "kinto__kinto-2380",
+          "fix_commit": "9105f85513fa77ea2f5899eb8a8c83c99da3b280"
+        }
+      ],
+      "runtime_preflight": "pending"
+    },
+    {
+      "chain_id": "mikedh_trimesh_20240408_83608ccd871f581f",
+      "repo": "mikedh/trimesh",
+      "base_commit": "e1979b933e5b247792c298d2bccb29014aea27d5",
+      "docker_image": "starryzhang/sweb.eval.x86_64.mikedh_1776_trimesh-2205:latest",
+      "issues": [
+        {
+          "id": "mikedh__trimesh-2205",
+          "fix_commit": "9084e1200991b632e32dd8e056a1e2322e41a7f8"
+        },
+        {
+          "id": "mikedh__trimesh-2215",
+          "fix_commit": "fdf7340b22a2b4c241d8c7a6e5f3a769c0f975fb"
+        },
+        {
+          "id": "mikedh__trimesh-2238",
+          "fix_commit": "c0c23608d710664733ca6c0335aec5b2a437bd5e"
+        },
+        {
+          "id": "mikedh__trimesh-2265",
+          "fix_commit": "e4106737e2a3572dbd68248f877be0937f54f91b"
+        }
+      ],
+      "runtime_preflight": "pending"
+    },
+    {
+      "chain_id": "python-babel_babel_20240923_a12d9257890f4eb3",
+      "repo": "python-babel/babel",
+      "base_commit": "f91754b01cb9f32b83aeaa80b74ed10b5dfccb6a",
+      "docker_image": "starryzhang/sweb.eval.x86_64.python-babel_1776_babel-1132:latest",
+      "issues": [
+        {
+          "id": "python-babel__babel-1132",
+          "fix_commit": "835ba638dce5b5b9bce3127a349597596582ff30"
+        },
+        {
+          "id": "python-babel__babel-1126",
+          "fix_commit": "57957119dd39e8078dbc5f1c714089ad8741026b"
+        },
+        {
+          "id": "python-babel__babel-1141",
+          "fix_commit": "315fdccfc8671924156a4256a3bedd305def6dd7"
+        },
+        {
+          "id": "python-babel__babel-1131",
+          "fix_commit": "bd9223d53a391023bcfc043e2510e9faf205e904"
+        },
+        {
+          "id": "python-babel__babel-1120",
+          "fix_commit": "89602b4cd81636d1d6545d4a16aae216af560212"
+        }
+      ],
+      "runtime_preflight": "pending"
+    },
+    {
+      "chain_id": "s-knibbs_dataclasses-jsonschema_20190406_8d5203c5ac7d2276",
+      "repo": "s-knibbs/dataclasses-jsonschema",
+      "base_commit": "9d4a2c8fb3ba8169b549c137f0db170c23805af8",
+      "docker_image": "docker.io/swerebenchv2/s-knibbs-dataclasses-jsonschema:48-9d4a2c8",
+      "issues": [
+        {
+          "id": "s-knibbs__dataclasses-jsonschema-48",
+          "fix_commit": "9d4a2c8fb3ba8169b549c137f0db170c23805af8"
+        },
+        {
+          "id": "s-knibbs__dataclasses-jsonschema-53",
+          "fix_commit": "5b1774c94475b3eb861d6a05e89c21fe1133c1ac"
+        },
+        {
+          "id": "s-knibbs__dataclasses-jsonschema-64",
+          "fix_commit": "dad240edc81fc6138d26f3248539d876a777f45d"
+        },
+        {
+          "id": "s-knibbs__dataclasses-jsonschema-75",
+          "fix_commit": "a89a435394185afd8f081c925dc342133c5c22f8"
+        },
+        {
+          "id": "s-knibbs__dataclasses-jsonschema-77",
+          "fix_commit": "f4cbf2286e03368fac994a5ba08dfa37fcb679a7"
+        }
+      ],
+      "runtime_preflight": "pending"
+    },
+    {
+      "chain_id": "caikit_caikit_20230829_10ea0d376d109045",
+      "repo": "caikit/caikit",
+      "base_commit": "805096715fcac7eb5d09cb90e5551a610ab666bc",
+      "docker_image": "docker.io/swerebenchv2/caikit-caikit:447-8050967",
+      "issues": [
+        {
+          "id": "caikit__caikit-447",
+          "fix_commit": "805096715fcac7eb5d09cb90e5551a610ab666bc"
+        },
+        {
+          "id": "caikit__caikit-482",
+          "fix_commit": "e5d7458f3de0208731efb04efced6e74ad9863ad"
+        },
+        {
+          "id": "caikit__caikit-508",
+          "fix_commit": "79794650faad94cdfbae43a96ed4221d44d232ae"
+        },
+        {
+          "id": "caikit__caikit-516",
+          "fix_commit": "b5c12d7bd93db40b6f53e9cef6e90be8113fe538"
+        },
+        {
+          "id": "caikit__caikit-583",
+          "fix_commit": "56b9fb8f17ac6ea67e71d88d50a310c003965714"
+        }
+      ],
+      "runtime_preflight": "pending"
+    },
+    {
+      "chain_id": "samuelcolvin_pydantic_20211229_86a3b8be16f582f7",
+      "repo": "samuelcolvin/pydantic",
+      "base_commit": "8ef492b85fddbfbeadde49e07163580c13d432d5",
+      "docker_image": "docker.io/swerebenchv2/samuelcolvin-pydantic:3595-8ef492b",
+      "issues": [
+        {
+          "id": "samuelcolvin__pydantic-3595",
+          "fix_commit": "8ef492b85fddbfbeadde49e07163580c13d432d5"
+        },
+        {
+          "id": "samuelcolvin__pydantic-3707",
+          "fix_commit": "9d631a3429a66f30742c1a52c94ac18ec6ba848d"
+        },
+        {
+          "id": "samuelcolvin__pydantic-4064",
+          "fix_commit": "42acd8f8d2bd22f114e589672a054fe07a769e45"
+        },
+        {
+          "id": "samuelcolvin__pydantic-3304",
+          "fix_commit": "d53259aa58732f34c92dd48586d0693bdc8edfec"
+        },
+        {
+          "id": "samuelcolvin__pydantic-4329",
+          "fix_commit": "5293adb3d3d1b6fcdb4e1ffc188a560fe601260c"
+        }
+      ],
+      "runtime_preflight": "pending"
+    }
+  ],
+  "reserves": [
+    {
+      "chain_id": "pytask-dev_pytask_20210727_71b088d7fe6c2aa3",
+      "repo": "pytask-dev/pytask",
+      "base_commit": "edcdc248102d03eb4d8524441e9a52c35323be6a",
+      "docker_image": "docker.io/swerebenchv2/pytask-dev-pytask:138-edcdc24",
+      "issues": [
+        {
+          "id": "pytask-dev__pytask-138",
+          "fix_commit": "edcdc248102d03eb4d8524441e9a52c35323be6a"
+        },
+        {
+          "id": "pytask-dev__pytask-142",
+          "fix_commit": "f35b1842a4e25fe5d944e57a02c83450849bf774"
+        },
+        {
+          "id": "pytask-dev__pytask-156",
+          "fix_commit": "f3bc48ea3626cbab7856f3b6ea42a67d5d90b119"
+        }
+      ],
+      "runtime_preflight": "pending"
+    },
+    {
+      "chain_id": "CrossGL_crosstl_20241009_2179470679802efc",
+      "repo": "CrossGL/crosstl",
+      "base_commit": "2e6ede3fc697cf110938bfd6df6074504906e2a2",
+      "docker_image": "docker.io/swerebenchv2/crossgl-crosstl:201-2e6ede3",
+      "issues": [
+        {
+          "id": "crossgl__crosstl-201",
+          "fix_commit": "2e6ede3fc697cf110938bfd6df6074504906e2a2"
+        },
+        {
+          "id": "crossgl__crosstl-202",
+          "fix_commit": "a4da57d8408a35c00f0146a2e1ef08989301fb56"
+        },
+        {
+          "id": "crossgl__crosstl-207",
+          "fix_commit": "e2f2c2452273935cbb394848c9bb79903ee0a545"
+        }
+      ],
+      "runtime_preflight": "pending"
+    },
+    {
+      "chain_id": "softlayer_softlayer-python_20160511_1e41d8d26e0bf4a9",
+      "repo": "softlayer/softlayer-python",
+      "base_commit": "def654a3bc8cff0c535d37e2b0e8b010f3eab145",
+      "docker_image": "docker.io/swerebenchv2/softlayer-softlayer-python:733-def654a",
+      "issues": [
+        {
+          "id": "softlayer__softlayer-python-733",
+          "fix_commit": "def654a3bc8cff0c535d37e2b0e8b010f3eab145"
+        },
+        {
+          "id": "softlayer__softlayer-python-741",
+          "fix_commit": "ba1410e7a9ea59b57cdc2b01c74993fca9c29870"
+        },
+        {
+          "id": "softlayer__softlayer-python-773",
+          "fix_commit": "88a5b21ef0019e64c6cf486fa5e40540f79a8383"
+        }
+      ],
+      "runtime_preflight": "pending"
+    },
+    {
+      "chain_id": "instructlab_instructlab_20240926_59f01e309a9a3118",
+      "repo": "instructlab/instructlab",
+      "base_commit": "56c0f60bb8458b6edf517866c7ddf074f0c67671",
+      "docker_image": "starryzhang/sweb.eval.x86_64.instructlab_1776_instructlab-2144:latest",
+      "issues": [
+        {
+          "id": "instructlab__instructlab-2144",
+          "fix_commit": "91134be6f4f12a0d428c2d7c550bc318ef04306b"
+        },
+        {
+          "id": "instructlab__instructlab-2247",
+          "fix_commit": "b3165dcf2264ca4a4f944f8fd222984903e1966a"
+        },
+        {
+          "id": "instructlab__instructlab-2236",
+          "fix_commit": "7c76057d5bd7987870076303c16def5d4138dcae"
+        }
+      ],
+      "runtime_preflight": "pending"
+    },
+    {
+      "chain_id": "Project-MONAI_MONAI_20211118_de4af457aaa0e021",
+      "repo": "Project-MONAI/MONAI",
+      "base_commit": "2e83cd256c1e66109b8cdf3eaff843d506f70649",
+      "docker_image": "xingyaoww/sweb.eval.x86_64.project-monai_s_monai-3338:latest",
+      "issues": [
+        {
+          "id": "Project-MONAI__MONAI-3338",
+          "fix_commit": "2e83cd256c1e66109b8cdf3eaff843d506f70649"
+        },
+        {
+          "id": "Project-MONAI__MONAI-3358",
+          "fix_commit": "f7e4cc3c8b8f348412641ea802bce2ee50c97506"
+        },
+        {
+          "id": "Project-MONAI__MONAI-3373",
+          "fix_commit": "d0e72fbd90132cfd5a1ecc41bc965b074c8ff723"
+        },
+        {
+          "id": "Project-MONAI__MONAI-3378",
+          "fix_commit": "37930a9bc433ae3faf11e762550362cb8a241c43"
+        }
+      ],
+      "runtime_preflight": "pending"
+    },
+    {
+      "chain_id": "peterbe_hashin_20181025_da58c0729eeebd6e",
+      "repo": "peterbe/hashin",
+      "base_commit": "ccb661bd6548db78a0520b051f24a1dbba502065",
+      "docker_image": "swerebench/sweb.eval.x86_64.peterbe_1776_hashin-88",
+      "issues": [
+        {
+          "id": "peterbe__hashin-88",
+          "fix_commit": "ccb661bd6548db78a0520b051f24a1dbba502065"
+        },
+        {
+          "id": "peterbe__hashin-92",
+          "fix_commit": "85d3e5f3798236eb61312bf3dc9d8fc6f244cbb4"
+        },
+        {
+          "id": "peterbe__hashin-95",
+          "fix_commit": "fefd565a57d1b465f7112e6ac09181c2c9eb81ca"
+        },
+        {
+          "id": "peterbe__hashin-106",
+          "fix_commit": "a27c211bdab753f89530558397490a736cb73116"
+        }
+      ],
+      "runtime_preflight": "pending"
+    },
+    {
+      "chain_id": "pylint-dev_pylint_20220416_a2bb0e7353a55ac8",
+      "repo": "pylint-dev/pylint",
+      "base_commit": "1de6da157c260c5a1398bc59c5f2b57abc4912a6",
+      "docker_image": "swebench/sweb.eval.x86_64.pylint-dev_1776_pylint-6358:latest",
+      "issues": [
+        {
+          "id": "pylint-dev__pylint-6358",
+          "fix_commit": "1de6da157c260c5a1398bc59c5f2b57abc4912a6"
+        },
+        {
+          "id": "pylint-dev__pylint-6357",
+          "fix_commit": "cb37ae4fc24a8756a5f965cdc6ab9c472f909ab0"
+        },
+        {
+          "id": "pylint-dev__pylint-6386",
+          "fix_commit": "754b487f4d892e3d4872b6fc7468a71db4e31c13"
+        },
+        {
+          "id": "pylint-dev__pylint-6412",
+          "fix_commit": "4b73e81df60db3a5e3706124185a3d37a363f7e7"
+        }
+      ],
+      "runtime_preflight": "pending"
+    },
+    {
+      "chain_id": "pyfar_pyfar_20250210_647a7af719d5869c",
+      "repo": "pyfar/pyfar",
+      "base_commit": "038df413b202d59786f9a9309dabd941994ca4f2",
+      "docker_image": "docker.io/swerebenchv2/pyfar-pyfar:716-038df41",
+      "issues": [
+        {
+          "id": "pyfar__pyfar-716",
+          "fix_commit": "038df413b202d59786f9a9309dabd941994ca4f2"
+        },
+        {
+          "id": "pyfar__pyfar-776",
+          "fix_commit": "25d1bcdb0eb34ef06b90b5691b56e5e71bd0cc18"
+        },
+        {
+          "id": "pyfar__pyfar-773",
+          "fix_commit": "46a268df2448bf73dfc23af133a9ac7feb3352f0"
+        },
+        {
+          "id": "pyfar__pyfar-770",
+          "fix_commit": "5d2a7078ccc567c0e54a3c7dd40edd5f78b35873"
+        }
+      ],
+      "runtime_preflight": "pending"
+    },
+    {
+      "chain_id": "Python-Markdown_markdown_20191125_95f8b4fdf4b16d7a",
+      "repo": "Python-Markdown/markdown",
+      "base_commit": "b77c207d53c5d4d87039dd57e77b9d22d6c4c60a",
+      "docker_image": "docker.io/swerebenchv2/python-markdown-markdown:881-b77c207",
+      "issues": [
+        {
+          "id": "python-markdown__markdown-881",
+          "fix_commit": "b77c207d53c5d4d87039dd57e77b9d22d6c4c60a"
+        },
+        {
+          "id": "python-markdown__markdown-886",
+          "fix_commit": "1f3ec538a2acf25607253fc7c7a992950463931d"
+        },
+        {
+          "id": "python-markdown__markdown-901",
+          "fix_commit": "66517465786b90ccb7fcffeef7996b593374d889"
+        },
+        {
+          "id": "python-markdown__markdown-934",
+          "fix_commit": "7c595e28491d3cca28bc9901bb099bca8bcf4626"
+        },
+        {
+          "id": "python-markdown__markdown-984",
+          "fix_commit": "a06659b62209de98cbc23715addb2b768a245788"
+        }
+      ],
+      "runtime_preflight": "pending"
+    },
+    {
+      "chain_id": "jpadilla_pyjwt_20210318_a4c85d90ce1e92d3",
+      "repo": "jpadilla/pyjwt",
+      "base_commit": "f6d4bbfa9feb9ed56c54de6011678adf48af4ac7",
+      "docker_image": "swerebench/sweb.eval.x86_64.jpadilla_1776_pyjwt-623",
+      "issues": [
+        {
+          "id": "jpadilla__pyjwt-623",
+          "fix_commit": "f6d4bbfa9feb9ed56c54de6011678adf48af4ac7"
+        },
+        {
+          "id": "jpadilla__pyjwt-624",
+          "fix_commit": "88972a9bd962fceee8251cfff0e41f3d77e56551"
+        },
+        {
+          "id": "jpadilla__pyjwt-670",
+          "fix_commit": "db18661724305f7bc0663e738759222158900bb8"
+        },
+        {
+          "id": "jpadilla__pyjwt-673",
+          "fix_commit": "c8ab900b831c4e859620c964d25737bf95d5eeb8"
+        },
+        {
+          "id": "jpadilla__pyjwt-644",
+          "fix_commit": "8de44287752f9d2c0112bb3062389462d56ead86"
+        }
+      ],
+      "runtime_preflight": "pending"
+    },
+    {
+      "chain_id": "python-cmd2_cmd2_20170517_48364b40bec55940",
+      "repo": "python-cmd2/cmd2",
+      "base_commit": "398cec2fd27c7e09d1b01dc383c5aefeb28511c3",
+      "docker_image": "swerebench/sweb.eval.x86_64.python-cmd2_1776_cmd2-101",
+      "issues": [
+        {
+          "id": "python-cmd2__cmd2-101",
+          "fix_commit": "398cec2fd27c7e09d1b01dc383c5aefeb28511c3"
+        },
+        {
+          "id": "python-cmd2__cmd2-114",
+          "fix_commit": "bfd50611a7647af8b56fe34babf0b634708aaae9"
+        },
+        {
+          "id": "python-cmd2__cmd2-115",
+          "fix_commit": "a0d829e4105cd431198feb43534adaf953b090ba"
+        },
+        {
+          "id": "python-cmd2__cmd2-117",
+          "fix_commit": "ccef0b4193297c0b88e8add373f6a49126ffe772"
+        },
+        {
+          "id": "python-cmd2__cmd2-125",
+          "fix_commit": "0af8018cdce37e40719e3f6c4023e9525b1e69de"
+        }
+      ],
+      "runtime_preflight": "pending"
+    },
+    {
+      "chain_id": "iterative_dvc_20200326_7594413e1cf900bc",
+      "repo": "iterative/dvc",
+      "base_commit": "f69cb7a902f10bfa811a9e51de2d1121be6728a5",
+      "docker_image": "xingyaoww/sweb.eval.x86_64.iterative_s_dvc-3532:latest",
+      "issues": [
+        {
+          "id": "iterative__dvc-3532",
+          "fix_commit": "f69cb7a902f10bfa811a9e51de2d1121be6728a5"
+        },
+        {
+          "id": "iterative__dvc-3537",
+          "fix_commit": "0c2e4d0b723a7c2f120db751193463b4939303d7"
+        },
+        {
+          "id": "iterative__dvc-3559",
+          "fix_commit": "55644f376b53dc7d537e1abe219868f15d6c6268"
+        },
+        {
+          "id": "iterative__dvc-3576",
+          "fix_commit": "a338fad036bd9ac8bdd79ecec964f8c5558609c4"
+        },
+        {
+          "id": "iterative__dvc-3620",
+          "fix_commit": "e05157f8e05e856d2e9966c30a3150c26b32b86f"
+        }
+      ],
+      "runtime_preflight": "pending"
+    }
+  ]
+}
