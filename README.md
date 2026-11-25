@@ -1,15 +1,11 @@
 # Agent 项目语义状态管理研究
 
-本项目研究软件项目的语义状态：通过系统提供的管理与查询能力，让 LLM 在开发过程中自主积累、维护和利用项目知识，改善软件开发的正确率与效率，并探索状态管理机制的可靠性。当前由方向探索转入具体问题研究；系统形态、实验协议与论文贡献仍开放。
+本项目研究 Coding Agent 如何构建、维护和使用软件项目知识，以及这些能力能否改善开发正确率和效率。代码、测试和产物提供事实基础，目标、决策、依赖及有出处的判断提供决策依据。系统支持持久化、查询和核验，Agent 在开发中形成判断、采取行动并把新证据写回项目。
 
-研究区分实际项目状态与语义状态：代码、文件、测试、配置和产物构成事实基础；目标、设计、决策、进度和约束形成持续维护的语义层。开发促进知识积累，知识积累指导后续开发；Task State 是面向当前任务的状态投影。系统提供管理能力，LLM 承担语义分析和自主维护，二者的分工及所需辅助也是研究内容。
+**当前主实验采用逐题揭示，首轮保留同一会话。** 同一仓库的后续要求按顺序出现，用每题边界的代码和知识快照观察知识起初是否写对、变更后是否更新、仍适用的知识是否影响行动。实验以原生 Pi 和 Pi 上的 StateHarness 参考版为对照，工作模型由本项目自选并在各组固定。整链一次给齐保留为论文对齐条件，逐题重开会话用于独立评估跨会话复用。见[研究意图](docs/intention/intention.md)和[实验协议与规格入口](docs/specification/specification.md)。
 
-有效性与可靠性共同构成当前研究重点：专用工具是否改善状态管理、产生的状态是否可信，以及开发收益能否抵消维护成本。StateHarness 是学术参考与候选实验基线，DeepSeek Harness（DSH）是真实工程参考与机制设计来源，两者同等重要。近期围绕前者学习和批判问题定义、机制与实验，结合后者分析可抽象的管理能力。
+三组实验环境已经就绪。纯 Pi 和作者版 StateHarness A4 已在 Dulwich 与 mpmath 上做过逐题校准。第三组 **StateSystem（暂名）** 已冻结首版，在 mpmath #922 上验证了源文件写入和读取。使用相同 Magpie 免费线路复跑时，A4 与 StateSystem 的单题补丁都通过了独立评分，A4 的最终答复被额度限制中断。完整四题链的同线路三组对照仍待执行。见[实验记录](experiments/chainswe-baseline/state-maintenance-pilot.md)和[现有实现](docs/implementation/implementation.md)。
 
-## 现行研究与已有积累
+StateHarness 提供学术与实验参照，DSH 提供真实工程材料，LongHorizon-Harness 提供独立验收与目标推进的参照。原始来源与复现边界见[调研记录](docs/survey/project-semantic-state/survey.md)。
 
-[研究意图](docs/intention/intention.md)说明对象、手段、目的、设计倾向与开放问题；[规格入口](docs/specification/specification.md)区分研究要求与候选方案；[实现说明](docs/implementation/implementation.md)说明已有工具能支持哪些研究。[已有记录分析](docs/intention/recorded-work-review.md)保留此前活动、操作与对象研究的证据边界。
-
-已有五类对象与 Change、T12 离线研究、[检查器](tools/work-operation-checks/README.md)及[DSH 历史地图](experiments/dsh-process/dsh-work-history.html)可作为候选机制和案例积累。它们不限定未来架构；旧方案的最小性与真实开发收益均未确立。双视图尚未接到同一日常入口；历史文档记载的 180 项回归对应归档在此前盘点中未找到，不能作为已复核实验数字。
-
-本轮定位依据 2026-11-17 的[论文讨论交接](chatgpt-conversation://6afad74d-dce4-83e9-a1a7-59c848773dfa)及用户后续补充。对话中的近邻机制、实验数字和发表状态仍需回到原始来源核验；本次文档更新没有完成文献复核或实验。可持续性与连续性暂时开放，真实接续可作验证场景，其优先级由后续问题与协议决定。
+旧 Change Graph 和双视图设计已[归档](history/design/change-graph-task-state/)。T12 与[离线检查器](tools/work-operation-checks/README.md)保留为规则及案例积累，真实工程材料仍通过 [DSH 历史地图](experiments/dsh-process/dsh-work-history.html)和[已有记录分析](docs/intention/recorded-work-review.md)可查。
