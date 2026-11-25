@@ -1,10 +1,10 @@
 # DSH 全历史轨迹：探测结论与构建方案
 
-最后更新：2026-11-10
+最后更新：2026-11-20
 
 已在 2026-11-10 运行 CodeBuddy 构建器生成全量轨迹。全部 22346 个节点与 2172 个主线节点已纳入，路径提取无未知项。Codex 独立核对了节点集合、父边、原始标题和拓扑顺序，页面 JavaScript 语法检查通过；浏览器交互尚未验收。
 
-本地入口为 [全量轨迹](../../../evidence/trajectory-builders/a/runs/full-path-v1/trajectory.html)，[覆盖报告](../../../evidence/trajectory-builders/a/runs/full-path-v1/coverage.json)保存结构、路径和 83/49/98 来源映射核对。生成物在私有 evidence 中，不提交。Grok 4.7 的独立版本仍在构建，首轮完成声明未通过文件存在性核验。
+本地入口为 [全量轨迹](../../../evidence/trajectory-builders/offline-builder/runs/full-path-v1/trajectory.html)，[覆盖报告](../../../evidence/trajectory-builders/offline-builder/runs/full-path-v1/coverage.json)保存结构、路径和 83/49/98 来源映射核对。生成物在私有 evidence 中，不提交。当时未找到 Grok 4.7 独立构建的交付文件。
 
 ## 探测结论
 
@@ -48,4 +48,4 @@
 - `Agent任务状态管理/evidence/agent-task-state/maintenance/dsh-composition-2026-10-20/v2/input-facts.json`
 - `Agent任务状态管理/experiments/dsh-process/dsh-process-truth-v1.md`
 
-责任与下一步：本轮探测由 CodeBuddy 记录，已由 Codex 复核并修正；下一验收为浏览器交互与 Grok 独立结果核查。`artifacts/` 为本地忽略目录，路径按仓库根相对书写，不代表已提交。
+责任与下一步：本轮探测由 CodeBuddy 记录，已由 Codex 复核并修正；下一验收为浏览器交互与 Grok 独立结果核查。历史构建命令中的 `artifacts/` 是当时的路径。本地可查结果见文首 `evidence/` 链接。

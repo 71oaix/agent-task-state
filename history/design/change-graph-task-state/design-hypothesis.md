@@ -1,9 +1,10 @@
 # 基于 Change Graph 的 Agent 任务状态管理：阶段性总结与设计假设
 
-候选身份：保留用于本轮机制比较，尚未按现行意图重新确认。下文的架构断言、阶段要求和实验安排只代表原讨论方案，不具有当前执行权威；本轮定位见[现行研究意图](../../intention/intention.md)，适用范围以[规格入口](../specification.md)为准。
+状态：已归档
 
+以下是旧任务历史与双视图设计。现行研究安排见[实验协议](../../../docs/specification/specification.md)。
 
-现行意图与贡献边界见 [Intention Brief](../../intention/intention.md)。下文保留 2026-10-09 的设计假设，以及后续写入的 T12 对象方案；「将任务状态从 LLM Context 中独立出来」是当时的讨论起点，不是已确认的论文新意。
+现行意图与贡献边界见 [Intention Brief](../../../docs/intention/intention.md)。下文保留 2026-10-09 的设计假设，以及后续写入的 T12 对象方案；「将任务状态从 LLM Context 中独立出来」是当时的讨论起点，不是已确认的论文新意。
 
 ## 定位与来源
 
@@ -107,7 +108,7 @@ flowchart TD
 
 研究关注点是：如何表示一项持续演化的工作，并让人类和 Agent 共享对这项工作的理解。上述思想之间是否存在尚未充分统一的研究空间，目前是候选判断，需通过直接近邻对照确认。
 
-**文献证据边界：** 本版不新增发表 venue、年份、接收状态、实验数字或效果排名。前序对话中出现的 ContinuityBench 与“第六篇”尚缺完整出处，不能恢复成具体论文结论；RQ 编号也不能跨版本直接对应。后续确认来源后，正式发表状态、官方证据与核对日期统一登记到本项目[来源清单](source-inventory.md)，再引用到本文。
+**文献证据边界：** 本版不新增发表 venue、年份、接收状态、实验数字或效果排名。前序对话中出现的 ContinuityBench 与“第六篇”尚缺完整出处，不能恢复成具体论文结论；RQ 编号也不能跨版本直接对应。后续确认来源后，正式发表状态、官方证据与核对日期统一登记到本项目[来源清单](../../../docs/specification/change-graph-task-state/source-inventory.md)，再引用到本文。
 
 ## 四、暂定研究主题与问题
 
@@ -153,7 +154,7 @@ Change Graph 保存工作的演化与试错过程，Canonical Task State 表示�
 
 - 日期：2026-10-09。
 - 内容版本：阶段性总结首版；历史修订由 Git 追踪。
-- 归属：`Agent任务状态管理/docs/specification/change-graph-task-state/design-hypothesis.md`，候选方向讨论记录的唯一维护文档。
+- 原归属：`Agent任务状态管理/docs/specification/change-graph-task-state/design-hypothesis.md`，当时的候选方向讨论记录。
 - 保存基线：`codex/experiment-readiness-sdd` 的 `7ee0d3377a7800077128d5107da05d25d32e1e10`；独立存档分支为 `codex/change-graph-research-notes`。
 - 来源：用户直接提供的总结；原对话仅部分可读，未核验外部原文。
 - 授权范围：整理与存档；无代码实现、真实任务执行、模型调用或付费实验。
